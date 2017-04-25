@@ -1,4 +1,4 @@
-package model;
+package dds.tp.model;
 
 import org.uqbar.commons.utils.Observable;
 

@@ -1,32 +1,23 @@
-package ui.windows;
+package dds.tp.ui.windows;
 
-import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Panel;
-import org.uqbar.arena.windows.Dialog;
+import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
-import ui.vm.CuentaViewModel;
+import dds.tp.ui.complementos.Ventana;
+import dds.tp.ui.vm.CuentaViewModel;
 
-public class ConsultarCuentasWindow extends Dialog<CuentaViewModel> {
-	
-	public ConsultarCuentasWindow(WindowOwner owner) {
-		super(owner, new CuentaViewModel());
+@SuppressWarnings("serial")
+public class ConsultarCuentasWindow extends Window<CuentaViewModel> implements Ventana{
+
+	public ConsultarCuentasWindow(WindowOwner owner, CuentaViewModel model) {
+		super(owner, model);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected void createFormPanel(Panel mainPanel) {
-		Panel form = new Panel(mainPanel);
-	}
-
-	@Override
-	protected void addActions(Panel actions) {
-		new Button(actions).setCaption("Aceptar").onClick(this::accept).setAsDefault();
-		new Button(actions).setCaption("Cancelar").onClick(this::cancel);
-	}
-
-	@Override
-	protected void executeTask() {
-		System.out.println("Consulto Cuentas!");
-		super.executeTask();
+	public void createContents(Panel mainPanel) {
+		// TODO Auto-generated method stub
+		
 	}
 }
