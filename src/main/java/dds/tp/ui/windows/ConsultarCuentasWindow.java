@@ -8,13 +8,13 @@ import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
 import dds.tp.ui.complementos.Ventana;
-import dds.tp.ui.vm.ConsultarCuentasViewModel;
-import dds.tp.model.Cuenta;
+import dds.tp.ui.vm.AllCuentasViewModel;
+import dds.tp.ui.vm.CuentasViewModel;
 
 @SuppressWarnings("serial")
-public class ConsultarCuentasWindow extends Window<ConsultarCuentasViewModel> implements Ventana{
+public class ConsultarCuentasWindow extends Window<AllCuentasViewModel> implements Ventana{
 
-	public ConsultarCuentasWindow(WindowOwner owner, ConsultarCuentasViewModel model) {
+	public ConsultarCuentasWindow(WindowOwner owner, AllCuentasViewModel model) {
 		super(owner, model);
 	}
 
@@ -22,20 +22,20 @@ public class ConsultarCuentasWindow extends Window<ConsultarCuentasViewModel> im
 	public void createContents(Panel mainPanel) {
 		this.setTitle("Consultar Cuentas");
 		
-		Table<Cuenta> tablaCuentas = new Table<>(mainPanel, Cuenta.class);
+		Table<CuentasViewModel> tablaCuentas = new Table<>(mainPanel, CuentasViewModel.class);
 		tablaCuentas.bindItemsToProperty("cuentas");
 		tablaCuentas.setNumberVisibleRows(10);
 		
-		Column<Cuenta> columnaNombre = new Column<Cuenta>(tablaCuentas);
+		Column<CuentasViewModel> columnaNombre = new Column<CuentasViewModel>(tablaCuentas);
 		columnaNombre.setTitle("Nombre");
 		columnaNombre.bindContentsToProperty("nombre");
-		Column<Cuenta> columnaEmpresa = new Column<Cuenta>(tablaCuentas);
+		Column<CuentasViewModel> columnaEmpresa = new Column<CuentasViewModel>(tablaCuentas);
 		columnaEmpresa.setTitle("Empresa");
 		columnaEmpresa.bindContentsToProperty("empresa");
-		Column<Cuenta> columnaAnio = new Column<Cuenta>(tablaCuentas);
+		Column<CuentasViewModel> columnaAnio = new Column<CuentasViewModel>(tablaCuentas);
 		columnaAnio.setTitle("Anio");
 		columnaAnio.bindContentsToProperty("anio");
-		Column<Cuenta> columnaValor = new Column<Cuenta>(tablaCuentas);
+		Column<CuentasViewModel> columnaValor = new Column<CuentasViewModel>(tablaCuentas);
 		columnaValor.setTitle("Valor");
 		columnaValor.bindContentsToProperty("valor");
 		

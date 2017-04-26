@@ -11,8 +11,8 @@ import dds.tp.model.Cuenta;
 public class IOArchivoCuentas {
 	
 	private String path;
-	Stream<String> lines;
-	ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+	private Stream<String> lines;
+	private ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 	
 	public IOArchivoCuentas(String _fileName){
 		path = _fileName;

@@ -6,14 +6,15 @@ import dds.tp.ui.complementos.ViewModel;
 import dds.tp.model.IOArchivoCuentas;
 
 @Observable
-public class CargarCuentasViewModel implements ViewModel{ 
+public class IOArchivoCuentasViewModel implements ViewModel{ 
 	
-	IOArchivoCuentas lector;
-	private Boolean habilitado = false;
+	private IOArchivoCuentas lector;
+	private Boolean habilitado;
 	private String path;
 	
-	public CargarCuentasViewModel(IOArchivoCuentas _lector) {
+	public IOArchivoCuentasViewModel(IOArchivoCuentas _lector) {
 		lector = _lector;
+		this.habilitado = false;
 	}
 	
 	public void cargarCuentas(){

@@ -3,11 +3,14 @@ package dds.tp.ui.windows;
 import dds.tp.model.IOArchivoCuentas;
 import dds.tp.ui.complementos.AccionesDisponibles;
 import dds.tp.ui.complementos.OpcionDeAccion;
-import dds.tp.ui.vm.CargarCuentasViewModel;
-import dds.tp.ui.vm.ConsultarCuentasViewModel;
+import dds.tp.ui.vm.IOArchivoCuentasViewModel;
+import dds.tp.ui.vm.AllCuentasViewModel;
+import dds.tp.ui.vm.CuentasViewModel;
 import dds.tp.ui.vm.OpcionDeAccionViewModel;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -52,10 +55,11 @@ public class PantallaPrincipal extends Window<OpcionDeAccionViewModel> {
 		AccionesDisponibles accionElegida = this.getModelObject().getVentanaElegida().getAccionAMostrar();
 		switch (accionElegida) {
 		case CARGARCUENTAS:
-				new CargarCuentasWindow(this, new CargarCuentasViewModel(lector)).open();
+				new CargarCuentasWindow(this, new IOArchivoCuentasViewModel(lector)).open();
 			break;
 		case CONSULTARCUENTAS:
-				new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(lector)).open();
+				List<CuentasViewModel> cuentas = this.lector.getCuentas().stream().map(ct -> new CuentasViewModel(ct)).collect(Collectors.toList()); 
+				new ConsultarCuentasWindow(this, new AllCuentasViewModel(cuentas)).open();
 			break;
 		default:
 			break;
