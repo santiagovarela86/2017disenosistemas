@@ -51,6 +51,10 @@ public class IOArchivoCuentas {
 		return path;
 	}
 	
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
 	public ArrayList<Cuenta> getCuentas(){
 		return cuentas;
 	}

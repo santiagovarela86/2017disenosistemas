@@ -3,6 +3,7 @@ package dds.tp.ui.windows;
 import org.uqbar.arena.widgets.tables.Column;
 import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
@@ -38,6 +39,7 @@ public class ConsultarCuentasWindow extends Window<AllCuentasViewModel> implemen
 		Column<CuentasViewModel> columnaValor = new Column<CuentasViewModel>(tablaCuentas);
 		columnaValor.setTitle("Valor");
 		columnaValor.bindContentsToProperty("valor");
+
 		
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
 	}

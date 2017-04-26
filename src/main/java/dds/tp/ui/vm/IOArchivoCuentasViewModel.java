@@ -1,5 +1,6 @@
 package dds.tp.ui.vm;
 
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.ui.complementos.ViewModel;
@@ -10,7 +11,6 @@ public class IOArchivoCuentasViewModel implements ViewModel{
 	
 	private IOArchivoCuentas lector;
 	private Boolean habilitado;
-	private String path;
 	
 	public IOArchivoCuentasViewModel(IOArchivoCuentas _lector) {
 		lector = _lector;
@@ -26,7 +26,12 @@ public class IOArchivoCuentasViewModel implements ViewModel{
 	}
 	
 	public String getPath(){
-		path = lector.getPath();
-		return path;
+		return lector.getPath();
 	}
+	
+	public void setPath(String path){
+		this.lector.setPath(path);
+		ObservableUtils.firePropertyChanged(this, "path");
+	}
+	
 }
