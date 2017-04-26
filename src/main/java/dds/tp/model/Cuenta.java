@@ -17,4 +17,46 @@ public class Cuenta {
 		this.valor = _valor;
 	}
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
+	}
+
+	public Integer getAnio() {
+		return anio;
+	}
+
+	public void setAnio(Integer anio) {
+		this.anio = anio;
+	}
+
+	public Float getValor() {
+		return valor;
+	}
+
+	public void setValor(Float valor) {
+		this.valor = valor;
+	}
+
+	public String toString(){
+		String line;
+		
+		line = nombre + "," + empresa + "," + anio.toString() + "," + valor.toString() + "\n";
+		
+		return line;
+	}
+
+	
+	
 }
