@@ -1,7 +1,13 @@
 package dds.tp.ui.windows;
 
-import dds.tp.ui.complementos.LanzadorDeVentana;
-import dds.tp.ui.vm.LanzadorDeVentanasViewModel;
+import dds.tp.model.IOArchivoCuentas;
+import dds.tp.ui.complementos.AccionesDisponibles;
+import dds.tp.ui.complementos.OpcionDeAccion;
+import dds.tp.ui.vm.CargarCuentasViewModel;
+import dds.tp.ui.vm.ConsultarCuentasViewModel;
+import dds.tp.ui.vm.OpcionDeAccionViewModel;
+
+import java.io.File;
 
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -9,11 +15,15 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.commons.model.ObservableUtils;
 
 @SuppressWarnings("serial")
-public class PantallaPrincipal extends Window<LanzadorDeVentanasViewModel> {
+public class PantallaPrincipal extends Window<OpcionDeAccionViewModel> {
 
-	public PantallaPrincipal(WindowOwner parent, LanzadorDeVentanasViewModel model) {
+	private File miArchivo = new File("cuentas.txt");
+	private IOArchivoCuentas lector = new IOArchivoCuentas(miArchivo.getAbsolutePath()); // POR AHORA HARDCODEADO
+	
+	public PantallaPrincipal(WindowOwner parent, OpcionDeAccionViewModel model) {
 		super(parent, model);
 	}
 
@@ -21,16 +31,35 @@ public class PantallaPrincipal extends Window<LanzadorDeVentanasViewModel> {
 	public void createContents(Panel mainPanel) {
 		this.setTitle("Aplicacion de decisiones");
 		new Label(mainPanel).setText("Elija que desea hacer:");
-		Selector<LanzadorDeVentana> accionesDisponibles = new Selector<>(mainPanel);
+		Selector<OpcionDeAccion> accionesDisponibles = new Selector<>(mainPanel);
 		accionesDisponibles.setWidth(400);
 		accionesDisponibles.bindItemsToProperty("todasLasVentanas");
 		accionesDisponibles.bindValueToProperty("ventanaElegida");
+		/*Esto hace que se ponga la primera de la lista y no quede vacia*/
+		this.getModelObject().setVentanaElegida(this.getModelObject().getTodasLasVentanas().get(0));
+		ObservableUtils.firePropertyChanged(this.getModelObject(), "ventanaElegida");
+		//-------
 		new Label(mainPanel).bindValueToProperty("descripcion");
 		
 		new Label(mainPanel).setText("");
 		
-		new Button(mainPanel).setCaption("Abrir").onClick(()->this.getModelObject().getVentanaElegida().abrirVentana());
+		new Button(mainPanel).setCaption("Abrir").onClick(()->this.abrirVentanaElegida());
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
+	}
+	
+	private void abrirVentanaElegida() {
+		/*Elegi ponerlo en switch xq nos da mas opciones al tener que cerrarla o abrirla q la opcion anterior del lanzador de ventana*/
+		AccionesDisponibles accionElegida = this.getModelObject().getVentanaElegida().getAccionAMostrar();
+		switch (accionElegida) {
+		case CARGARCUENTAS:
+				new CargarCuentasWindow(this, new CargarCuentasViewModel(lector)).open();
+			break;
+		case CONSULTARCUENTAS:
+				new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(lector)).open();
+			break;
+		default:
+			break;
+		}
 	}
 		
 }

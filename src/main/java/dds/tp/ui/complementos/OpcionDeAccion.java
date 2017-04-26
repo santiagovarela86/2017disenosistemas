@@ -1,13 +1,13 @@
 package dds.tp.ui.complementos;
 
-public class LanzadorDeVentana {
+public class OpcionDeAccion {
 	
 	private String nombre;
 	private String descripcion;
-	private Ventana ventana;
+	private AccionesDisponibles accionAMostrar;
 	
-	public LanzadorDeVentana(String nombre, String desc, Ventana ventana) {
-		this.ventana = ventana;
+	public OpcionDeAccion(String nombre, String desc, AccionesDisponibles accion) {
+		this.accionAMostrar = accion;
 		this.nombre = nombre;
 		this.descripcion = desc;
 	}
@@ -20,8 +20,8 @@ public class LanzadorDeVentana {
 		return this.descripcion;
 	}
 	
-	public void abrirVentana() {
-		ventana.open();
+	public AccionesDisponibles getAccionAMostrar() {
+		return accionAMostrar;
 	}
 	
 	@Override
