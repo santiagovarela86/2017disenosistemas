@@ -11,7 +11,6 @@ import dds.tp.model.Cuenta;
 public class IOArchivoCuentas {
 	
 	private String path;
-	private Stream<String> lines;
 	private ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 	
 	public IOArchivoCuentas(String _fileName){
@@ -19,13 +18,16 @@ public class IOArchivoCuentas {
 	}
 	
 	public void cargarCuentas(){
-		try {
-			lines = Files.lines(Paths.get(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Stream<String> lines = null;
 		
-		lines.forEach(line->cuentas.add(transformarACuenta(line)));
+			try {
+				lines = Files.lines(Paths.get(path));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			cuentas.clear();
+			lines.forEach(line->cuentas.add(transformarACuenta(line)));
 	}
 
 	private Cuenta transformarACuenta(String line){
