@@ -1,14 +1,12 @@
 package dds.tp.ui.windows;
 
-import dds.tp.model.IOArchivoCuentas;
 import dds.tp.ui.complementos.AccionesDisponibles;
 import dds.tp.ui.complementos.OpcionDeAccion;
 import dds.tp.ui.vm.IOArchivoCuentasViewModel;
 import dds.tp.ui.vm.AllCuentasViewModel;
 import dds.tp.ui.vm.CuentasViewModel;
-import dds.tp.ui.vm.OpcionDeAccionViewModel;
+import dds.tp.ui.vm.PantallaPrincipalViewModel;
 
-import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,12 +19,9 @@ import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.commons.model.ObservableUtils;
 
 @SuppressWarnings("serial")
-public class PantallaPrincipal extends Window<OpcionDeAccionViewModel> {
+public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 
-	private File miArchivo = new File("cuentas.txt");
-	private IOArchivoCuentas lector = new IOArchivoCuentas(miArchivo.getAbsolutePath()); // POR AHORA HARDCODEADO
-	
-	public PantallaPrincipal(WindowOwner parent, OpcionDeAccionViewModel model) {
+	public PantallaPrincipal(WindowOwner parent, PantallaPrincipalViewModel model) {
 		super(parent, model);
 	}
 
@@ -43,9 +38,7 @@ public class PantallaPrincipal extends Window<OpcionDeAccionViewModel> {
 		ObservableUtils.firePropertyChanged(this.getModelObject(), "ventanaElegida");
 		//-------
 		new Label(mainPanel).bindValueToProperty("descripcion");
-		
 		new Label(mainPanel).setText("");
-		
 		new Button(mainPanel).setCaption("Abrir").onClick(()->this.abrirVentanaElegida());
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
 	}
@@ -55,10 +48,10 @@ public class PantallaPrincipal extends Window<OpcionDeAccionViewModel> {
 		AccionesDisponibles accionElegida = this.getModelObject().getVentanaElegida().getAccionAMostrar();
 		switch (accionElegida) {
 		case CARGARCUENTAS:
-				new CargarCuentasWindow(this, new IOArchivoCuentasViewModel(lector)).open();
+				new CargarCuentasWindow(this, new IOArchivoCuentasViewModel(this.getModelObject().getLector())).open();
 			break;
 		case CONSULTARCUENTAS:
-				List<CuentasViewModel> cuentas = this.lector.getCuentas().stream().map(ct -> new CuentasViewModel(ct)).collect(Collectors.toList()); 
+				List<CuentasViewModel> cuentas = this.getModelObject().getLector().getCuentas().stream().map(ct -> new CuentasViewModel(ct)).collect(Collectors.toList()); 
 				new ConsultarCuentasWindow(this, new AllCuentasViewModel(cuentas)).open();
 			break;
 		default:

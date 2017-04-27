@@ -8,7 +8,7 @@ import org.uqbar.arena.windows.Window;
 
 import dds.tp.ui.complementos.AccionesDisponibles;
 import dds.tp.ui.complementos.OpcionDeAccion;
-import dds.tp.ui.vm.OpcionDeAccionViewModel;
+import dds.tp.ui.vm.PantallaPrincipalViewModel;
 import dds.tp.ui.windows.PantallaPrincipal;
 
 public class StockApplication extends Application {
@@ -19,7 +19,7 @@ public class StockApplication extends Application {
 	
 	@Override
 	protected Window<?> createMainWindow() {
-		OpcionDeAccionViewModel viewModel = new OpcionDeAccionViewModel(this.getOpcionesDeAccion());
+		PantallaPrincipalViewModel viewModel = new PantallaPrincipalViewModel(this.getOpcionesDeAccion());
 		return new PantallaPrincipal(this, viewModel);
 	}
 	
