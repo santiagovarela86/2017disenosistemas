@@ -7,12 +7,12 @@ import dds.tp.ui.complementos.ViewModel;
 import dds.tp.model.IOArchivoCuentas;
 
 @Observable
-public class IOArchivoCuentasViewModel implements ViewModel{ 
+public class CargarCuentasViewModel implements ViewModel{ 
 	
 	private IOArchivoCuentas lector;
 	private Boolean habilitado;
 	
-	public IOArchivoCuentasViewModel(IOArchivoCuentas _lector) {
+	public CargarCuentasViewModel(IOArchivoCuentas _lector) {
 		lector = _lector;
 		this.habilitado = false;
 	}

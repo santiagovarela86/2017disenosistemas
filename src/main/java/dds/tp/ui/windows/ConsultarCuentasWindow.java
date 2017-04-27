@@ -9,13 +9,13 @@ import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
 import dds.tp.ui.complementos.Ventana;
-import dds.tp.ui.vm.AllCuentasViewModel;
+import dds.tp.ui.vm.ConsultarCuentasViewModel;
 import dds.tp.ui.vm.CuentasViewModel;
 
 @SuppressWarnings("serial")
-public class ConsultarCuentasWindow extends Window<AllCuentasViewModel> implements Ventana{
+public class ConsultarCuentasWindow extends Window<ConsultarCuentasViewModel> implements Ventana{
 
-	public ConsultarCuentasWindow(WindowOwner owner, AllCuentasViewModel model) {
+	public ConsultarCuentasWindow(WindowOwner owner, ConsultarCuentasViewModel model) {
 		super(owner, model);
 	}
 

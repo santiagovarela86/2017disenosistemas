@@ -2,8 +2,8 @@ package dds.tp.ui.windows;
 
 import dds.tp.ui.complementos.AccionesDisponibles;
 import dds.tp.ui.complementos.OpcionDeAccion;
-import dds.tp.ui.vm.IOArchivoCuentasViewModel;
-import dds.tp.ui.vm.AllCuentasViewModel;
+import dds.tp.ui.vm.CargarCuentasViewModel;
+import dds.tp.ui.vm.ConsultarCuentasViewModel;
 import dds.tp.ui.vm.CuentasViewModel;
 import dds.tp.ui.vm.PantallaPrincipalViewModel;
 
@@ -48,11 +48,11 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		AccionesDisponibles accionElegida = this.getModelObject().getVentanaElegida().getAccionAMostrar();
 		switch (accionElegida) {
 		case CARGARCUENTAS:
-				new CargarCuentasWindow(this, new IOArchivoCuentasViewModel(this.getModelObject().getLector())).open();
+				new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getLector())).open();
 			break;
 		case CONSULTARCUENTAS:
 				List<CuentasViewModel> cuentas = this.getModelObject().getLector().getCuentas().stream().map(ct -> new CuentasViewModel(ct)).collect(Collectors.toList()); 
-				new ConsultarCuentasWindow(this, new AllCuentasViewModel(cuentas)).open();
+				new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(cuentas)).open();
 			break;
 		default:
 			break;

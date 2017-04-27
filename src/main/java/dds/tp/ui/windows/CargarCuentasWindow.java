@@ -9,12 +9,12 @@ import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
 import dds.tp.ui.complementos.Ventana;
-import dds.tp.ui.vm.IOArchivoCuentasViewModel;
+import dds.tp.ui.vm.CargarCuentasViewModel;
 
 @SuppressWarnings({ "serial", "unused" })
-public class CargarCuentasWindow extends Window<IOArchivoCuentasViewModel> implements Ventana {
+public class CargarCuentasWindow extends Window<CargarCuentasViewModel> implements Ventana {
 
-	public CargarCuentasWindow(WindowOwner parent, IOArchivoCuentasViewModel model) {
+	public CargarCuentasWindow(WindowOwner parent, CargarCuentasViewModel model) {
 		super(parent, model);
 	}
 
