@@ -11,6 +11,7 @@ public class CargarCuentasViewModel implements ViewModel{
 	
 	private IOArchivoCuentas lector;
 	private Boolean habilitado;
+	private String readFileOK;
 	
 	public CargarCuentasViewModel(IOArchivoCuentas _lector) {
 		lector = _lector;
@@ -19,6 +20,7 @@ public class CargarCuentasViewModel implements ViewModel{
 	
 	public void cargarCuentas(){
 		lector.cargarCuentas();
+		setReadFileOK("ya fue cargado con exito");
 	}
 	
 	public Boolean getHabilitado(){
@@ -33,5 +35,15 @@ public class CargarCuentasViewModel implements ViewModel{
 		this.lector.setPath(path);
 		ObservableUtils.firePropertyChanged(this, "path");
 	}
+
+	public String getReadFileOK() {
+		return readFileOK;
+	}
+
+	public void setReadFileOK(String readFileOK) {
+		this.readFileOK = readFileOK;
+	}
+	
+	
 	
 }

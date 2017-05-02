@@ -1,25 +1,31 @@
 package dds.tp.ui.windows;
 
+import org.eclipse.swt.graphics.Color;
 import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.Control;
 import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Window;
+import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.lacar.ui.model.ControlBuilder;
+import org.uqbar.lacar.ui.model.bindings.Binding;
 
 import dds.tp.ui.complementos.Ventana;
 import dds.tp.ui.vm.CargarCuentasViewModel;
 
 @SuppressWarnings({ "serial", "unused" })
-public class CargarCuentasWindow extends Window<CargarCuentasViewModel> implements Ventana {
+public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> implements Ventana {
 
 	public CargarCuentasWindow(WindowOwner parent, CargarCuentasViewModel model) {
 		super(parent, model);
 	}
 
 	@Override
-	public void createContents(Panel mainPanel) {
+	public void createFormPanel(Panel mainPanel) {
 		this.setTitle("Cargar Cuentas");
 		new Label(mainPanel).setText("Ubicacion de archivo a cargar:").setWidth(500);
 	    //Se descomenta esto y aparace el textbox de siempre con la ruta del archivo
@@ -35,8 +41,28 @@ public class CargarCuentasWindow extends Window<CargarCuentasViewModel> implemen
 	
 	    new Label(mainPanel).setText("");
 	    
-		new Button(mainPanel).setCaption("Cargar Cuentas").onClick(()->this.getModelObject().cargarCuentas());
-		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());		
+	    new Label(mainPanel).setForeground(java.awt.Color.ORANGE).bindValueToProperty("readFileOK");
+	    	    
+	    
 	}
+
+
+@Override
+	protected void addActions(Panel actionsPanel) {
+		new Button(actionsPanel)
+		.setCaption("Cargar Cuentas")
+		.onClick(getModelObject()::cargarCuentas)
+		.setAsDefault()
+		.disableOnError();
+		
+		new Button(actionsPanel)
+		.setCaption("Cerrar")
+		.onClick(()->this.close())
+		.setAsDefault()
+		.disableOnError();
+		
+	}
+	
+	
 
 }
