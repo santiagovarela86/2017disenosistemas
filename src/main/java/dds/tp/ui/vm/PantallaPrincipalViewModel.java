@@ -1,17 +1,21 @@
 package dds.tp.ui.vm;
 
-import java.io.File;
-
 import org.uqbar.commons.utils.Observable;
-import dds.tp.model.IOArchivoCuentas;
-import dds.tp.ui.complementos.ViewModel;
+
+import dds.tp.model.GuardadorEmpresas;
+
 @Observable
-public class PantallaPrincipalViewModel implements ViewModel {
+public class PantallaPrincipalViewModel{
 	
-	private File miArchivo = new File("cuentas.txt");
-	private IOArchivoCuentas lector = new IOArchivoCuentas(miArchivo.getAbsolutePath());
-	
-	public IOArchivoCuentas getLector(){
-		return lector;
+	private GuardadorEmpresas empresas;
+
+	public PantallaPrincipalViewModel() {
+		super();
+		this.empresas = new GuardadorEmpresas();
 	}
+	
+	public GuardadorEmpresas getEmpresas() {
+		return empresas;
+	}
+	
 }

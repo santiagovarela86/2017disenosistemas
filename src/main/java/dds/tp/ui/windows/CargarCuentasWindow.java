@@ -14,11 +14,10 @@ import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.bindings.Binding;
 
-import dds.tp.ui.complementos.Ventana;
 import dds.tp.ui.vm.CargarCuentasViewModel;
 
 @SuppressWarnings({ "serial", "unused" })
-public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> implements Ventana {
+public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> {
 
 	public CargarCuentasWindow(WindowOwner parent, CargarCuentasViewModel model) {
 		super(parent, model);
@@ -28,11 +27,6 @@ public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> im
 	public void createFormPanel(Panel mainPanel) {
 		this.setTitle("Cargar Cuentas");
 		new Label(mainPanel).setText("Ubicacion de archivo a cargar:").setWidth(500);
-	    //Se descomenta esto y aparace el textbox de siempre con la ruta del archivo
-		/*TextBox textPath = new TextBox(mainPanel);
-	    textPath.bindEnabledToProperty("habilitado");
-	    textPath.bindValueToProperty("path");*/
-		//Se descomenta esto y aparace un file selector
 		FileSelector fs = new FileSelector(mainPanel);
 		fs.setCaption("Elegir archivo de cuentas");
 		fs.bindValueToProperty("path");

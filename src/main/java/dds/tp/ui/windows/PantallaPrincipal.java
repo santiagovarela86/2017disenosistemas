@@ -2,11 +2,8 @@ package dds.tp.ui.windows;
 
 import dds.tp.ui.vm.CargarCuentasViewModel;
 import dds.tp.ui.vm.ConsultarCuentasViewModel;
-import dds.tp.ui.vm.CuentasViewModel;
 import dds.tp.ui.vm.PantallaPrincipalViewModel;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
@@ -39,12 +36,11 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 	
 	private void abrirCargarCuentas(){
-		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getLector())).open();
+		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getEmpresas())).open();
 	}
 	
 	private void abrirConsultarCuentas(){
-		List<CuentasViewModel> cuentas = this.getModelObject().getLector().getCuentas().stream().map(ct -> new CuentasViewModel(ct)).collect(Collectors.toList()); 
-		new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(cuentas)).open();
+		new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
 	}
 		
 }

@@ -1,39 +1,33 @@
 package dds.tp.ui.vm;
 
-import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import dds.tp.ui.complementos.ViewModel;
-import dds.tp.model.IOArchivoCuentas;
+import dds.tp.model.GuardadorEmpresas;
+import dds.tp.model.IOArchivoDatos;
 
 @Observable
-public class CargarCuentasViewModel implements ViewModel{ 
+public class CargarCuentasViewModel{ 
 	
-	private IOArchivoCuentas lector;
-	private Boolean habilitado;
+	private GuardadorEmpresas empresas;
+	private String path;
 	private String readFileOK;
 	
-	public CargarCuentasViewModel(IOArchivoCuentas _lector) {
-		lector = _lector;
-		this.habilitado = false;
+	public CargarCuentasViewModel(GuardadorEmpresas empresas) {
+		this.empresas = empresas;
+		//Poner absoluth path ak, osea un predeterminado como estabaantes sin queres lo saque
 	}
 	
 	public void cargarCuentas(){
-		lector.cargarCuentas();
-		setReadFileOK("ya fue cargado con exito");
-	}
-	
-	public Boolean getHabilitado(){
-		return habilitado;
+		this.empresas.setEmpresas(new IOArchivoDatos(path).obtenerDatos());
+		setReadFileOK("Fue cargado con exito");
 	}
 	
 	public String getPath(){
-		return lector.getPath();
+		return path;
 	}
 	
 	public void setPath(String path){
-		this.lector.setPath(path);
-		ObservableUtils.firePropertyChanged(this, "path");
+		this.path = path;
 	}
 
 	public String getReadFileOK() {

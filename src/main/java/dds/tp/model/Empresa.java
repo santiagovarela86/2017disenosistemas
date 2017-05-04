@@ -6,30 +6,32 @@ import java.util.List;
 public class Empresa {
 
 	private String nombre;
-	private List<Cuenta> cuentas = new ArrayList<Cuenta>();
+	private List<Balance> balances;
 	
-	
-	
+	public Empresa(String nombre) {
+		super();
+		this.nombre = nombre;
+		this.balances = new ArrayList<>();
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-	public List<Cuenta> getCuentas() {
-		return cuentas;
-	}
-	public void setCuentas(List<Cuenta> cuentas) {
-		this.cuentas = cuentas;
+	}	
+	
+	public List<Balance> getBalances() {
+		return balances;
 	}
 	
-	
-	public void setCuenta(Cuenta cuenta) {
-		this.cuentas.add(cuenta);
+	public void addBalance(Balance bal) {
+		this.balances.add(bal);
 	}
 	
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
 }
