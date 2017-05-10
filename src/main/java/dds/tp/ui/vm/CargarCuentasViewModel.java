@@ -21,8 +21,8 @@ public class CargarCuentasViewModel{
 		try {
 			this.empresas.setEmpresas(new IOArchivoDatos(path).obtenerDatos());
 			setReadFileOK("Se cargó el archivo de cuentas con éxito");
-		} catch (NullPointerException e) {
-			setReadFileOK("Por favor elija un archivo");
+		} catch (Exception e) {
+			setReadFileOK("Por favor elija un archivo correcto");
 		}
 	}
 	
