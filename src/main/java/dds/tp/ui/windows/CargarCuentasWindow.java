@@ -32,12 +32,8 @@ public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> {
 		fs.bindValueToProperty("path");
 		fs.extensions("*.txt");
 		new Label(mainPanel).bindValueToProperty("path");
-	
 	    new Label(mainPanel).setText("");
-	    
-	    new Label(mainPanel).setForeground(java.awt.Color.ORANGE).bindValueToProperty("readFileOK");
-	    	    
-	    
+	    new Label(mainPanel).setForeground(java.awt.Color.GREEN).bindValueToProperty("readFileOK");
 	}
 
 
@@ -54,9 +50,5 @@ public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> {
 		.onClick(()->this.close())
 		.setAsDefault()
 		.disableOnError();
-		
 	}
-	
-	
-
 }
