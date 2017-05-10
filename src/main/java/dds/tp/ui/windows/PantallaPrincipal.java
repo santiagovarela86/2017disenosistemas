@@ -26,11 +26,12 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Label(mainPanel).setText("Elija la acción que desea realizar: ").setWidth(400);
 		
 		Panel panelBotones = new Panel(mainPanel);
-		panelBotones.setLayout(new ColumnLayout(3));
+		panelBotones.setLayout(new ColumnLayout(4));
 		
-		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(133);
-		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(133);
-		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.close()).setWidth(133);
+		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(100);
+		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(100);
+		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.close()).setWidth(100);
+		new Button(panelBotones).setCaption("Mostrar Indicadores").onClick(() -> this.close()).setWidth(100);
 		
 		new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
