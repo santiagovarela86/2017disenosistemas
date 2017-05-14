@@ -33,17 +33,18 @@ public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> {
 		fs.extensions("*.txt");
 		new Label(mainPanel).bindValueToProperty("path");
 	    new Label(mainPanel).setText("");
-	    new Label(mainPanel).setForeground(java.awt.Color.GREEN).bindValueToProperty("readFileOK");
+	    new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("readFileOK");
 	}
 
 
 @Override
 	protected void addActions(Panel actionsPanel) {
 		new Button(actionsPanel)
-		.setCaption("Cargar Cuentas")
+		.setCaption("Cargar")
 		.onClick(getModelObject()::cargarCuentas)
 		.setAsDefault()
-		.disableOnError();
+		.disableOnError()
+		.bindEnabledToProperty("habilitado");
 		
 		new Button(actionsPanel)
 		.setCaption("Cerrar")

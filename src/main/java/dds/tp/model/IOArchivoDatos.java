@@ -1,8 +1,5 @@
 package dds.tp.model;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.ArrayList;
@@ -15,22 +12,18 @@ import dds.tp.model.Cuenta;
 public class IOArchivoDatos {
 	
 	private String path;
-	private Stream<String> lines;
 	
 	public IOArchivoDatos(String fileName){
 		this.path = fileName;
 	}
 	
 	//Cambio el nomnre ya que carga empresas semestres cuentas
-	public List<Empresa> obtenerDatos() {
+	public List<Empresa> obtenerDatos(Stream<String> lineas){
 		ArrayList<Empresa> empresas = new ArrayList<>();
-		try {
-			lines = Files.lines(Paths.get(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 		List<String> list = new ArrayList<String>();
-		list = lines.collect(Collectors.toList());
+		list = lineas.collect(Collectors.toList());
+		
 		for (String s : list) {
 			Supplier<Stream<String>> streamSupplier = () -> Stream.of(s);
 			streamSupplier.get().forEach(line -> convertAndAddCuenta(line,empresas));
