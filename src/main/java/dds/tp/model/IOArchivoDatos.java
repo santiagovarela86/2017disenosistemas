@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Supplier;
 
 import dds.tp.model.Cuenta;
 
@@ -17,23 +16,17 @@ public class IOArchivoDatos {
 		this.path = fileName;
 	}
 	
-	//Cambio el nomnre ya que carga empresas semestres cuentas
 	public List<Empresa> obtenerDatos(Stream<String> lineas){
 		ArrayList<Empresa> empresas = new ArrayList<>();
-		
-		List<String> list = new ArrayList<String>();
-		list = lineas.collect(Collectors.toList());
-		
-		for (String s : list) {
-			Supplier<Stream<String>> streamSupplier = () -> Stream.of(s);
-			streamSupplier.get().forEach(line -> convertAndAddCuenta(line,empresas));
-		}
+		lineas.forEach(line -> convertAndAddCuenta(line,empresas));
 		return empresas;
 	}
 
 	private void convertAndAddCuenta(String line,List<Empresa> empresas) {
 
-		List<String> string = Stream.of(line).map(w -> w.split(",")).flatMap(Arrays::stream).distinct()
+		List<String> string = Stream.of(line)
+				.map(w -> w.split(","))
+				.flatMap(Arrays::stream)
 				.collect(Collectors.toList());
 
 		String nombre = string.get(0).trim();
