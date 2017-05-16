@@ -13,12 +13,11 @@ import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.bindings.Binding;
-
 import dds.tp.ui.vm.CargarCuentasViewModel;
 
 @SuppressWarnings({ "serial", "unused" })
 public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> {
-
+	
 	public CargarCuentasWindow(WindowOwner parent, CargarCuentasViewModel model) {
 		super(parent, model);
 	}
@@ -36,20 +35,21 @@ public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> {
 	    new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("readFileOK");
 	}
 
-
 @Override
 	protected void addActions(Panel actionsPanel) {
 		new Button(actionsPanel)
 		.setCaption("Cargar")
-		.onClick(getModelObject()::cargarCuentas)
+		.onClick(getModelObject()::cargar)
 		.setAsDefault()
 		.disableOnError()
-		.bindEnabledToProperty("habilitado");
+		.setWidth(250)
+		.bindEnabledToProperty("habilitado"); 
 		
 		new Button(actionsPanel)
 		.setCaption("Cerrar")
 		.onClick(()->this.close())
 		.setAsDefault()
-		.disableOnError();
+		.disableOnError()
+		.setWidth(250);
 	}
 }

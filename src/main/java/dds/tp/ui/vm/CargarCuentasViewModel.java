@@ -1,12 +1,10 @@
 package dds.tp.ui.vm;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
-
 import dds.tp.model.GuardadorEmpresas;
 import dds.tp.model.IOArchivoDatos;
 
@@ -20,21 +18,20 @@ public class CargarCuentasViewModel{
 	
 	public CargarCuentasViewModel(GuardadorEmpresas empresas) {
 		this.empresas = empresas;
-		//Poner absoluth path ak, osea un predeterminado como estabaantes sin queres lo saque
 	}
 	
-	public void cargarCuentas() {
+	public void cargar() {
 		try {
-			Stream<String> lineas = Files.lines(Paths.get(path));
-			this.empresas.setEmpresas(new IOArchivoDatos(path).obtenerDatos(lineas));
-			setReadFileOK("Se cargó el archivo de cuentas con éxito");
-		} catch(NoSuchFileException e){
-			  setReadFileOK("Archivo no encontrado");
-			  e.printStackTrace();  
+			cargarEmpresas(path,Files.lines(Paths.get(path)));
+			setReadFileOK("Se cargo el archivo de cuentas con exito");
 		} catch (Exception e) {
-			  setReadFileOK("Formato de archivo no válido");
+			  setReadFileOK("Archivo no encontrado/valido");
 			  e.printStackTrace();
-		}	
+		}
+		
+	}
+	public void cargarEmpresas(String path, Stream<String> lineas){
+		this.empresas.setEmpresas(new IOArchivoDatos(path).obtenerDatos(lineas));
 	}
 	
 	public String getPath(){
@@ -57,6 +54,10 @@ public class CargarCuentasViewModel{
 	public Boolean getHabilitado(){
 		habilitado = path != null;
 		return habilitado;
+	}
+	
+	public GuardadorEmpresas getGuardadorEmpresas(){
+		return empresas;
 	}
 	
 }
