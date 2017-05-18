@@ -1,6 +1,7 @@
 package dds.tp.ui.windows;
 
 import dds.tp.ui.vm.CargarCuentasViewModel;
+import dds.tp.ui.vm.CargarIndicadoresPrincipalViewModel;
 import dds.tp.ui.vm.ConsultarCuentasViewModel;
 import dds.tp.ui.vm.PantallaPrincipalViewModel;
 
@@ -30,8 +31,8 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		
 		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(100);
 		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(110);
-		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.close()).setWidth(120);
-		new Button(panelBotones).setCaption("Mostrar Indicadores").onClick(() -> this.close()).setWidth(120);
+		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadoresPrincipal()).setWidth(120);
+		new Button(panelBotones).setCaption("Mostrar Indicadores").onClick(() -> this.abrirListarIndicadores()).setWidth(120);
 		
 		new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
@@ -43,6 +44,14 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	
 	private void abrirConsultarCuentas(){
 		new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
+	}
+	
+	private void abrirCargarIndicadoresPrincipal(){
+		new CargarIndicadoresPrincipalWindow(this, new CargarIndicadoresPrincipalViewModel()).open();
+	}
+	
+	private void abrirListarIndicadores(){
+		
 	}
 		
 }
