@@ -25,7 +25,7 @@ public class Indicador {
 		this.formula = formula;
 	}
 	
-	public String getFormulae(){
+	public String getFormula(){
 		return this.formula;
 	}
 }
