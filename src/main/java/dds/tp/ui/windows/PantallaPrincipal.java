@@ -36,6 +36,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		
 		new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
+		new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("archivoCuentasOK");
 	}
 	
 	private void abrirCargarCuentas(){
@@ -43,7 +44,13 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 	
 	private void abrirConsultarCuentas(){
-		new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
+		try {
+			this.getModelObject().setArchivoCuentasOK("");
+			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
+		} catch (Exception e){
+			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas antes de consultar");
+			e.printStackTrace();
+		}
 	}
 	
 	private void abrirCargarIndicadoresPrincipal(){
@@ -53,5 +60,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	private void abrirListarIndicadores(){
 		
 	}
+	
+
 		
 }

@@ -8,11 +8,11 @@ import java.util.List;
 
 import dds.tp.model.Cuenta;
 
-public class IOArchivoDatos {
+public class LectorCuentas {
 	
 	private String path;
 	
-	public IOArchivoDatos(String fileName){
+	public LectorCuentas(String fileName){
 		this.path = fileName;
 	}
 	

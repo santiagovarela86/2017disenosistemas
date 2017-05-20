@@ -7,6 +7,8 @@ import dds.tp.model.GuardadorEmpresas;
 @Observable
 public class PantallaPrincipalViewModel{
 	
+	private String archivoCuentasOK;
+	
 	private GuardadorEmpresas empresas;
 
 	public PantallaPrincipalViewModel() {
@@ -18,4 +20,11 @@ public class PantallaPrincipalViewModel{
 		return empresas;
 	}
 	
+	public String getArchivoCuentasOK() {
+		return archivoCuentasOK;
+	}
+
+	public void setArchivoCuentasOK(String archivoCuentasOK) {
+		this.archivoCuentasOK = archivoCuentasOK;
+	}
 }

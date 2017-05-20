@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 import dds.tp.model.GuardadorEmpresas;
-import dds.tp.model.IOArchivoDatos;
+import dds.tp.model.LectorCuentas;
 
 @Observable
 public class CargarCuentasViewModel{ 
@@ -24,6 +24,7 @@ public class CargarCuentasViewModel{
 		try {
 			cargarEmpresas(path,Files.lines(Paths.get(path)));
 			setReadFileOK("Se cargo el archivo de cuentas con exito");
+			//ACA VER LA FORMA DE BORRAR EL MENSAJE DE QUE SE CARGUE UN ARCHIVO EN LA PANTALLA PRINCIPAL
 		} catch (Exception e) {
 			  setReadFileOK("Archivo no encontrado/valido");
 			  e.printStackTrace();
@@ -31,7 +32,7 @@ public class CargarCuentasViewModel{
 		
 	}
 	public void cargarEmpresas(String path, Stream<String> lineas){
-		this.empresas.setEmpresas(new IOArchivoDatos(path).obtenerDatos(lineas));
+		this.empresas.setEmpresas(new LectorCuentas(path).obtenerDatos(lineas));
 	}
 	
 	public String getPath(){
