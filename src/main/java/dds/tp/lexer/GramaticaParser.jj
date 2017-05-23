@@ -1,0 +1,29 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = false;}PARSER_BEGIN(GramaticaParser)package dds.tp.lexer;
+
+public class GramaticaParser{  public static void main(String args []) throws ParseException  {    GramaticaParser parser = new GramaticaParser(System.in);	parser.Input();  }}PARSER_END(GramaticaParser)
+
+TOKEN [IGNORE_CASE] : {
+<NOMBRE: (["a"-"z"])+>
+| <CUENTA: ("cuenta(")+<NOMBRE>(")")+> //cuenta(NombreDeCuenta)
+| <MAS: "+">
+| <MENOS: "-">
+| <POR: "*">
+| <DIV: "/">
+| <OPERADOR: <MAS> | <MENOS> | <POR> | <DIV>>
+}
+
+TOKEN [IGNORE_CASE] : {
+<INDICADOR: (<CUENTA> <OPERADOR> <CUENTA>)+(< OPERADOR >(<CUENTA> <OPERADOR> <CUENTA>))*>
+}
+
+/** Top level production. */
+void Input() :
+{
+}
+{
+	< INDICADOR >
+	< EOF >
+}
+
