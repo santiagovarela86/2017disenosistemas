@@ -3,6 +3,8 @@ package dds.tp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uqbar.commons.utils.Observable;
+@Observable
 public class Empresa {
 
 	private String nombre;
@@ -24,6 +26,10 @@ public class Empresa {
 	
 	public List<Balance> getBalances() {
 		return balances;
+	}
+	
+	public void setBalances(List<Balance> balances){
+		this.balances = balances;
 	}
 	
 	public void addBalance(Balance bal) {
