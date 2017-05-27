@@ -11,19 +11,23 @@ TOKEN [IGNORE_CASE] : {
 | <MENOS: "-">
 | <POR: "*">
 | <DIV: "/">
-| <OPERADOR: <MAS> | <MENOS> | <POR> | <DIV>>
+| <OPERADOR: <MAS> | <MENOS> | <POR> | <DIV>> 
+| <ESPACIO: " ">
+| < NUMERO: (["0"-"9"])+ >
 }
 
 TOKEN [IGNORE_CASE] : {
-<INDICADOR: (<CUENTA> <OPERADOR> <CUENTA>)+(< OPERADOR >(<CUENTA> <OPERADOR> <CUENTA>))*>
+<INDICADOR: (<CUENTA> <OPERADOR> <CUENTA>)+
+| <CUENTA> <OPERADOR> <NUMERO>>
 }
 
-/** Top level production. */
 void Input() :
 {
 }
 {
 	< INDICADOR >
+	(
+	  < OPERADOR >
+	  < INDICADOR >	)*
 	< EOF >
 }
-

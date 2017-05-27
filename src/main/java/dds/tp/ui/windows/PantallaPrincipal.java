@@ -49,7 +49,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
 		} catch (Exception e){
 			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas antes de consultar");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
