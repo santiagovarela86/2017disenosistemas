@@ -28,12 +28,12 @@ public class ConsultarCuentasWindow extends Window<ConsultarCuentasViewModel>{
 		this.getModelObject().setEmpresa(this.getModelObject().getEmpresas().get(0));
 		new Label(mainPanel).setText("Balance de ").setWidth(400);
 		Selector<ConsultarCuentasViewModel> selecBalance = new Selector<ConsultarCuentasViewModel>(mainPanel);
-		selecBalance.bindItemsToProperty("balances");
+		selecBalance.bindItemsToProperty("empresa.balances");
 		selecBalance.bindValueToProperty("balance");
 		
 		
 		Table<ConsultarCuentasViewModel> tablaCuentas = new Table<>(mainPanel, ConsultarCuentasViewModel.class);
-		tablaCuentas.bindItemsToProperty("cuentas");
+		tablaCuentas.bindItemsToProperty("balance.cuentas");
 		tablaCuentas.bindValueToProperty("cuenta");
 		tablaCuentas.setNumberVisibleRows(10);
 		Column<ConsultarCuentasViewModel> columnaNombre = new Column<ConsultarCuentasViewModel>(tablaCuentas);

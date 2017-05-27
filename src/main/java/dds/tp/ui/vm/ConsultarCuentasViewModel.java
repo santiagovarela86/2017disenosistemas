@@ -2,7 +2,6 @@ package dds.tp.ui.vm;
 
 import java.util.List;
 
-import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.Balance;
@@ -31,9 +30,7 @@ public class ConsultarCuentasViewModel{
 	
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-		ObservableUtils.firePropertyChanged(this, "balances");
 		this.setBalance(this.getBalances().get(0));
-		ObservableUtils.firePropertyChanged(this, "balance");
 	}
 	
 	public List<Balance> getBalances() {
@@ -46,7 +43,6 @@ public class ConsultarCuentasViewModel{
 	
 	public void setBalance(Balance balance) {
 		this.balance = balance;
-		ObservableUtils.firePropertyChanged(this, "cuentas");
 	}
 	
 	public List<Cuenta> getCuentas() {
@@ -68,4 +64,5 @@ public class ConsultarCuentasViewModel{
 	public Float getValor() {
 		return this.cuenta.getValor();
 	}
+	
 }

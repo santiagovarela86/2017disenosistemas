@@ -3,6 +3,9 @@ package dds.tp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uqbar.commons.utils.Observable;
+
+@Observable
 public class Balance {
 	private String periodo;
 	private List<Cuenta> cuentas;
@@ -29,4 +32,9 @@ public class Balance {
 	public String toString() {
 		return this.periodo;
 	}
+	
+	public void setCuentas(List<Cuenta> cuentas){
+		this.cuentas = cuentas;
+	}
+	
 }
