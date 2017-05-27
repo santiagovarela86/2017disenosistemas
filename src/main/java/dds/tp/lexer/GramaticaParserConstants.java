@@ -25,7 +25,11 @@ public interface GramaticaParserConstants {
   /** RegularExpression Id. */
   int OPERADOR = 7;
   /** RegularExpression Id. */
-  int INDICADOR = 8;
+  int ESPACIO = 8;
+  /** RegularExpression Id. */
+  int NUMERO = 9;
+  /** RegularExpression Id. */
+  int INDICADOR = 10;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -40,6 +44,8 @@ public interface GramaticaParserConstants {
     "\"*\"",
     "\"/\"",
     "<OPERADOR>",
+    "\" \"",
+    "<NUMERO>",
     "<INDICADOR>",
   };
 
