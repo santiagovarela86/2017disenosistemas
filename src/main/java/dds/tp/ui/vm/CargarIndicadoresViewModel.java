@@ -6,7 +6,7 @@ import dds.tp.model.Indicador;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
@@ -40,7 +40,7 @@ public class CargarIndicadoresViewModel {
 	}
 
 	public void parsearExpresion(){
-		InputStream is = new ByteArrayInputStream( this.expresion.getBytes( Charset.defaultCharset() ) );
+		InputStream is = new ByteArrayInputStream( this.expresion.getBytes( StandardCharsets.US_ASCII) );
 		GramaticaParser parser = new GramaticaParser(is);
 
 		try {
