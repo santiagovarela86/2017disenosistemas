@@ -1,4 +1,4 @@
-package dds.tp.model;
+package dds.tp.evaluador;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 
 import dds.tp.lexer.GramaticaParser;
 import dds.tp.lexer.ParseException;
+import dds.tp.model.Balance;
+import dds.tp.model.GuardadorIndicadores;
+import dds.tp.model.Indicador;
 
 public class Evaluador {
 	
 	private Indicador indicador;
 	private Balance balance;
-	private Float resultado;
 	private GuardadorIndicadores baulIndicadores;
 	
 	public Evaluador(Indicador indicador, Balance balance, GuardadorIndicadores indicadores) {
@@ -35,14 +37,7 @@ public class Evaluador {
 		return balance.getCuentas().stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombreCuenta)).collect(Collectors.toList()).get(0).getValor();
 	}
 	
-	public Float getResultado() {
-		return resultado;
-	}
-	
-	public void setResultado(Float resultado) {
-		this.resultado = resultado;
-		
-	}
+
 
 	public float getValorIndicador(String nombre) throws ParseException {
 		List<Indicador> todosLosIndicadores = baulIndicadores.getIndicadores();

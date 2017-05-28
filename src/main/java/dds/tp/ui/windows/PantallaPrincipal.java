@@ -39,10 +39,6 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("archivoCuentasOK");
 	}
 
-	private void abrirUsarIndicadores() {
-		new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getEmpresas().getEmpresas(),this.getModelObject().getIndicadores())).open();
-	}
-
 	private void abrirCargarCuentas(){
 		this.getModelObject().setArchivoCuentasOK("");
 		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getEmpresas())).open();
@@ -53,6 +49,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 			this.getModelObject().setArchivoCuentasOK("");
 			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
 		} catch (Exception e){
+			e.printStackTrace();
 			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas antes de consultar");
 		}
 	}
@@ -60,5 +57,15 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	private void abrirCargarIndicadores(){
 		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getIndicadores())).open();
 	}
+	
+	private void abrirUsarIndicadores() {
+		try {
+			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getEmpresas().getEmpresas(),this.getModelObject().getIndicadores())).open();
+		}catch(Exception e) {
+			e.printStackTrace();
+			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas y cree al menos un indicador");
+		}
+	}
+
 
 }

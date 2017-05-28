@@ -1,7 +1,7 @@
 /**
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
  */options{  static = false;}PARSER_BEGIN(GramaticaParser)package dds.tp.lexer;
-import dds.tp.model.Evaluador;
+import dds.tp.evaluador.Evaluador;
 
 public class GramaticaParser{  public static void main(String args []) throws ParseException  {    GramaticaParser parser = new GramaticaParser(System.in);	parser.Input();  }}PARSER_END(GramaticaParser)
 
@@ -29,29 +29,50 @@ void Input():
 void analizarSintacticamente() :
 {}
 {
-	<INDICADOR> | <CUENTA> | <NUMERO>
+	(<INDICADOR> | <CUENTA> | <NUMERO>)
 	(
-		<MAS> | <MENOS> | <POR> | <DIV>
-		<INDICADOR> | <CUENTA> | <NUMERO>	)*
+		( <MAS> | <MENOS> |  <DIV> | <POR> )
+
+		(<INDICADOR> | <CUENTA> | <NUMERO>)	)*
 	< EOF >
 }
 //-----------------------------------------------------
+//Esto es para calcular el indicador
 float evaluar(Evaluador ev):
 {
 	float valor;
 	float i;
 }
 {
-  	valor = getValor( ev )
+  	valor = termino( ev )
 	(		< MAS >
-		i = getValor( ev )
+		i = termino( ev )
 		{ valor += i; }
 		| 
 		< MENOS >
-		i = getValor( ev )
+		i = termino( ev )
 		{ valor -= i; }
 	)*
 	< EOF >
+	{return valor;}
+}
+
+
+float termino(Evaluador ev):
+{
+  float valor;
+  float i;
+}
+{
+	valor = getValor ( ev )
+	(		< POR >
+		i = getValor( ev )
+		{valor *= i;}
+		|
+		< DIV >
+		i = getValor( ev )
+		{valor /= i;}
+	)*
 	{return valor;}
 }
 
@@ -68,5 +89,4 @@ float getValor(Evaluador ev) :
  	|
  t = <INDICADOR>
   { return ev.getValorIndicador(t.image);}
-   
 }

@@ -5,10 +5,11 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import dds.tp.evaluador.Evaluador;
+import dds.tp.lexer.ParseException;
 import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
-import dds.tp.model.Evaluador;
 import dds.tp.model.GuardadorIndicadores;
 import dds.tp.model.Indicador;
 
@@ -68,6 +69,8 @@ public class UsarIndicadoresViewModel {
 	
 	public void setBalance(Balance balance) {
 		this.balance = balance;
+		if(this.balance!=null)
+			ObservableUtils.firePropertyChanged(this, "resultado");
 	}
 	
 	public List<Cuenta> getCuentas() {
@@ -92,11 +95,15 @@ public class UsarIndicadoresViewModel {
 		
 	public String getResultado() {
 		try { 
-			Evaluador ev = new Evaluador(indicador, balance,baulIndicadores);
+			Evaluador ev = new Evaluador(indicador, balance, baulIndicadores);
 			return ev.evaluar().toString(); 
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "Error";
+		}
+		catch (IndexOutOfBoundsException e) {
+			return "No se encuentra el indicador o la cuenta que utiliza este indicador";
+		}
+		catch (ParseException ex) {
+			//ex.printStackTrace();
+			return "Error al parsear la formula";
 		}
 	}
 }

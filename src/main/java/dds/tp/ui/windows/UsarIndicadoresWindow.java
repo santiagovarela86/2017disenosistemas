@@ -24,6 +24,7 @@ public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 		Selector<UsarIndicadoresViewModel> selecIndicador = new Selector<UsarIndicadoresViewModel>(mainPanel);
 		selecIndicador.bindItemsToProperty("indicadores");
 		selecIndicador.bindValueToProperty("indicador");
+		this.getModelObject().setIndicador(this.getModelObject().getIndicadores().get(0));
 		new Label(mainPanel).setText("Seleccione una empresa").setWidth(400);
 		Selector<UsarIndicadoresViewModel> selecEmpresa = new Selector<UsarIndicadoresViewModel>(mainPanel);
 		selecEmpresa.bindItemsToProperty("empresas");
