@@ -1,6 +1,8 @@
 package dds.tp.ui.vm;
 
 import dds.tp.lexer.GramaticaParser;
+import dds.tp.model.GuardadorIndicadores;
+import dds.tp.model.Indicador;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -11,10 +13,16 @@ import org.uqbar.commons.utils.Observable;
 
 @Observable
 public class CargarIndicadoresViewModel {
+	
 	private String expresion = "";
 	private String resultado = "";
 	private String nombreIndicador = "";
 	private Boolean habilitado = false;
+	private GuardadorIndicadores indicadores;
+	
+	public CargarIndicadoresViewModel(GuardadorIndicadores indcs) {
+		this.indicadores = indcs;
+	}
 
 	public void setExpresion(String expresion){
 		this.expresion = expresion;
@@ -37,9 +45,11 @@ public class CargarIndicadoresViewModel {
 
 		try {
 			resultado = "";
-			parser.Input();
-			resultado = "Expresion Cargada con Exito";
+			parser.analizarSintacticamente();
+			resultado = "Indicador guardado con exito";
+			indicadores.addIndicador(new Indicador(this.getNombreIndicador(), this.getExpresion()));
 		} catch (Exception e){
+			e.printStackTrace();
 			resultado = "Error de expresion";
 		}
 	}

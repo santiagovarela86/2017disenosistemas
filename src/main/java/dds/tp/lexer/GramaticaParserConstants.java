@@ -11,25 +11,21 @@ public interface GramaticaParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int NOMBRE = 1;
-  /** RegularExpression Id. */
   int CUENTA = 2;
   /** RegularExpression Id. */
-  int MAS = 3;
+  int INDICADOR = 3;
   /** RegularExpression Id. */
-  int MENOS = 4;
+  int MAS = 4;
   /** RegularExpression Id. */
-  int POR = 5;
+  int MENOS = 5;
   /** RegularExpression Id. */
-  int DIV = 6;
+  int POR = 6;
   /** RegularExpression Id. */
-  int OPERADOR = 7;
+  int DIV = 7;
   /** RegularExpression Id. */
-  int ESPACIO = 8;
+  int NUMERO = 8;
   /** RegularExpression Id. */
-  int NUMERO = 9;
-  /** RegularExpression Id. */
-  int INDICADOR = 10;
+  int NOMBRE = 9;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -37,16 +33,15 @@ public interface GramaticaParserConstants {
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",
-    "<NOMBRE>",
+    "\" \"",
     "<CUENTA>",
+    "<INDICADOR>",
     "\"+\"",
     "\"-\"",
     "\"*\"",
     "\"/\"",
-    "<OPERADOR>",
-    "\" \"",
     "<NUMERO>",
-    "<INDICADOR>",
+    "<NOMBRE>",
   };
 
 }

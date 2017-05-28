@@ -4,6 +4,7 @@ import dds.tp.ui.vm.CargarCuentasViewModel;
 import dds.tp.ui.vm.CargarIndicadoresViewModel;
 import dds.tp.ui.vm.ConsultarCuentasViewModel;
 import dds.tp.ui.vm.PantallaPrincipalViewModel;
+import dds.tp.ui.vm.UsarIndicadoresViewModel;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
@@ -26,15 +27,20 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Label(mainPanel).setText("Elija la acción que desea realizar: ").setWidth(360);
 
 		Panel panelBotones = new Panel(mainPanel);
-		panelBotones.setLayout(new ColumnLayout(3));
+		panelBotones.setLayout(new ColumnLayout(4));
 
-		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(120);
-		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(120);
-		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(120);
+		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(130);
+		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(130);
+		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(130);
+		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(130);
 
 		new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
 		new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("archivoCuentasOK");
+	}
+
+	private void abrirUsarIndicadores() {
+		new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getEmpresas().getEmpresas(),this.getModelObject().getIndicadores())).open();
 	}
 
 	private void abrirCargarCuentas(){
@@ -52,7 +58,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 
 	private void abrirCargarIndicadores(){
-		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel()).open();
+		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getIndicadores())).open();
 	}
 
 }

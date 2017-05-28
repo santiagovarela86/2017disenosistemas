@@ -1,33 +1,72 @@
 /**
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
  */options{  static = false;}PARSER_BEGIN(GramaticaParser)package dds.tp.lexer;
+import dds.tp.model.Evaluador;
 
 public class GramaticaParser{  public static void main(String args []) throws ParseException  {    GramaticaParser parser = new GramaticaParser(System.in);	parser.Input();  }}PARSER_END(GramaticaParser)
 
+SKIP: { " " }
 TOKEN [IGNORE_CASE] : {
-<NOMBRE: (["a"-"z"])+>
-| <CUENTA: ("cuenta(")+<NOMBRE>(")")+> //cuenta(NombreDeCuenta)
+<CUENTA: ("cuenta("<NOMBRE>")")> //cuenta(NombreDeCuenta)
+| <INDICADOR: ("indicador("<NOMBRE>")")> //indicador(nombredeIndicador)
 | <MAS: "+">
 | <MENOS: "-">
 | <POR: "*">
 | <DIV: "/">
-| <OPERADOR: <MAS> | <MENOS> | <POR> | <DIV>> 
-| <ESPACIO: " ">
-| < NUMERO: (["0"-"9"])+ >
+| <NUMERO: (["0"-"9"])+ >
+| <NOMBRE: ["a"-"z"](["a"-"z"] | ["0"-"9"])+>
 }
 
-TOKEN [IGNORE_CASE] : {
-<INDICADOR: (<CUENTA> <OPERADOR> <CUENTA>)+
-| <CUENTA> <OPERADOR> <NUMERO>>
-}
+//No la usamos pero si lo saco tira error
+//Ver como solucionarlo
+void Input():
+ {}
+ {
+	<NUMERO>
+ }
 
-void Input() :
+//Este es para validar la expresion y poder guardarla si esta ok
+void analizarSintacticamente() :
+{}
 {
-}
-{
-	< INDICADOR >
+	<INDICADOR> | <CUENTA> | <NUMERO>
 	(
-	  < OPERADOR >
-	  < INDICADOR >	)*
+		<MAS> | <MENOS> | <POR> | <DIV>
+		<INDICADOR> | <CUENTA> | <NUMERO>	)*
 	< EOF >
+}
+//-----------------------------------------------------
+float evaluar(Evaluador ev):
+{
+	float valor;
+	float i;
+}
+{
+  	valor = getValor( ev )
+	(		< MAS >
+		i = getValor( ev )
+		{ valor += i; }
+		| 
+		< MENOS >
+		i = getValor( ev )
+		{ valor -= i; }
+	)*
+	< EOF >
+	{return valor;}
+}
+
+float getValor(Evaluador ev) :
+{
+	Token t;
+}
+{
+  t = <NUMERO>
+  { return Float.parseFloat(t.image); }
+	| 
+  t = <CUENTA>
+  { return ev.getCuentaValor(t.image);}
+ 	|
+ t = <INDICADOR>
+  { return ev.getValorIndicador(t.image);}
+   
 }
