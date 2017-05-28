@@ -8,7 +8,7 @@ public class Indicador {
 	private String nombre;
 	private String formula;
 	
-	Indicador(String nombre, String formula){
+	public Indicador(String nombre, String formula){
 		this.nombre = nombre;
 		this.formula = formula;
 	}
@@ -27,5 +27,11 @@ public class Indicador {
 	
 	public String getFormula(){
 		return this.formula;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getNombre();
 	}
 }
