@@ -42,7 +42,7 @@ public class UsarIndicadoresViewModel {
 	
 	public void setIndicador(Indicador indicador) {
 		this.indicador = indicador;
-		if(indicador!=null)
+		if(indicador!=null && balance != null) 
 			ObservableUtils.firePropertyChanged(this, "resultado");
 	}
 	
