@@ -59,12 +59,12 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 	
 	private void abrirUsarIndicadores() {
-		try {
+		//try {
 			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getEmpresas().getEmpresas(),this.getModelObject().getIndicadores())).open();
-		}catch(Exception e) {
+		/*}catch(Exception e) {
 			e.printStackTrace();
 			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas y cree al menos un indicador");
-		}
+		}*/
 	}
 
 

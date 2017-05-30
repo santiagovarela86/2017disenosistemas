@@ -5,7 +5,7 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import dds.tp.evaluador.Evaluador;
+import dds.tp.evaluador.EvaluadorIndicador;
 import dds.tp.lexer.ParseException;
 import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
@@ -95,7 +95,7 @@ public class UsarIndicadoresViewModel {
 		
 	public String getResultado() {
 		try { 
-			Evaluador ev = new Evaluador(indicador, balance, baulIndicadores);
+			EvaluadorIndicador ev = new EvaluadorIndicador(indicador, balance, baulIndicadores);
 			return ev.evaluar().toString(); 
 		}
 		catch (IndexOutOfBoundsException e) {
