@@ -3,6 +3,7 @@
  */options{  static = false;}PARSER_BEGIN(GramaticaParser)package dds.tp.lexer;
 import dds.tp.evaluador.EvaluadorIndicador;
 import dds.tp.calculador.*;
+import dds.tp.excepciones.*;
 
 public class GramaticaParser{  public static void main(String args []) throws ParseException  {    GramaticaParser parser = new GramaticaParser(System.in);	parser.Input();  }}PARSER_END(GramaticaParser)
 
@@ -39,7 +40,7 @@ void analizarSintacticamente() :
 }
 //-----------------------------------------------------
 //Esto es para calcular el indicador
-float evaluar(EvaluadorIndicador ev):
+float evaluar(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
 {
 	float valor;
 	float i;
@@ -58,7 +59,7 @@ float evaluar(EvaluadorIndicador ev):
 	{return valor;}
 }
 
-float termino(EvaluadorIndicador ev):
+float termino(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
 {
   float valor;
   float i;
@@ -76,7 +77,7 @@ float termino(EvaluadorIndicador ev):
 	{return valor;}
 }
 
-float getValor(EvaluadorIndicador ev) :
+float getValor(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
 {
 	Token t;
 }
@@ -93,7 +94,7 @@ float getValor(EvaluadorIndicador ev) :
 //-----------------------
 //-----------------------
 //Con Abstracciones propias
-Termino aevaluar(EvaluadorIndicador ev):
+Termino aevaluar(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
 {
   	Termino term;
 	Termino i;
@@ -114,7 +115,7 @@ Termino aevaluar(EvaluadorIndicador ev):
 }
 
 
-Termino atermino(EvaluadorIndicador ev):
+Termino atermino(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
 {
   Termino term;
   float i;

@@ -8,7 +8,7 @@ import dds.tp.model.GuardadorIndicadores;
 @Observable
 public class PantallaPrincipalViewModel{
 	
-	private String archivoCuentasOK;
+	private String mensajeError;
 	
 	private GuardadorEmpresas empresas;
 	private GuardadorIndicadores indicadores;
@@ -27,11 +27,11 @@ public class PantallaPrincipalViewModel{
 		return indicadores;
 	}
 	
-	public String getArchivoCuentasOK() {
-		return archivoCuentasOK;
+	public String getMensajeError() {
+		return mensajeError;
 	}
 
-	public void setArchivoCuentasOK(String archivoCuentasOK) {
-		this.archivoCuentasOK = archivoCuentasOK;
+	public void setMensajeError(String mensajeError) {
+		this.mensajeError = mensajeError;
 	}
 }

@@ -6,6 +6,8 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.evaluador.EvaluadorIndicador;
+import dds.tp.excepciones.CuentaNotFound;
+import dds.tp.excepciones.IndicadorNotFound;
 import dds.tp.lexer.ParseException;
 import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
@@ -22,6 +24,10 @@ public class UsarIndicadoresViewModel {
 	private Empresa empresa;
 	private Balance balance;
 	private Cuenta cuenta;
+	
+	public String getExpresion() {
+		return "Expresion: " + this.indicador.getFormula();
+	}
 	
 	public UsarIndicadoresViewModel(List<Empresa> empresa, GuardadorIndicadores indicadores) {
 		this.baulIndicadores = indicadores;
@@ -42,8 +48,10 @@ public class UsarIndicadoresViewModel {
 	
 	public void setIndicador(Indicador indicador) {
 		this.indicador = indicador;
-		if(indicador!=null && balance != null) 
+		if(indicador!=null && balance != null) {
 			ObservableUtils.firePropertyChanged(this, "resultado");
+			ObservableUtils.firePropertyChanged(this, "expresion");
+		}
 	}
 	
 	public Indicador getIndicador() {
@@ -98,8 +106,11 @@ public class UsarIndicadoresViewModel {
 			EvaluadorIndicador ev = new EvaluadorIndicador(indicador, balance, baulIndicadores);
 			return ev.evaluar().toString(); 
 		}
-		catch (IndexOutOfBoundsException e) {
-			return "No se encuentra el indicador o la cuenta que utiliza este indicador";
+		catch (CuentaNotFound ex) {
+			return ex.getMessage();
+		}
+		catch (IndicadorNotFound ex) {
+			return ex.getMessage();
 		}
 		catch (ParseException ex) {
 			//ex.printStackTrace();

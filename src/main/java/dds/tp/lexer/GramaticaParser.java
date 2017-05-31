@@ -2,6 +2,7 @@
 package dds.tp.lexer;
 import dds.tp.evaluador.EvaluadorIndicador;
 import dds.tp.calculador.*;
+import dds.tp.excepciones.*;
 
 public class GramaticaParser implements GramaticaParserConstants {
   public static void main(String args []) throws ParseException
@@ -85,7 +86,7 @@ public class GramaticaParser implements GramaticaParserConstants {
 
 //-----------------------------------------------------
 //Esto es para calcular el indicador
-  final public float evaluar(EvaluadorIndicador ev) throws ParseException {
+  final public float evaluar(EvaluadorIndicador ev) throws ParseException, CuentaNotFound, IndicadorNotFound {
         float valor;
         float i;
     valor = termino(ev);
@@ -122,7 +123,7 @@ public class GramaticaParser implements GramaticaParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public float termino(EvaluadorIndicador ev) throws ParseException {
+  final public float termino(EvaluadorIndicador ev) throws ParseException, CuentaNotFound, IndicadorNotFound {
   float valor;
   float i;
     valor = getValor(ev);
@@ -158,7 +159,7 @@ public class GramaticaParser implements GramaticaParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public float getValor(EvaluadorIndicador ev) throws ParseException {
+  final public float getValor(EvaluadorIndicador ev) throws ParseException, CuentaNotFound, IndicadorNotFound {
         Token t;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case NUMERO:
@@ -184,7 +185,7 @@ public class GramaticaParser implements GramaticaParserConstants {
 //-----------------------
 //-----------------------
 //Con Abstracciones propias
-  final public Termino aevaluar(EvaluadorIndicador ev) throws ParseException {
+  final public Termino aevaluar(EvaluadorIndicador ev) throws ParseException, CuentaNotFound, IndicadorNotFound {
         Termino term;
         Termino i;
     term = atermino(ev);
@@ -221,7 +222,7 @@ public class GramaticaParser implements GramaticaParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Termino atermino(EvaluadorIndicador ev) throws ParseException {
+  final public Termino atermino(EvaluadorIndicador ev) throws ParseException, CuentaNotFound, IndicadorNotFound {
   Termino term;
   float i;
     i = getValor(ev);

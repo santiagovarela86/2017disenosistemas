@@ -1,12 +1,17 @@
 package dds.tp.ui.windows;
 
+import org.uqbar.arena.layout.ColumnLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.widgets.tables.Column;
+import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
+import dds.tp.ui.vm.ConsultarCuentasViewModel;
 import dds.tp.ui.vm.UsarIndicadoresViewModel;
 
 @SuppressWarnings("serial")
@@ -20,25 +25,51 @@ public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 	@Override
 	public void createContents(Panel mainPanel) {
 		this.setTitle("Usar indicadores");
-		new Label(mainPanel).setText("Seleccione un indicador").setWidth(400);
-		Selector<UsarIndicadoresViewModel> selecIndicador = new Selector<UsarIndicadoresViewModel>(mainPanel);
+		
+		Panel panelcolumn = new Panel(mainPanel);
+		panelcolumn.setLayout(new ColumnLayout(2));
+		
+		Panel panelIzquierda = new Panel(panelcolumn);
+		panelIzquierda.setLayout(new VerticalLayout());
+		
+		// Panel izquierdo creacion--------
+		new Label(panelIzquierda).setText("Seleccione un indicador").setWidth(400);
+		Selector<UsarIndicadoresViewModel> selecIndicador = new Selector<UsarIndicadoresViewModel>(panelIzquierda);
 		selecIndicador.bindItemsToProperty("indicadores");
 		selecIndicador.bindValueToProperty("indicador");
+		new Label(panelIzquierda).bindValueToProperty("expresion");
+		new Label(panelIzquierda).setText("");
 		this.getModelObject().setIndicador(this.getModelObject().getIndicadores().get(0));
-		new Label(mainPanel).setText("Seleccione una empresa").setWidth(400);
-		Selector<UsarIndicadoresViewModel> selecEmpresa = new Selector<UsarIndicadoresViewModel>(mainPanel);
+		new Label(panelIzquierda).setText("Seleccione una empresa").setWidth(400);
+		Selector<UsarIndicadoresViewModel> selecEmpresa = new Selector<UsarIndicadoresViewModel>(panelIzquierda);
 		selecEmpresa.bindItemsToProperty("empresas");
 		selecEmpresa.bindValueToProperty("empresa");
 		this.getModelObject().setEmpresa(this.getModelObject().getEmpresas().get(0));
-		new Label(mainPanel).setText("Balance de ").setWidth(400);
-		Selector<UsarIndicadoresViewModel> selecBalance = new Selector<UsarIndicadoresViewModel>(mainPanel);
+		new Label(panelIzquierda).setText("Balance de ").setWidth(400);
+		Selector<UsarIndicadoresViewModel> selecBalance = new Selector<UsarIndicadoresViewModel>(panelIzquierda);
 		selecBalance.bindItemsToProperty("empresa.balances");
 		selecBalance.bindValueToProperty("balance");
 		
-		new Label(mainPanel).setText("Resultado");
-		new Label(mainPanel).bindValueToProperty("resultado");
-		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
+		new Label(panelIzquierda).setText("Resultado");
+		new Label(panelIzquierda).bindValueToProperty("resultado");
+		new Button(panelIzquierda).setCaption("Cerrar").onClick(()->this.close());
+		// Panel Derecho creacion---------
+		Panel panelDerecha = new Panel(panelcolumn);
+		panelDerecha.setLayout(new VerticalLayout());
 		
+		Table<UsarIndicadoresViewModel> tablaCuentas = new Table<>(panelDerecha, UsarIndicadoresViewModel.class);
+		tablaCuentas.bindItemsToProperty("balance.cuentas");
+		tablaCuentas.bindValueToProperty("cuenta");
+		tablaCuentas.setNumberVisibleRows(10);
+		Column<UsarIndicadoresViewModel> columnaNombre = new Column<UsarIndicadoresViewModel>(tablaCuentas);
+		columnaNombre.setTitle("Nombre");
+		columnaNombre.bindContentsToProperty("nombre");
+		columnaNombre.setFixedSize(210);
+		Column<UsarIndicadoresViewModel> columnaValor = new Column<UsarIndicadoresViewModel>(tablaCuentas);
+		columnaValor.setTitle("Valor");
+		columnaValor.bindContentsToProperty("valor");
+		columnaValor.setFixedSize(210);
+		//---------------------------------
 	}
 
 

@@ -2,6 +2,7 @@
 package dds.tp.lexer;
 import dds.tp.evaluador.EvaluadorIndicador;
 import dds.tp.calculador.*;
+import dds.tp.excepciones.*;
 
 /** Token Manager. */
 public class GramaticaParserTokenManager implements GramaticaParserConstants

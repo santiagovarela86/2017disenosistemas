@@ -1,5 +1,6 @@
 package dds.tp.ui.windows;
 
+import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.ui.vm.CargarCuentasViewModel;
 import dds.tp.ui.vm.CargarIndicadoresViewModel;
 import dds.tp.ui.vm.ConsultarCuentasViewModel;
@@ -36,21 +37,19 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 
 		new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
-		new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("archivoCuentasOK");
+		new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("mensajeError");
 	}
 
 	private void abrirCargarCuentas(){
-		this.getModelObject().setArchivoCuentasOK("");
 		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getEmpresas())).open();
 	}
 
 	private void abrirConsultarCuentas(){
 		try {
-			this.getModelObject().setArchivoCuentasOK("");
+			this.comprobarCuentas();
 			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
 		} catch (Exception e){
-			e.printStackTrace();
-			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas antes de consultar");
+			this.getModelObject().setMensajeError(e.getMessage());
 		}
 	}
 
@@ -59,13 +58,25 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 	
 	private void abrirUsarIndicadores() {
-		//try {
+		try {
+			this.comprobarCuentas();
+			this.comprobarIndicadores();
 			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getEmpresas().getEmpresas(),this.getModelObject().getIndicadores())).open();
-		/*}catch(Exception e) {
-			e.printStackTrace();
-			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas y cree al menos un indicador");
-		}*/
+		}
+		catch(ElementNotLoad ex) {
+			this.getModelObject().setMensajeError(ex.getMessage());
+		}
+
+	}
+	
+	private void comprobarCuentas() throws ElementNotLoad{
+		if(this.getModelObject().getEmpresas().getEmpresas().isEmpty())
+			throw new ElementNotLoad("No hay cuenta cargadas.");
 	}
 
+	private void comprobarIndicadores() throws ElementNotLoad{
+		if(this.getModelObject().getIndicadores().getIndicadores().isEmpty())
+			throw new ElementNotLoad("No hay indicadores cargados.");
+	}
 
 }
