@@ -1,15 +1,15 @@
 package dds.tp.ui.vm;
 
+import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.lexer.GramaticaParser;
 import dds.tp.lexer.ParseException;
 import dds.tp.model.GuardadorIndicadores;
 import dds.tp.model.Indicador;
 
+import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-
-import javax.management.RuntimeErrorException;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
@@ -17,14 +17,23 @@ import org.uqbar.commons.utils.Observable;
 @Observable
 public class CargarIndicadoresViewModel {
 	
+	private Color color;
 	private String expresion = "";
 	private String resultado = "";
 	private String nombreIndicador = "";
 	private Boolean habilitado = false;
-	private GuardadorIndicadores indicadores;
+	private GuardadorIndicadores baulIndicadores;
+	
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	public Color getColor() {
+		return color;
+	}
 	
 	public CargarIndicadoresViewModel(GuardadorIndicadores indcs) {
-		this.indicadores = indcs;
+		this.baulIndicadores = indcs;
 	}
 
 	public void setExpresion(String expresion){
@@ -45,18 +54,19 @@ public class CargarIndicadoresViewModel {
 	public void parsearExpresion(){
 		InputStream is = new ByteArrayInputStream( this.expresion.getBytes( StandardCharsets.US_ASCII) );
 		GramaticaParser parser = new GramaticaParser(is);
-
+		
 		try {
-			resultado = "";
 			parser.analizarSintacticamente();
+			this.setColor(Color.BLUE);
 			resultado = "Indicador guardado con exito";
-			indicadores.addIndicador(new Indicador(this.getNombreIndicador(), this.getExpresion()));	
+			baulIndicadores.addIndicador(new Indicador(this.getNombreIndicador(), this.getExpresion()));
 		}
-		catch (RuntimeErrorException e) {
-			resultado = e.getTargetError().getMessage();
+		catch (ElementoYaExiste e) {
+			this.setColor(Color.RED);
+			resultado = e.getMessage();
 		}
 		catch (ParseException e){
-			e.printStackTrace();
+			this.setColor(Color.RED);
 			resultado = "Error de expresion";
 		}
 	}

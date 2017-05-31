@@ -1,5 +1,6 @@
 package dds.tp.ui.windows;
 
+import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.ui.vm.CargarCuentasViewModel;
 import dds.tp.ui.vm.CargarIndicadoresViewModel;
 import dds.tp.ui.vm.ConsultarCuentasViewModel;
@@ -33,39 +34,49 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(130);
 		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(130);
 		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(130);
-
+		new Label(mainPanel).setForeground(java.awt.Color.RED).bindValueToProperty("mensajeError");
 		new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
-		new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("archivoCuentasOK");
+		
 	}
 
 	private void abrirCargarCuentas(){
-		this.getModelObject().setArchivoCuentasOK("");
-		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getEmpresas())).open();
+		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getBaulEmpresas())).open();
 	}
 
 	private void abrirConsultarCuentas(){
 		try {
-			this.getModelObject().setArchivoCuentasOK("");
-			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
+			this.comprobarCuentas();
+			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getBaulEmpresas().getEmpresas())).open();
 		} catch (Exception e){
-			e.printStackTrace();
-			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas antes de consultar");
+			this.getModelObject().setMensajeError(e.getMessage());
 		}
 	}
 
 	private void abrirCargarIndicadores(){
-		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getIndicadores())).open();
+		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getBaulIndicadores())).open();
 	}
 	
 	private void abrirUsarIndicadores() {
 		try {
-			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getEmpresas().getEmpresas(),this.getModelObject().getIndicadores())).open();
-		}catch(Exception e) {
-			e.printStackTrace();
-			this.getModelObject().setArchivoCuentasOK("Por favor cargue un archivo de cuentas y cree al menos un indicador");
+			this.comprobarCuentas();
+			this.comprobarIndicadores();
+			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas().getEmpresas(),this.getModelObject().getBaulIndicadores())).open();
 		}
+		catch(ElementNotLoad ex) {
+			this.getModelObject().setMensajeError(ex.getMessage());
+		}
+
+	}
+	
+	private void comprobarCuentas() throws ElementNotLoad{
+		if(this.getModelObject().getBaulEmpresas().getEmpresas().isEmpty())
+			throw new ElementNotLoad("No hay cuenta cargadas.");
 	}
 
+	private void comprobarIndicadores() throws ElementNotLoad{
+		if(this.getModelObject().getBaulIndicadores().getIndicadores().isEmpty())
+			throw new ElementNotLoad("No hay indicadores cargados.");
+	}
 
 }

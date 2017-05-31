@@ -11,13 +11,13 @@ import dds.tp.model.LectorCuentas;
 @Observable
 public class CargarCuentasViewModel{ 
 	
-	private GuardadorEmpresas empresas;
+	private GuardadorEmpresas baulEmpresas;
 	private String path;
 	private String readFileOK;
 	private Boolean habilitado;
 	
 	public CargarCuentasViewModel(GuardadorEmpresas empresas) {
-		this.empresas = empresas;
+		this.baulEmpresas = empresas;
 	}
 	
 	public void cargar() {
@@ -32,7 +32,7 @@ public class CargarCuentasViewModel{
 		
 	}
 	public void cargarEmpresas(String path, Stream<String> lineas){
-		this.empresas.setEmpresas(new LectorCuentas(path).obtenerDatos(lineas));
+		this.baulEmpresas.setEmpresas(new LectorCuentas(path).obtenerDatos(lineas));
 	}
 	
 	public String getPath(){
@@ -58,7 +58,7 @@ public class CargarCuentasViewModel{
 	}
 	
 	public GuardadorEmpresas getGuardadorEmpresas(){
-		return empresas;
+		return baulEmpresas;
 	}
 	
 }

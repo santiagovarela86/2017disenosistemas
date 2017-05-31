@@ -1,7 +1,9 @@
 /**
  * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
  */options{  static = false;}PARSER_BEGIN(GramaticaParser)package dds.tp.lexer;
-import dds.tp.evaluador.Evaluador;
+import dds.tp.evaluador.EvaluadorIndicador;
+import dds.tp.calculador.*;
+import dds.tp.excepciones.*;
 
 public class GramaticaParser{  public static void main(String args []) throws ParseException  {    GramaticaParser parser = new GramaticaParser(System.in);	parser.Input();  }}PARSER_END(GramaticaParser)
 
@@ -38,7 +40,7 @@ void analizarSintacticamente() :
 }
 //-----------------------------------------------------
 //Esto es para calcular el indicador
-float evaluar(Evaluador ev):
+float evaluar(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
 {
 	float valor;
 	float i;
@@ -57,8 +59,7 @@ float evaluar(Evaluador ev):
 	{return valor;}
 }
 
-
-float termino(Evaluador ev):
+float termino(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
 {
   float valor;
   float i;
@@ -76,7 +77,7 @@ float termino(Evaluador ev):
 	{return valor;}
 }
 
-float getValor(Evaluador ev) :
+float getValor(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
 {
 	Token t;
 }
@@ -89,4 +90,47 @@ float getValor(Evaluador ev) :
  	|
  t = <INDICADOR>
   { return ev.getValorIndicador(t.image);}
+}
+//-----------------------
+//-----------------------
+//Con Abstracciones propias
+Termino aevaluar(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
+{
+  	Termino term;
+	Termino i;
+}
+{
+  	term = atermino( ev )
+	(
+		< MAS >
+		i = atermino( ev )
+		{term.addOperacion (new Suma(i));}
+		| 
+		< MENOS >
+		i = atermino( ev )
+		{term.addOperacion (new Resta(i));}
+	)*
+	< EOF >
+	{return term;}
+}
+
+
+Termino atermino(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
+{
+  Termino term;
+  float i;
+}
+{
+	i = getValor ( ev )
+	{term = new Termino(new Numero(i));}
+	(
+		< POR >
+		i = getValor( ev )
+		{term.addOperacion(new Multiplicacion(new Numero(i)));}
+		|
+		< DIV >
+		i = getValor( ev )
+		{term.addOperacion(new Divicion(new Numero(i)));}
+	)*
+	{return term;}
 }
