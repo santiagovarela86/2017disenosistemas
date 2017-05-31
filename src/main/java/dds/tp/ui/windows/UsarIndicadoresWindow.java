@@ -11,7 +11,6 @@ import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
-import dds.tp.ui.vm.ConsultarCuentasViewModel;
 import dds.tp.ui.vm.UsarIndicadoresViewModel;
 
 @SuppressWarnings("serial")
@@ -38,7 +37,7 @@ public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 		selecIndicador.bindItemsToProperty("indicadores");
 		selecIndicador.bindValueToProperty("indicador");
 		new Label(panelIzquierda).bindValueToProperty("expresion");
-		new Label(panelIzquierda).setText("");
+		new Label(panelIzquierda).setText("").setWidth(500);
 		this.getModelObject().setIndicador(this.getModelObject().getIndicadores().get(0));
 		new Label(panelIzquierda).setText("Seleccione una empresa").setWidth(400);
 		Selector<UsarIndicadoresViewModel> selecEmpresa = new Selector<UsarIndicadoresViewModel>(panelIzquierda);
@@ -50,13 +49,20 @@ public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 		selecBalance.bindItemsToProperty("empresa.balances");
 		selecBalance.bindValueToProperty("balance");
 		
-		new Label(panelIzquierda).setText("Resultado");
-		new Label(panelIzquierda).bindValueToProperty("resultado");
+		Label tipoResultado = new Label(panelIzquierda);
+		tipoResultado.bindForegroundToProperty("color");
+		tipoResultado.bindValueToProperty("tipoResultado");
+		
+		Label resultado = new Label(panelIzquierda);
+		resultado.bindValueToProperty("resultado");
+		resultado.bindForegroundToProperty("color");
 		new Button(panelIzquierda).setCaption("Cerrar").onClick(()->this.close());
 		// Panel Derecho creacion---------
 		Panel panelDerecha = new Panel(panelcolumn);
 		panelDerecha.setLayout(new VerticalLayout());
 		
+		Label infoTabla = new Label(panelDerecha);
+		infoTabla.bindValueToProperty("infoEmpresa");
 		Table<UsarIndicadoresViewModel> tablaCuentas = new Table<>(panelDerecha, UsarIndicadoresViewModel.class);
 		tablaCuentas.bindItemsToProperty("balance.cuentas");
 		tablaCuentas.bindValueToProperty("cuenta");
@@ -64,11 +70,11 @@ public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 		Column<UsarIndicadoresViewModel> columnaNombre = new Column<UsarIndicadoresViewModel>(tablaCuentas);
 		columnaNombre.setTitle("Nombre");
 		columnaNombre.bindContentsToProperty("nombre");
-		columnaNombre.setFixedSize(210);
+		columnaNombre.setFixedSize(250);
 		Column<UsarIndicadoresViewModel> columnaValor = new Column<UsarIndicadoresViewModel>(tablaCuentas);
 		columnaValor.setTitle("Valor");
 		columnaValor.bindContentsToProperty("valor");
-		columnaValor.setFixedSize(210);
+		columnaValor.setFixedSize(250);
 		//---------------------------------
 	}
 

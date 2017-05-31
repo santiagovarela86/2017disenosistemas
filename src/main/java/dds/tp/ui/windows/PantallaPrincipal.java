@@ -34,34 +34,34 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(130);
 		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(130);
 		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(130);
-
+		new Label(mainPanel).setForeground(java.awt.Color.RED).bindValueToProperty("mensajeError");
 		new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
-		new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("mensajeError");
+		
 	}
 
 	private void abrirCargarCuentas(){
-		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getEmpresas())).open();
+		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getBaulEmpresas())).open();
 	}
 
 	private void abrirConsultarCuentas(){
 		try {
 			this.comprobarCuentas();
-			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getEmpresas().getEmpresas())).open();
+			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getBaulEmpresas().getEmpresas())).open();
 		} catch (Exception e){
 			this.getModelObject().setMensajeError(e.getMessage());
 		}
 	}
 
 	private void abrirCargarIndicadores(){
-		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getIndicadores())).open();
+		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getBaulIndicadores())).open();
 	}
 	
 	private void abrirUsarIndicadores() {
 		try {
 			this.comprobarCuentas();
 			this.comprobarIndicadores();
-			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getEmpresas().getEmpresas(),this.getModelObject().getIndicadores())).open();
+			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas().getEmpresas(),this.getModelObject().getBaulIndicadores())).open();
 		}
 		catch(ElementNotLoad ex) {
 			this.getModelObject().setMensajeError(ex.getMessage());
@@ -70,12 +70,12 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 	
 	private void comprobarCuentas() throws ElementNotLoad{
-		if(this.getModelObject().getEmpresas().getEmpresas().isEmpty())
+		if(this.getModelObject().getBaulEmpresas().getEmpresas().isEmpty())
 			throw new ElementNotLoad("No hay cuenta cargadas.");
 	}
 
 	private void comprobarIndicadores() throws ElementNotLoad{
-		if(this.getModelObject().getIndicadores().getIndicadores().isEmpty())
+		if(this.getModelObject().getBaulIndicadores().getIndicadores().isEmpty())
 			throw new ElementNotLoad("No hay indicadores cargados.");
 	}
 

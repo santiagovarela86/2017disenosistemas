@@ -10,21 +10,21 @@ public class PantallaPrincipalViewModel{
 	
 	private String mensajeError;
 	
-	private GuardadorEmpresas empresas;
-	private GuardadorIndicadores indicadores;
+	private GuardadorEmpresas baulEmpresas;
+	private GuardadorIndicadores baulIindicadores;
 
 	public PantallaPrincipalViewModel() {
 		super();
-		this.empresas = new GuardadorEmpresas();
-		this.indicadores = new GuardadorIndicadores();
+		this.baulEmpresas = new GuardadorEmpresas();
+		this.baulIindicadores = new GuardadorIndicadores();
 	}
 	
-	public GuardadorEmpresas getEmpresas() {
-		return empresas;
+	public GuardadorEmpresas getBaulEmpresas() {
+		return baulEmpresas;
 	}
 	
-	public GuardadorIndicadores getIndicadores() {
-		return indicadores;
+	public GuardadorIndicadores getBaulIndicadores() {
+		return baulIindicadores;
 	}
 	
 	public String getMensajeError() {

@@ -22,9 +22,11 @@ public class CargarIndicadoresWindow extends Window<CargarIndicadoresViewModel>{
 		new Label(mainPanel).setText("Introduzca el Nombre del Nuevo Indicador:").setWidth(400);
 		new TextBox(mainPanel).bindValueToProperty("nombreIndicador");
 		new Label(mainPanel).setText("Ingrese a continuación la expresion:").setWidth(400);
-		new Label(mainPanel).setText("Ejemplo: cuenta(rsoe)*cuenta(ebitda), cuenta(ebitda)*5").setWidth(400);
+		new Label(mainPanel).setText("Ejemplo: cuenta(rsoe)*cuenta(ebitda)").setWidth(400);
 		new TextBox(mainPanel).bindValueToProperty("expresion");
-		new Label(mainPanel).bindValueToProperty("resultado");
+		Label resultado = new Label(mainPanel);
+		resultado.bindValueToProperty("resultado");
+		resultado.bindForegroundToProperty("color");
 		
 		new Button(mainPanel)
 		.setCaption("Guardar")
