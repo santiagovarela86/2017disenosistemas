@@ -19,6 +19,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 
 	public PantallaPrincipal(WindowOwner parent, PantallaPrincipalViewModel model) {
 		super(parent, model);
+		this.getModelObject().cargarPredefinidos();
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		}
 	}
 
-	private void abrirCargarIndicadores(){
+	private void abrirCargarIndicadores() {
 		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getBaulIndicadores())).open();
 	}
 	
