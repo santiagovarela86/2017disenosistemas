@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Cuenta;
 
 public class LectorCuentas {
@@ -53,7 +54,12 @@ public class LectorCuentas {
 			cta = bal.getCuentas().stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList()).get(0);
 		} catch (IndexOutOfBoundsException ex) {
 			cta = new Cuenta(nombre,valor);
-			bal.addCuenta(cta);
+			try {
+				bal.addCuenta(cta);
+			} catch (ElementoYaExiste e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
