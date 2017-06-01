@@ -1,10 +1,13 @@
 package dds.tp.ui.vm;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
+
+import dds.tp.model.Empresa;
 import dds.tp.model.GuardadorEmpresas;
 import dds.tp.model.LectorCuentas;
 
@@ -24,7 +27,6 @@ public class CargarCuentasViewModel{
 		try {
 			cargarEmpresas(path,Files.lines(Paths.get(path)));
 			setReadFileOK("Se cargo el archivo de cuentas con exito");
-			//ACA VER LA FORMA DE BORRAR EL MENSAJE DE QUE SE CARGUE UN ARCHIVO EN LA PANTALLA PRINCIPAL
 		} catch (Exception e) {
 			  setReadFileOK("Archivo no encontrado/valido");
 			  e.printStackTrace();
@@ -32,7 +34,8 @@ public class CargarCuentasViewModel{
 		
 	}
 	public void cargarEmpresas(String path, Stream<String> lineas){
-		this.baulEmpresas.setEmpresas(new LectorCuentas(path).obtenerDatos(lineas));
+		List<Empresa> aIngresar = new LectorCuentas(path).obtenerDatos(lineas);
+		this.baulEmpresas.addEmpresas(aIngresar);
 	}
 	
 	public String getPath(){
