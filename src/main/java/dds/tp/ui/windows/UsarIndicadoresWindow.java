@@ -32,7 +32,7 @@ public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 		panelIzquierda.setLayout(new VerticalLayout());
 		
 		// Panel izquierdo creacion--------
-		new Label(panelIzquierda).setText("Seleccione un indicador").setWidth(400);
+		new Label(panelIzquierda).setText("Seleccione un indicador").setWidth(800);
 		Selector<UsarIndicadoresViewModel> selecIndicador = new Selector<UsarIndicadoresViewModel>(panelIzquierda);
 		selecIndicador.bindItemsToProperty("indicadores");
 		selecIndicador.bindValueToProperty("indicador");
@@ -70,11 +70,11 @@ public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 		Column<UsarIndicadoresViewModel> columnaNombre = new Column<UsarIndicadoresViewModel>(tablaCuentas);
 		columnaNombre.setTitle("Nombre");
 		columnaNombre.bindContentsToProperty("nombre");
-		columnaNombre.setFixedSize(250);
+		columnaNombre.setFixedSize(400);
 		Column<UsarIndicadoresViewModel> columnaValor = new Column<UsarIndicadoresViewModel>(tablaCuentas);
 		columnaValor.setTitle("Valor");
 		columnaValor.bindContentsToProperty("valor");
-		columnaValor.setFixedSize(250);
+		columnaValor.setFixedSize(400);
 		//---------------------------------
 	}
 
