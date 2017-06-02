@@ -72,7 +72,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	
 	private void comprobarCuentas() throws ElementNotLoad{
 		if(this.getModelObject().getBaulEmpresas().getEmpresas().isEmpty())
-			throw new ElementNotLoad("No hay cuenta cargadas.");
+			throw new ElementNotLoad("No hay cuentas cargadas.");
 	}
 
 	private void comprobarIndicadores() throws ElementNotLoad{
