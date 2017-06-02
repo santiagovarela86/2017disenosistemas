@@ -53,6 +53,8 @@ public class TestCalcularExpresiones {
 	public void testParserError() throws ParseException{
 		new Parser().chequearExpresion("pepe+7");
 	}
+<<<<<<< HEAD
+=======
 	
 	@Test(expected=ElementoYaExiste.class)
 	public void TestNoSePermitenIndicadoresConElMismoNombre() throws ElementoYaExiste {
@@ -75,4 +77,5 @@ public class TestCalcularExpresiones {
 	
 	}
 	
+>>>>>>> 42dfd3ecb7c5df08430d01de903d7146db5f3afd
 }

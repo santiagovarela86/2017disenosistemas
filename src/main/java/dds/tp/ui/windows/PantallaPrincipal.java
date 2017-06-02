@@ -40,14 +40,18 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
 		
 	}
+	
+	private void refresh(){
+		super.getModel().getSource().setMensajeError(null);
+	}
 
 	private void abrirCargarCuentas(){
-		this.getModelObject().setMensajeError("");
 		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getBaulEmpresas())).open();
 	}
 
 	private void abrirConsultarCuentas(){
 		try {
+			
 			this.comprobarCuentas();
 			this.getModelObject().setMensajeError("");
 			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getBaulEmpresas().getEmpresas())).open();
@@ -57,12 +61,12 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 
 	private void abrirCargarIndicadores() {
-		this.getModelObject().setMensajeError("");
 		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getBaulIndicadores())).open();
 	}
 	
 	private void abrirUsarIndicadores() {
 		try {
+			
 			this.comprobarCuentas();
 			this.comprobarIndicadores();
 			this.getModelObject().setMensajeError("");
