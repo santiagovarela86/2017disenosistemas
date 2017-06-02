@@ -42,18 +42,18 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 	
 	private void refresh(){
-		super.getModel().getSource().setMensajeError(null);
+		this.getModelObject().setMensajeError("");
 	}
 
 	private void abrirCargarCuentas(){
+		this.refresh();
 		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getBaulEmpresas())).open();
 	}
 
 	private void abrirConsultarCuentas(){
 		try {
-			
 			this.comprobarCuentas();
-			this.getModelObject().setMensajeError("");
+			this.refresh();
 			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getBaulEmpresas().getEmpresas())).open();
 		} catch (Exception e){
 			this.getModelObject().setMensajeError(e.getMessage());
@@ -61,6 +61,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 
 	private void abrirCargarIndicadores() {
+		this.refresh();
 		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getBaulIndicadores())).open();
 	}
 	
@@ -69,7 +70,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 			
 			this.comprobarCuentas();
 			this.comprobarIndicadores();
-			this.getModelObject().setMensajeError("");
+			this.refresh();
 			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas().getEmpresas(),this.getModelObject().getBaulIndicadores())).open();
 		}
 		catch(ElementNotLoad ex) {
