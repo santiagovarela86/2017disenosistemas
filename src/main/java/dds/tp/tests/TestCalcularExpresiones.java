@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import dds.tp.calculador.Calculador;
 import dds.tp.evaluador.EvaluadorIndicador;
 import dds.tp.excepciones.CuentaNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
@@ -49,11 +48,9 @@ public class TestCalcularExpresiones {
 		assertEquals(215, eva3.evaluar(), 0);
 		//----------------------
 	}
-	
+
 	@Test(expected=ParseException.class)
 	public void testParserError() throws ParseException{
 		new Parser().chequearExpresion("pepe+7");
 	}
-	
-	
 }
