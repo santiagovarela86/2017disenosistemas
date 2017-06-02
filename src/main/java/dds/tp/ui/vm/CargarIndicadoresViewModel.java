@@ -1,15 +1,12 @@
 package dds.tp.ui.vm;
 
 import dds.tp.excepciones.ElementoYaExiste;
-import dds.tp.lexer.GramaticaParser;
 import dds.tp.lexer.ParseException;
 import dds.tp.model.GuardadorIndicadores;
 import dds.tp.model.Indicador;
+import dds.tp.model.Parser;
 
 import java.awt.Color;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
@@ -51,12 +48,9 @@ public class CargarIndicadoresViewModel {
 		return this.expresion;
 	}
 
-	public void parsearExpresion(){
-		InputStream is = new ByteArrayInputStream( this.expresion.getBytes( StandardCharsets.US_ASCII) );
-		GramaticaParser parser = new GramaticaParser(is);
-		
+	public void parsearExpresion(){		
 		try {
-			parser.analizarSintacticamente();
+			new Parser().chequearExpresion(this.getExpresion());
 			this.setColor(Color.BLUE);
 			resultado = "Indicador guardado con exito";
 			baulIndicadores.addIndicador(new Indicador(this.getNombreIndicador(), this.getExpresion()));
