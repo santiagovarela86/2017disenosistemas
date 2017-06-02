@@ -45,6 +45,7 @@ public class CargarCuentasViewModel{
 	public void setPath(String path){
 		this.path = path;
 		ObservableUtils.firePropertyChanged(this, "habilitado");
+		this.setReadFileOK("");
 	}
 
 	public String getReadFileOK() {

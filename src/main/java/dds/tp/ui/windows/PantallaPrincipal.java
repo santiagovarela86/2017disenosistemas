@@ -40,13 +40,19 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
 		
 	}
+	
+	private void refresh(){
+		super.getModel().getSource().setMensajeError(null);
+	}
 
 	private void abrirCargarCuentas(){
+		this.refresh();
 		new CargarCuentasWindow(this, new CargarCuentasViewModel(this.getModelObject().getBaulEmpresas())).open();
 	}
 
 	private void abrirConsultarCuentas(){
 		try {
+			
 			this.comprobarCuentas();
 			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getBaulEmpresas().getEmpresas())).open();
 		} catch (Exception e){
@@ -55,11 +61,13 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 
 	private void abrirCargarIndicadores() {
+		this.refresh();
 		new CargarIndicadoresWindow(this, new CargarIndicadoresViewModel(this.getModelObject().getBaulIndicadores())).open();
 	}
 	
 	private void abrirUsarIndicadores() {
 		try {
+			
 			this.comprobarCuentas();
 			this.comprobarIndicadores();
 			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas().getEmpresas(),this.getModelObject().getBaulIndicadores())).open();
@@ -72,7 +80,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	
 	private void comprobarCuentas() throws ElementNotLoad{
 		if(this.getModelObject().getBaulEmpresas().getEmpresas().isEmpty())
-			throw new ElementNotLoad("No hay cuenta cargadas.");
+			throw new ElementNotLoad("No hay cuentas cargadas.");
 	}
 
 	private void comprobarIndicadores() throws ElementNotLoad{

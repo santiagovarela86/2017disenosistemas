@@ -1,19 +1,16 @@
 package dds.tp.evaluador;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import dds.tp.calculador.Calculador;
 import dds.tp.excepciones.CuentaNotFound;
 import dds.tp.excepciones.IndicadorNotFound;
-import dds.tp.lexer.GramaticaParser;
 import dds.tp.lexer.ParseException;
 import dds.tp.model.Balance;
 import dds.tp.model.GuardadorIndicadores;
 import dds.tp.model.Indicador;
+import dds.tp.model.Parser;
 
 public class EvaluadorIndicador {
 	
@@ -28,9 +25,7 @@ public class EvaluadorIndicador {
 	}
 	
 	public Float evaluar() throws ParseException, CuentaNotFound, IndicadorNotFound {
-		InputStream is = new ByteArrayInputStream(indicador.getFormula().getBytes( Charset.defaultCharset() ) );
-		GramaticaParser parser = new GramaticaParser(is);
-		Calculador calc = new Calculador(parser.aevaluar(this));
+		Calculador calc = new Calculador(new Parser().obtenerTerminoCalculable(indicador.getFormula(), this));
 		return calc.obtenerResultado();
 	}
 	
