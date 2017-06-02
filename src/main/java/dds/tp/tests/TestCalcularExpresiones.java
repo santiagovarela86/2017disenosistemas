@@ -53,4 +53,26 @@ public class TestCalcularExpresiones {
 	public void testParserError() throws ParseException{
 		new Parser().chequearExpresion("pepe+7");
 	}
+	
+	@Test(expected=ElementoYaExiste.class)
+	public void TestNoSePermitenIndicadoresConElMismoNombre() throws ElementoYaExiste {
+		baulIndicadores.addIndicador(new Indicador("test", "cuenta(fsd)*2+5"));
+		baulIndicadores.addIndicador(new Indicador("test", "cuenta(fsd)*7+5"));
+		
+	}
+	
+	@Test(expected=CuentaNotFound.class)
+	public void TestErrorAlCalcularYNoTenerLaCuentaEnElBalance() throws CuentaNotFound, ParseException, IndicadorNotFound {
+		EvaluadorIndicador eva1 = new EvaluadorIndicador(new Indicador("test", "cuenta(pepe)*2+5"), balanceTest, baulIndicadores);
+		eva1.evaluar();
+	
+	}
+	
+	@Test(expected=IndicadorNotFound.class)
+	public void TestErrorAlCalcularYNoTenerLosIndicadores() throws CuentaNotFound, ParseException, IndicadorNotFound {
+		EvaluadorIndicador eva1 = new EvaluadorIndicador(new Indicador("test", "indicador(pepe)*2+5"), balanceTest, baulIndicadores);
+		eva1.evaluar();
+	
+	}
+	
 }
