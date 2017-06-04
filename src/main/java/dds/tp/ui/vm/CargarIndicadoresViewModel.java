@@ -1,10 +1,8 @@
 package dds.tp.ui.vm;
 
-import dds.tp.excepciones.ElementoYaExiste;
-import dds.tp.lexer.ParseException;
 import dds.tp.model.GuardadorIndicadores;
 import dds.tp.model.Indicador;
-import dds.tp.model.Parser;
+import dds.tp.lexer.Parser;
 
 import java.awt.Color;
 
@@ -14,6 +12,7 @@ import org.uqbar.commons.utils.Observable;
 @Observable
 public class CargarIndicadoresViewModel {
 	
+	private Parser parser = new Parser();
 	private Color color;
 	private String expresion = "";
 	private String resultado = "";
@@ -48,20 +47,20 @@ public class CargarIndicadoresViewModel {
 		return this.expresion;
 	}
 
-	public void parsearExpresion(){		
-		try {
-			new Parser().chequearExpresion(this.getExpresion());
+	public void parsearExpresion(){
+		
+		if (parser.esValidoSintacticamente(this.getExpresion())){
 			this.setColor(Color.BLUE);
 			resultado = "Indicador guardado con exito";
-			baulIndicadores.addIndicador(new Indicador(this.getNombreIndicador(), this.getExpresion()));
-		}
-		catch (ElementoYaExiste e) {
+			if (baulIndicadores.getIndicadores().stream().anyMatch(i -> i.getNombre().equalsIgnoreCase(this.getNombreIndicador()))){
+				this.setColor(Color.RED);
+				resultado = "Elemento ya existe";
+			} else {
+				baulIndicadores.addIndicador(new Indicador(this.getNombreIndicador(), this.getExpresion()));
+			}
+		} else {
 			this.setColor(Color.RED);
-			resultado = e.getMessage();
-		}
-		catch (ParseException e){
-			this.setColor(Color.RED);
-			resultado = "Error de expresion";
+			resultado = "Error de Sintaxis";
 		}
 	}
 

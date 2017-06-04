@@ -1,136 +1,0 @@
-/**
- * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
- */options{  static = false;}PARSER_BEGIN(GramaticaParser)package dds.tp.lexer;
-import dds.tp.evaluador.EvaluadorIndicador;
-import dds.tp.calculador.*;
-import dds.tp.excepciones.*;
-
-public class GramaticaParser{  public static void main(String args []) throws ParseException  {    GramaticaParser parser = new GramaticaParser(System.in);	parser.Input();  }}PARSER_END(GramaticaParser)
-
-SKIP: { " " }
-TOKEN [IGNORE_CASE] : {
-<CUENTA: ("cuenta("<NOMBRE>")")> //cuenta(NombreDeCuenta)
-| <INDICADOR: ("indicador("<NOMBRE>")")> //indicador(nombredeIndicador)
-| <MAS: "+">
-| <MENOS: "-">
-| <POR: "*">
-| <DIV: "/">
-| <NUMERO: (["0"-"9"])+ >
-| <NOMBRE: ["a"-"z"](["a"-"z"] | ["0"-"9"])+>
-}
-
-//No la usamos pero si lo saco tira error
-//Ver como solucionarlo
-void Input():
- {}
- {
-	<NUMERO>
- }
-
-//Este es para validar la expresion y poder guardarla si esta ok
-void analizarSintacticamente() :
-{}
-{
-	(<INDICADOR> | <CUENTA> | <NUMERO>)
-	(
-		( <MAS> | <MENOS> |  <DIV> | <POR> )
-
-		(<INDICADOR> | <CUENTA> | <NUMERO>)	)*
-	< EOF >
-}
-//-----------------------------------------------------
-//Esto es para calcular el indicador
-float evaluar(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
-{
-	float valor;
-	float i;
-}
-{
-  	valor = termino( ev )
-	(		< MAS >
-		i = termino( ev )
-		{ valor += i; }
-		| 
-		< MENOS >
-		i = termino( ev )
-		{ valor -= i; }
-	)*
-	< EOF >
-	{return valor;}
-}
-
-float termino(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
-{
-  float valor;
-  float i;
-}
-{
-	valor = getValor ( ev )
-	(		< POR >
-		i = getValor( ev )
-		{valor *= i;}
-		|
-		< DIV >
-		i = getValor( ev )
-		{valor /= i;}
-	)*
-	{return valor;}
-}
-
-float getValor(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
-{
-	Token t;
-}
-{
-  t = <NUMERO>
-  { return Float.parseFloat(t.image); }
-	| 
-  t = <CUENTA>
-  { return ev.getCuentaValor(t.image);}
- 	|
- t = <INDICADOR>
-  { return ev.getValorIndicador(t.image);}
-}
-//-----------------------
-//-----------------------
-//Con Abstracciones propias
-Termino aevaluar(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
-{
-  	Termino term;
-	Termino i;
-}
-{
-  	term = atermino( ev )
-	(
-		< MAS >
-		i = atermino( ev )
-		{term.addOperacion (new Suma(i));}
-		| 
-		< MENOS >
-		i = atermino( ev )
-		{term.addOperacion (new Resta(i));}
-	)*
-	< EOF >
-	{return term;}
-}
-
-
-Termino atermino(EvaluadorIndicador ev) throws CuentaNotFound, IndicadorNotFound:
-{
-  Termino term;
-  float i;
-}
-{
-	i = getValor ( ev )
-	{term = new Termino(new Numero(i));}
-	(
-		< POR >
-		i = getValor( ev )
-		{term.addOperacion(new Multiplicacion(new Numero(i)));}
-		|
-		< DIV >
-		i = getValor( ev )
-		{term.addOperacion(new Divicion(new Numero(i)));}
-	)*
-	{return term;}
-}

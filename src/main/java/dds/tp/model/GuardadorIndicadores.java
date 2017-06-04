@@ -18,11 +18,7 @@ public class GuardadorIndicadores {
 		return indicadores;
 	}
 	
-	public void addIndicador(Indicador indc) throws ElementoYaExiste {
-		if(this.indicadores.stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(indc.getNombre())))
-		{
-			throw new ElementoYaExiste("Ya existe un indicador con este nombre");
-		}
+	public void addIndicador(Indicador indc) {
 		this.indicadores.add(indc);
 	}
 }

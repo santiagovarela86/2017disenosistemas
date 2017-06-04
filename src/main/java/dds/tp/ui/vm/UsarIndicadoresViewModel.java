@@ -6,10 +6,8 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import dds.tp.evaluador.EvaluadorIndicador;
-import dds.tp.excepciones.CuentaNotFound;
-import dds.tp.excepciones.IndicadorNotFound;
-import dds.tp.lexer.ParseException;
+import dds.tp.evaluador.Evaluador;
+import dds.tp.lexer.Parser;
 import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
@@ -18,7 +16,8 @@ import dds.tp.model.Indicador;
 
 @Observable
 public class UsarIndicadoresViewModel {
-	
+
+	private Evaluador evaluador = new Evaluador();
 	private String tipoResultado;
 	private Color color;
 	private GuardadorIndicadores baulIndicadores;
@@ -27,6 +26,14 @@ public class UsarIndicadoresViewModel {
 	private Empresa empresa;
 	private Balance balance;
 	private Cuenta cuenta;
+	
+	private Parser getParser(){
+		return this.getEvaluador().getParser();
+	}
+	
+	private Evaluador getEvaluador(){
+		return evaluador;
+	}
 	
 	public void setColor(Color color) {
 		this.color = color;
@@ -45,8 +52,14 @@ public class UsarIndicadoresViewModel {
 	}
 	
 	public String getExpresion() {
-		return "Formula: " + this.indicador.getFormula();
+		return this.indicador.getFormula();
 	}
+	
+	/*
+	public String getFormula(){
+		return this.indicador.getFormula();
+	}
+	*/
 	
 	public UsarIndicadoresViewModel(List<Empresa> empresa, GuardadorIndicadores indicadores) {
 		this.baulIndicadores = indicadores;
@@ -124,24 +137,19 @@ public class UsarIndicadoresViewModel {
 	public Float getValor() {
 		return this.cuenta.getValor();
 	}
-		
-	public String getResultado() {
-		try { 
-			EvaluadorIndicador ev = new EvaluadorIndicador(indicador, balance, baulIndicadores);
+	
+	public String getResultado() {			
+		if (this.getParser().esValidoSintacticamente(this.getExpresion())){
 			this.setTipoResultado("Resultado");
 			this.setColor(Color.BLACK);
-			return ev.evaluar().toString(); 
-		}
-		catch (CuentaNotFound ex) {
-			this.errorHappen();
-			return ex.getMessage();
-		}
-		catch (IndicadorNotFound ex) {
-			this.errorHappen();
-			return ex.getMessage();
-		}
-		catch (ParseException ex) {
-			return "Error al parsear la formula";
+			try{
+				return String.valueOf(this.getEvaluador().evaluar(this.getParser().parsear(this.getExpresion()), this.getCuentas(), this.getIndicadores()));
+			} catch (RuntimeException e){
+				this.errorHappen();
+				return "El indicador no aplica para esta empresa";
+			}
+		}else{
+			return "Error de Sintaxis";
 		}
 	}
 	
