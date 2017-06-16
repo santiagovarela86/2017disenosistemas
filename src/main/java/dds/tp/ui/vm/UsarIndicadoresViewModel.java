@@ -125,9 +125,9 @@ public class UsarIndicadoresViewModel {
 		
 	public String getResultado() {
 		try { 
+			Double resultado = this.indicador.evaluar(this.balance, this.baulIndicadores);	
 			this.setTipoResultado("Resultado");
 			this.setColor(Color.BLACK);
-			Double resultado = this.indicador.evaluar(this.balance, this.baulIndicadores);	
 			return new DecimalFormat("#.####").format(resultado); 
 		}
 		catch (ElementoNotFound ex) {
