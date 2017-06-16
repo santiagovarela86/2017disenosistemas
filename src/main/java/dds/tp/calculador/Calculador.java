@@ -47,6 +47,8 @@ public class Calculador {
 	}
 	
 	private void agregarOperacion(Operacion op) {
+		//Se puede generar una abstraccion que sea op.tieneMayorPrioridadQue(Operacion)
+		//en vez de operaciones.peek().getPrioridad() <= op.getPrioridad()
 		while(!operaciones.isEmpty() && !(operaciones.peek().getPrioridad() <= op.getPrioridad())) {
 			this.operar();
 		}
