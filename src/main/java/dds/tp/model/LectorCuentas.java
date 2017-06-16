@@ -2,7 +2,6 @@ package dds.tp.model;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,12 +17,12 @@ public class LectorCuentas {
 	}
 	
 	public List<Empresa> obtenerDatos(Stream<String> lineas){
-		ArrayList<Empresa> empresas = new ArrayList<>();
-		lineas.forEach(line -> convertAndAddCuenta(line,empresas));
-		return empresas;
+		RepositorioEmpresas repoEmpresaTemporal = new RepositorioEmpresas();
+		lineas.forEach(line -> convertAndAddCuenta(line,repoEmpresaTemporal));
+		return repoEmpresaTemporal.getEmpresas();
 	}
 
-	private void convertAndAddCuenta(String line,List<Empresa> empresas) {
+	private void convertAndAddCuenta(String line,RepositorioEmpresas empresas) {
 
 		List<String> string = Stream.of(line)
 				.map(w -> w.split(","))
@@ -31,35 +30,19 @@ public class LectorCuentas {
 				.collect(Collectors.toList());
 
 		String nombre = string.get(0).trim();
-		String empresa = string.get(1).trim();
-		String anio = string.get(2).trim();
-		Float valor = Float.parseFloat(string.get(3).trim());
+		String empresaNombre = string.get(1).trim();
+		String periodo = string.get(2).trim();
+		Double valor = Double.parseDouble(string.get(3).trim());
 		
-		Empresa empr;
+		Empresa empresa = new Empresa(empresaNombre);
+		Balance bal = new Balance(periodo);
+		bal.addCuenta(new Cuenta(nombre, valor));
+		empresa.addBalance(bal);
+		
 		try {
-			empr = empresas.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(empresa)).collect(Collectors.toList()).get(0);
-		} catch (IndexOutOfBoundsException ex) {
-			empr = new Empresa(empresa);
-			empresas.add(empr);
-		}
-		Balance bal;
-		try {
-			bal = empr.getBalances().stream().filter(elem -> elem.getPeriodo().equalsIgnoreCase(anio)).collect(Collectors.toList()).get(0);
-		} catch (IndexOutOfBoundsException ex) {
-			bal = new Balance(anio);
-			empr.getBalances().add(bal);
-		}
-		Cuenta cta;
-		try {
-			cta = bal.getCuentas().stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList()).get(0);
-		} catch (IndexOutOfBoundsException ex) {
-			cta = new Cuenta(nombre,valor);
-			try {
-				bal.addCuenta(cta);
-			} catch (ElementoYaExiste e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			empresas.addEmpresa(empresa);
+		}catch (ElementoYaExiste e) {
+			empresas.agregarEmpresaYaExistente(empresa);
 		}
 	}
 	

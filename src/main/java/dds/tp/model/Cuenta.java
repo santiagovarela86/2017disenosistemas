@@ -6,9 +6,9 @@ import org.uqbar.commons.utils.Observable;
 public class Cuenta {
 
 	private String nombre;
-	private Float valor;
+	private Double valor;
 	
-	public Cuenta(String nombre, Float valor) {
+	public Cuenta(String nombre, Double valor) {
 		super();
 		this.nombre = nombre;
 		this.valor = valor;
@@ -22,11 +22,11 @@ public class Cuenta {
 		this.nombre = nombre;
 	}
 
-	public Float getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(Float valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 

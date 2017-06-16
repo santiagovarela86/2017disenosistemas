@@ -4,28 +4,28 @@ import org.uqbar.commons.utils.Observable;
 
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.CargarIndicadoresPredefinidos;
-import dds.tp.model.GuardadorEmpresas;
-import dds.tp.model.GuardadorIndicadores;
+import dds.tp.model.RepositorioEmpresas;
+import dds.tp.model.RepositorioIndicadores;
 
 @Observable
 public class PantallaPrincipalViewModel{
 	
 	private String mensajeError;
 	
-	private GuardadorEmpresas baulEmpresas;
-	private GuardadorIndicadores baulIindicadores;
+	private RepositorioEmpresas baulEmpresas;
+	private RepositorioIndicadores baulIindicadores;
 
 	public PantallaPrincipalViewModel() {
 		super();
-		this.baulEmpresas = new GuardadorEmpresas();
-		this.baulIindicadores = new GuardadorIndicadores();
+		this.baulEmpresas = new RepositorioEmpresas();
+		this.baulIindicadores = new RepositorioIndicadores();
 	}
 	
-	public GuardadorEmpresas getBaulEmpresas() {
+	public RepositorioEmpresas getBaulEmpresas() {
 		return baulEmpresas;
 	}
 	
-	public GuardadorIndicadores getBaulIndicadores() {
+	public RepositorioIndicadores getBaulIndicadores() {
 		return baulIindicadores;
 	}
 	

@@ -16,6 +16,7 @@ import dds.tp.ui.vm.UsarIndicadoresViewModel;
 @SuppressWarnings("serial")
 public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 
+	
 	public UsarIndicadoresWindow (WindowOwner owner, UsarIndicadoresViewModel model) {
 		super(owner, model);
 		// TODO Auto-generated constructor stub

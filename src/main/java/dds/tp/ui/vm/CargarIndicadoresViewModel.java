@@ -1,10 +1,15 @@
 package dds.tp.ui.vm;
 
-import dds.tp.model.GuardadorIndicadores;
+import dds.tp.calculador.Expresion;
+import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.excepciones.SintaxisIncorrecta;
+import dds.tp.model.RepositorioIndicadores;
 import dds.tp.model.Indicador;
-import dds.tp.lexer.Parser;
+import dds.tp.parsertools.Parser;
+import dds.tp.parsertools.MyToken;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
@@ -12,13 +17,12 @@ import org.uqbar.commons.utils.Observable;
 @Observable
 public class CargarIndicadoresViewModel {
 	
-	private Parser parser = new Parser();
 	private Color color;
 	private String expresion = "";
 	private String resultado = "";
 	private String nombreIndicador = "";
 	private Boolean habilitado = false;
-	private GuardadorIndicadores baulIndicadores;
+	private RepositorioIndicadores baulIndicadores;
 	
 	public void setColor(Color color) {
 		this.color = color;
@@ -28,7 +32,7 @@ public class CargarIndicadoresViewModel {
 		return color;
 	}
 	
-	public CargarIndicadoresViewModel(GuardadorIndicadores indcs) {
+	public CargarIndicadoresViewModel(RepositorioIndicadores indcs) {
 		this.baulIndicadores = indcs;
 	}
 
@@ -47,20 +51,20 @@ public class CargarIndicadoresViewModel {
 		return this.expresion;
 	}
 
-	public void parsearExpresion(){
-		
-		if (parser.esValidoSintacticamente(this.getExpresion())){
+	public void parsearExpresion(){		
+		try {
+			ArrayList<MyToken> operacion = new Parser().parsear(this.getExpresion());
 			this.setColor(Color.BLUE);
 			resultado = "Indicador guardado con exito";
-			if (baulIndicadores.getIndicadores().stream().anyMatch(i -> i.getNombre().equalsIgnoreCase(this.getNombreIndicador()))){
-				this.setColor(Color.RED);
-				resultado = "Elemento ya existe";
-			} else {
-				baulIndicadores.addIndicador(new Indicador(this.getNombreIndicador(), this.getExpresion()));
-			}
-		} else {
+			baulIndicadores.addIndicador(new Indicador(this.getNombreIndicador(), new Expresion(operacion)));
+		}
+		catch (ElementoYaExiste e) {
 			this.setColor(Color.RED);
-			resultado = "Error de Sintaxis";
+			resultado = e.getMessage();
+		}
+		catch (SintaxisIncorrecta e){
+			this.setColor(Color.RED);
+			resultado = "Error de expresion";
 		}
 	}
 

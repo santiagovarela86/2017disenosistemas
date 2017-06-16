@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
-import dds.tp.excepciones.CuentaNotFound;
+import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 
 @Observable
@@ -39,16 +39,20 @@ public class Balance {
 			throw new ElementoYaExiste("Ya existe la cuenta " + cta.getNombre() + " dentro del balance " + this.getPeriodo());
 	}
 	
-	public Cuenta getCuenta(String nombre) throws CuentaNotFound {
-		try {
+	public Cuenta getCuenta(String nombre){
+		if(!this.contieneCuenta(nombre)) {
+			throw new ElementoNotFound("No se ha encontrado la cuenta: " + nombre);
+		}
+		else {
 			return this.cuentas.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList()).get(0);
-		}catch (IndexOutOfBoundsException e) {
-			throw new CuentaNotFound(nombre, this.getPeriodo());
 		}
 	}
-	
 	public boolean contieneCuenta(Cuenta cta) {
-		return this.getCuentas().stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(cta.getNombre()));
+		return this.contieneCuenta(cta.getNombre());
+	}
+	
+	public boolean contieneCuenta(String nombreCta) {
+		return this.getCuentas().stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(nombreCta));
 	}
 	
 	@Override

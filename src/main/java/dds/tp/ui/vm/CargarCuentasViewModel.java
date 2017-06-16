@@ -8,18 +8,18 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.Empresa;
-import dds.tp.model.GuardadorEmpresas;
+import dds.tp.model.RepositorioEmpresas;
 import dds.tp.model.LectorCuentas;
 
 @Observable
 public class CargarCuentasViewModel{ 
 	
-	private GuardadorEmpresas baulEmpresas;
+	private RepositorioEmpresas baulEmpresas;
 	private String path;
 	private String readFileOK;
 	private Boolean habilitado;
 	
-	public CargarCuentasViewModel(GuardadorEmpresas empresas) {
+	public CargarCuentasViewModel(RepositorioEmpresas empresas) {
 		this.baulEmpresas = empresas;
 	}
 	
@@ -61,7 +61,7 @@ public class CargarCuentasViewModel{
 		return habilitado;
 	}
 	
-	public GuardadorEmpresas getGuardadorEmpresas(){
+	public RepositorioEmpresas getGuardadorEmpresas(){
 		return baulEmpresas;
 	}
 	

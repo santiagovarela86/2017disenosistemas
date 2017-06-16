@@ -55,7 +55,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 			this.comprobarCuentas();
 			this.refresh();
 			new ConsultarCuentasWindow(this, new ConsultarCuentasViewModel(this.getModelObject().getBaulEmpresas().getEmpresas())).open();
-		} catch (Exception e){
+		} catch (ElementNotLoad e){
 			this.getModelObject().setMensajeError(e.getMessage());
 		}
 	}
@@ -67,7 +67,6 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	
 	private void abrirUsarIndicadores() {
 		try {
-			
 			this.comprobarCuentas();
 			this.comprobarIndicadores();
 			this.refresh();

@@ -3,17 +3,18 @@ package dds.tp.model;
 import dds.tp.excepciones.ElementoYaExiste;
 
 public class CargarIndicadoresPredefinidos {
-	Indicador IngresoNeto = new Indicador("IngresoNeto","ingresoNetoEnOperacionesContinuas + ingresoNetoEnOperacionesContinuas");
-	Indicador RazonCorriente = new Indicador("RazonCorriente","activoCorriente / pasivoCorriente");
-	Indicador ROA = new Indicador("ROA","utilidadBruta / activoTotal");
-	Indicador Endeudamiento = new Indicador("Endeudamiento","pasivoTotalTerceros / activoTotal");
-	
-	public void cargar(GuardadorIndicadores guardadorIndicadores) throws ElementoYaExiste{ 
+	/*Indicador indicadorIngresoNeto = new Indicador("ingresoNeto"
+							,"cuenta(ingresoNetoEnOperacionesContinuas)+cuenta(ingresoNetoEnOperacionesContinuas)");
+	Indicador indicadorRazonCorriente = new Indicador("razonCorriente","cuenta(activoCorriente)/cuenta(pasivoCorriente)");
+	Indicador indicadorROA = new Indicador("ROA","cuenta(utilidadBruta)/cuenta(activoTotal)");
+	Indicador indicadorEndeudamiento = new Indicador("endeudamiento","cuenta(pasivoTotalTerceros)/cuenta(activoTotal)");
+	*/
+	public void cargar(RepositorioIndicadores guardadorIndicadores) throws ElementoYaExiste{ 
 
-		guardadorIndicadores.addIndicador(IngresoNeto);
-		guardadorIndicadores.addIndicador(RazonCorriente);
-		guardadorIndicadores.addIndicador(ROA);
-		guardadorIndicadores.addIndicador(Endeudamiento);
+		/*guardadorIndicadores.addIndicador(indicadorIngresoNeto);
+		guardadorIndicadores.addIndicador(indicadorRazonCorriente);
+		guardadorIndicadores.addIndicador(indicadorROA);
+		guardadorIndicadores.addIndicador(indicadorEndeudamiento);*/
 		
 	}
 	

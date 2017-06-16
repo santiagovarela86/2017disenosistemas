@@ -7,16 +7,16 @@ import java.util.stream.Collectors;
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 
-public class GuardadorEmpresas {
+public class RepositorioEmpresas {
 	
 	private List<Empresa> empresas;
 	
-	public GuardadorEmpresas() {
+	public RepositorioEmpresas() {
 		super();
 		this.empresas = new ArrayList<>();
 	}
 	
-	public GuardadorEmpresas(List<Empresa> empresas){
+	public RepositorioEmpresas(List<Empresa> empresas){
 		this.empresas = empresas;
 	}
 	
@@ -36,18 +36,14 @@ public class GuardadorEmpresas {
 	}
 	
 	public void agregarEmpresaYaExistente(Empresa empr) {
-		try {
-			Empresa emprExistente = this.getEmpresa(empr.getNombre());
-			for (Balance balance : empr.getBalances()) {
-				try {
-					emprExistente.addBalance(balance);
-				}
-				catch(ElementoYaExiste ex) {
-					emprExistente.unirBalanceConUnoYaExistente(balance);
-				}
+		Empresa emprExistente = this.getEmpresa(empr.getNombre());
+		for (Balance balance : empr.getBalances()) {
+			try {
+				emprExistente.addBalance(balance);
 			}
-		}catch (Exception e) {
-			e.printStackTrace();
+			catch(ElementoYaExiste ex) {
+				emprExistente.unirBalanceConUnoYaExistente(balance);
+			}
 		}
 	}
 	
@@ -62,18 +58,21 @@ public class GuardadorEmpresas {
 	}
 	
 	public Empresa getEmpresa(String empresa) throws ElementoNotFound {
-		try {
-			return this.empresas.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(empresa)).collect(Collectors.toList()).get(0);
+		if(this.contieneEmpresa(empresa)) {
+			return this.empresas.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(empresa)).collect(Collectors.toList()).get(0);	
 		}
-		catch (IndexOutOfBoundsException e) {
+		else {
 			throw new ElementoNotFound("Empresa " + empresa  + " no encontrada");
 		}
 	}
 	
 	public boolean contieneEmpresa(Empresa empr) {
-		return this.empresas.stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(empr.getNombre()));
+		return this.contieneEmpresa(empr.getNombre());
 	}
 	
+	public boolean contieneEmpresa(String nombre) {
+		return this.empresas.stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(nombre));
+	}
 
 	
 }

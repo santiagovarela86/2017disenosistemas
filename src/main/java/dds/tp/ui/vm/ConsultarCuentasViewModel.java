@@ -61,7 +61,7 @@ public class ConsultarCuentasViewModel{
 		return this.cuenta.getNombre();
 	}
 	
-	public Float getValor() {
+	public Double getValor() {
 		return this.cuenta.getValor();
 	}
 	

@@ -1,0 +1,34 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */options{  static = false;}PARSER_BEGIN(GramaticaParser)package dds.tp.lexer;
+import java.util.ArrayList;
+import dds.tp.parsertools.*;
+
+public class GramaticaParser{}PARSER_END(GramaticaParser)
+
+SKIP: { " " }
+TOKEN [IGNORE_CASE] : {
+<IDENTIFICADOR: (<NOMBRE>)>
+| <MAS: "+">
+| <MENOS: "-">
+| <POR: "*">
+| <DIV: "/">
+| <NUMERO: (<DIGITS> | <DIGITS> "." <DIGITS>) >
+| <#DIGITS: (["0"-"9"])+>
+| <NOMBRE: ["a"-"z"](["a"-"z"] | ["0"-"9"])*>
+}
+
+//Este es para validar la expresion y poder guardarla si esta ok
+ArrayList<MyToken> parsear() :
+{ArrayList<MyToken> tokens;
+Token t;}
+{
+  	{tokens = new ArrayList<MyToken>();}
+	(t = <IDENTIFICADOR> {tokens.add(new MyToken(t.image,TipoToken.IDENTIFICADOR));}| t = <NUMERO> {tokens.add(new MyToken(t.image,TipoToken.NUMERO));})
+	(
+		( t = <MAS> {tokens.add(new MyToken(t.image,TipoToken.SUMA));} | t = <MENOS> {tokens.add(new MyToken(t.image,TipoToken.RESTA));} |  t = <DIV>  {tokens.add(new MyToken(t.image,TipoToken.DIVISION));} | t = <POR> {tokens.add(new MyToken(t.image,TipoToken.MULTIPLICACION));})
+
+		(t = <IDENTIFICADOR> {tokens.add(new MyToken(t.image,TipoToken.IDENTIFICADOR));} |t = <NUMERO> {tokens.add(new MyToken(t.image,TipoToken.NUMERO));})	)*
+	< EOF >
+	{return tokens;}
+}

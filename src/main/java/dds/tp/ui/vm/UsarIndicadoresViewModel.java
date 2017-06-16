@@ -1,39 +1,30 @@
 package dds.tp.ui.vm;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import dds.tp.evaluador.Evaluador;
-import dds.tp.lexer.Parser;
+import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
-import dds.tp.model.GuardadorIndicadores;
+import dds.tp.model.RepositorioIndicadores;
 import dds.tp.model.Indicador;
 
 @Observable
 public class UsarIndicadoresViewModel {
-
-	private Evaluador evaluador = new Evaluador();
+	
 	private String tipoResultado;
 	private Color color;
-	private GuardadorIndicadores baulIndicadores;
+	private RepositorioIndicadores baulIndicadores;
 	private List<Empresa> empresas;
 	private Indicador indicador;
 	private Empresa empresa;
 	private Balance balance;
 	private Cuenta cuenta;
-	
-	private Parser getParser(){
-		return this.getEvaluador().getParser();
-	}
-	
-	private Evaluador getEvaluador(){
-		return evaluador;
-	}
 	
 	public void setColor(Color color) {
 		this.color = color;
@@ -52,16 +43,10 @@ public class UsarIndicadoresViewModel {
 	}
 	
 	public String getExpresion() {
-		return this.indicador.getFormula();
+		return "Formula: " + this.indicador.getFormula();
 	}
 	
-	/*
-	public String getFormula(){
-		return this.indicador.getFormula();
-	}
-	*/
-	
-	public UsarIndicadoresViewModel(List<Empresa> empresa, GuardadorIndicadores indicadores) {
+	public UsarIndicadoresViewModel(List<Empresa> empresa, RepositorioIndicadores indicadores) {
 		this.baulIndicadores = indicadores;
 		this.empresas = empresa;
 	}
@@ -70,7 +55,7 @@ public class UsarIndicadoresViewModel {
 		return baulIndicadores.getIndicadores();
 	}
 	
-	public void setIndicadores(GuardadorIndicadores indicadores) {
+	public void setIndicadores(RepositorioIndicadores indicadores) {
 		this.baulIndicadores = indicadores;
 	}
 	
@@ -134,22 +119,20 @@ public class UsarIndicadoresViewModel {
 		return this.cuenta.getNombre();
 	}
 	
-	public Float getValor() {
+	public Double getValor() {
 		return this.cuenta.getValor();
 	}
-	
-	public String getResultado() {			
-		if (this.getParser().esValidoSintacticamente(this.getExpresion())){
+		
+	public String getResultado() {
+		try { 
 			this.setTipoResultado("Resultado");
 			this.setColor(Color.BLACK);
-			try{
-				return String.valueOf(this.getEvaluador().evaluar(this.getParser().parsear(this.getExpresion()), this.getCuentas(), this.getIndicadores()));
-			} catch (RuntimeException e){
-				this.errorHappen();
-				return "El indicador no aplica para esta empresa";
-			}
-		}else{
-			return "Error de Sintaxis";
+			Double resultado = this.indicador.evaluar(this.balance, this.baulIndicadores);	
+			return new DecimalFormat("#.####").format(resultado); 
+		}
+		catch (ElementoNotFound ex) {
+			this.errorHappen();
+			return ex.getMessage();
 		}
 	}
 	

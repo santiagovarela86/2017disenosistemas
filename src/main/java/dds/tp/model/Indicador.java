@@ -2,15 +2,18 @@ package dds.tp.model;
 
 import org.uqbar.commons.utils.Observable;
 
+import dds.tp.calculador.Expresion;
+
+
 @Observable
 public class Indicador {
 	
 	private String nombre;
-	private String formula;
+	private Expresion expresion;
 	
-	public Indicador(String nombre, String formula){
+	public Indicador(String nombre, Expresion exp){
 		this.nombre = nombre;
-		this.formula = formula;
+		this.expresion = exp;
 	}
 
 	public void setNombre(String nombre){
@@ -21,17 +24,16 @@ public class Indicador {
 		return this.nombre;
 	}
 	
-	public void setFormula(String formula){
-		this.formula = formula;
+	public Double evaluar(Balance balance, RepositorioIndicadores baulIndicadores) {	
+		return expresion.calculateCon(balance, baulIndicadores);
 	}
 	
 	public String getFormula(){
-		return this.formula;
+		return this.expresion.toString();
 	}
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this.getNombre();
 	}
 }
