@@ -19,7 +19,6 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 
 	public PantallaPrincipal(WindowOwner parent, PantallaPrincipalViewModel model) {
 		super(parent, model);
-		this.getModelObject().cargarPredefinidos();
 	}
 
 	@Override
