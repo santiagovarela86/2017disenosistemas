@@ -19,6 +19,7 @@ public class PantallaPrincipalViewModel{
 		super();
 		this.baulEmpresas = new RepositorioEmpresas();
 		this.baulIindicadores = new RepositorioIndicadores();
+		this.baulIindicadores.cargarPredeterminados();
 	}
 	
 	public RepositorioEmpresas getBaulEmpresas() {
