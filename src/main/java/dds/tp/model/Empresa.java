@@ -76,4 +76,8 @@ public class Empresa {
 	public String toString() {
 		return this.nombre;
 	}
+
+	public int getEdad() {
+		return 5;
+	}
 }
