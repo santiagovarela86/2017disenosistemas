@@ -9,6 +9,7 @@ import dds.tp.model.Empresa;
 import dds.tp.model.Metodologia;
 import dds.tp.model.ResultadoMetodologia;
 import dds.tp.model.condiciones.Longevidad;
+import dds.tp.model.condiciones.MasAntiguaQue;
 
 public class TestMetodologias {
 	private Metodologia meto;
@@ -29,6 +30,13 @@ public class TestMetodologias {
 		meto.agregarCondicion(new Longevidad().setEdad(4));
 		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
 		assertEquals("Si", resultadoMetodologia.getConvieneInvertir());
+	}
+	
+	@Test
+	public void noSeCumpleQueUnaEmpresa5AniosEsMasAntiguaQueOtra5Anios() {
+		meto.agregarCondicion(new MasAntiguaQue().setEmpresaAComparar(new Empresa("AComparar")));
+		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
+		assertEquals("No", resultadoMetodologia.getConvieneInvertir());
 	}
 	
 }

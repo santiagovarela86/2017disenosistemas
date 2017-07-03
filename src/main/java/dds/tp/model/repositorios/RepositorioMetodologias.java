@@ -1,6 +1,8 @@
-package dds.tp.model;
+package dds.tp.model.repositorios;
 
 import java.util.ArrayList;
+
+import dds.tp.model.Metodologia;
 
 public class RepositorioMetodologias {
 	

@@ -1,4 +1,4 @@
-package dds.tp.model;
+package dds.tp.model.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.Balance;
+import dds.tp.model.Empresa;
 
 public class RepositorioEmpresas {
 	

@@ -11,8 +11,8 @@ import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
-import dds.tp.model.RepositorioIndicadores;
 import dds.tp.model.Indicador;
+import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Observable
 public class UsarIndicadoresViewModel {

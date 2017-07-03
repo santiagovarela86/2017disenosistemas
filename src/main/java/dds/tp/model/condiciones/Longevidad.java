@@ -10,21 +10,22 @@ public class Longevidad implements Condicion {
 	private String nombre = "Longevidad";
 	private String descripcion = "Esta condicion se cumple cuando una empresa tiene mas años que la edad minima";
 	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public String getDescripcion() {
-		return descripcion;
-	}
-	
 	public Longevidad() {
+		
 	}
 	
 	//Hago private para que al modificar la edadMinima sea una nueva condicion
 	private Longevidad(int edadMinima) {
 		super();
 		this.edadMinima = edadMinima;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
 	}
 
 	public Longevidad setEdad(int edadMinima) {

@@ -13,8 +13,8 @@ import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
-import dds.tp.model.RepositorioIndicadores;
 import dds.tp.model.Indicador;
+import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 
 public class TestCalcularExpresiones {

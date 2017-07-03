@@ -7,6 +7,7 @@ import java.util.List;
 
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Cuenta;
+import dds.tp.model.repositorios.RepositorioEmpresas;
 
 public class LectorCuentas {
 	

@@ -8,8 +8,8 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.Empresa;
-import dds.tp.model.RepositorioEmpresas;
 import dds.tp.model.LectorCuentas;
+import dds.tp.model.repositorios.RepositorioEmpresas;
 
 @Observable
 public class CargarCuentasViewModel{ 

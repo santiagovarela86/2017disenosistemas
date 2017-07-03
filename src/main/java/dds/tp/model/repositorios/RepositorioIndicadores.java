@@ -1,4 +1,4 @@
-package dds.tp.model;
+package dds.tp.model.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import dds.tp.calculador.Expresion;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.Indicador;
 import dds.tp.parsertools.Parser;
 
 public class RepositorioIndicadores {

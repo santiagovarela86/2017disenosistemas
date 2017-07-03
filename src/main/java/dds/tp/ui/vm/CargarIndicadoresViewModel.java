@@ -3,8 +3,8 @@ package dds.tp.ui.vm;
 import dds.tp.calculador.Expresion;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
-import dds.tp.model.RepositorioIndicadores;
 import dds.tp.model.Indicador;
+import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 import dds.tp.parsertools.MyToken;
 

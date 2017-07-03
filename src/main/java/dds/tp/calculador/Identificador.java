@@ -2,7 +2,7 @@ package dds.tp.calculador;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.model.Balance;
-import dds.tp.model.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class Identificador {
 

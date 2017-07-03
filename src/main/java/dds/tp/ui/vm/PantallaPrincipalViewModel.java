@@ -2,8 +2,8 @@ package dds.tp.ui.vm;
 
 import org.uqbar.commons.utils.Observable;
 
-import dds.tp.model.RepositorioEmpresas;
-import dds.tp.model.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioEmpresas;
+import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Observable
 public class PantallaPrincipalViewModel{

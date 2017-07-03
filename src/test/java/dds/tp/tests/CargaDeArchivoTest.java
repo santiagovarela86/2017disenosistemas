@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import dds.tp.model.RepositorioEmpresas;
+import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.ui.vm.CargarCuentasViewModel;
 
 public class CargaDeArchivoTest {
