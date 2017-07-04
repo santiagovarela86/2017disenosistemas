@@ -4,6 +4,7 @@ import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.ui.vm.CargarCuentasViewModel;
 import dds.tp.ui.vm.CargarIndicadoresViewModel;
 import dds.tp.ui.vm.ConsultarCuentasViewModel;
+import dds.tp.ui.vm.CrearMetodologiaViewModel;
 import dds.tp.ui.vm.PantallaPrincipalViewModel;
 import dds.tp.ui.vm.UsarIndicadoresViewModel;
 
@@ -28,18 +29,23 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Label(mainPanel).setText("Elija la acción que desea realizar: ").setWidth(360);
 
 		Panel panelBotones = new Panel(mainPanel);
-		panelBotones.setLayout(new ColumnLayout(4));
+		panelBotones.setLayout(new ColumnLayout(5));
 
 		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(130);
 		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(130);
 		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(130);
 		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(130);
+		new Button(panelBotones).setCaption("Crear Metodologia").onClick(() -> this.abrirCrearMetodologia()).setWidth(140);
 		new Label(mainPanel).setForeground(java.awt.Color.RED).bindValueToProperty("mensajeError");
 		new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
 		
 	}
 	
+	private void abrirCrearMetodologia() {
+		new CrearMetodologiaWindows(this, new CrearMetodologiaViewModel()).open();
+	}
+
 	private void refresh(){
 		this.getModelObject().setMensajeError("");
 	}
