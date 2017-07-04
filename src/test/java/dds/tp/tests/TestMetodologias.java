@@ -8,6 +8,8 @@ import org.junit.Test;
 import dds.tp.model.Empresa;
 import dds.tp.model.Metodologia;
 import dds.tp.model.ResultadoMetodologia;
+import dds.tp.model.builders.CondicionMultipleBuilder;
+import dds.tp.model.condiciones.CondicionMultiple;
 import dds.tp.model.condiciones.Longevidad;
 import dds.tp.model.condiciones.MasAntiguaQue;
 
@@ -35,6 +37,32 @@ public class TestMetodologias {
 	@Test
 	public void noSeCumpleQueUnaEmpresa5AniosEsMasAntiguaQueOtra5Anios() {
 		meto.agregarCondicion(new MasAntiguaQue().setEmpresaAComparar(new Empresa("AComparar")));
+		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
+		assertEquals("No", resultadoMetodologia.getConvieneInvertir());
+	}
+	
+	@Test
+	public void seCumpleCondicionMultipleLongevidadMayorA3YLongevidadMayorA4(){
+		CondicionMultiple condMult = 
+				new CondicionMultipleBuilder().setNombre("Test")
+				.setDescripcion("Solo para test")
+				.agregarCondicion(new Longevidad().setEdad(4))
+				.agregarCondicion(new Longevidad().setEdad(3))
+				.build();
+		meto.agregarCondicion(condMult);
+		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
+		assertEquals("Si", resultadoMetodologia.getConvieneInvertir());
+	}
+	
+	@Test
+	public void noSeCumpleCondicionMultipleLongevidadMayorA10YLongevidadMayorA4(){
+		CondicionMultiple condMult = 
+				new CondicionMultipleBuilder().setNombre("Test")
+				.setDescripcion("Solo para test")
+				.agregarCondicion(new Longevidad().setEdad(10))
+				.agregarCondicion(new Longevidad().setEdad(3))
+				.build();
+		meto.agregarCondicion(condMult);
 		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
 		assertEquals("No", resultadoMetodologia.getConvieneInvertir());
 	}
