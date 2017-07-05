@@ -2,30 +2,24 @@ package dds.tp.model.condiciones;
 
 import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
+import dds.tp.model.Indicador;
+import dds.tp.model.condiciones.comparadores.Comparador;
 
 //ESTA ES TAXATIVA TE DICE SI SIRVE O NO PARA INVERTIR
 public class CondicionCrecienteDecreciente extends Condicion {
 	
 	private int periodosHaciaAtras;
+	private Indicador indicador;
+	private Comparador comparador;
 
-	public CondicionCrecienteDecreciente(String nombre, String indicador, String comparador, String descripcion, int periodosHaciaAtras) {
-		super(nombre, indicador, comparador, descripcion);
-		this.setPeriodosHaciaAtras(periodosHaciaAtras);
-	}
-	
-	public int getPeriodosHaciaAtras() {
-		return periodosHaciaAtras;
-	}
-
-	public void setPeriodosHaciaAtras(int periodosHaciaAtras) {
+	public CondicionCrecienteDecreciente(String nombre,String descripcion, Indicador indicador, Comparador comparador, int periodosHaciaAtras) {
+		super(nombre, descripcion);
+		this.indicador = indicador;
+		this.comparador = comparador;
 		this.periodosHaciaAtras = periodosHaciaAtras;
 	}
 		
 	public boolean evaluar(Empresa empresa){
-		//ESTO DICE SI EL INDICADOR ES SIEMPRE O CASI SIEMPRE 
-		//CRECIENTE O DECRECIENTE EN ESE PERIODO
-		//(ESTABLECER LIMITE, LA MITAD MAS UNO?, 75%?)
-		
 		return false;
 	}
 
