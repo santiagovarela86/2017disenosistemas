@@ -34,7 +34,7 @@ public class Longevidad implements Condicion {
 	
 	@Override
 	public void esCumplidaEn(Empresa empresa) {	
-		if(empresa.getEdad() < edadMinima) {
+		if(empresa.getAntiguedad() < edadMinima) {
 			throw new CondicionNoCumplida("Esta empresa no tiene al menos " + edadMinima + " años");
 		}
 	}

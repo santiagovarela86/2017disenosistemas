@@ -35,7 +35,7 @@ public class CargarCuentasWindow extends SimpleWindow<CargarCuentasViewModel> {
 	    new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("readFileOK");
 	}
 
-@Override
+	@Override
 	protected void addActions(Panel actionsPanel) {
 		new Button(actionsPanel)
 		.setCaption("Cargar")

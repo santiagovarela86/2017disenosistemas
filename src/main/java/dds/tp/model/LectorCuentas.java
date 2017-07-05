@@ -34,8 +34,10 @@ public class LectorCuentas {
 		String empresaNombre = string.get(1).trim();
 		String periodo = string.get(2).trim();
 		Double valor = Double.parseDouble(string.get(3).trim());
+		Integer anioFundacion = Integer.parseInt(string.get(4).trim());
+	    
 		
-		Empresa empresa = new Empresa(empresaNombre);
+		Empresa empresa = new Empresa(empresaNombre,anioFundacion);
 		Balance bal = new Balance(periodo);
 		bal.addCuenta(new Cuenta(nombre, valor));
 		empresa.addBalance(bal);

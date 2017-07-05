@@ -23,21 +23,21 @@ public class TestMetodologias {
 	@Test
 	public void noSeCumpleLongevidadMayorA10() {
 		meto.agregarCondicion(new Longevidad().setEdad(10));
-		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
+		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe",2010));
 		assertEquals("No", resultadoMetodologia.getConvieneInvertir());
 	}
 	
 	@Test
 	public void seCumpleLongevidadMayorA4() {
 		meto.agregarCondicion(new Longevidad().setEdad(4));
-		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
+		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe",2010));
 		assertEquals("Si", resultadoMetodologia.getConvieneInvertir());
 	}
 	
 	@Test
 	public void noSeCumpleQueUnaEmpresa5AniosEsMasAntiguaQueOtra5Anios() {
-		meto.agregarCondicion(new MasAntiguaQue().setEmpresaAComparar(new Empresa("AComparar")));
-		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
+		meto.agregarCondicion(new MasAntiguaQue().setEmpresaAComparar(new Empresa("AComparar",1999)));
+		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe",1999));
 		assertEquals("No", resultadoMetodologia.getConvieneInvertir());
 	}
 	
@@ -50,7 +50,7 @@ public class TestMetodologias {
 				.agregarCondicion(new Longevidad().setEdad(3))
 				.build();
 		meto.agregarCondicion(condMult);
-		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
+		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe",2010));
 		assertEquals("Si", resultadoMetodologia.getConvieneInvertir());
 	}
 	
@@ -63,7 +63,7 @@ public class TestMetodologias {
 				.agregarCondicion(new Longevidad().setEdad(3))
 				.build();
 		meto.agregarCondicion(condMult);
-		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe"));
+		ResultadoMetodologia resultadoMetodologia = meto.evaluarEn(new Empresa("Pepe",2010));
 		assertEquals("No", resultadoMetodologia.getConvieneInvertir());
 	}
 	

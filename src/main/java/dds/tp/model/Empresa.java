@@ -1,5 +1,6 @@
 package dds.tp.model;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,11 +13,13 @@ import dds.tp.excepciones.ElementoYaExiste;
 public class Empresa {
 
 	private String nombre;
+	private Integer antiguedad;
 	private List<Balance> balances;
 	
-	public Empresa(String nombre) {
+	public Empresa(String nombre, Integer anioFundacion) {
 		super();
 		this.nombre = nombre;
+		this.antiguedad = Year.now().getValue() - anioFundacion; 
 		this.balances = new ArrayList<>();
 	}
 
@@ -26,7 +29,11 @@ public class Empresa {
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}	
+	}
+	
+	public Integer getAntiguedad(){
+		return antiguedad;
+	}
 	
 	public List<Balance> getBalances() {
 		return balances;
@@ -75,9 +82,5 @@ public class Empresa {
 	@Override
 	public String toString() {
 		return this.nombre;
-	}
-
-	public int getEdad() {
-		return 5;
 	}
 }

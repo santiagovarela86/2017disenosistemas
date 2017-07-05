@@ -35,8 +35,8 @@ public class MasAntiguaQue implements Condicion {
 	
 	@Override
 	public void esCumplidaEn(Empresa empresa) {
-		if(empresa.getEdad() <= this.empresaAComparar.getEdad()){
-			throw new CondicionNoCumplida("Esta empresa no es mas antigua que " + this.empresaAComparar.getEdad());
+		if(empresa.getAntiguedad() <= this.empresaAComparar.getAntiguedad()){
+			throw new CondicionNoCumplida("Esta empresa no es mas antigua que " + this.empresaAComparar.getAntiguedad());
 		}
 	}
 }
