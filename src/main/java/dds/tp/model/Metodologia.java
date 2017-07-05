@@ -25,7 +25,7 @@ public class Metodologia {
 	public ResultadoMetodologia evaluarEn(Empresa empresa){
 		try {
 			for (Condicion condicion : condiciones) {
-				condicion.esCumplidaEn(empresa);
+//				condicion.esCumplidaEn(empresa);
 			}
 			return new ResultadoMetodologia(empresa, "Si", "Se cumplen todas las condiciones");
 		}
