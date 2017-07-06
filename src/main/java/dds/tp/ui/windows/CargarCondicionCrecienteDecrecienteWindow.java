@@ -10,20 +10,20 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
-import dds.tp.ui.vm.CargarCondicionComparadoraViewModel;
+import dds.tp.ui.vm.CargarCondicionCrecienteDecrecienteViewModel;
 import dds.tp.ui.vm.CargarCondicionSimpleViewModel;
 
 @SuppressWarnings("serial")
-public class CargarCondicionComparadoraWindow extends Window<CargarCondicionComparadoraViewModel>{
+public class CargarCondicionCrecienteDecrecienteWindow extends Window<CargarCondicionCrecienteDecrecienteViewModel>{
 
-	public CargarCondicionComparadoraWindow(WindowOwner owner, CargarCondicionComparadoraViewModel model) {
+	public CargarCondicionCrecienteDecrecienteWindow(WindowOwner owner, CargarCondicionCrecienteDecrecienteViewModel model) {
 		super(owner, model);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void createContents(Panel mainPanel) {
-		this.setTitle("Cargar Condicion Comparadora");
+		this.setTitle("Cargar Condicion Creciente/Decreciente");
 		
 		new Label(mainPanel).setText("Nombre").setWidth(400);
 		new TextBox(mainPanel).bindValueToProperty("nombreCondicion");
@@ -56,12 +56,11 @@ public class CargarCondicionComparadoraWindow extends Window<CargarCondicionComp
 		
 		new Button(mainPanel)
 		.setCaption("Guardar")
-		.onClick(()->this.guardarCondicionComparadora());
-		
+		.onClick(()->this.guardarCondicionCrecienteDecreciente());
 	}
 
-	private void guardarCondicionComparadora() {
-		this.getModelObject().guardarCondicionComparadora();
+	private void guardarCondicionCrecienteDecreciente() {
+		this.getModelObject().guardarCondicionCrecienteDecreciente();
 	}
 
 }

@@ -1,7 +1,9 @@
 package dds.tp.ui.windows;
 
 import dds.tp.excepciones.ElementNotLoad;
+import dds.tp.ui.vm.AplicarMetodologiaViewModel;
 import dds.tp.ui.vm.CargarCondicionComparadoraViewModel;
+import dds.tp.ui.vm.CargarCondicionCrecienteDecrecienteViewModel;
 import dds.tp.ui.vm.CargarCondicionEstadisticaViewModel;
 import dds.tp.ui.vm.CargarCondicionSimpleViewModel;
 import dds.tp.ui.vm.CargarCuentasViewModel;
@@ -29,19 +31,21 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	public void createContents(Panel mainPanel) {
 		this.setTitle("Aplicacion de decisiones");
 
-		new Label(mainPanel).setText("Elija la acción que desea realizar: ").setWidth(360);
+		new Label(mainPanel).setText("Elija la acción que desea realizar: ").setWidth(500);
 
 		Panel panelBotones = new Panel(mainPanel);
 		panelBotones.setLayout(new ColumnLayout(2));
 
-		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(170);
-		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(170);
-		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(170);
-		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(170);
-		new Button(panelBotones).setCaption("Crear Metodologia").onClick(() -> this.abrirCrearMetodologia()).setWidth(170);
-		new Button(panelBotones).setCaption("Cargar condicion simple").onClick(() -> this.abrirCargarCondicionSimple()).setWidth(170);
-		new Button(panelBotones).setCaption("Cargar condicion comparadora").onClick(() -> this.abrirCargarCondicionComparadora()).setWidth(170);
-		new Button(panelBotones).setCaption("Cargar condicion estadistica").onClick(() -> this.abrirCargarCondicionEstadistica()).setWidth(170);
+		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(220);
+		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(220);
+		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(220);
+		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(220);
+		new Button(panelBotones).setCaption("Crear Metodologia").onClick(() -> this.abrirCrearMetodologia()).setWidth(220);
+		new Button(panelBotones).setCaption("Cargar condicion simple").onClick(() -> this.abrirCargarCondicionSimple()).setWidth(220);
+		new Button(panelBotones).setCaption("Cargar condicion comparadora").onClick(() -> this.abrirCargarCondicionComparadora()).setWidth(220);
+		new Button(panelBotones).setCaption("Cargar condicion estadistica").onClick(() -> this.abrirCargarCondicionEstadistica()).setWidth(220);
+		new Button(panelBotones).setCaption("Cargar condicion creciente/decreciente").onClick(() -> this.abrirCargarCondicionCrecienteDecreciente()).setWidth(220);
+		new Button(panelBotones).setCaption("Aplicar Metodologia").onClick(() -> this.abrirAplicarMetodologia()).setWidth(220);
 		
 		new Label(mainPanel).setForeground(java.awt.Color.RED).bindValueToProperty("mensajeError");
 		new Label(mainPanel).setText("");
@@ -113,5 +117,15 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	private void abrirCargarCondicionEstadistica() {
 		this.refresh();
 		new CargarCondicionEstadisticaWindow(this, new CargarCondicionEstadisticaViewModel()).open();
+	}
+	
+	private void abrirCargarCondicionCrecienteDecreciente() {
+		this.refresh();
+		new CargarCondicionCrecienteDecrecienteWindow(this, new CargarCondicionCrecienteDecrecienteViewModel()).open();
+	}
+	
+	private void abrirAplicarMetodologia() {
+		this.refresh();
+		new AplicarMetodologiaWindow(this, new AplicarMetodologiaViewModel()).open();
 	}
 }
