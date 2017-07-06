@@ -10,10 +10,10 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class Ordenador {
 
-	public ArrayList<ResultadoAnalisis> getResultados(ArrayList<Empresa> empresasQueConvieneInvertir,
+	public List<ResultadoAnalisis> getResultados(List<Empresa> empresasQueConvieneInvertir,
 			ArrayList<CondicionPriorizar> condicionesQuePriorizan, RepositorioIndicadores repoIndicadores) {
 
-		ArrayList<ResultadoAnalisis> resultadosOrdenados = new ArrayList<>();
+		List<ResultadoAnalisis> resultadosOrdenados = new ArrayList<>();
 		List<List<Empresa>> listasIntermedias = new ArrayList<List<Empresa>>();
 		
 		//GENERO LAS LISTAS INTERMEDIAS POR CADA CONDICION PRIORIZANTE
@@ -36,7 +36,7 @@ public class Ordenador {
 		return listaOrdenada;
 	}
 	
-	public ArrayList<ResultadoAnalisis> generarListaFinal(ArrayList<Empresa> empresas, List<List<Empresa>> listasIntermedias){
+	public List<ResultadoAnalisis> generarListaFinal(List<Empresa> empresas, List<List<Empresa>> listasIntermedias){
 		ArrayList<ResultadoAnalisis> resultadosOrdenados = new ArrayList<>();
 		
 		//POR CADA EMPRESA OBTENGO SUS PUNTOS
@@ -49,7 +49,7 @@ public class Ordenador {
 		ArrayList<Integer> posiciones = new ArrayList<Integer>();
 		
 		//POR CADA LISTA OBTENGO LA POSICION DE LA EMPRESA
-		listasIntermedias.forEach(lista -> posiciones.add(lista.indexOf(empresa)));
+		listasIntermedias.forEach(lista -> posiciones.add(lista.indexOf(empresa)+1));
 		
 		//EL PUNTAJE DE CADA EMPRESA ES LA SUMA DE LAS POSICIONES EN CADA LISTA
 		return new ResultadoAnalisis(posiciones.stream().mapToInt(Integer::intValue).sum(), empresa, ""); //JUSTIFICACION?

@@ -20,6 +20,7 @@ import dds.tp.model.condiciones.CondicionLongevidadComparadora;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
 import dds.tp.model.metodologia.Ordenador;
+import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.periodos.Anual;
 import dds.tp.model.periodos.Periodo;
 import dds.tp.model.repositorios.RepositorioEmpresas;
@@ -46,6 +47,9 @@ public class TestOrdenador {
 		repoEmpresas.getEmpresa("Test1").getBalance("2017").addCuenta(new Cuenta("Roe", 100d));
 		repoEmpresas.getEmpresa("Test2").getBalance("2017").addCuenta(new Cuenta("Roe", 196d));
 		repoEmpresas.getEmpresa("Test3").getBalance("2017").addCuenta(new Cuenta("Roe", 906d));
+		condiciones.add((new CondicionComparadora("CondTest", 
+				"Condicion longevidad comparadora", 
+				new Indicador("ROE", new Expresion(new Parser().parsear("roe"))),new Mayor(),1)));
 	}
 	
 	@Test
@@ -70,5 +74,15 @@ public class TestOrdenador {
 		assertEquals(resultado.get(0).getNombre(),"Test3");
 		assertEquals(resultado.get(1).getNombre(),"Test2");
 		assertEquals(resultado.get(2).getNombre(),"Test1");
+	}
+	
+	@Test
+	public void puntajePorRoeResultadoTest3Test2Test1() {
+		List<ResultadoAnalisis> resultado = new Ordenador()
+				.getResultados(repoEmpresas.getEmpresas(), condiciones,repoIndicadores);
+
+		assertEquals(resultado.get(0).getPuntaje(),3);
+		assertEquals(resultado.get(1).getPuntaje(),2);
+		assertEquals(resultado.get(2).getPuntaje(),1);
 	}
 }
