@@ -3,6 +3,10 @@ package dds.tp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import dds.tp.model.metodologia.Filtro;
+import dds.tp.model.metodologia.ResultadoAnalisis;
+import dds.tp.model.repositorios.RepositorioIndicadores;
+
 public class Metodologia {
 
 	private String nombre;
@@ -19,7 +23,20 @@ public class Metodologia {
 		return nombre;
 	}
 	
-	public ResultadoMetodologia evaluarEn(List<Empresa> empresas){
-		return null;
+	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
+		ArrayList<ResultadoAnalisis> resultadosNegativos = new ArrayList<>();
+		ArrayList<ResultadoAnalisis> resultadosPositivos = new ArrayList<>();
+		ArrayList<Empresa> empresasQueConvieneInvertir = new ArrayList<>(empresas);
+		
+		for (CondicionTaxativa condicion : condicionesTaxativas) {
+			resultadosNegativos
+			.addAll(new Filtro().getResultadosNegativos(empresasQueConvieneInvertir, condicion, repoIndicadores));
+			empresasQueConvieneInvertir = new Filtro().getEmpresasQueCumplen(empresasQueConvieneInvertir, condicion, repoIndicadores); 
+		}
+		
+		
+		
+		
+		
 	}
 }
