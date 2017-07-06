@@ -2,10 +2,6 @@ package dds.tp.ui.windows;
 
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.ui.vm.AplicarMetodologiaViewModel;
-import dds.tp.ui.vm.CargarCondicionComparadoraViewModel;
-import dds.tp.ui.vm.CargarCondicionCrecienteDecrecienteViewModel;
-import dds.tp.ui.vm.CargarCondicionEstadisticaViewModel;
-import dds.tp.ui.vm.CargarCondicionSimpleViewModel;
 import dds.tp.ui.vm.CargarCuentasViewModel;
 import dds.tp.ui.vm.CargarIndicadoresViewModel;
 import dds.tp.ui.vm.ConsultarCuentasViewModel;
@@ -41,10 +37,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(220);
 		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(220);
 		new Button(panelBotones).setCaption("Crear Metodologia").onClick(() -> this.abrirCrearMetodologia()).setWidth(220);
-		new Button(panelBotones).setCaption("Cargar condicion simple").onClick(() -> this.abrirCargarCondicionSimple()).setWidth(220);
-		new Button(panelBotones).setCaption("Cargar condicion comparadora").onClick(() -> this.abrirCargarCondicionComparadora()).setWidth(220);
-		new Button(panelBotones).setCaption("Cargar condicion estadistica").onClick(() -> this.abrirCargarCondicionEstadistica()).setWidth(220);
-		new Button(panelBotones).setCaption("Cargar condicion creciente/decreciente").onClick(() -> this.abrirCargarCondicionCrecienteDecreciente()).setWidth(220);
+		
 		new Button(panelBotones).setCaption("Aplicar Metodologia").onClick(() -> this.abrirAplicarMetodologia()).setWidth(220);
 		
 		new Label(mainPanel).setForeground(java.awt.Color.RED).bindValueToProperty("mensajeError");
@@ -102,26 +95,6 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	private void comprobarIndicadores() throws ElementNotLoad{
 		if(this.getModelObject().getBaulIndicadores().getIndicadores().isEmpty())
 			throw new ElementNotLoad("No hay indicadores cargados.");
-	}
-	
-	private void abrirCargarCondicionSimple(){
-		this.refresh();
-		new CargarCondicionSimpleWindow(this, new CargarCondicionSimpleViewModel()).open();
-	}
-	
-	private void abrirCargarCondicionComparadora() {
-		this.refresh();
-		new CargarCondicionComparadoraWindow(this, new CargarCondicionComparadoraViewModel()).open();
-	}
-	
-	private void abrirCargarCondicionEstadistica() {
-		this.refresh();
-		new CargarCondicionEstadisticaWindow(this, new CargarCondicionEstadisticaViewModel()).open();
-	}
-	
-	private void abrirCargarCondicionCrecienteDecreciente() {
-		this.refresh();
-		new CargarCondicionCrecienteDecrecienteWindow(this, new CargarCondicionCrecienteDecrecienteViewModel()).open();
 	}
 	
 	private void abrirAplicarMetodologia() {

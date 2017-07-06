@@ -11,6 +11,7 @@ import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
+import dds.tp.ui.vm.AgregarCondicionesViewModel;
 import dds.tp.ui.vm.CrearMetodologiaViewModel;
 
 @SuppressWarnings("serial")
@@ -70,6 +71,7 @@ public class CrearMetodologiaWindows extends Window<CrearMetodologiaViewModel> {
 	}
 
 	private void agregarCondicion() {
+		new AgregarCondicionesWindow(this, new AgregarCondicionesViewModel()).open();
 	}
 
 }
