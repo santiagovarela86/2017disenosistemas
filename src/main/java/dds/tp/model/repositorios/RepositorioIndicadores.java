@@ -41,8 +41,9 @@ public class RepositorioIndicadores {
 		this.addIndicador(new Indicador("Ingreso Neto", new Expresion(new Parser().parsear("ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas"))));
 		this.addIndicador(new Indicador("Razon Corriente", new Expresion(new Parser().parsear("activoCorriente/pasivoCorriente"))));
 		this.addIndicador(new Indicador("ROA", new Expresion(new Parser().parsear("utilidadBruta/activoTotal"))));
-		this.addIndicador(new Indicador("ROE", new Expresion(new Parser().parsear("utilidadNeta/patrimonioTotal"))));
-		this.addIndicador(new Indicador("Endeudamiento", new Expresion(new Parser().parsear("pasivoTotalTerceros/activoTotal"))));
+		this.addIndicador(new Indicador("ROE", new Expresion(new Parser().parsear("roe"))));
+		this.addIndicador(new Indicador("Endeudamiento", new Expresion(new Parser().parsear("endeudamiento"))));
+		this.addIndicador(new Indicador("Margen", new Expresion(new Parser().parsear("margen"))));
 	}
 	
 }

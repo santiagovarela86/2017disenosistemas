@@ -11,9 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import dds.tp.model.BalanceAnual;
 import dds.tp.model.CondicionPriorizar;
-import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.LectorCuentas;
@@ -22,7 +20,6 @@ import dds.tp.model.condiciones.CondicionLongevidadComparadora;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.metodologia.Ordenador;
 import dds.tp.model.metodologia.ResultadoAnalisis;
-import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
