@@ -2,15 +2,14 @@ package dds.tp.model.condiciones;
 
 import java.time.Year;
 
-import dds.tp.model.Condicion;
+import dds.tp.model.CondicionTaxativa;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-//ESTA ES TAXATIVA TE DICE SI SIRVE O NO PARA INVERTIR
-public class CondicionSimple extends Condicion {
+public class CondicionSimple extends CondicionTaxativa {
 
 	private Double valorLimite;
 	private int aniosACumplir;

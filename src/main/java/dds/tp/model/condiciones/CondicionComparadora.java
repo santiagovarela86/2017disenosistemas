@@ -2,7 +2,7 @@ package dds.tp.model.condiciones;
 
 import java.time.Year;
 
-import dds.tp.model.Condicion;
+import dds.tp.model.CondicionPriorizar;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
@@ -10,7 +10,7 @@ import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 //ESTA SE USA PARA ORDENAR
-public class CondicionComparadora extends Condicion {
+public class CondicionComparadora extends CondicionPriorizar {
 
 	private int periodosHaciaAtras;
 	private Indicador indicador;

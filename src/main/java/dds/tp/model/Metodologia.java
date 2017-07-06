@@ -1,36 +1,25 @@
 package dds.tp.model;
 
 import java.util.ArrayList;
-
-import dds.tp.excepciones.CondicionNoCumplida;
+import java.util.List;
 
 public class Metodologia {
 
 	private String nombre;
-	private ArrayList<Condicion> condiciones;
+	private ArrayList<CondicionTaxativa> condicionesTaxativas;
+	private ArrayList<CondicionPriorizar> condicionesQuePriorizan;
 	
-	public Metodologia(String nombre) {
+	public Metodologia(String nombre, ArrayList<CondicionTaxativa> condicionesTaxativas, ArrayList<CondicionPriorizar> condicionesQuePriorizan) {
 		this.nombre = nombre;
-		this.condiciones = new ArrayList<>();
+		this.condicionesQuePriorizan = condicionesQuePriorizan;
+		this.condicionesTaxativas = condicionesTaxativas;
 	}
 	
 	public String getNombre() {
 		return nombre;
 	}
 	
-	public void agregarCondicion(Condicion cond) {
-		this.condiciones.add(cond);
-	}
-	
-	public ResultadoMetodologia evaluarEn(Empresa empresa){
-		try {
-			for (Condicion condicion : condiciones) {
-//				condicion.esCumplidaEn(empresa);
-			}
-			return new ResultadoMetodologia(empresa, "Si", "Se cumplen todas las condiciones");
-		}
-		catch(CondicionNoCumplida ex){
-			return new ResultadoMetodologia(empresa, "No", ex.getMessage());
-		}
+	public ResultadoMetodologia evaluarEn(List<Empresa> empresas){
+		return null;
 	}
 }

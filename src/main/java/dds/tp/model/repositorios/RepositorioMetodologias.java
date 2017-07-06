@@ -3,8 +3,8 @@ package dds.tp.model.repositorios;
 import java.util.ArrayList;
 
 import dds.tp.excepciones.ElementoYaExiste;
-import dds.tp.model.Condicion;
 import dds.tp.model.Metodologia;
+import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionComparadora;
 import dds.tp.model.condiciones.CondicionVariabilidad;
 import dds.tp.model.condiciones.CondicionLongevidadComparadora;
@@ -36,18 +36,14 @@ public class RepositorioMetodologias {
 	}
 
 	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {
-		Metodologia warrenBuffet = new Metodologia("WarrenBuffet");	
-		Condicion cond1 = new CondicionComparadora("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("ROE"), new Mayor(), 10);
-		Condicion cond2 = new CondicionComparadora("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("DEUDA"), new Menor(), 1);
-		Condicion cond3 = new CondicionVariabilidad("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("MARGEN"), new Mayor(), 10);
-		Condicion cond4 = new CondicionLongevidadSimple("Longevidad Simple",  "Longevidad Simple");
-		Condicion cond5 = new CondicionLongevidadComparadora("Longevidad Comparadora",  "Longevidad Comparadora");
-		warrenBuffet.agregarCondicion(cond1);
-		warrenBuffet.agregarCondicion(cond2);
-		warrenBuffet.agregarCondicion(cond3);
-		warrenBuffet.agregarCondicion(cond4);
-		warrenBuffet.agregarCondicion(cond5);
-		this.addMetodologia(warrenBuffet);		
+		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
+			.agregarCondPriorizar(new CondicionComparadora("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("ROE"), new Mayor(), 10))
+			.agregarCondPriorizar(new CondicionComparadora("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("DEUDA"), new Menor(), 1))
+			.agregarCondTaxativa(new CondicionVariabilidad("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("MARGEN"), new Mayor(), 10))
+			.agregarCondTaxativa(new CondicionLongevidadSimple("Longevidad Simple",  "Longevidad Simple"))
+			.agregarCondPriorizar(new CondicionLongevidadComparadora("Longevidad Comparadora",  "Longevidad Comparadora"))
+			.build();
+		this.addMetodologia(warrenBuffet);
 	}
 	
 }
