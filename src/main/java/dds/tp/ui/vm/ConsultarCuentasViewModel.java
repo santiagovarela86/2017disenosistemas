@@ -2,7 +2,6 @@ package dds.tp.ui.vm;
 
 import java.util.List;
 
-import org.uqbar.arena.bindings.ObservableProperty;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.Balance;
