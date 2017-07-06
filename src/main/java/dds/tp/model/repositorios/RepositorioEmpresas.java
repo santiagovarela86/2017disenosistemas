@@ -39,7 +39,7 @@ public class RepositorioEmpresas {
 	
 	public void agregarEmpresaYaExistente(Empresa empr) {
 		Empresa emprExistente = this.getEmpresa(empr.getNombre());
-		for (Balance balance : empr.getBalances()) {
+		for (Balance balance : empr.getTodosLosBalances()) {
 			try {
 				emprExistente.addBalance(balance);
 			}

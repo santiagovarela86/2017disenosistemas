@@ -7,6 +7,8 @@ import java.util.List;
 
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Cuenta;
+import dds.tp.model.periodos.Anual;
+import dds.tp.model.periodos.Semestral;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 
 public class LectorCuentas {
@@ -36,9 +38,14 @@ public class LectorCuentas {
 		Double valor = Double.parseDouble(string.get(3).trim());
 		Integer anioFundacion = Integer.parseInt(string.get(4).trim());
 	    
-		
+		Balance bal;
 		Empresa empresa = new Empresa(empresaNombre,anioFundacion);
-		Balance bal = new Balance(periodo);
+		if(periodo.length()>4){
+			bal = new BalanceSemestral(new Semestral(periodo));
+		}else {
+			bal = new BalanceAnual(new Anual(periodo));
+		}
+		
 		bal.addCuenta(new Cuenta(nombre, valor));
 		empresa.addBalance(bal);
 		

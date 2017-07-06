@@ -8,22 +8,22 @@ import org.uqbar.commons.utils.Observable;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.periodos.Periodo;
 
 @Observable
-public class Balance {
-	private String periodo;
+public abstract class Balance {
 	private List<Cuenta> cuentas;
 	
-	public Balance(String periodo) {
+	public Balance() {
 		super();
-		this.periodo = periodo;
 		this.cuentas = new ArrayList<>();
 	}
 
-	public String getPeriodo() {
-		return periodo;
-	}
-
+	public abstract Periodo getPeriodo();
+	public abstract String getPeriodoNombre();
+	public abstract boolean sosAnual();
+	public abstract boolean sosSemestral();
+	
 	public List<Cuenta> getCuentas() {
 		return cuentas;
 	}
@@ -36,7 +36,7 @@ public class Balance {
 		if(!this.contieneCuenta(cta))
 			this.cuentas.add(cta);
 		else 
-			throw new ElementoYaExiste("Ya existe la cuenta " + cta.getNombre() + " dentro del balance " + this.getPeriodo());
+			throw new ElementoYaExiste("Ya existe la cuenta " + cta.getNombre() + " dentro del balance " + this.getPeriodoNombre());
 	}
 	
 	public Cuenta getCuenta(String nombre){
@@ -54,9 +54,9 @@ public class Balance {
 	public boolean contieneCuenta(String nombreCta) {
 		return this.getCuentas().stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(nombreCta));
 	}
-	
+
 	@Override
 	public String toString() {
-		return this.periodo;
+		return this.getPeriodoNombre();
 	}
 }

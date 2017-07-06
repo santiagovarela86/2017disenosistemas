@@ -12,8 +12,10 @@ import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.model.Balance;
+import dds.tp.model.BalanceAnual;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Indicador;
+import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 
@@ -25,7 +27,7 @@ public class TestCalcularExpresiones {
 	@Before
 	public void inicializar() {
 		baulIndicadores = new RepositorioIndicadores();
-		balanceTest = new Balance("2017");
+		balanceTest = new BalanceAnual(new Anual("2017"));
 		try {
 			balanceTest.addCuenta(new Cuenta("Ebitda", 200d));
 			balanceTest.addCuenta(new Cuenta("Roe", 20d));

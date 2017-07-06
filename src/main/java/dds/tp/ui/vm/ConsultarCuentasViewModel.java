@@ -2,6 +2,7 @@ package dds.tp.ui.vm;
 
 import java.util.List;
 
+import org.uqbar.arena.bindings.ObservableProperty;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.Balance;
@@ -34,7 +35,7 @@ public class ConsultarCuentasViewModel{
 	}
 	
 	public List<Balance> getBalances() {
-		return this.empresa.getBalances();
+		return this.empresa.getTodosLosBalances();
 	}
 	
 	public Balance getBalance() {

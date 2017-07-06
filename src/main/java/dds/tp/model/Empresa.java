@@ -14,13 +14,15 @@ public class Empresa {
 
 	private String nombre;
 	private Integer antiguedad;
-	private List<Balance> balances;
+	private List<BalanceSemestral> balancesSemestrales;
+	private List<BalanceAnual> balancesAnuales;
 	
 	public Empresa(String nombre, Integer anioFundacion) {
 		super();
 		this.nombre = nombre;
 		this.antiguedad = Year.now().getValue() - anioFundacion; 
-		this.balances = new ArrayList<>();
+		this.balancesAnuales = new ArrayList<>();
+		this.balancesSemestrales = new ArrayList<>();
 	}
 
 	public String getNombre() {
@@ -35,17 +37,36 @@ public class Empresa {
 		return antiguedad;
 	}
 	
-	public List<Balance> getBalances() {
-		return balances;
+	public List<BalanceAnual> getBalancesAnuales() {
+		return balancesAnuales;
 	}
 	
-	public void setBalances(List<Balance> balances){
-		this.balances = balances;
+	public void setBalancesAnuales(List<BalanceAnual> balancesAnuales) {
+		this.balancesAnuales = balancesAnuales;
+	}
+	
+	public List<BalanceSemestral> getBalancesSemestrales() {
+		return balancesSemestrales;
+	}
+	
+	public void setBalancesSemestrales(List<BalanceSemestral> balancesSemestrales) {
+		this.balancesSemestrales = balancesSemestrales;
+	}
+	
+	public List<Balance> getTodosLosBalances() {
+		ArrayList<Balance> allBalances =  new ArrayList<Balance>(balancesAnuales);
+		allBalances.addAll(balancesSemestrales);
+		return allBalances;
 	}
 	
 	public void addBalance(Balance bal) throws ElementoYaExiste {
 		if(!contieneBalance(bal))
-			this.balances.add(bal);
+			if(bal.sosAnual()) {
+				this.balancesAnuales.add((BalanceAnual) bal);
+			}
+			else {
+				this.balancesSemestrales.add((BalanceSemestral) bal);
+			}
 		else 
 			throw new ElementoYaExiste("El balance ya existe pruebe unir balances");
 	}
@@ -53,7 +74,7 @@ public class Empresa {
 	public void unirBalanceConUnoYaExistente(Balance bal) {
 		if(contieneBalance(bal)){
 			try {
-				Balance balanceExistente = this.getBalance(bal.getPeriodo());
+				Balance balanceExistente = this.getBalance(bal.getPeriodoNombre());
 				for (Cuenta cta : bal.getCuentas()) {
 					try {
 						balanceExistente.addCuenta(cta);
@@ -68,12 +89,12 @@ public class Empresa {
 	}
 	
 	public boolean contieneBalance(Balance bal) {
-		return this.balances.stream().anyMatch(elem -> elem.getPeriodo().equalsIgnoreCase(bal.getPeriodo()));
+		return this.getTodosLosBalances().stream().anyMatch(elem -> elem.getPeriodo().igualA(bal.getPeriodo()));
 	}
 	
 	public Balance getBalance(String periodo) throws ElementoNotFound {
 		try {
-			return this.balances.stream().filter(elem->elem.getPeriodo().equalsIgnoreCase(periodo)).collect(Collectors.toList()).get(0);
+			return this.getTodosLosBalances().stream().filter(elem->elem.getPeriodo().igualA(periodo)).collect(Collectors.toList()).get(0);
 		}catch (IndexOutOfBoundsException e) {
 			throw new ElementoNotFound("El balance " + periodo+ " no se ha encontrado");
 		}

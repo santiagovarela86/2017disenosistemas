@@ -88,7 +88,7 @@ public class UsarIndicadoresViewModel {
 	}
 	
 	public List<Balance> getBalances() {
-		return this.empresa.getBalances();
+		return this.empresa.getTodosLosBalances();
 	}
 	
 	public Balance getBalance() {

@@ -47,7 +47,7 @@ public class UsarIndicadoresWindow extends Window<UsarIndicadoresViewModel> {
 		this.getModelObject().setEmpresa(this.getModelObject().getEmpresas().get(0));
 		new Label(panelIzquierda).setText("Balance de ").setWidth(400);
 		Selector<UsarIndicadoresViewModel> selecBalance = new Selector<UsarIndicadoresViewModel>(panelIzquierda);
-		selecBalance.bindItemsToProperty("empresa.balances");
+		selecBalance.bindItemsToProperty("empresa.todosLosBalances");
 		selecBalance.bindValueToProperty("balance");
 		
 		Label tipoResultado = new Label(panelIzquierda);

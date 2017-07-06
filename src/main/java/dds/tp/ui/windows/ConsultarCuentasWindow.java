@@ -28,7 +28,7 @@ public class ConsultarCuentasWindow extends Window<ConsultarCuentasViewModel>{
 		this.getModelObject().setEmpresa(this.getModelObject().getEmpresas().get(0));
 		new Label(mainPanel).setText("Balance de ").setWidth(400);
 		Selector<ConsultarCuentasViewModel> selecBalance = new Selector<ConsultarCuentasViewModel>(mainPanel);
-		selecBalance.bindItemsToProperty("empresa.balances");
+		selecBalance.bindItemsToProperty("empresa.todosLosBalances");
 		selecBalance.bindValueToProperty("balance");
 		
 		
