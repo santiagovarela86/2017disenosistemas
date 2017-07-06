@@ -10,13 +10,13 @@ import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 //ESTA ES TAXATIVA TE DICE SI SIRVE O NO PARA INVERTIR
-public class CondicionCrecienteDecreciente extends Condicion {
+public class CondicionVariabilidad extends Condicion {
 	
 	private int periodosHaciaAtras;
 	private Indicador indicador;
 	private Comparador comparador;
 
-	public CondicionCrecienteDecreciente(String nombre,String descripcion, Indicador indicador, Comparador comparador, int periodosHaciaAtras) {
+	public CondicionVariabilidad(String nombre,String descripcion, Indicador indicador, Comparador comparador, int periodosHaciaAtras) {
 		super(nombre, descripcion);
 		this.indicador = indicador;
 		this.comparador = comparador;

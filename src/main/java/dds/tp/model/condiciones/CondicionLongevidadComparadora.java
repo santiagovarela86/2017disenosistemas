@@ -3,7 +3,6 @@ package dds.tp.model.condiciones;
 import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 
-//ESTA SE USA PARA ORDENAR
 public class CondicionLongevidadComparadora extends Condicion {
 	
 	public CondicionLongevidadComparadora(String nombre, String descripcion) {
