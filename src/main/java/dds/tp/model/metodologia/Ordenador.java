@@ -36,23 +36,27 @@ public class Ordenador {
 		return listaOrdenada;
 	}
 	
-	public List<ResultadoAnalisis> generarListaFinal(List<Empresa> empresas, List<List<Empresa>> listasIntermedias){
+	private List<ResultadoAnalisis> generarListaFinal(List<Empresa> empresas, List<List<Empresa>> listasIntermedias){
 		ArrayList<ResultadoAnalisis> resultadosOrdenados = new ArrayList<>();
 		
 		//POR CADA EMPRESA OBTENGO SUS PUNTOS
 		empresas.forEach(empresa -> resultadosOrdenados.add(generarResultadoEmpresa(empresa, listasIntermedias)));
 		
+		Collections.sort(resultadosOrdenados, (resultado1, resultado2) -> resultado1.esMayorQue(resultado2));
+		
 		return resultadosOrdenados;
 	}
 	
-	public ResultadoAnalisis generarResultadoEmpresa(Empresa empresa, List<List<Empresa>> listasIntermedias){
-		ArrayList<Integer> posiciones = new ArrayList<Integer>();
+	private ResultadoAnalisis generarResultadoEmpresa(Empresa empresa, List<List<Empresa>> listasIntermedias){
+		int puntaje = 0;
 		
 		//POR CADA LISTA OBTENGO LA POSICION DE LA EMPRESA
-		listasIntermedias.forEach(lista -> posiciones.add(lista.indexOf(empresa)+1));
+		for (List<Empresa> list : listasIntermedias) {
+			puntaje += (list.size() - list.indexOf(empresa));
+		}
 		
 		//EL PUNTAJE DE CADA EMPRESA ES LA SUMA DE LAS POSICIONES EN CADA LISTA
-		return new ResultadoAnalisis(posiciones.stream().mapToInt(Integer::intValue).sum(), empresa, ""); //JUSTIFICACION?
+		return new ResultadoAnalisis(puntaje, empresa, "Ha pasado todas las condiciones correctamente");
 	}
 
 }

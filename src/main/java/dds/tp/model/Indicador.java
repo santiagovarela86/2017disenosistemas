@@ -4,6 +4,7 @@ import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
 import dds.tp.model.repositorios.RepositorioIndicadores;
+import dds.tp.parsertools.Parser;
 
 
 @Observable
@@ -15,6 +16,11 @@ public class Indicador {
 	public Indicador(String nombre, Expresion exp){
 		this.nombre = nombre;
 		this.expresion = exp;
+	}
+	
+	public Indicador(String nombre, String exp){
+		this.nombre = nombre;
+		this.expresion = new Expresion(new Parser().parsear(exp));
 	}
 
 	public void setNombre(String nombre){

@@ -27,4 +27,11 @@ public class ResultadoAnalisis {
 		return puntaje;
 	}
 
+	public int esMayorQue(ResultadoAnalisis resultado2) {
+		if(this.puntaje > resultado2.getPuntaje()){
+			return -1;
+		}else 
+			return 1;
+	}
+
 }
