@@ -24,8 +24,7 @@ public class Metodologia {
 		return nombre;
 	}
 
-	//public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
-		/*
+	/*public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
 		ArrayList<ResultadoAnalisis> resultadosPositivos = new ArrayList<>();
 		ArrayList<ResultadoAnalisis> resultadosTotales = new ArrayList<>();
 		ArrayList<Empresa> empresasQueConvieneInvertir = new ArrayList<>(empresas);
@@ -38,6 +37,6 @@ public class Metodologia {
 		resultadosTotales.addAll(resultadosPositivos);
 		resultadosTotales.addAll(resultadosNegativos);
 		return resultadosTotales;
-		*/
-	//}
+		
+	}*/
 }
