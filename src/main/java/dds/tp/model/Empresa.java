@@ -9,6 +9,7 @@ import org.uqbar.commons.utils.Observable;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.periodos.Periodo;
 @Observable
 public class Empresa {
 
@@ -100,6 +101,10 @@ public class Empresa {
 		}
 	}
 
+	public Balance getBalance(Periodo periodo) {
+		return this.getBalance(periodo.toString());
+	}
+	
 	@Override
 	public String toString() {
 		return this.nombre;

@@ -1,9 +1,12 @@
 package dds.tp.model.condiciones;
 
+import java.time.Year;
+
 import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
+import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 //ESTA SE USA PARA ORDENAR
@@ -21,24 +24,14 @@ public class CondicionComparadora extends Condicion {
 	}
 	
 	public boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores){
-		int anio = 2017;
-		String semestre1 = "1ER SEMESTRE ";
-		String semestre2 = "2DO SEMESTRE ";
-		String periodo;
-		boolean continuar = true;
-		for (int i = 0; i < periodosHaciaAtras && continuar; i++) {
-			if(i/2==0){
-				periodo = semestre1 + anio;
-				if(i>0){
-					anio--;
-				}
-			} else {
-				periodo = semestre2 + anio;
+		Anual periodoAEvaluar = new Anual(Year.now().getValue());
+		for (int i = 1; i <= periodosHaciaAtras; i++) {
+			if(!comparador.comparar(indicador.evaluar(empresa1.getBalance(periodoAEvaluar),repoIndicadores), 
+					indicador.evaluar(empresa2.getBalance(periodoAEvaluar),repoIndicadores))){
+				return false;
 			}
-			Double resultado1 = indicador.evaluar(empresa1.getBalance(periodo), repoIndicadores);
-			Double resultado2 = indicador.evaluar(empresa2.getBalance(periodo), repoIndicadores);
-			continuar = comparador.comparar(resultado1, resultado2);
+			periodoAEvaluar = periodoAEvaluar.anioAnterior();
 		}
-		return continuar;
+		return true;
 	}
 }

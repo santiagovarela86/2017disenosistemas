@@ -1,0 +1,24 @@
+UtilidadNeta, NIKE, 2017, 2000, 1964
+PatrimonioTotal, NIKE, 2017, 5000, 1964
+UtilidadNeta, NIKE, 2016, 2000, 1964
+PatrimonioTotal, NIKE, 2016, 4000, 1964
+UtilidadNeta, NIKE, 2015, 3000, 1964
+PatrimonioTotal, NIKE, 2015, 6000, 1964
+UtilidadNeta, NIKE, 2014, 2000, 1964
+PatrimonioTotal, NIKE, 2014, 2000, 1964
+UtilidadNeta, Adidas,2017, 2000, 1964
+PatrimonioTotal, Adidas,2017, 89000, 1964
+UtilidadNeta, Adidas, 2016, 4000, 1964
+PatrimonioTotal, Adidas,2016, 23000, 1964
+UtilidadNeta, Adidas, 2015, 2000, 1964
+PatrimonioTotal, Adidas, 2015, 22000, 1964
+UtilidadNeta, Adidas, 2014, 2000, 1964
+PatrimonioTotal, Adidas, 2014, 10000, 1964
+UtilidadNeta, Puma,2017, 2000, 1964
+PatrimonioTotal, Puma,2017, 2000, 1964
+UtilidadNeta, Puma, 2016, 4000, 1964
+PatrimonioTotal, Puma,2016, 4000, 1964
+UtilidadNeta, Puma, 2015, 2000, 1964
+PatrimonioTotal, Puma, 2015, 2000, 1964
+UtilidadNeta, Puma, 2014, 2000, 1964
+PatrimonioTotal, Puma, 2014, 2000, 1964
