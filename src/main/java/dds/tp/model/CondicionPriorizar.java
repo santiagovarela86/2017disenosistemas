@@ -12,7 +12,7 @@ public abstract class CondicionPriorizar extends Condicion {
 	
 	public int evaluarInt(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repositorioIndicadores){
 		if (this.evaluar(empresa1, empresa2, repositorioIndicadores)){
-			return 1;
-		} else return -1;
+			return -1;
+		} else return 1;
 	}
 }

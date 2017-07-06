@@ -11,7 +11,7 @@ public class CondicionLongevidadComparadora extends CondicionPriorizar {
 	}
 
 	public boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores){
-		return empresa1.getAntiguedad() < empresa2.getAntiguedad();		
+		return empresa1.getAntiguedad() > empresa2.getAntiguedad();		
 	}
 
 }
