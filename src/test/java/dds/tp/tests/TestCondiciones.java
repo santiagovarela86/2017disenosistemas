@@ -23,7 +23,7 @@ public class TestCondiciones {
 	@Before
 	public void inicializar() {
 		try {
-			repoEmpresas = new RepositorioEmpresas(new LectorCuentas("C:\\Users\\Ezequiel\\Desktop\\Tp DDS\\2017-vn-group-15\\tests.txt").obtenerDatos(Files.lines(Paths.get("C:\\Users\\Ezequiel\\Desktop\\Tp DDS\\2017-vn-group-15\\tests.txt"))));
+			repoEmpresas = new RepositorioEmpresas(new LectorCuentas("testsCondiciones.txt").obtenerDatos(Files.lines(Paths.get("testsCondiciones.txt"))));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
