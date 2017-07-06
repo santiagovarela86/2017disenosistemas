@@ -2,6 +2,9 @@ package dds.tp.tests;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,7 @@ import dds.tp.model.CondicionPriorizar;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
+import dds.tp.model.LectorCuentas;
 import dds.tp.model.condiciones.CondicionComparadora;
 import dds.tp.model.condiciones.CondicionLongevidadComparadora;
 import dds.tp.model.condiciones.comparadores.Mayor;
@@ -30,18 +34,14 @@ public class TestOrdenador {
 	
 	@Before
 	public void inicializar() {
-		repoEmpresas = new RepositorioEmpresas();
+		try {
+			repoEmpresas = new RepositorioEmpresas(new LectorCuentas("testOrdenador.txt").obtenerDatos(Files.lines(Paths.get("testOrdenador.txt"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		repoIndicadores = new RepositorioIndicadores();
 		condiciones = new ArrayList<CondicionPriorizar>();
-		repoEmpresas.addEmpresa(new Empresa("Test1", 1960));
-		repoEmpresas.addEmpresa(new Empresa("Test2", 1950));
-		repoEmpresas.addEmpresa(new Empresa("Test3", 1970));
-		repoEmpresas.getEmpresa("Test1").addBalance(new BalanceAnual(new Anual(2017)));
-		repoEmpresas.getEmpresa("Test2").addBalance(new BalanceAnual(new Anual(2017)));
-		repoEmpresas.getEmpresa("Test3").addBalance(new BalanceAnual(new Anual(2017)));
-		repoEmpresas.getEmpresa("Test1").getBalance("2017").addCuenta(new Cuenta("Roe", 100d));
-		repoEmpresas.getEmpresa("Test2").getBalance("2017").addCuenta(new Cuenta("Roe", 196d));
-		repoEmpresas.getEmpresa("Test3").getBalance("2017").addCuenta(new Cuenta("Roe", 906d));
 		
 	}
 	
