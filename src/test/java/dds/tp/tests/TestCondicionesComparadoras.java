@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import dds.tp.model.LectorCuentas;
 import dds.tp.model.condiciones.CondicionComparadora;
+import dds.tp.model.condiciones.CondicionCrecienteDecreciente;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
 import dds.tp.model.repositorios.RepositorioEmpresas;
@@ -44,4 +45,20 @@ public class TestCondicionesComparadoras {
 				new Menor(), 4);
 		assert(condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoEmpresas.getEmpresa("Puma"), repoIndicadores));
 	}
+	
+	@Test
+	public void condicionCrecienteDecrecienteRoe4PeriodosAtrasCreciente() {
+		CondicionCrecienteDecreciente condi = new CondicionCrecienteDecreciente("Test", "Para test", repoIndicadores.getIndicador("ROE"), 
+				new Mayor(), 4);
+		assert(condi.evaluar(repoEmpresas.getEmpresa("NIKE"), repoIndicadores));
+	}
+	
+	@Test
+	public void condicionCrecienteDecrecienteRoe4PeriodosAtrasCrecienteNoSeCumple() {
+		CondicionCrecienteDecreciente condi = new CondicionCrecienteDecreciente("Test", "Para test", repoIndicadores.getIndicador("ROE"), 
+				new Mayor(), 4);
+		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
+	}
+	
+	
 }

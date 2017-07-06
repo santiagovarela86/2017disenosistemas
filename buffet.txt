@@ -2,8 +2,8 @@ UtilidadNeta, NIKE, 2017, 2000, 1964
 PatrimonioTotal, NIKE, 2017, 5000, 1964
 UtilidadNeta, NIKE, 2016, 2000, 1964
 PatrimonioTotal, NIKE, 2016, 4000, 1964
-UtilidadNeta, NIKE, 2015, 3000, 1964
-PatrimonioTotal, NIKE, 2015, 6000, 1964
+UtilidadNeta, NIKE, 2015, 2000, 1964
+PatrimonioTotal, NIKE, 2015, 3000, 1964
 UtilidadNeta, NIKE, 2014, 2000, 1964
 PatrimonioTotal, NIKE, 2014, 2000, 1964
 UtilidadNeta, Adidas,2017, 2000, 1964
