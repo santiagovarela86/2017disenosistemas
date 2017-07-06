@@ -26,7 +26,7 @@ public class Ordenador {
 		return resultadosOrdenados;
 	}
 	
-	public ArrayList<Empresa> generarListaOrdenada(ArrayList<Empresa> lista, CondicionPriorizar cond, RepositorioIndicadores repoIndicadores){
+	public ArrayList<Empresa> generarListaOrdenada(List<Empresa> lista, CondicionPriorizar cond, RepositorioIndicadores repoIndicadores){
 		//ME COPIO LA LISTA ORIGINAL
 		ArrayList<Empresa> listaOrdenada = new ArrayList<Empresa>(lista);
 

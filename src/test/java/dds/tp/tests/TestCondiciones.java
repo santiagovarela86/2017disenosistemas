@@ -15,7 +15,7 @@ import dds.tp.model.condiciones.comparadores.Menor;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-public class TestCondicionesComparadoras {
+public class TestCondiciones {
 	
 	RepositorioEmpresas repoEmpresas;
 	RepositorioIndicadores repoIndicadores;
