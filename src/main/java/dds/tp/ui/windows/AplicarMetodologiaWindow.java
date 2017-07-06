@@ -23,7 +23,7 @@ public class AplicarMetodologiaWindow extends Window<AplicarMetodologiaViewModel
 
 	@Override
 	public void createContents(Panel mainPanel) {
-		this.setTitle("Aplicar Metolologia");
+		this.setTitle("Aplicar Metodologia");
 		
 		Panel panelColumna = new Panel(mainPanel);
 		panelColumna.setLayout(new ColumnLayout(2));
@@ -53,7 +53,10 @@ public class AplicarMetodologiaWindow extends Window<AplicarMetodologiaViewModel
 		new Button(mainPanel)
 		.setCaption("Aplicar")
 		.onClick(()->this.aplicarMetodologia());
-		
+	
+		new Button(mainPanel)
+		.setCaption("Cerrar")
+		.onClick(()->this.close());
 	}
 
 	private void aplicarMetodologia() {

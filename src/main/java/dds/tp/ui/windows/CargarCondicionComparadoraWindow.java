@@ -58,6 +58,10 @@ public class CargarCondicionComparadoraWindow extends Window<CargarCondicionComp
 		.setCaption("Guardar")
 		.onClick(()->this.guardarCondicionComparadora());
 		
+		new Button(mainPanel)
+		.setCaption("Cerrar")
+		.onClick(()->this.close());
+		
 	}
 
 	private void guardarCondicionComparadora() {

@@ -66,6 +66,10 @@ public class CargarCondicionEstadisticaWindow extends Window<CargarCondicionEsta
 		.setCaption("Guardar")
 		.onClick(()->this.guardarCondicionEstadistica());
 		
+		new Button(mainPanel)
+		.setCaption("Cerrar")
+		.onClick(()->this.close());
+		
 	}
 
 	private void guardarCondicionEstadistica() {

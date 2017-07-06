@@ -57,6 +57,10 @@ public class CargarCondicionCrecienteDecrecienteWindow extends Window<CargarCond
 		new Button(mainPanel)
 		.setCaption("Guardar")
 		.onClick(()->this.guardarCondicionCrecienteDecreciente());
+		
+		new Button(mainPanel)
+		.setCaption("Cerrar")
+		.onClick(()->this.close());
 	}
 
 	private void guardarCondicionCrecienteDecreciente() {

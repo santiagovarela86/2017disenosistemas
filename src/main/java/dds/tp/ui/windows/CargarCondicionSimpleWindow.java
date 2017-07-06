@@ -62,6 +62,10 @@ public class CargarCondicionSimpleWindow extends Window<CargarCondicionSimpleVie
 		.setCaption("Guardar")
 		.onClick(()->this.guardarCondicionSimple());
 		
+		new Button(mainPanel)
+		.setCaption("Cerrar")
+		.onClick(()->this.close());
+		
 	}
 
 	private void guardarCondicionSimple() {
