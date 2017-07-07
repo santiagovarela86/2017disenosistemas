@@ -21,6 +21,7 @@ public class CargarCondicionComparadoraViewModel {
 	private Comparador comparadorSeleccionado;
 	private MetodologiaBuilder metodologiaBuilder;
 	private RepositorioIndicadores repoIndicadores;
+	private String mensajeError;
 	
 	public CargarCondicionComparadoraViewModel(MetodologiaBuilder metodologiaBuilder,
 			RepositorioIndicadores repoIndicadores) {
@@ -63,6 +64,8 @@ public class CargarCondicionComparadoraViewModel {
 	}
 	
 	public void guardarCondicionComparadora() {
+		if(nombreCondicion.isEmpty() || descripcion.isEmpty())
+			throw new RuntimeException("Nombre y descripcion son obligatorios");
 		metodologiaBuilder.agregarCondPriorizar(
 					new CondicionComparadora(this.nombreCondicion, 
 							this.descripcion, repoIndicadores.getIndicador(nombreIndicador), 
@@ -80,5 +83,13 @@ public class CargarCondicionComparadoraViewModel {
 	
 	public Comparador getComparadorSeleccionado() {
 		return comparadorSeleccionado;
+	}
+	
+	public String getMensajeError() {
+		return mensajeError;
+	}
+	
+	public void setMensajeError(String mensajeError) {
+		this.mensajeError = mensajeError;
 	}
 }

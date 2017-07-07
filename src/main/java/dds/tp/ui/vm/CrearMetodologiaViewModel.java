@@ -7,6 +7,7 @@ import org.uqbar.commons.utils.Observable;
 import dds.tp.model.Condicion;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.repositorios.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioMetodologias;
 
 @Observable
 public class CrearMetodologiaViewModel {
@@ -14,12 +15,14 @@ public class CrearMetodologiaViewModel {
 	private String nombreMetodologia = "";
 	private MetodologiaBuilder metodologiaBuilder;
 	private RepositorioIndicadores repoIndicadores;
+	private RepositorioMetodologias repoMetodologias;
 	private Condicion condicion;
 	
-	public CrearMetodologiaViewModel(RepositorioIndicadores repoIndicadores) {
+	public CrearMetodologiaViewModel(RepositorioIndicadores repoIndicadores, RepositorioMetodologias repoMetodologias) {
 		super();
 		this.repoIndicadores = repoIndicadores;
 		this.metodologiaBuilder = new MetodologiaBuilder();
+		this.repoMetodologias = repoMetodologias;
 	}
 
 	public String getNombreMetodologia() {
@@ -51,13 +54,15 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public MetodologiaBuilder getMetodologiaBuilder() {
-		// TODO Auto-generated method stub
 		return this.metodologiaBuilder;
 	}
 
 	public RepositorioIndicadores getRepoIndicadores() {
-		// TODO Auto-generated method stub
 		return this.repoIndicadores;
+	}
+
+	public void guardarMetodologia() {
+		this.repoMetodologias.addMetodologia(metodologiaBuilder.build());
 	}
 	
 }

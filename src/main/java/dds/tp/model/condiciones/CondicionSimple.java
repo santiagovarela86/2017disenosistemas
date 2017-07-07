@@ -2,6 +2,7 @@ package dds.tp.model.condiciones;
 
 import java.time.Year;
 
+import dds.tp.excepciones.PeriodosCantBeCero;
 import dds.tp.model.CondicionTaxativa;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
@@ -22,6 +23,8 @@ public class CondicionSimple extends CondicionTaxativa {
 		this.comparador = comparador;
 		this.valorLimite = valorLimite;
 		this.aniosACumplir = aniosACumplir;
+		if(aniosACumplir==0)
+			throw new PeriodosCantBeCero();
 	}
 
 	public boolean evaluar(Empresa empresa, RepositorioIndicadores repoIndicadores){

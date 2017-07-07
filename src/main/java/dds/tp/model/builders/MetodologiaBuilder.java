@@ -48,4 +48,9 @@ public class MetodologiaBuilder {
 		allCondiciones.addAll(condicionesTaxativas);
 		return allCondiciones;
 	}
+	
+	public void borrarCondiciones() {
+		this.condicionesQuePriorizan.clear();
+		this.condicionesTaxativas.clear();
+	}
 }

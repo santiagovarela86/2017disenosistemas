@@ -2,6 +2,7 @@ package dds.tp.model.condiciones;
 
 import java.time.Year;
 
+import dds.tp.excepciones.PeriodosCantBeCero;
 import dds.tp.model.CondicionPriorizar;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
@@ -21,6 +22,8 @@ public class CondicionComparadora extends CondicionPriorizar {
 		this.indicador = indicador;
 		this.comparador = comparador;
 		this.periodosHaciaAtras = periodosHaciaAtras;
+		if(periodosHaciaAtras==0)
+			throw new PeriodosCantBeCero();
 	}
 	
 	public boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores){

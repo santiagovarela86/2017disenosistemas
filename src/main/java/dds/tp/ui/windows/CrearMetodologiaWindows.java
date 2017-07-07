@@ -65,16 +65,18 @@ public class CrearMetodologiaWindows extends Window<CrearMetodologiaViewModel> {
 	}
 
 	private void borrarCondiciones() {
-
+		this.getModelObject().getMetodologiaBuilder().borrarCondiciones();
+		ObservableUtils.firePropertyChanged(this.getModelObject(), "condiciones");
 	}
 
 	private void guardar() {
+		this.getModelObject().guardarMetodologia();
+		this.close();
 	}
 
 	private void agregarCondicion() {
 		new AgregarCondicionesWindow(this, new AgregarCondicionesViewModel(
 				this.getModelObject().getMetodologiaBuilder(), this.getModelObject().getRepoIndicadores())).open();
-		
 		ObservableUtils.firePropertyChanged(this.getModelObject(), "condiciones");
 	}
 
