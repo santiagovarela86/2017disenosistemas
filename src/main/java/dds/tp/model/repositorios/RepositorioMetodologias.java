@@ -2,6 +2,7 @@ package dds.tp.model.repositorios;
 
 import java.util.ArrayList;
 
+import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Metodologia;
 import dds.tp.model.builders.MetodologiaBuilder;
@@ -14,7 +15,7 @@ import dds.tp.model.condiciones.comparadores.Menor;
 
 public class RepositorioMetodologias {
 	
-	private ArrayList<Metodologia> metodologias;
+	private ArrayList<Metodologia> metodologias = new ArrayList<>();
 	
 	public ArrayList<Metodologia> getMetodologias() {
 		return metodologias;
@@ -38,12 +39,21 @@ public class RepositorioMetodologias {
 	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
 			.agregarCondPriorizar(new CondicionComparadora("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("ROE"), new Mayor(), 10))
-			.agregarCondPriorizar(new CondicionComparadora("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("DEUDA"), new Menor(), 1))
+			.agregarCondPriorizar(new CondicionComparadora("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("ENDEUDAMIENTO"), new Menor(), 1))
 			.agregarCondTaxativa(new CondicionVariabilidad("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("MARGEN"), new Mayor(), 10))
 			.agregarCondTaxativa(new CondicionLongevidadSimple("Longevidad Simple",  "Longevidad Simple"))
 			.agregarCondPriorizar(new CondicionLongevidadComparadora("Longevidad Comparadora",  "Longevidad Comparadora"))
 			.build();
 		this.addMetodologia(warrenBuffet);
+	}
+	
+	public Metodologia getMetodlogia(String nombre) {
+		if(!this.contieneMetodologia(nombre)){
+			throw new ElementoNotFound("No se encontro la metodologia " + nombre);
+		}
+		return this.metodologias.stream()
+				.filter(metodologia -> metodologia.getNombre().equalsIgnoreCase(nombre))
+				.findFirst().get();
 	}
 	
 }

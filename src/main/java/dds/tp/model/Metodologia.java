@@ -24,7 +24,8 @@ public class Metodologia {
 		return nombre;
 	}
 
-	/*public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
+	public ArrayList<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
+		ArrayList<ResultadoAnalisis> resultadosNegativos = new ArrayList<>();
 		ArrayList<ResultadoAnalisis> resultadosPositivos = new ArrayList<>();
 		ArrayList<ResultadoAnalisis> resultadosTotales = new ArrayList<>();
 		ArrayList<Empresa> empresasQueConvieneInvertir = new ArrayList<>(empresas);
@@ -33,10 +34,10 @@ public class Metodologia {
 			.addAll(new Filtro().getResultadosNegativos(empresasQueConvieneInvertir, condicion, repoIndicadores));
 			empresasQueConvieneInvertir = new Filtro().getEmpresasQueCumplen(empresasQueConvieneInvertir, condicion, repoIndicadores); 
 		}
-		resultadosPositivos = new Ordenador().getResultados(empresasQueConvieneInvertir, condicionesQuePriorizan,repoIndicadores);
+		resultadosPositivos = (ArrayList<ResultadoAnalisis>) new Ordenador().getResultados(empresasQueConvieneInvertir, condicionesQuePriorizan,repoIndicadores);
 		resultadosTotales.addAll(resultadosPositivos);
 		resultadosTotales.addAll(resultadosNegativos);
 		return resultadosTotales;
 		
-	}*/
+	}
 }
