@@ -15,7 +15,6 @@ import org.uqbar.arena.windows.WindowOwner;
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.PeriodosCantBeCero;
 import dds.tp.ui.vm.condiciones.CargarCondicionComparadoraViewModel;
-import dds.tp.ui.vm.condiciones.CargarCondicionSimpleViewModel;
 
 @SuppressWarnings("serial")
 public class CargarCondicionComparadoraWindow extends Window<CargarCondicionComparadoraViewModel>{
@@ -48,8 +47,8 @@ public class CargarCondicionComparadoraWindow extends Window<CargarCondicionComp
 		Panel panel2 = new Panel(panelColumna);
 		panel2.setLayout(new VerticalLayout());
 		
-		new Label(panel2).setText("Mayor/Menor");
-		Selector<CargarCondicionSimpleViewModel> selectorMayorMenor = new Selector<CargarCondicionSimpleViewModel>(panel2);
+		new Label(panel2).setText("Comparador");
+		Selector<CargarCondicionComparadoraViewModel> selectorMayorMenor = new Selector<CargarCondicionComparadoraViewModel>(panel2);
 		selectorMayorMenor.bindItemsToProperty("comparadores");
 		selectorMayorMenor.bindValueToProperty("comparadorSeleccionado");
 		

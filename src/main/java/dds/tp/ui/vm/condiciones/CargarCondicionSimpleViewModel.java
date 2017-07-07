@@ -4,18 +4,31 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
+import dds.tp.model.builders.MetodologiaBuilder;
+import dds.tp.model.condiciones.CondicionSimple;
+import dds.tp.model.condiciones.comparadores.Comparador;
+import dds.tp.model.repositorios.RepositorioComparadores;
+import dds.tp.model.repositorios.RepositorioIndicadores;
+
 @Observable
 public class CargarCondicionSimpleViewModel {
 	private String nombreCondicion = "";
 	private String descripcion = "";
 	private String nombreIndicador = "";
-	private List<String> simbolosRelacionales;
-	private String simboloRelacional;
 	private String valor;
 	private String periodosHaciaAtras;
+	private RepositorioComparadores repoComparadores;
+	private Comparador comparadorSeleccionado;
+	private MetodologiaBuilder metodologiaBuilder;
+	private RepositorioIndicadores repoIndicadores;
+	private String mensajeError;
 	
-	public CargarCondicionSimpleViewModel(){
-		
+	public CargarCondicionSimpleViewModel(MetodologiaBuilder metodologiaBuilder,
+			RepositorioIndicadores repoIndicadores) {
+		super();
+		this.metodologiaBuilder = metodologiaBuilder;
+		this.repoIndicadores = repoIndicadores;
+		this.repoComparadores = new RepositorioComparadores();
 	}
 	
 	public String getNombreCondicion() {
@@ -42,22 +55,6 @@ public class CargarCondicionSimpleViewModel {
 		this.nombreIndicador = nombreIndicador;
 	}
 
-	public List<String> getSimbolosRelacionales() {
-		return simbolosRelacionales;
-	}
-
-	public void setSimbolosRelacionales(List<String> simbolosRelacionales) {
-		this.simbolosRelacionales = simbolosRelacionales;
-	}
-
-	public String getSimboloRelacional() {
-		return simboloRelacional;
-	}
-
-	public void setSimboloRelacional(String simboloRelacional) {
-		this.simboloRelacional = simboloRelacional;
-	}
-
 	public String getValor() {
 		return valor;
 	}
@@ -75,7 +72,31 @@ public class CargarCondicionSimpleViewModel {
 	}
 
 	public void guardarCondicionSimple() {
-		// TODO Auto-generated method stub
-		
+		if(nombreCondicion.isEmpty() || descripcion.isEmpty())
+			throw new RuntimeException("Nombre y descripcion son obligatorios");
+		metodologiaBuilder.agregarCondTaxativa(
+					new CondicionSimple(this.nombreCondicion, 
+							this.descripcion, repoIndicadores.getIndicador(nombreIndicador), 
+							this.comparadorSeleccionado, Double.parseDouble(this.valor),Integer.parseInt(this.periodosHaciaAtras)));
+	}
+	
+	public List<Comparador> getComparadores() {
+		return this.repoComparadores.getComparadores();
+	}
+
+	public void setComparadorSeleccionado(Comparador comparadorSeleccionado) {
+		this.comparadorSeleccionado = comparadorSeleccionado;
+	}
+	
+	public Comparador getComparadorSeleccionado() {
+		return comparadorSeleccionado;
+	}
+	
+	public String getMensajeError() {
+		return mensajeError;
+	}
+	
+	public void setMensajeError(String mensajeError) {
+		this.mensajeError = mensajeError;
 	}
 }

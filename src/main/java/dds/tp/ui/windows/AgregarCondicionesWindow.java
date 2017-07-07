@@ -42,7 +42,8 @@ public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel
 	}
 	
 	private void abrirCargarCondicionSimple(){
-		new CargarCondicionSimpleWindow(this, new CargarCondicionSimpleViewModel()).open();
+		new CargarCondicionSimpleWindow(this, new CargarCondicionSimpleViewModel(
+				this.getModelObject().getMetodologiaBuilder(), this.getModelObject().getRepoIndicadores())).open();
 	}
 	
 	private void abrirCargarCondicionComparadora() {
@@ -55,7 +56,8 @@ public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel
 	}
 	
 	private void abrirCargarCondicionCrecienteDecreciente() {
-		new CargarCondicionCrecienteDecrecienteWindow(this, new CargarCondicionCrecienteDecrecienteViewModel()).open();
+		new CargarCondicionCrecienteDecrecienteWindow(this, new CargarCondicionCrecienteDecrecienteViewModel(
+				this.getModelObject().getMetodologiaBuilder(), this.getModelObject().getRepoIndicadores())).open();
 	}
 
 }
