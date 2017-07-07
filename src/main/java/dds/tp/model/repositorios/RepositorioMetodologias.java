@@ -38,9 +38,9 @@ public class RepositorioMetodologias {
 
 	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
-			.agregarCondPriorizar(new CondicionComparadora("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("ROE"), new Mayor(), 10))
-			.agregarCondPriorizar(new CondicionComparadora("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("ENDEUDAMIENTO"), new Menor(), 1))
-			.agregarCondTaxativa(new CondicionVariabilidad("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("MARGEN"), new Mayor(), 10))
+			.agregarCondPriorizar(new CondicionComparadora("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicacor ROE"), new Mayor(), 10))
+			.agregarCondPriorizar(new CondicionComparadora("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicacor ENDEUDAMIENTO"), new Menor(), 1))
+			.agregarCondTaxativa(new CondicionVariabilidad("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicacor MARGEN"), new Mayor(), 10))
 			.agregarCondTaxativa(new CondicionLongevidadSimple("Longevidad Simple",  "Longevidad Simple"))
 			.agregarCondPriorizar(new CondicionLongevidadComparadora("Longevidad Comparadora",  "Longevidad Comparadora"))
 			.build();

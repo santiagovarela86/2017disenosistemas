@@ -34,28 +34,28 @@ public class TestCondiciones {
 	
 	@Test
 	public void condicionComparadoraConIndicadorRoe4PeriodosAtrasSiendoMayor() {
-		CondicionComparadora condi = new CondicionComparadora("Test", "Para test", repoIndicadores.getIndicador("ROE"), 
+		CondicionComparadora condi = new CondicionComparadora("Test", "Para test", repoIndicadores.getIndicador("Indicacor ROE"), 
 				new Mayor(), 4);
 		assert(condi.evaluar(repoEmpresas.getEmpresa("NIKE"), repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}
 	
 	@Test
 	public void noSeCumpleCondicionComparadoraConIndicadorRoe4PeriodosAtrasSiendoMenor() {
-		CondicionComparadora condi = new CondicionComparadora("Test", "Para test", repoIndicadores.getIndicador("ROE"), 
+		CondicionComparadora condi = new CondicionComparadora("Test", "Para test", repoIndicadores.getIndicador("Indicacor ROE"), 
 				new Menor(), 4);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoEmpresas.getEmpresa("Puma"), repoIndicadores));
 	}
 	
 	@Test
 	public void noSeCumpleCondicionCrecienteDecrecienteRoe4PeriodosAtrasCreciente() {
-		CondicionVariabilidad condi = new CondicionVariabilidad("Test", "Para test", repoIndicadores.getIndicador("ROE"), 
+		CondicionVariabilidad condi = new CondicionVariabilidad("Test", "Para test", repoIndicadores.getIndicador("Indicacor ROE"), 
 				new Mayor(), 4);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}
 	
 	@Test
 	public void condicionCrecienteDecrecienteRoe4PeriodosAtrasCrecienteNoSeCumple() {
-		CondicionVariabilidad condi = new CondicionVariabilidad("Test", "Para test", repoIndicadores.getIndicador("ROE"), 
+		CondicionVariabilidad condi = new CondicionVariabilidad("Test", "Para test", repoIndicadores.getIndicador("Indicacor ROE"), 
 				new Mayor(), 4);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}

@@ -43,9 +43,11 @@ public class RepositorioIndicadores {
 		this.addIndicador(new Indicador("Ingreso Neto", "ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas"));
 		this.addIndicador(new Indicador("Razon Corriente", "activoCorriente/pasivoCorriente"));
 		this.addIndicador(new Indicador("ROA", "utilidadBruta/activoTotal"));
-		this.addIndicador(new Indicador("ROE", "roe"));
-		this.addIndicador(new Indicador("Endeudamiento", "endeudamiento"));
-		this.addIndicador(new Indicador("Margen", "margen"));
+		//Pongo indicador antes xq sino tiene la cuenta se llama recursivamente el mimo indicador y tira stackoverflow
+		//Normalmente un indicador no se llama igual q el calculo...
+		this.addIndicador(new Indicador("Indicacor ROE", "roe"));
+		this.addIndicador(new Indicador("Indicacor Endeudamiento", "endeudamiento"));
+		this.addIndicador(new Indicador("Indicacor Margen", "margen"));
 	}
 	
 }
