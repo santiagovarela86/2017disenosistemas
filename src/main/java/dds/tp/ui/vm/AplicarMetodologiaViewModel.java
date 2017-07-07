@@ -7,7 +7,6 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.Condicion;
-import dds.tp.model.Empresa;
 import dds.tp.model.Metodologia;
 import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioEmpresas;

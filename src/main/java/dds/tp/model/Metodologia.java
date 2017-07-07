@@ -1,6 +1,7 @@
 package dds.tp.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import dds.tp.excepciones.ElementNotLoad;
@@ -45,6 +46,7 @@ public class Metodologia {
 			.addAll(new Filtro().getResultadosNegativos(empresasQueConvieneInvertir, condicion, repoIndicadores));
 			this.removerEmpresasQueYaNoConvieneInvertirDesdeResultados(empresasQueConvieneInvertir, resultadosNegativos);
 		}
+		Collections.reverse(resultadosNegativos);
 		resultadosPositivos = (ArrayList<ResultadoAnalisis>) new Ordenador().getResultados(empresasQueConvieneInvertir, condicionesQuePriorizan,repoIndicadores);
 		resultadosTotales.addAll(resultadosPositivos);
 		resultadosTotales.addAll(resultadosNegativos);
