@@ -52,7 +52,8 @@ public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel
 	}
 	
 	private void abrirCargarCondicionEstadistica() {
-		new CargarCondicionEstadisticaWindow(this, new CargarCondicionEstadisticaViewModel()).open();
+		new CargarCondicionEstadisticaWindow(this, new CargarCondicionEstadisticaViewModel(
+				this.getModelObject().getMetodologiaBuilder(), this.getModelObject().getRepoIndicadores())).open();
 	}
 	
 	private void abrirCargarCondicionCrecienteDecreciente() {

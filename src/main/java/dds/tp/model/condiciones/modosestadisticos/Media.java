@@ -23,5 +23,10 @@ public class Media implements ModoEstadistico {
 			return (resultados.get(resultados.size()/2)+resultados.get(resultados.size()/2-1))/2;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "Media";
+	}
 
 }

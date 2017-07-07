@@ -16,4 +16,8 @@ public class Sumatoria implements ModoEstadistico {
 		return sumatoria;
 	}
 
+	@Override
+	public String toString() {
+		return "Sumatoria";
+	}
 }

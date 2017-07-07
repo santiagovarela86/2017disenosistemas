@@ -14,7 +14,6 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.PeriodosCantBeCero;
-import dds.tp.ui.vm.condiciones.CargarCondicionComparadoraViewModel;
 import dds.tp.ui.vm.condiciones.CargarCondicionSimpleViewModel;
 
 @SuppressWarnings("serial")

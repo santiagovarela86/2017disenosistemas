@@ -12,4 +12,8 @@ public class Promedio implements ModoEstadistico {
 		return sumatoria/empresa.getBalancesAnuales().size();
 	}
 
+	@Override
+	public String toString() {
+		return "Promedio";
+	}
 }
