@@ -45,8 +45,8 @@ public class CargarCondicionComparadoraWindow extends Window<CargarCondicionComp
 		
 		new Label(panel2).setText("Mayor/Menor");
 		Selector<CargarCondicionSimpleViewModel> selectorMayorMenor = new Selector<CargarCondicionSimpleViewModel>(panel2);
-		selectorMayorMenor.bindItemsToProperty("simbolosRelacionales");
-		selectorMayorMenor.bindValueToProperty("simboloRelacional");
+		selectorMayorMenor.bindItemsToProperty("comparadores");
+		selectorMayorMenor.bindValueToProperty("comparadorSeleccionado");
 		
 		Panel panel3 = new Panel(panelColumna);
 		panel3.setLayout(new VerticalLayout());
@@ -65,7 +65,11 @@ public class CargarCondicionComparadoraWindow extends Window<CargarCondicionComp
 	}
 
 	private void guardarCondicionComparadora() {
-		this.getModelObject().guardarCondicionComparadora();
+		try {
+			this.getModelObject().guardarCondicionComparadora();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -1,19 +1,27 @@
 package dds.tp.ui.vm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.Condicion;
+import dds.tp.model.builders.MetodologiaBuilder;
+import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Observable
 public class CrearMetodologiaViewModel {
 
 	private String nombreMetodologia = "";
-	private List<Condicion> condiciones = new ArrayList<Condicion>();
+	private MetodologiaBuilder metodologiaBuilder;
+	private RepositorioIndicadores repoIndicadores;
 	private Condicion condicion;
 	
+	public CrearMetodologiaViewModel(RepositorioIndicadores repoIndicadores) {
+		super();
+		this.repoIndicadores = repoIndicadores;
+		this.metodologiaBuilder = new MetodologiaBuilder();
+	}
+
 	public String getNombreMetodologia() {
 		return nombreMetodologia;
 	}
@@ -23,14 +31,14 @@ public class CrearMetodologiaViewModel {
 	}
 	
 	public List<Condicion> getCondiciones() {
-		return condiciones;
+		return metodologiaBuilder.getAllCondiciones();
 	}
 	
-	public String getNombreCondicion() {
+	public String getNombre() {
 		return condicion.getNombre();
 	}
 	
-	public String getDescripcionCondicion() {
+	public String getDescripcion() {
 		return condicion.getDescripcion();
 	}
 	
@@ -40,6 +48,16 @@ public class CrearMetodologiaViewModel {
 	
 	public void setCondicion(Condicion condicion) {
 		this.condicion = condicion;
+	}
+
+	public MetodologiaBuilder getMetodologiaBuilder() {
+		// TODO Auto-generated method stub
+		return this.metodologiaBuilder;
+	}
+
+	public RepositorioIndicadores getRepoIndicadores() {
+		// TODO Auto-generated method stub
+		return this.repoIndicadores;
 	}
 	
 }

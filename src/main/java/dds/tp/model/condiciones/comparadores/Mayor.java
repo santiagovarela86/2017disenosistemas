@@ -7,4 +7,13 @@ public class Mayor implements Comparador {
 		return valorUno > valorDos;
 	}
 
+	@Override
+	public String getNombre() {
+		return "Mayor";
+	}
+
+	@Override
+	public String toString() {
+		return this.getNombre();
+	}
 }

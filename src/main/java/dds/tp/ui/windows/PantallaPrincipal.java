@@ -47,7 +47,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 
 	private void abrirCrearMetodologia() {
-		new CrearMetodologiaWindows(this, new CrearMetodologiaViewModel()).open();
+		new CrearMetodologiaWindows(this, new CrearMetodologiaViewModel(this.getModelObject().getBaulIndicadores())).open();
 	}
 
 	private void refresh(){

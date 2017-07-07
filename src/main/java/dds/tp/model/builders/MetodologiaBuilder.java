@@ -1,7 +1,9 @@
 package dds.tp.model.builders;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import dds.tp.model.Condicion;
 import dds.tp.model.CondicionPriorizar;
 import dds.tp.model.CondicionTaxativa;
 import dds.tp.model.Metodologia;
@@ -39,5 +41,11 @@ public class MetodologiaBuilder {
 	
 	public Metodologia build() {
 		return new Metodologia(nombre, condicionesTaxativas, condicionesQuePriorizan);
+	}
+
+	public List<Condicion> getAllCondiciones() {
+		ArrayList<Condicion> allCondiciones = new ArrayList<>(this.condicionesQuePriorizan);
+		allCondiciones.addAll(condicionesTaxativas);
+		return allCondiciones;
 	}
 }

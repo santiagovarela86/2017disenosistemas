@@ -46,7 +46,8 @@ public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel
 	}
 	
 	private void abrirCargarCondicionComparadora() {
-		new CargarCondicionComparadoraWindow(this, new CargarCondicionComparadoraViewModel()).open();
+		new CargarCondicionComparadoraWindow(this, new CargarCondicionComparadoraViewModel(
+				this.getModelObject().getMetodologiaBuilder(), this.getModelObject().getRepoIndicadores())).open();
 	}
 	
 	private void abrirCargarCondicionEstadistica() {

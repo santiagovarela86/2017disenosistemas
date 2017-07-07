@@ -10,6 +10,7 @@ import org.uqbar.arena.widgets.tables.Column;
 import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.commons.model.ObservableUtils;
 
 import dds.tp.ui.vm.AgregarCondicionesViewModel;
 import dds.tp.ui.vm.CrearMetodologiaViewModel;
@@ -53,11 +54,11 @@ public class CrearMetodologiaWindows extends Window<CrearMetodologiaViewModel> {
 		tablaCuentas.setNumberVisibleRows(10);
 		Column<CrearMetodologiaViewModel> columnaNombre = new Column<CrearMetodologiaViewModel>(tablaCuentas);
 		columnaNombre.setTitle("Nombre");
-		columnaNombre.bindContentsToProperty("nombreCondicion");
+		columnaNombre.bindContentsToProperty("nombre");
 		columnaNombre.setFixedSize(200);
 		Column<CrearMetodologiaViewModel> columnaValor = new Column<CrearMetodologiaViewModel>(tablaCuentas);
 		columnaValor.setTitle("Descripcion");
-		columnaValor.bindContentsToProperty("descripcionCondicion");
+		columnaValor.bindContentsToProperty("descripcion");
 		columnaValor.setFixedSize(200);
 		//---------------------------------
 		
@@ -71,7 +72,10 @@ public class CrearMetodologiaWindows extends Window<CrearMetodologiaViewModel> {
 	}
 
 	private void agregarCondicion() {
-		new AgregarCondicionesWindow(this, new AgregarCondicionesViewModel()).open();
+		new AgregarCondicionesWindow(this, new AgregarCondicionesViewModel(
+				this.getModelObject().getMetodologiaBuilder(), this.getModelObject().getRepoIndicadores())).open();
+		
+		ObservableUtils.firePropertyChanged(this.getModelObject(), "condiciones");
 	}
 
 }

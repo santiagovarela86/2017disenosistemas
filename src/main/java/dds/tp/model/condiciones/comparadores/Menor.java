@@ -7,4 +7,14 @@ public class Menor implements Comparador {
 		return valorUno < valorDos;
 	}
 
+	@Override
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return "Menor";
+	}
+	@Override
+	public String toString() {
+		return this.getNombre();
+	}
+
 }
