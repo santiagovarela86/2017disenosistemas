@@ -10,6 +10,7 @@ public class AgregarCondicionesViewModel {
 
 	private MetodologiaBuilder metodologiaBuilder;
 	private RepositorioIndicadores repoIndicadores;
+	private String mensajeOK;
 	
 	public AgregarCondicionesViewModel(MetodologiaBuilder metodologiaBuilder, RepositorioIndicadores repoIndicadores) {
 		super();
@@ -23,6 +24,14 @@ public class AgregarCondicionesViewModel {
 
 	public RepositorioIndicadores getRepoIndicadores() {
 		return repoIndicadores;
+	}
+
+	public String getMensajeOK() {
+		return mensajeOK;
+	}
+
+	public void setMensajeOK(String mensajeOK) {
+		this.mensajeOK = mensajeOK;
 	}
 
 }
