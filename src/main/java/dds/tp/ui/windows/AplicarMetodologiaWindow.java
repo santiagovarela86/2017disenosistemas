@@ -37,6 +37,7 @@ public class AplicarMetodologiaWindow extends Window<AplicarMetodologiaViewModel
 		selectorMetodologia.bindValueToProperty("metodologia");
 		selectorMetodologia.setWidth(450);
 		
+		new Label(panelIzquierdo).setText("Condiciones de la Metodologia").setWidth(450);
 		Table<AplicarMetodologiaViewModel> tablaCondiciones = new Table<>(panelIzquierdo, AplicarMetodologiaViewModel.class);
 		tablaCondiciones.bindItemsToProperty("condiciones");
 		tablaCondiciones.bindValueToProperty("condicion");
