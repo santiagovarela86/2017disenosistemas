@@ -24,21 +24,18 @@ public class TestMetodologia {
 	private RepositorioEmpresas repoEmpresas;
 	private RepositorioIndicadores repoIndicadores;
 	private RepositorioMetodologias repoMetodologia;
-	private ArrayList<CondicionPriorizar> condiciones;
 	
 	@Before
 	public void inicializar() {
 		try {
 			repoEmpresas = new RepositorioEmpresas(new LectorCuentas("testsMetodologia.txt").obtenerDatos(Files.lines(Paths.get("testsMetodologia.txt"))));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		repoIndicadores = new RepositorioIndicadores();
 		repoIndicadores.cargarPredeterminados();
 		repoMetodologia = new RepositorioMetodologias();
 		repoMetodologia.cargarPredeterminados(repoIndicadores);
-		condiciones = new ArrayList<CondicionPriorizar>();
 	}
 	
 	@Test
@@ -46,7 +43,6 @@ public class TestMetodologia {
 		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
 		ArrayList<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		ArrayList<ResultadoAnalisis> resultadosNegativos = (ArrayList<ResultadoAnalisis>) resultados.stream().filter(elem -> elem.getPuntaje()==0).collect(Collectors.toList());
-		assertEquals(resultados.size(),5);
 		assertEquals(resultadosNegativos.size(),2);
 	}
 }
