@@ -7,10 +7,14 @@ import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
 import dds.tp.ui.vm.AgregarCondicionesViewModel;
-import dds.tp.ui.vm.CargarCondicionComparadoraViewModel;
-import dds.tp.ui.vm.CargarCondicionCrecienteDecrecienteViewModel;
-import dds.tp.ui.vm.CargarCondicionEstadisticaViewModel;
-import dds.tp.ui.vm.CargarCondicionSimpleViewModel;
+import dds.tp.ui.vm.condiciones.CargarCondicionComparadoraViewModel;
+import dds.tp.ui.vm.condiciones.CargarCondicionCrecienteDecrecienteViewModel;
+import dds.tp.ui.vm.condiciones.CargarCondicionEstadisticaViewModel;
+import dds.tp.ui.vm.condiciones.CargarCondicionSimpleViewModel;
+import dds.tp.ui.windows.condiciones.CargarCondicionComparadoraWindow;
+import dds.tp.ui.windows.condiciones.CargarCondicionCrecienteDecrecienteWindow;
+import dds.tp.ui.windows.condiciones.CargarCondicionEstadisticaWindow;
+import dds.tp.ui.windows.condiciones.CargarCondicionSimpleWindow;
 
 @SuppressWarnings("serial")
 public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel>{

@@ -1,4 +1,4 @@
-package dds.tp.ui.vm;
+package dds.tp.ui.vm.condiciones;
 
 import java.util.List;
 

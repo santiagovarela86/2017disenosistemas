@@ -1,22 +1,17 @@
-package dds.tp.ui.vm;
+package dds.tp.ui.vm.condiciones;
 
 import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
 @Observable
-public class CargarCondicionSimpleViewModel {
+public class CargarCondicionCrecienteDecrecienteViewModel {
 	private String nombreCondicion = "";
 	private String descripcion = "";
 	private String nombreIndicador = "";
 	private List<String> simbolosRelacionales;
 	private String simboloRelacional;
-	private String valor;
 	private String periodosHaciaAtras;
-	
-	public CargarCondicionSimpleViewModel(){
-		
-	}
 	
 	public String getNombreCondicion() {
 		return nombreCondicion;
@@ -58,14 +53,6 @@ public class CargarCondicionSimpleViewModel {
 		this.simboloRelacional = simboloRelacional;
 	}
 
-	public String getValor() {
-		return valor;
-	}
-
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
-
 	public String getPeriodosHaciaAtras() {
 		return periodosHaciaAtras;
 	}
@@ -73,9 +60,10 @@ public class CargarCondicionSimpleViewModel {
 	public void setPeriodosHaciaAtras(String periodosHaciaAtras) {
 		this.periodosHaciaAtras = periodosHaciaAtras;
 	}
-
-	public void guardarCondicionSimple() {
+	
+	public void guardarCondicionCrecienteDecreciente() {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

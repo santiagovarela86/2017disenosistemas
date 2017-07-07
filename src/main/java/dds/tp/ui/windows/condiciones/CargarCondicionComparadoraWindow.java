@@ -1,4 +1,4 @@
-package dds.tp.ui.windows;
+package dds.tp.ui.windows.condiciones;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.VerticalLayout;
@@ -10,8 +10,8 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
-import dds.tp.ui.vm.CargarCondicionComparadoraViewModel;
-import dds.tp.ui.vm.CargarCondicionSimpleViewModel;
+import dds.tp.ui.vm.condiciones.CargarCondicionComparadoraViewModel;
+import dds.tp.ui.vm.condiciones.CargarCondicionSimpleViewModel;
 
 @SuppressWarnings("serial")
 public class CargarCondicionComparadoraWindow extends Window<CargarCondicionComparadoraViewModel>{

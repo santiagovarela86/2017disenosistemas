@@ -1,4 +1,4 @@
-package dds.tp.ui.windows;
+package dds.tp.ui.windows.condiciones;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.VerticalLayout;
@@ -10,20 +10,18 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
-import dds.tp.ui.vm.CargarCondicionCrecienteDecrecienteViewModel;
-import dds.tp.ui.vm.CargarCondicionSimpleViewModel;
+import dds.tp.ui.vm.condiciones.CargarCondicionSimpleViewModel;
 
 @SuppressWarnings("serial")
-public class CargarCondicionCrecienteDecrecienteWindow extends Window<CargarCondicionCrecienteDecrecienteViewModel>{
+public class CargarCondicionSimpleWindow extends Window<CargarCondicionSimpleViewModel>{
 
-	public CargarCondicionCrecienteDecrecienteWindow(WindowOwner owner, CargarCondicionCrecienteDecrecienteViewModel model) {
+	public CargarCondicionSimpleWindow(WindowOwner owner, CargarCondicionSimpleViewModel model) {
 		super(owner, model);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void createContents(Panel mainPanel) {
-		this.setTitle("Cargar Condicion Creciente/Decreciente");
+		this.setTitle("Cargar Condicion Simple");
 		
 		new Label(mainPanel).setText("Nombre").setWidth(400);
 		new TextBox(mainPanel).bindValueToProperty("nombreCondicion");
@@ -32,7 +30,7 @@ public class CargarCondicionCrecienteDecrecienteWindow extends Window<CargarCond
 		new TextBox(mainPanel).bindValueToProperty("descripcion");
 		
 		Panel panelColumna = new Panel(mainPanel);
-		panelColumna.setLayout(new ColumnLayout(3));
+		panelColumna.setLayout(new ColumnLayout(4));
 		
 		Panel panel1 = new Panel(panelColumna);
 		panel1.setLayout(new VerticalLayout());
@@ -51,20 +49,26 @@ public class CargarCondicionCrecienteDecrecienteWindow extends Window<CargarCond
 		Panel panel3 = new Panel(panelColumna);
 		panel3.setLayout(new VerticalLayout());
 		
-		new Label(panel3).setText("Periodos Hacia Atras");
-		new TextBox(panel3).bindValueToProperty("periodosHaciaAtras");
+		new Label(panel3).setText("Valor");
+		new TextBox(panel3).bindValueToProperty("valor");
+		
+		Panel panel4 = new Panel(panelColumna);
+		panel4.setLayout(new VerticalLayout());
+		
+		new Label(panel4).setText("Periodos Hacia Atras");
+		new TextBox(panel4).bindValueToProperty("periodosHaciaAtras");
 		
 		new Button(mainPanel)
 		.setCaption("Guardar")
-		.onClick(()->this.guardarCondicionCrecienteDecreciente());
+		.onClick(()->this.guardarCondicionSimple());
 		
 		new Button(mainPanel)
 		.setCaption("Cerrar")
 		.onClick(()->this.close());
+		
 	}
 
-	private void guardarCondicionCrecienteDecreciente() {
-		this.getModelObject().guardarCondicionCrecienteDecreciente();
+	private void guardarCondicionSimple() {
+		this.getModelObject().guardarCondicionSimple();
 	}
-
 }
