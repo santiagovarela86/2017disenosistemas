@@ -98,9 +98,15 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 	
 	private void abrirAplicarMetodologia() {
-		this.refresh();
-		new AplicarMetodologiaWindow(this, 
-				new AplicarMetodologiaViewModel(this.getModelObject().getRepoMetodologia(),
-						this.getModelObject().getBaulEmpresas(),this.getModelObject().getBaulIndicadores())).open();
+		try {
+			this.comprobarCuentas();
+			this.refresh();
+			new AplicarMetodologiaWindow(this, 
+					new AplicarMetodologiaViewModel(this.getModelObject().getRepoMetodologia(),
+							this.getModelObject().getBaulEmpresas(),this.getModelObject().getBaulIndicadores())).open();
+		}catch (ElementNotLoad e) {
+			this.getModelObject().setMensajeError("No hay empresas cargadas");
+		}
+
 	}
 }

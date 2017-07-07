@@ -1,6 +1,5 @@
 package dds.tp.model.condiciones;
 
-import dds.tp.excepciones.PeriodosCantBeCero;
 import dds.tp.model.CondicionTaxativa;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
@@ -27,5 +26,10 @@ public class CondicionEstadistica extends CondicionTaxativa {
 	public boolean evaluar(Empresa empresa, RepositorioIndicadores repoIndicadores){
 		Double resultadoEstadistico = modoEstadistico.getEstadistica(empresa, indicador, repoIndicadores);
 		return comparador.comparar(resultadoEstadistico, valorAComparar);
+	}
+
+	@Override
+	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
+		modoEstadistico.getEstadistica(empresa, indicador, repoIndicadores);
 	}
 }

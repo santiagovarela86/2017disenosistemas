@@ -33,8 +33,18 @@ public class CondicionSimple extends CondicionTaxativa {
 			if(!comparador.comparar(indicador.evaluar(empresa.getBalance(periodoEvaluar),repoIndicadores),valorLimite)){
 				return false;
 			}
+			periodoEvaluar = periodoEvaluar.anioAnterior();
 		}
 		return true;
+	}
+
+	@Override
+	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
+		Anual periodoEvaluar = new Anual(Year.now().getValue());
+		for (int i = 0; i < aniosACumplir; i++) {
+			indicador.evaluar(empresa.getBalance(periodoEvaluar),repoIndicadores);
+			periodoEvaluar = periodoEvaluar.anioAnterior();
+		}
 	}
 
 }

@@ -13,5 +13,10 @@ public class CondicionLongevidadSimple extends CondicionTaxativa {
 	public boolean evaluar(Empresa empresa, RepositorioIndicadores repoIndicadores){
 		return empresa.getAntiguedad() > 10;
 	}
+
+	@Override
+	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
+		// Pass	
+	}
 	
 }

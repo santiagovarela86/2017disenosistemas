@@ -14,4 +14,9 @@ public class CondicionLongevidadComparadora extends CondicionPriorizar {
 		return empresa1.getAntiguedad() > empresa2.getAntiguedad();		
 	}
 
+	@Override
+	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
+		//Pass
+	}
+
 }

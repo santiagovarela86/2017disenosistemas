@@ -39,4 +39,13 @@ public class CondicionVariabilidad extends CondicionTaxativa {
 		return vecesCumplido>periodosHaciaAtras*0.70;
 	}
 
+	@Override
+	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
+		Anual periodoEvaluar = new Anual(Year.now().getValue()-periodosHaciaAtras+1);
+		for (int i = 1; i < periodosHaciaAtras; i++) {
+			periodoEvaluar = periodoEvaluar.anioSiguiente();
+			indicador.evaluar(empresa.getBalance(periodoEvaluar), repoIndicadores);
+		}	
+	}
+
 }

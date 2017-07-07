@@ -37,4 +37,13 @@ public class CondicionComparadora extends CondicionPriorizar {
 		}
 		return true;
 	}
+
+	@Override
+	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
+		Anual periodoAEvaluar = new Anual(Year.now().getValue());
+		for (int i = 1; i <= periodosHaciaAtras; i++) {
+			indicador.evaluar(empresa.getBalance(periodoAEvaluar),repoIndicadores);
+			periodoAEvaluar = periodoAEvaluar.anioAnterior();
+		}
+	}
 }

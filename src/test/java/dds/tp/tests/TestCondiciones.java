@@ -23,7 +23,7 @@ public class TestCondiciones {
 	@Before
 	public void inicializar() {
 		try {
-			repoEmpresas = new RepositorioEmpresas(new LectorCuentas("testsCondiciones.txt").obtenerDatos(Files.lines(Paths.get("testsCondiciones.txt"))));
+			repoEmpresas = new RepositorioEmpresas(new LectorCuentas("testsMetodologia.txt").obtenerDatos(Files.lines(Paths.get("testsMetodologia.txt"))));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,17 +40,17 @@ public class TestCondiciones {
 	}
 	
 	@Test
-	public void condicionComparadoraConIndicadorRoe4PeriodosAtrasSiendoMenor() {
+	public void noSeCumpleCondicionComparadoraConIndicadorRoe4PeriodosAtrasSiendoMenor() {
 		CondicionComparadora condi = new CondicionComparadora("Test", "Para test", repoIndicadores.getIndicador("ROE"), 
 				new Menor(), 4);
-		assert(condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoEmpresas.getEmpresa("Puma"), repoIndicadores));
+		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoEmpresas.getEmpresa("Puma"), repoIndicadores));
 	}
 	
 	@Test
-	public void condicionCrecienteDecrecienteRoe4PeriodosAtrasCreciente() {
+	public void noSeCumpleCondicionCrecienteDecrecienteRoe4PeriodosAtrasCreciente() {
 		CondicionVariabilidad condi = new CondicionVariabilidad("Test", "Para test", repoIndicadores.getIndicador("ROE"), 
 				new Mayor(), 4);
-		assert(condi.evaluar(repoEmpresas.getEmpresa("NIKE"), repoIndicadores));
+		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}
 	
 	@Test
