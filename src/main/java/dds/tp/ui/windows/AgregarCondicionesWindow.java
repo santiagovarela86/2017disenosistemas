@@ -33,7 +33,7 @@ public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel
 		new Button(mainPanel).setCaption("Cargar condicion estadistica").onClick(() -> this.abrirCargarCondicionEstadistica()).setWidth(220);
 		new Button(mainPanel).setCaption("Cargar condicion creciente/decreciente").onClick(() -> this.abrirCargarCondicionCrecienteDecreciente()).setWidth(220);
 		
-		new Label(mainPanel).setText("");
+		new Label(mainPanel).setText("").setWidth(400);
 		
 		new Button(mainPanel)
 		.setCaption("Cerrar")

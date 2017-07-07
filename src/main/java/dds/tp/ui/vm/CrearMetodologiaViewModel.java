@@ -5,6 +5,7 @@ import java.util.List;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.Condicion;
+import dds.tp.model.Metodologia;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
@@ -17,6 +18,7 @@ public class CrearMetodologiaViewModel {
 	private RepositorioIndicadores repoIndicadores;
 	private RepositorioMetodologias repoMetodologias;
 	private Condicion condicion;
+	private String mensajeError;
 	
 	public CrearMetodologiaViewModel(RepositorioIndicadores repoIndicadores, RepositorioMetodologias repoMetodologias) {
 		super();
@@ -62,7 +64,17 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public void guardarMetodologia() {
-		this.repoMetodologias.addMetodologia(metodologiaBuilder.build());
+		this.metodologiaBuilder.setNombre(this.nombreMetodologia);
+		Metodologia meto = metodologiaBuilder.build();
+		this.repoMetodologias.addMetodologia(meto);
+	}
+	
+	public String getMensajeError() {
+		return mensajeError;
+	}
+	
+	public void setMensajeError(String mensajeError) {
+		this.mensajeError = mensajeError;
 	}
 	
 }

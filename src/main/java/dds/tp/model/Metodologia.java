@@ -3,6 +3,8 @@ package dds.tp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import dds.tp.excepciones.ElementNotLoad;
+import dds.tp.excepciones.NoHayCondiciones;
 import dds.tp.model.metodologia.Filtro;
 import dds.tp.model.metodologia.Ordenador;
 import dds.tp.model.metodologia.ResultadoAnalisis;
@@ -15,6 +17,10 @@ public class Metodologia {
 	private ArrayList<CondicionPriorizar> condicionesQuePriorizan;
 	
 	public Metodologia(String nombre, ArrayList<CondicionTaxativa> condicionesTaxativas, ArrayList<CondicionPriorizar> condicionesQuePriorizan) {
+		if(nombre == null || nombre.equalsIgnoreCase(""))
+			throw new ElementNotLoad("No se aceptan nombres vacios");
+		if(condicionesQuePriorizan.isEmpty() && condicionesTaxativas.isEmpty())
+			throw new NoHayCondiciones();
 		this.nombre = nombre;
 		this.condicionesQuePriorizan = condicionesQuePriorizan;
 		this.condicionesTaxativas = condicionesTaxativas;

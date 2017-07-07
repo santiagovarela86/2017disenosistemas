@@ -1,5 +1,7 @@
 package dds.tp.ui.windows;
 
+import java.awt.Color;
+
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
@@ -12,6 +14,8 @@ import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.commons.model.ObservableUtils;
 
+import dds.tp.excepciones.ElementNotLoad;
+import dds.tp.excepciones.NoHayCondiciones;
 import dds.tp.ui.vm.AgregarCondicionesViewModel;
 import dds.tp.ui.vm.CrearMetodologiaViewModel;
 
@@ -35,11 +39,14 @@ public class CrearMetodologiaWindows extends Window<CrearMetodologiaViewModel> {
 		
 		new Label(panelIzquierda).setText("Nombre Metodologia").setWidth(400);
 		new TextBox(panelIzquierda).bindValueToProperty("nombreMetodologia");
-		new Label(panelIzquierda).setText("").setWidth(300);
+		new Label(panelIzquierda).setText("").setWidth(400);
 		new Button(panelIzquierda).setCaption("Agregar condicion").onClick(()->this.agregarCondicion());
-		new Label(panelIzquierda).setText("").setWidth(300);
+		new Label(panelIzquierda).setText("").setWidth(400);
 		new Button(panelIzquierda).setCaption("Borrar condiciones").onClick(()->this.borrarCondiciones());
-		new Label(panelIzquierda).setText("").setWidth(300);
+		Label mensajeDeError = new Label(panelIzquierda);
+		mensajeDeError.bindValueToProperty("mensajeError");
+		mensajeDeError.setForeground(Color.RED);
+		mensajeDeError.setWidth(400);
 		new Button(panelIzquierda).setCaption("Guardar").onClick(()->this.guardar());
 		new Button(panelIzquierda).setCaption("Cerrar").onClick(()->this.close());
 		
@@ -70,8 +77,14 @@ public class CrearMetodologiaWindows extends Window<CrearMetodologiaViewModel> {
 	}
 
 	private void guardar() {
-		this.getModelObject().guardarMetodologia();
-		this.close();
+		try {
+			this.getModelObject().guardarMetodologia();
+			this.close();
+		}catch (ElementNotLoad e) {
+			this.getModelObject().setMensajeError("Ponele un nombre");
+		}catch (NoHayCondiciones e) {
+			this.getModelObject().setMensajeError("Una metodologia tiene que tener al menos una condicion");
+		}
 	}
 
 	private void agregarCondicion() {
