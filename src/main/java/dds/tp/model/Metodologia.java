@@ -38,6 +38,17 @@ public class Metodologia {
 		resultadosTotales.addAll(resultadosPositivos);
 		resultadosTotales.addAll(resultadosNegativos);
 		return resultadosTotales;
-		
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.nombre;
+	}
+
+	public List<Condicion> getCondiciones() {
+		ArrayList<Condicion> allCondiciones = new ArrayList<>(this.condicionesQuePriorizan);
+		allCondiciones.addAll(condicionesTaxativas);
+		return allCondiciones;
 	}
 }

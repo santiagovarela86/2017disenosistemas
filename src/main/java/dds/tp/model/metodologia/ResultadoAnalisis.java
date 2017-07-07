@@ -1,7 +1,10 @@
 package dds.tp.model.metodologia;
 
+import org.uqbar.commons.utils.Observable;
+
 import dds.tp.model.Empresa;
 
+@Observable
 public class ResultadoAnalisis {
 
 	private int puntaje;
@@ -32,6 +35,10 @@ public class ResultadoAnalisis {
 			return -1;
 		}else 
 			return 1;
+	}
+	
+	public String getNombreEmpresa() {
+		return this.empresa.getNombre();
 	}
 
 }

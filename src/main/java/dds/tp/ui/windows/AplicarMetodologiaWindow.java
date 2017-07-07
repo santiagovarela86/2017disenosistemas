@@ -27,28 +27,56 @@ public class AplicarMetodologiaWindow extends Window<AplicarMetodologiaViewModel
 		
 		Panel panelColumna = new Panel(mainPanel);
 		panelColumna.setLayout(new ColumnLayout(2));
-		
+		//Creacion parte izquierda-------
 		Panel panelIzquierdo = new Panel(panelColumna);
 		panelIzquierdo.setLayout(new VerticalLayout());
 		
-		new Label(panelIzquierdo).setText("Metodologia").setWidth(220);
+		new Label(panelIzquierdo).setText("Metodologia").setWidth(450);
 		Selector<AplicarMetodologiaViewModel> selectorMetodologia = new Selector<AplicarMetodologiaViewModel>(panelIzquierdo);
 		selectorMetodologia.bindItemsToProperty("metodologias");
 		selectorMetodologia.bindValueToProperty("metodologia");
+		selectorMetodologia.setWidth(450);
 		
+		Table<AplicarMetodologiaViewModel> tablaCondiciones = new Table<>(panelIzquierdo, AplicarMetodologiaViewModel.class);
+		tablaCondiciones.bindItemsToProperty("condiciones");
+		tablaCondiciones.bindValueToProperty("condicion");
+		tablaCondiciones.setNumberVisibleRows(8);
+		
+		Column<AplicarMetodologiaViewModel> columnaNombreCondicion = new Column<AplicarMetodologiaViewModel>(tablaCondiciones);
+		columnaNombreCondicion.setTitle("Nombre");
+		columnaNombreCondicion.bindContentsToProperty("nombre");
+		columnaNombreCondicion.setFixedSize(150);
+		
+		Column<AplicarMetodologiaViewModel> columnaDesc = new Column<AplicarMetodologiaViewModel>(tablaCondiciones);
+		columnaDesc.setTitle("Descripcion");
+		columnaDesc.bindContentsToProperty("descripcion");
+		columnaDesc.setFixedSize(300);
+		
+		//Creacion parte derecha-------
 		Panel panelDerecho = new Panel(panelColumna);
 		panelDerecho.setLayout(new VerticalLayout());
 		
 		new Label(panelDerecho).setText("Listado ordenado de empresas");
 		
-		Table<AplicarMetodologiaViewModel> tablaEmpresas = new Table<>(panelDerecho, AplicarMetodologiaViewModel.class);
-		tablaEmpresas.bindItemsToProperty("empresas");
-		tablaEmpresas.bindValueToProperty("empresa");
-		tablaEmpresas.setNumberVisibleRows(15);
-		Column<AplicarMetodologiaViewModel> columnaNombre = new Column<AplicarMetodologiaViewModel>(tablaEmpresas);
+		Table<AplicarMetodologiaViewModel> tablaResultados = new Table<>(panelDerecho, AplicarMetodologiaViewModel.class);
+		tablaResultados.bindItemsToProperty("resultados");
+		tablaResultados.bindValueToProperty("resultado");
+		tablaResultados.setNumberVisibleRows(15);
+		
+		Column<AplicarMetodologiaViewModel> columnaNombre = new Column<AplicarMetodologiaViewModel>(tablaResultados);
 		columnaNombre.setTitle("Nombre");
-		columnaNombre.bindContentsToProperty("nombre");
-		columnaNombre.setFixedSize(200);
+		columnaNombre.bindContentsToProperty("nombreEmpresa");
+		columnaNombre.setFixedSize(100);
+		
+		Column<AplicarMetodologiaViewModel> columnaPuntaje = new Column<AplicarMetodologiaViewModel>(tablaResultados);
+		columnaPuntaje.setTitle("Puntaje");
+		columnaPuntaje.bindContentsToProperty("puntaje");
+		columnaPuntaje.setFixedSize(50);
+		
+		Column<AplicarMetodologiaViewModel> columnaJusti = new Column<AplicarMetodologiaViewModel>(tablaResultados);
+		columnaJusti.setTitle("Justificacion");
+		columnaJusti.bindContentsToProperty("justificacion");
+		columnaJusti.setFixedSize(300);
 		
 		new Button(mainPanel)
 		.setCaption("Aplicar")

@@ -1,45 +1,98 @@
 package dds.tp.ui.vm;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 import dds.tp.model.Metodologia;
+import dds.tp.model.metodologia.ResultadoAnalisis;
+import dds.tp.model.repositorios.RepositorioEmpresas;
+import dds.tp.model.repositorios.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioMetodologias;
 
 @Observable
 public class AplicarMetodologiaViewModel {
-	List<Metodologia> metodologias;
-	Metodologia metodologia;
-	List<Empresa> empresas;
-	Empresa empresa;
+	private RepositorioMetodologias repoMetodologias;
+	private RepositorioEmpresas repoEmpresas;
+	private RepositorioIndicadores repoIndicadores;
+	private List<ResultadoAnalisis> resultados;
+	private Metodologia metodologia;
+	private ResultadoAnalisis resultado;
+	private Condicion condicion;
 	
-	public AplicarMetodologiaViewModel(){
-		
+	public AplicarMetodologiaViewModel(RepositorioMetodologias repoMeto,RepositorioEmpresas repoEmpresas, RepositorioIndicadores repoIndicadores){
+		this.repoMetodologias = repoMeto;
+		this.repoEmpresas = repoEmpresas;
+		this.repoIndicadores = repoIndicadores;
 	}
 	
 	public List<Metodologia> getMetodologias(){
-		return metodologias;
+		return this.repoMetodologias.getMetodologias();
+	}
+	
+	public void setMetodologia(Metodologia metodologia) {
+		this.metodologia = metodologia;
+		ObservableUtils.firePropertyChanged(this, "condiciones");
 	}
 	
 	public Metodologia getMetodologia(){
 		return metodologia;
 	}
-	
-	public List<Empresa> getEmpresas(){
-		return empresas;
+
+	public ResultadoAnalisis getResultado() {
+		return resultado;
 	}
 	
-	public Empresa getEmpresa(){
-		return empresa;
-	}
-	
-	public String getNombre() {
-		return empresa.getNombre();
+	public void setResultado(ResultadoAnalisis resultado) {
+		this.resultado = resultado;
 	}
 
 	public void aplicarMetodologia() {
-		// TODO Auto-generated method stub
+		this.resultados = this.metodologia.evaluarEn(this.repoEmpresas.getEmpresas(), this.repoIndicadores);
 		
 	}
+	
+	public List<ResultadoAnalisis> getResultados(){
+		return this.resultados;
+	}
+	
+	public String getNombreEmpresa(){
+		return this.resultado.getEmpresa().getNombre();
+	}
+	
+	public String getPuntaje() {
+		return this.resultado.getPuntaje()+"";
+	}
+	
+	public String getJustificacion() {
+		return this.resultado.getJustificacion();
+	}
+	
+	public List<Condicion> getCondiciones() {
+		if(metodologia != null)
+			return this.metodologia.getCondiciones();
+		else 
+			return new ArrayList<Condicion>();
+	}
+	
+	public String getNombre() {
+		return this.condicion.getNombre();
+	}
+	
+	public String getDescripcion() {
+		return this.condicion.getDescripcion();
+	}
+	
+	public Condicion getCondicion() {
+		return condicion;
+	}
+	
+	public void setCondicion(Condicion condicion) {
+		this.condicion = condicion;
+	}
+	
 }

@@ -4,6 +4,7 @@ import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioMetodologias;
 
 @Observable
 public class PantallaPrincipalViewModel{
@@ -12,12 +13,15 @@ public class PantallaPrincipalViewModel{
 	
 	private RepositorioEmpresas baulEmpresas;
 	private RepositorioIndicadores baulIindicadores;
+	private RepositorioMetodologias repoMetodologia;
 
 	public PantallaPrincipalViewModel() {
 		super();
 		this.baulEmpresas = new RepositorioEmpresas();
 		this.baulIindicadores = new RepositorioIndicadores();
 		this.baulIindicadores.cargarPredeterminados();
+		this.repoMetodologia = new RepositorioMetodologias();
+		this.repoMetodologia.cargarPredeterminados(baulIindicadores);
 	}
 	
 	public RepositorioEmpresas getBaulEmpresas() {
@@ -34,5 +38,9 @@ public class PantallaPrincipalViewModel{
 
 	public void setMensajeError(String mensajeError) {
 		this.mensajeError = mensajeError;
+	}
+	
+	public RepositorioMetodologias getRepoMetodologia() {
+		return repoMetodologia;
 	}
 }

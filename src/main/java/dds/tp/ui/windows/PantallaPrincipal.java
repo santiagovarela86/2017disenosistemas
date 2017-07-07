@@ -99,6 +99,8 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	
 	private void abrirAplicarMetodologia() {
 		this.refresh();
-		new AplicarMetodologiaWindow(this, new AplicarMetodologiaViewModel()).open();
+		new AplicarMetodologiaWindow(this, 
+				new AplicarMetodologiaViewModel(this.getModelObject().getRepoMetodologia(),
+						this.getModelObject().getBaulEmpresas(),this.getModelObject().getBaulIndicadores())).open();
 	}
 }

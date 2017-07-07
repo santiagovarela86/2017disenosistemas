@@ -1,5 +1,8 @@
 package dds.tp.model;
 
+import org.uqbar.commons.utils.Observable;
+
+@Observable
 public abstract class Condicion {
 
 	private String nombre;
