@@ -29,13 +29,18 @@ public class CondicionComparadora extends CondicionPriorizar {
 	public boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores){
 		Anual periodoAEvaluar = new Anual(Year.now().getValue());
 		for (int i = 1; i <= periodosHaciaAtras; i++) {
-			if(!comparador.comparar(indicador.evaluar(empresa1.getBalance(periodoAEvaluar),repoIndicadores), 
-					indicador.evaluar(empresa2.getBalance(periodoAEvaluar),repoIndicadores))){
+			if(getCompararYEvaluar(empresa1, empresa2, repoIndicadores, periodoAEvaluar)){
 				return false;
 			}
 			periodoAEvaluar = periodoAEvaluar.anioAnterior();
 		}
 		return true;
+	}
+
+	private boolean getCompararYEvaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores,
+			Anual periodoAEvaluar) {
+		return !comparador.comparar(indicador.evaluar(empresa1.getBalance(periodoAEvaluar),repoIndicadores), 
+				indicador.evaluar(empresa2.getBalance(periodoAEvaluar),repoIndicadores));
 	}
 
 	@Override

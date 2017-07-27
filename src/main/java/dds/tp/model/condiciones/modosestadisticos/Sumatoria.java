@@ -5,7 +5,7 @@ import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-public class Sumatoria implements ModoEstadistico {
+public class Sumatoria extends ModoEstadistico {
 
 	@Override
 	public Double getEstadistica(Empresa empresa, Indicador indicadorAUsar, RepositorioIndicadores repoIndicadores) {
@@ -16,8 +16,5 @@ public class Sumatoria implements ModoEstadistico {
 		return sumatoria;
 	}
 
-	@Override
-	public String toString() {
-		return "Sumatoria";
-	}
+	
 }

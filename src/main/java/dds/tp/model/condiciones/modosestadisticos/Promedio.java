@@ -4,7 +4,7 @@ import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-public class Promedio implements ModoEstadistico {
+public class Promedio extends ModoEstadistico {
 
 	@Override
 	public Double getEstadistica(Empresa empresa, Indicador indicadorAUsar, RepositorioIndicadores repoIndicadores) {
@@ -12,8 +12,5 @@ public class Promedio implements ModoEstadistico {
 		return sumatoria/empresa.getBalancesAnuales().size();
 	}
 
-	@Override
-	public String toString() {
-		return "Promedio";
-	}
+	
 }

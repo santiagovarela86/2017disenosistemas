@@ -13,11 +13,11 @@ public class ControladorRequisitos {
 		ArrayList<ResultadoAnalisis> resultadosAnalisis = new ArrayList<>();
 		for (Empresa empresa : empresas) {
 			try {
-				for (Condicion condicion : condiciones) {
-						condicion.evaluarRequisitosEn(empresa, repoIndicadores);
-				}
-			} catch(Exception ex){
 				resultadosAnalisis.add(new ResultadoAnalisis(0, empresa, "No hay suficiente informacion para evaluar la empresa"));
+				
+			} catch(Exception ex){
+				ex.getStackTrace();
+				ex.getMessage();
 			}
 		}
 		return resultadosAnalisis;
