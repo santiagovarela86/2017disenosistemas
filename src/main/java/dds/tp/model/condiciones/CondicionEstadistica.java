@@ -1,5 +1,6 @@
 package dds.tp.model.condiciones;
 
+import dds.tp.model.Condicion;
 import dds.tp.model.CondicionTaxativa;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
@@ -7,7 +8,7 @@ import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.condiciones.modosestadisticos.ModoEstadistico;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-public class CondicionEstadistica extends CondicionTaxativa {
+public class CondicionEstadistica extends Condicion{
 
 	private Indicador indicador;
 	private ModoEstadistico modoEstadistico;
@@ -28,7 +29,6 @@ public class CondicionEstadistica extends CondicionTaxativa {
 		return comparador.comparar(resultadoEstadistico, valorAComparar);
 	}
 
-	@Override
 	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		modoEstadistico.getEstadistica(empresa, indicador, repoIndicadores);
 	}

@@ -17,6 +17,34 @@ public abstract class Condicion {
 	
 	public abstract void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores);
 
+
+	public  boolean evaluar(Empresa empresa, RepositorioIndicadores repoIndicadores) {
+		return false;
+	}
+	public  boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores) {
+		return false;
+	}
+	
+	public int evaluarInt(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repositorioIndicadores){
+		if (this.evaluar(empresa1, empresa2, repositorioIndicadores)){
+			return -1;
+		} else return 1;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public String getNombre() {
 		return nombre;
 	}

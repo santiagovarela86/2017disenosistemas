@@ -1,10 +1,10 @@
 package dds.tp.model.condiciones;
 
-import dds.tp.model.CondicionPriorizar;
+import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-public class CondicionLongevidadComparadora extends CondicionPriorizar {
+public class CondicionLongevidadComparadora extends Condicion {
 	
 	public CondicionLongevidadComparadora(String nombre, String descripcion) {
 		super(nombre,descripcion);

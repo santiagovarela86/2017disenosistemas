@@ -4,37 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dds.tp.model.Condicion;
-import dds.tp.model.CondicionPriorizar;
 import dds.tp.model.CondicionTaxativa;
 import dds.tp.model.Metodologia;
 
 public class MetodologiaBuilder {
 
 	private String nombre;
-	private ArrayList<CondicionTaxativa> condicionesTaxativas = new ArrayList<>();
-	private ArrayList<CondicionPriorizar> condicionesQuePriorizan = new ArrayList<>();
+	private ArrayList<Condicion> condicionesTaxativas = new ArrayList<>();
+	private ArrayList<Condicion> condicionesQuePriorizan = new ArrayList<>();
 	
 	public MetodologiaBuilder setNombre(String nombre) {
 		this.nombre = nombre;
 		return this;
 	}
 	
-	public MetodologiaBuilder setCondicionesQuePriorizan(ArrayList<CondicionPriorizar> condicionesQuePriorizan) {
+	public MetodologiaBuilder setCondicionesQuePriorizan(ArrayList<Condicion> condicionesQuePriorizan) {
 		this.condicionesQuePriorizan = condicionesQuePriorizan;
 		return this;
 	}
 	
-	public MetodologiaBuilder setCondicionesTaxativas(ArrayList<CondicionTaxativa> condicionesTaxativas) {
+	public MetodologiaBuilder setCondicionesTaxativas(ArrayList<Condicion> condicionesTaxativas) {
 		this.condicionesTaxativas = condicionesTaxativas;
 		return this;
 	}
 	
-	public MetodologiaBuilder agregarCondTaxativa(CondicionTaxativa condTaxativa) {
+	public MetodologiaBuilder agregarCondTaxativa(Condicion condTaxativa) {
 		this.condicionesTaxativas.add(condTaxativa);
 		return this;
 	}
 	
-	public MetodologiaBuilder agregarCondPriorizar(CondicionPriorizar condPriorizar) {
+	public MetodologiaBuilder agregarCondPriorizar(Condicion condPriorizar) {
 		this.condicionesQuePriorizan.add(condPriorizar);
 		return this;
 	}

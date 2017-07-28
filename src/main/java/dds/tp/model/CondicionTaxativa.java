@@ -8,6 +8,6 @@ public abstract class CondicionTaxativa extends Condicion {
 		super(nombre, descripcion);
 	}
 	
-	public abstract boolean evaluar(Empresa empresa, RepositorioIndicadores repoIndicadores);
+	
 
 }

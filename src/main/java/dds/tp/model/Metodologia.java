@@ -15,10 +15,10 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 public class Metodologia {
 
 	private String nombre;
-	private ArrayList<CondicionTaxativa> condicionesTaxativas;
-	private ArrayList<CondicionPriorizar> condicionesQuePriorizan;
+	private ArrayList<Condicion> condicionesTaxativas;
+	private ArrayList<Condicion> condicionesQuePriorizan;
 	
-	public Metodologia(String nombre, ArrayList<CondicionTaxativa> condicionesTaxativas, ArrayList<CondicionPriorizar> condicionesQuePriorizan) {
+	public Metodologia(String nombre, ArrayList<Condicion> condicionesTaxativas, ArrayList<Condicion> condicionesQuePriorizan) {
 		if(nombre == null || nombre.equalsIgnoreCase(""))
 			throw new ElementNotLoad("No se aceptan nombres vacios");
 		if(condicionesQuePriorizan.isEmpty() && condicionesTaxativas.isEmpty())
@@ -41,7 +41,7 @@ public class Metodologia {
 		resultadosNegativos = (ArrayList<ResultadoAnalisis>) new ControladorRequisitos().getEmpresasQueNoCumplenLosRequisitos(empresas, this.getCondiciones(), repoIndicadores);
 		this.removerEmpresasQueYaNoConvieneInvertirDesdeResultados(empresasQueConvieneInvertir, resultadosNegativos);
 		
-		for (CondicionTaxativa condicion : condicionesTaxativas) {
+		for (Condicion condicion : condicionesTaxativas) {
 			resultadosNegativos
 			.addAll(new Filtro().getResultadosNegativos(empresasQueConvieneInvertir, condicion, repoIndicadores));
 			this.removerEmpresasQueYaNoConvieneInvertirDesdeResultados(empresasQueConvieneInvertir, resultadosNegativos);

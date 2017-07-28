@@ -1,6 +1,6 @@
 package dds.tp.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import dds.tp.model.CondicionPriorizar;
+import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.LectorCuentas;
@@ -27,7 +27,7 @@ public class TestOrdenador {
 
 	private RepositorioEmpresas repoEmpresas;
 	private RepositorioIndicadores repoIndicadores;
-	private ArrayList<CondicionPriorizar> condiciones;
+	private ArrayList<Condicion> condiciones;
 	
 	@Before
 	public void inicializar() {
@@ -38,7 +38,7 @@ public class TestOrdenador {
 			e.printStackTrace();
 		}
 		repoIndicadores = new RepositorioIndicadores();
-		condiciones = new ArrayList<CondicionPriorizar>();
+		condiciones = new ArrayList<Condicion>();
 		
 	}
 	

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import dds.tp.model.CondicionPriorizar;
+import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class Ordenador {
 
 	public List<ResultadoAnalisis> getResultados(List<Empresa> empresasQueConvieneInvertir,
-			ArrayList<CondicionPriorizar> condicionesQuePriorizan, RepositorioIndicadores repoIndicadores) {
+			ArrayList<Condicion> condicionesQuePriorizan, RepositorioIndicadores repoIndicadores) {
 
 		List<ResultadoAnalisis> resultadosOrdenados = new ArrayList<>();
 		List<List<Empresa>> listasIntermedias = new ArrayList<List<Empresa>>();
@@ -26,7 +26,7 @@ public class Ordenador {
 		return resultadosOrdenados;
 	}
 	
-	public ArrayList<Empresa> generarListaOrdenada(List<Empresa> lista, CondicionPriorizar cond, RepositorioIndicadores repoIndicadores){
+	public ArrayList<Empresa> generarListaOrdenada(List<Empresa> lista, Condicion cond, RepositorioIndicadores repoIndicadores){
 		//ME COPIO LA LISTA ORIGINAL
 		ArrayList<Empresa> listaOrdenada = new ArrayList<Empresa>(lista);
 
