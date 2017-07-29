@@ -3,6 +3,7 @@ package dds.tp.model.condiciones;
 import java.time.Year;
 
 import dds.tp.excepciones.PeriodosCantBeCero;
+import dds.tp.model.Balance;
 import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
@@ -28,19 +29,25 @@ public class CondicionComparadora extends Condicion {
 	
 	public boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores){
 		Anual periodoAEvaluar = new Anual(Year.now().getValue());
+		
+		boolean seCumple = true;
+		
 		for (int i = 1; i <= periodosHaciaAtras; i++) {
-			if(getCompararYEvaluar(empresa1, empresa2, repoIndicadores, periodoAEvaluar)){
-				return false;
-			}
-			periodoAEvaluar = periodoAEvaluar.anioAnterior();
+			seCumple = seCumple && comparar(empresa1, empresa2,repoIndicadores,periodoAEvaluar);
+  			periodoAEvaluar = periodoAEvaluar.anioAnterior();
 		}
-		return true;
+
+		return seCumple;
 	}
 
-	private boolean getCompararYEvaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores,
-			Anual periodoAEvaluar) {
-		return !comparador.comparar(indicador.evaluar(empresa1.getBalance(periodoAEvaluar),repoIndicadores), 
-				indicador.evaluar(empresa2.getBalance(periodoAEvaluar),repoIndicadores));
+	private boolean comparar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores, Anual anio) {
+		return comparador.comparar(obtenerResultado(empresa1, anio,repoIndicadores), 
+								   obtenerResultado(empresa2, anio, repoIndicadores));
+	}
+	
+	private Double obtenerResultado(Empresa empresa, Anual anio, RepositorioIndicadores repoIndicadores){
+		Balance balance = empresa.getBalance(anio);
+		return indicador.evaluar(balance, repoIndicadores);
 	}
 
 	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
