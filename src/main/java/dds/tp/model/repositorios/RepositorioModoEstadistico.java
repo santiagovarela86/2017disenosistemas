@@ -3,7 +3,7 @@ package dds.tp.model.repositorios;
 import java.util.ArrayList;
 import java.util.List;
 
-import dds.tp.model.condiciones.modosestadisticos.Media;
+import dds.tp.model.condiciones.modosestadisticos.Mediana;
 import dds.tp.model.condiciones.modosestadisticos.ModoEstadistico;
 import dds.tp.model.condiciones.modosestadisticos.Promedio;
 import dds.tp.model.condiciones.modosestadisticos.Sumatoria;
@@ -13,7 +13,7 @@ public class RepositorioModoEstadistico {
 	
 	public RepositorioModoEstadistico() {
 		this.modosEstadisticos = new ArrayList<ModoEstadistico>();
-		this.modosEstadisticos.add(new Media());
+		this.modosEstadisticos.add(new Mediana());
 		this.modosEstadisticos.add(new Promedio());
 		this.modosEstadisticos.add(new Sumatoria());
 	}

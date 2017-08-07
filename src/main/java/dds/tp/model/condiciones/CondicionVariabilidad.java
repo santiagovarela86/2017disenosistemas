@@ -3,7 +3,6 @@ package dds.tp.model.condiciones;
 import java.time.Year;
 
 import dds.tp.excepciones.PeriodosCantBeCero;
-import dds.tp.model.CondicionTaxativa;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;

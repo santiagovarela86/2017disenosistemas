@@ -1,6 +1,5 @@
 package dds.tp.model.condiciones.modosestadisticos;
 
-import dds.tp.model.BalanceAnual;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.repositorios.RepositorioIndicadores;
@@ -8,13 +7,11 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 public class Sumatoria extends ModoEstadistico {
 
 	@Override
-	public Double getEstadistica(Empresa empresa, Indicador indicadorAUsar, RepositorioIndicadores repoIndicadores) {
-		Double sumatoria = 0d;
-		for (BalanceAnual bal : empresa.getBalancesAnuales()) {
-			sumatoria += indicadorAUsar.evaluar(bal, repoIndicadores);
-		}
-		return sumatoria;
+	public Double getEstadistica(Empresa empresa, Indicador indicadorAUsar, RepositorioIndicadores repoIndicadores){
+		
+		return empresa.getBalancesAnuales().stream()
+										   .mapToDouble(b -> indicadorAUsar.evaluar(b, repoIndicadores))
+										   .sum();	
+		
 	}
-
-	
 }

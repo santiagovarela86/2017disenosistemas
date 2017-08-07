@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
-import dds.tp.model.Condicion;
 import dds.tp.model.Metodologia;
 import dds.tp.model.builders.MetodologiaBuilder;
+import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
 

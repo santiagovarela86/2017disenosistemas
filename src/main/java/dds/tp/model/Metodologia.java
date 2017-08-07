@@ -6,6 +6,7 @@ import java.util.List;
 
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.excepciones.NoHayCondiciones;
+import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.metodologia.ControladorRequisitos;
 import dds.tp.model.metodologia.Filtro;
 import dds.tp.model.metodologia.Ordenador;
@@ -32,31 +33,28 @@ public class Metodologia {
 		return nombre;
 	}
 
-	public ArrayList<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
-		ArrayList<ResultadoAnalisis> resultadosNegativos = new ArrayList<>();
-		ArrayList<ResultadoAnalisis> resultadosPositivos = new ArrayList<>();
-		ArrayList<ResultadoAnalisis> resultadosTotales = new ArrayList<>();
-		ArrayList<Empresa> empresasQueConvieneInvertir = new ArrayList<>(empresas);
+	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
+		List<ResultadoAnalisis> resultadosNegativos = new ArrayList<>();
+		List<ResultadoAnalisis> resultadosPositivos = new ArrayList<>();
+		List<ResultadoAnalisis> resultadosTotales = new ArrayList<>();
+		List<Empresa> empresasQueConvieneInvertir = new ArrayList<>(empresas);
 		
-		resultadosNegativos = (ArrayList<ResultadoAnalisis>) new ControladorRequisitos().getEmpresasQueNoCumplenLosRequisitos(empresas, this.getCondiciones(), repoIndicadores);
-		this.removerEmpresasQueYaNoConvieneInvertirDesdeResultados(empresasQueConvieneInvertir, resultadosNegativos);
+		resultadosNegativos =  new ControladorRequisitos().getEmpresasQueNoCumplenLosRequisitos(empresas, getCondiciones(), repoIndicadores);
 		
 		for (Condicion condicion : condicionesTaxativas) {
-			resultadosNegativos
-			.addAll(new Filtro().getResultadosNegativos(empresasQueConvieneInvertir, condicion, repoIndicadores));
-			this.removerEmpresasQueYaNoConvieneInvertirDesdeResultados(empresasQueConvieneInvertir, resultadosNegativos);
+			agregarResultadosNegativos(resultadosNegativos,empresasQueConvieneInvertir,condicion,repoIndicadores);
 		}
-		Collections.reverse(resultadosNegativos);
-		resultadosPositivos = (ArrayList<ResultadoAnalisis>) new Ordenador().getResultados(empresasQueConvieneInvertir, condicionesQuePriorizan,repoIndicadores);
+		
+		removerEmpresasQueYaNoConvieneInvertirDesdeResultados(empresasQueConvieneInvertir, resultadosNegativos);
+	
+		resultadosPositivos = new Ordenador().getResultados(empresasQueConvieneInvertir,condicionesQuePriorizan,repoIndicadores);
 		resultadosTotales.addAll(resultadosPositivos);
 		resultadosTotales.addAll(resultadosNegativos);
 		return resultadosTotales;
 	}
 	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return this.nombre;
+	private void agregarResultadosNegativos(List<ResultadoAnalisis> resultadosN, List<Empresa> empresas, Condicion c, RepositorioIndicadores repoI){
+		resultadosN.addAll(new Filtro().getResultadosNegativos(empresas, c, repoI)) ;
 	}
 
 	public List<Condicion> getCondiciones() {
@@ -67,5 +65,12 @@ public class Metodologia {
 	
 	private void removerEmpresasQueYaNoConvieneInvertirDesdeResultados(List<Empresa> empresas, List<ResultadoAnalisis> resultadosNegativos) {
 		resultadosNegativos.stream().forEach(e -> empresas.remove(e.getEmpresa()));
+		Collections.reverse(resultadosNegativos);
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.nombre;
 	}
 }

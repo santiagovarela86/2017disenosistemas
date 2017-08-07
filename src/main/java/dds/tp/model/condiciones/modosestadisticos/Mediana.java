@@ -7,7 +7,7 @@ import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-public class Media extends ModoEstadistico {
+public class Mediana extends ModoEstadistico {
 
 	@Override
 	public Double getEstadistica(Empresa empresa, Indicador indicadorAUsar, RepositorioIndicadores repoIndicadores) {
@@ -20,14 +20,14 @@ public class Media extends ModoEstadistico {
 	}
 
 	private Double getResultadoBySize(ArrayList<Double> resultados) {
-		if(resultados.size()%2!=0){
-			return resultados.get(resultados.size()/2-1);
+		int tamanio = resultados.size();
+		boolean esCantidadPar = (tamanio % 2) == 0;
+		if(esCantidadPar){
+			return (resultados.get(tamanio/2) + resultados.get(tamanio/2-1))/2;
 		}
 		else{
-			return (resultados.get(resultados.size()/2)+resultados.get(resultados.size()/2-1))/2;
+			return resultados.get(tamanio/2-1);
+					
 		}
 	}
-	
-	
-
 }

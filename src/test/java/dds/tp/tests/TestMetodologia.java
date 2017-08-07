@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Before;
@@ -45,16 +46,16 @@ public class TestMetodologia {
 	@Test
 	public void metodologiaWarrenBuffetNoConvienteInvertirEmpresasNuevitaYBadMargen() {
 		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
-		ArrayList<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
-		ArrayList<ResultadoAnalisis> resultadosNegativos = (ArrayList<ResultadoAnalisis>) resultados.stream().filter(elem -> elem.getPuntaje()==0).collect(Collectors.toList());
+		List<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
+		List<ResultadoAnalisis> resultadosNegativos = resultados.stream().filter(elem -> elem.getPuntaje()==0).collect(Collectors.toList());
 		assertEquals(resultadosNegativos.size(),2);
 	}
 	
 	@Test
 	public void metodologiaWarrenBuffetNoConvienteInvertirEmpresasNuevitaYBadMargenJustificacionesCorrectas() {
 		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
-		ArrayList<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
-		ArrayList<ResultadoAnalisis> resultadosNegativos = (ArrayList<ResultadoAnalisis>) resultados.stream().filter(elem -> elem.getPuntaje()==0).collect(Collectors.toList());
+		List<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
+		List<ResultadoAnalisis> resultadosNegativos = (ArrayList<ResultadoAnalisis>) resultados.stream().filter(elem -> elem.getPuntaje()==0).collect(Collectors.toList());
 		ResultadoAnalisis resultadoNuevita = resultadosNegativos.stream().filter(elem -> elem.getEmpresa().getNombre().equalsIgnoreCase("NUEVITA")).findFirst().get();
 		ResultadoAnalisis resultadoBadMargen = resultadosNegativos.stream().filter(elem -> elem.getEmpresa().getNombre().equalsIgnoreCase("BADMARGEN")).findFirst().get();
 		assertEquals(resultadoNuevita.getJustificacion(), "No cumple la condicion Longevidad Simple");
@@ -64,7 +65,7 @@ public class TestMetodologia {
 	@Test
 	public void metodologiaWarrenBuffetOrdenCorrectoDeLosQueConvieneInvertir() {
 		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
-		ArrayList<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
+		List<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		assertEquals(resultados.get(0).getEmpresa().getNombre(),"ADIDAS");
 		assertEquals(resultados.get(1).getEmpresa().getNombre(),"NIKE");
 		assertEquals(resultados.get(2).getEmpresa().getNombre(),"PUMA");
@@ -73,7 +74,7 @@ public class TestMetodologia {
 	@Test
 	public void metodologiaWarrenBuffetPuntajesCorrectos() {
 		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
-		ArrayList<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
+		List<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		assertEquals(resultados.get(0).getPuntaje(),8);
 		assertEquals(resultados.get(1).getPuntaje(),7);
 		assertEquals(resultados.get(2).getPuntaje(),3);

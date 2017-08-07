@@ -11,10 +11,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.LectorCuentas;
+import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.condiciones.CondicionComparadora;
 import dds.tp.model.condiciones.CondicionLongevidadComparadora;
 import dds.tp.model.condiciones.comparadores.Mayor;
@@ -45,7 +45,7 @@ public class TestOrdenador {
 	@Test
 	public void ordenamientoPorLongevidadTest1Test2Tes3() {
 		condiciones.clear();
-		ArrayList<Empresa> resultado = new Ordenador()
+		List<Empresa> resultado = new Ordenador()
 				.generarListaOrdenada(repoEmpresas.getEmpresas(), 
 						new CondicionLongevidadComparadora("CondTest", "Condicion longevidad comparadora"), 
 						new RepositorioIndicadores());
@@ -57,7 +57,7 @@ public class TestOrdenador {
 	@Test
 	public void ordenamientoPorRoeResultadoTest3Test2Test1() {
 		condiciones.clear();
-		ArrayList<Empresa> resultado = new Ordenador()
+		List<Empresa> resultado = new Ordenador()
 				.generarListaOrdenada(repoEmpresas.getEmpresas(), 
 						new CondicionComparadora("CondTest", "Condicion longevidad comparadora", 
 						new Indicador("ROE", "roe"),new Mayor(),1), repoIndicadores);

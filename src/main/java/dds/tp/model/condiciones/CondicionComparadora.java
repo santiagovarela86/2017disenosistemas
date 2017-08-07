@@ -4,7 +4,6 @@ import java.time.Year;
 
 import dds.tp.excepciones.PeriodosCantBeCero;
 import dds.tp.model.Balance;
-import dds.tp.model.Condicion;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
@@ -50,6 +49,7 @@ public class CondicionComparadora extends Condicion {
 		return indicador.evaluar(balance, repoIndicadores);
 	}
 
+	@Override
 	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		Anual periodoAEvaluar = new Anual(Year.now().getValue());
 		for (int i = 1; i <= periodosHaciaAtras; i++) {

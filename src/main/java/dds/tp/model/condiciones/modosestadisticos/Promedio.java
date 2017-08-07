@@ -8,9 +8,10 @@ public class Promedio extends ModoEstadistico {
 
 	@Override
 	public Double getEstadistica(Empresa empresa, Indicador indicadorAUsar, RepositorioIndicadores repoIndicadores) {
-		Double sumatoria = new Sumatoria().getEstadistica(empresa, indicadorAUsar, repoIndicadores);
-		return sumatoria/empresa.getBalancesAnuales().size();
+		
+		return empresa.getBalancesAnuales().stream()
+										   .mapToDouble(b -> indicadorAUsar.evaluar(b, repoIndicadores))
+										   .average().getAsDouble(); 
 	}
-
 	
 }

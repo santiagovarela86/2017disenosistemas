@@ -1,7 +1,5 @@
 package dds.tp.model.condiciones;
 
-import dds.tp.model.Condicion;
-import dds.tp.model.CondicionTaxativa;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
