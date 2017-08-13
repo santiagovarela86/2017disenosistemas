@@ -6,12 +6,11 @@ import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Metodologia;
 import dds.tp.model.builders.MetodologiaBuilder;
-import dds.tp.model.condiciones.CondicionComparadora;
-import dds.tp.model.condiciones.CondicionVariabilidad;
-import dds.tp.model.condiciones.CondicionLongevidadComparadora;
-import dds.tp.model.condiciones.CondicionLongevidadSimple;
+import dds.tp.model.condiciones.CondicionPriorizante;
+import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
+import dds.tp.model.criterios.CriterioMayormente;
 
 public class RepositorioMetodologias {
 	
@@ -38,11 +37,14 @@ public class RepositorioMetodologias {
 
 	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
-			.agregarCondPriorizar(new CondicionComparadora("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 10))
-			.agregarCondPriorizar(new CondicionComparadora("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO"), new Menor(), 1))
-			.agregarCondTaxativa(new CondicionVariabilidad("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN"), new Mayor(), 10))
-			.agregarCondTaxativa(new CondicionLongevidadSimple("Longevidad Simple",  "Longevidad Simple"))
-			.agregarCondPriorizar(new CondicionLongevidadComparadora("Longevidad Comparadora",  "Longevidad Comparadora"))
+			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 10))
+			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO"), new Menor(), 1))
+			.agregarCondTaxativa(new CondicionTaxativa("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN"), new Mayor(), 10, new CriterioMayormente(), null))
+			
+			//EN EL NUEVO MODELO HAY QUE VER COMO HACER PARA QUE LA LONGEVIDAD DE UNA EMPRESA SEA UN INDICADOR
+			//.agregarCondTaxativa(new CondicionLongevidadSimple("Longevidad Simple",  "Longevidad Simple"))
+			//.agregarCondPriorizar(new CondicionLongevidadComparadora("Longevidad Comparadora",  "Longevidad Comparadora"))
+			
 			.build();
 		this.addMetodologia(warrenBuffet);
 	}

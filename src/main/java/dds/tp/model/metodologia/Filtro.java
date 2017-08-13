@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dds.tp.model.Empresa;
-import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class Filtro {
 
-	public List<ResultadoAnalisis> getResultadosNegativos(List<Empresa> empresas, Condicion condicion,
+	public List<ResultadoAnalisis> getResultadosNegativos(List<Empresa> empresas, CondicionTaxativa condicion,
 			RepositorioIndicadores repoIndicadores) {
 
 		return empresas.stream()

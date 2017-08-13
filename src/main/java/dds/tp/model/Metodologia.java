@@ -7,6 +7,8 @@ import java.util.List;
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.excepciones.NoHayCondiciones;
 import dds.tp.model.condiciones.Condicion;
+import dds.tp.model.condiciones.CondicionPriorizante;
+import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.metodologia.ControladorRequisitos;
 import dds.tp.model.metodologia.Filtro;
 import dds.tp.model.metodologia.Ordenador;
@@ -16,10 +18,10 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 public class Metodologia {
 
 	private String nombre;
-	private ArrayList<Condicion> condicionesTaxativas;
-	private ArrayList<Condicion> condicionesQuePriorizan;
+	private ArrayList<CondicionTaxativa> condicionesTaxativas;
+	private ArrayList<CondicionPriorizante> condicionesQuePriorizan;
 	
-	public Metodologia(String nombre, ArrayList<Condicion> condicionesTaxativas, ArrayList<Condicion> condicionesQuePriorizan) {
+	public Metodologia(String nombre, ArrayList<CondicionTaxativa> condicionesTaxativas, ArrayList<CondicionPriorizante> condicionesQuePriorizan) {
 		if(nombre == null || nombre.equalsIgnoreCase(""))
 			throw new ElementNotLoad("No se aceptan nombres vacios");
 		if(condicionesQuePriorizan.isEmpty() && condicionesTaxativas.isEmpty())
@@ -41,7 +43,7 @@ public class Metodologia {
 		
 		resultadosNegativos =  new ControladorRequisitos().getEmpresasQueNoCumplenLosRequisitos(empresas, getCondiciones(), repoIndicadores);
 		
-		for (Condicion condicion : condicionesTaxativas) {
+		for (CondicionTaxativa condicion : condicionesTaxativas) {
 			agregarResultadosNegativos(resultadosNegativos,empresasQueConvieneInvertir,condicion,repoIndicadores);
 		}
 		
@@ -53,7 +55,7 @@ public class Metodologia {
 		return resultadosTotales;
 	}
 	
-	private void agregarResultadosNegativos(List<ResultadoAnalisis> resultadosN, List<Empresa> empresas, Condicion c, RepositorioIndicadores repoI){
+	private void agregarResultadosNegativos(List<ResultadoAnalisis> resultadosN, List<Empresa> empresas, CondicionTaxativa c, RepositorioIndicadores repoI){
 		resultadosN.addAll(new Filtro().getResultadosNegativos(empresas, c, repoI)) ;
 	}
 
