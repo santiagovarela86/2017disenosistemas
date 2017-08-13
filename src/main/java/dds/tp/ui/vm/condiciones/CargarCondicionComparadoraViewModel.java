@@ -5,7 +5,7 @@ import java.util.List;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.builders.MetodologiaBuilder;
-import dds.tp.model.condiciones.CondicionComparadora;
+import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.repositorios.RepositorioComparadores;
 import dds.tp.model.repositorios.RepositorioIndicadores;
@@ -67,7 +67,7 @@ public class CargarCondicionComparadoraViewModel {
 		if(nombreCondicion.isEmpty() || descripcion.isEmpty())
 			throw new RuntimeException("Nombre y descripcion son obligatorios");
 		metodologiaBuilder.agregarCondPriorizar(
-					new CondicionComparadora(this.nombreCondicion, 
+					new CondicionPriorizante(this.nombreCondicion, 
 							this.descripcion, repoIndicadores.getIndicador(nombreIndicador), 
 							this.comparadorSeleccionado, Integer.parseInt(this.periodosHaciaAtras)));
 		

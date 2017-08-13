@@ -6,8 +6,6 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.Window;
 import org.uqbar.arena.windows.WindowOwner;
 
-import dds.tp.model.condiciones.CondicionLongevidadComparadora;
-import dds.tp.model.condiciones.CondicionLongevidadSimple;
 import dds.tp.ui.vm.AgregarCondicionesViewModel;
 import dds.tp.ui.vm.condiciones.CargarCondicionComparadoraViewModel;
 import dds.tp.ui.vm.condiciones.CargarCondicionCrecienteDecrecienteViewModel;
@@ -34,8 +32,8 @@ public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel
 		new Button(mainPanel).setCaption("Cargar condicion comparadora").onClick(() -> this.abrirCargarCondicionComparadora()).setWidth(200);
 		new Button(mainPanel).setCaption("Cargar condicion estadistica").onClick(() -> this.abrirCargarCondicionEstadistica()).setWidth(200);
 		new Button(mainPanel).setCaption("Cargar condicion creciente/decreciente").onClick(() -> this.abrirCargarCondicionCrecienteDecreciente()).setWidth(200);
-		new Button(mainPanel).setCaption("Agregar condicion de Longevidad").onClick(() -> this.agregarCondicionLongevidad()).setWidth(200);
-		new Button(mainPanel).setCaption("Agregar condicion Comparadora de Longevidad").onClick(() -> this.agregarCondicionLongevidadComparadora()).setWidth(200);		
+		//new Button(mainPanel).setCaption("Agregar condicion de Longevidad").onClick(() -> this.agregarCondicionLongevidad()).setWidth(200);
+		//new Button(mainPanel).setCaption("Agregar condicion Comparadora de Longevidad").onClick(() -> this.agregarCondicionLongevidadComparadora()).setWidth(200);		
 		new Label(mainPanel).setText("").setWidth(400).bindValueToProperty("mensajeOK");
 		new Label(mainPanel).setText("").setWidth(400);
 		
@@ -45,6 +43,8 @@ public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel
 		
 	}
 	
+	//HAY QUE IMPLEMENTAR LA LONGEVIDAD COMO CONDICION PARA SOPORTARLO EN ESTE MODELO
+	/*
 	private void agregarCondicionLongevidad(){
 		this.getModelObject().setMensajeOK("");
 		
@@ -60,6 +60,7 @@ public class AgregarCondicionesWindow extends Window<AgregarCondicionesViewModel
 		
 		this.getModelObject().setMensajeOK("Se ha agregado exitosamente la condicion");
 	}
+	*/
 	
 	private void abrirCargarCondicionSimple(){
 		this.getModelObject().setMensajeOK("");

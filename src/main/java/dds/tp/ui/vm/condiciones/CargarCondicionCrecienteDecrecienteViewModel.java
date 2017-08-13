@@ -5,8 +5,9 @@ import java.util.List;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.builders.MetodologiaBuilder;
-import dds.tp.model.condiciones.CondicionVariabilidad;
+import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.comparadores.Comparador;
+import dds.tp.model.criterios.CriterioMayormente;
 import dds.tp.model.repositorios.RepositorioComparadores;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
@@ -68,9 +69,8 @@ public class CargarCondicionCrecienteDecrecienteViewModel {
 		if(nombreCondicion.isEmpty() || descripcion.isEmpty())
 			throw new RuntimeException("Nombre y descripcion son obligatorios");
 		metodologiaBuilder.agregarCondTaxativa(
-					new CondicionVariabilidad(this.nombreCondicion, 
-							this.descripcion, repoIndicadores.getIndicador(nombreIndicador), 
-							this.comparadorSeleccionado, Integer.parseInt(this.periodosHaciaAtras)));
+				new CondicionTaxativa(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador), 
+					this.comparadorSeleccionado, Integer.parseInt(this.periodosHaciaAtras), new CriterioMayormente(), null));
 	}
 	
 	public List<Comparador> getComparadores() {
