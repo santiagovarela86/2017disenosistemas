@@ -14,7 +14,7 @@ public abstract class Criterio {
 
 	public void evaluarRequisitosEn(Condicion condicion, Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		Anual periodoAEvaluar = new Anual(Year.now().getValue());
-		for (int i = 1; i <= condicion.getPeriodosHaciaAtras(); i++) {
+		for (int i = 1; i <= condicion.getCantDePeriodosHaciaAtras(); i++) {
 			condicion.getIndicador().evaluar(empresa.getBalance(periodoAEvaluar),repoIndicadores);
 			periodoAEvaluar = periodoAEvaluar.anioAnterior();
 		}

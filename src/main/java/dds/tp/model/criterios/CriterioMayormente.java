@@ -10,17 +10,17 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 public class CriterioMayormente extends Criterio {
 
 	public boolean evaluar(CondicionTaxativa condicion, Empresa empresa, RepositorioIndicadores repoIndicadores){
-		Anual periodoEvaluar = new Anual(Year.now().getValue()-condicion.getPeriodosHaciaAtras()+1);
+		Anual periodoEvaluar = new Anual(Year.now().getValue()-condicion.getCantDePeriodosHaciaAtras()+1);
 		Double valorAUsar =  condicion.getIndicador().evaluar(empresa.getBalance(periodoEvaluar), repoIndicadores);
 		int vecesCumplido = 0;
-		for (int i = 1; i < condicion.getPeriodosHaciaAtras(); i++) {
+		for (int i = 1; i < condicion.getCantDePeriodosHaciaAtras(); i++) {
 			periodoEvaluar = periodoEvaluar.anioSiguiente();
 			Double valorSiguiente = condicion.getIndicador().evaluar(empresa.getBalance(periodoEvaluar), repoIndicadores);
 			if(condicion.getComparador().comparar(valorAUsar, valorSiguiente))
 				vecesCumplido++;
 			valorAUsar = valorSiguiente;
 		}
-		return vecesCumplido>condicion.getPeriodosHaciaAtras()*0.70;
+		return vecesCumplido>condicion.getCantDePeriodosHaciaAtras()*0.70;
 	}
 
 }

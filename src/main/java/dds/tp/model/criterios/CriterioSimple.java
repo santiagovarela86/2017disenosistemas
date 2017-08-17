@@ -14,7 +14,7 @@ public class CriterioSimple extends Criterio {
 	public boolean evaluar(CondicionTaxativa condicion, Empresa empresa, RepositorioIndicadores repoIndicadores){
 		Anual periodoAEvaluar = new Anual(Year.now().getValue());
 		boolean seCumple = true;
-		for (int i = 1; i <= condicion.getPeriodosHaciaAtras(); i++) {
+		for (int i = 1; i <= condicion.getCantDePeriodosHaciaAtras(); i++) {
 			seCumple = seCumple && comparar(condicion.getIndicador(), condicion.getComparador(), empresa, periodoAEvaluar, repoIndicadores, condicion.getValorLimite());
   			periodoAEvaluar = periodoAEvaluar.anioAnterior();
 		}

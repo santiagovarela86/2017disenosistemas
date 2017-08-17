@@ -21,16 +21,9 @@ public class CondicionPriorizante extends Condicion {
 	}
 
 	public boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores){
-		Anual periodoAEvaluar = new Anual(Year.now().getValue());
 		
-		boolean seCumple = true;
-		
-		for (int i = 1; i <= this.getPeriodosHaciaAtras(); i++) {
-			seCumple = seCumple && comparar(empresa1, empresa2,repoIndicadores,periodoAEvaluar);
-  			periodoAEvaluar = periodoAEvaluar.anioAnterior();
-		}
-
-		return seCumple;
+		return	this.getPeriodosAEvaluar().stream()
+				.allMatch(periodo -> comparar(empresa1, empresa2, repoIndicadores, (Anual) periodo));
 	}
 	
 	private boolean comparar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores, Anual anio) {
@@ -54,4 +47,5 @@ public class CondicionPriorizante extends Condicion {
 	public void evaluarRequisitosEn(Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		criterio.evaluarRequisitosEn(this, empresa, repoIndicadores);		
 	}
+	
 }
