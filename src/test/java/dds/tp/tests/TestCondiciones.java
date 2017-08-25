@@ -12,7 +12,8 @@ import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
-import dds.tp.model.criterios.CriterioMayormente;
+import dds.tp.model.criterios.CriterioComparador;
+import dds.tp.model.criterios.CriterioPendiente;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
@@ -50,14 +51,14 @@ public class TestCondiciones {
 	@Test
 	public void noSeCumpleCondicionCrecienteDecrecienteRoe4PeriodosAtrasCreciente() {
 		CondicionTaxativa condi = new CondicionTaxativa("Test", "Para test", repoIndicadores.getIndicador("indicador ROE"), 
-				new Mayor(), 4, new CriterioMayormente(), null);
+				new Mayor(), 4, new CriterioPendiente(), null);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}
 	
 	@Test
-	public void condicionCrecienteDecrecienteRoe4PeriodosAtrasCrecienteNoSeCumple() {
+	public void condicionComparadoraEnAdidasSiendoRoeMayorQue40SiempreNoSeCumple() {
 		CondicionTaxativa condi = new CondicionTaxativa("Test", "Para test", repoIndicadores.getIndicador("indicador ROE"), 
-				new Mayor(), 4, new CriterioMayormente(), null);
+				new Mayor(), 4, new CriterioComparador(), 40.0);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}	
 }

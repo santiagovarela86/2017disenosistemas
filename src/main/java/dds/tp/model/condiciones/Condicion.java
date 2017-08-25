@@ -38,4 +38,12 @@ public abstract class Condicion {
 	public int getCantidadDePeriodosAEvaluar() {
 		return cantidadDePeriodosAEvaluar;
 	}
+	
+	public Indicador getIndicador() {
+		return indicador;
+	}
+	
+	public Comparador getComparador() {
+		return comparador;
+	}
 }
