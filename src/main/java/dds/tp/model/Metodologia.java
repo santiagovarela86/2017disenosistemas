@@ -1,15 +1,14 @@
 package dds.tp.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.excepciones.NoHayCondiciones;
 import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
-import dds.tp.model.metodologia.ControladorRequisitos;
 import dds.tp.model.metodologia.Filtro;
 import dds.tp.model.metodologia.Ordenador;
 import dds.tp.model.metodologia.ResultadoAnalisis;
@@ -36,43 +35,35 @@ public class Metodologia {
 	}
 
 	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
-		List<ResultadoAnalisis> resultadosNegativos = new ArrayList<>();
-		List<ResultadoAnalisis> resultadosPositivos = new ArrayList<>();
-		List<ResultadoAnalisis> resultadosTotales = new ArrayList<>();
-		List<Empresa> empresasQueConvieneInvertir = new ArrayList<>(empresas);
+		List<ResultadoAnalisis> resultadosTemporales = empresas.stream()
+			.filter(empresa -> this.getCondiciones().stream().anyMatch(cond -> !cond.empresaPuedeSerEvaluada(empresa, repoIndicadores)))
+			.map(elem -> new ResultadoAnalisis(0, elem, "Esta empresa no tiene los elementos suficientes"))
+			.collect(Collectors.toList());
 		
-		resultadosNegativos =  new ControladorRequisitos().getEmpresasQueNoCumplenLosRequisitos(empresas, getCondiciones(), repoIndicadores);
+		this.removerEmpresasYaAnalizadas(empresas, resultadosTemporales);
 		
-		for (CondicionTaxativa condicion : condicionesTaxativas) {
-			agregarResultadosNegativos(resultadosNegativos,empresasQueConvieneInvertir,condicion,repoIndicadores);
-		}
+		condicionesTaxativas.forEach(cond -> 
+					{resultadosTemporales.addAll(new Filtro().getResultadosNegativos(empresas, cond, repoIndicadores));
+					this.removerEmpresasYaAnalizadas(empresas, resultadosTemporales);});
 		
-		removerEmpresasQueYaNoConvieneInvertirDesdeResultados(empresasQueConvieneInvertir, resultadosNegativos);
-	
-		resultadosPositivos = new Ordenador().getResultados(empresasQueConvieneInvertir,condicionesQuePriorizan,repoIndicadores);
-		resultadosTotales.addAll(resultadosPositivos);
-		resultadosTotales.addAll(resultadosNegativos);
-		return resultadosTotales;
+		resultadosTemporales.addAll(new Ordenador().getResultados(empresas, condicionesQuePriorizan, repoIndicadores));
+		return resultadosTemporales;
 	}
 	
-	private void agregarResultadosNegativos(List<ResultadoAnalisis> resultadosN, List<Empresa> empresas, CondicionTaxativa c, RepositorioIndicadores repoI){
-		resultadosN.addAll(new Filtro().getResultadosNegativos(empresas, c, repoI)) ;
-	}
-
 	public List<Condicion> getCondiciones() {
 		ArrayList<Condicion> allCondiciones = new ArrayList<>(this.condicionesQuePriorizan);
 		allCondiciones.addAll(condicionesTaxativas);
 		return allCondiciones;
 	}
 	
-	private void removerEmpresasQueYaNoConvieneInvertirDesdeResultados(List<Empresa> empresas, List<ResultadoAnalisis> resultadosNegativos) {
-		resultadosNegativos.stream().forEach(e -> empresas.remove(e.getEmpresa()));
-		Collections.reverse(resultadosNegativos);
+	public void removerEmpresasYaAnalizadas(List<Empresa> empresas, List<ResultadoAnalisis> resultados) {
+		resultados.stream()
+				.map(analisis -> analisis.getEmpresa())
+				.forEach(empr -> empresas.remove(empr));
 	}
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this.nombre;
 	}
 }

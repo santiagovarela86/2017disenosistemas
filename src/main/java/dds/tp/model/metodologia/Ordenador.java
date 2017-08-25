@@ -22,7 +22,7 @@ public class Ordenador {
 		
 		//GENERO LA LISTA FINAL A PARTIR DE LAS LISTAS INTERMEDIAS
 		resultadosOrdenados = generarListaFinal(empresasQueConvieneInvertir, listasIntermedias);
-		
+		Collections.reverse(resultadosOrdenados);
 		return resultadosOrdenados;
 	}
 	
@@ -31,7 +31,10 @@ public class Ordenador {
 		ArrayList<Empresa> listaOrdenada = new ArrayList<Empresa>(lista);
 
 		//ORDENO LA COPIA DE LA LISTA SEGUN LA CONDICION PRIORIZANTE
-		Collections.sort(listaOrdenada, (empresa1, empresa2) -> cond.evaluarInt(empresa1, empresa2, repoIndicadores));
+		Collections.sort(listaOrdenada, (empresa1, empresa2) -> {if (cond.evaluar(empresa1, empresa2, repoIndicadores)) 
+																		return -1;
+															 	else 
+															 			return 1;});
 		
 		return listaOrdenada;
 	}

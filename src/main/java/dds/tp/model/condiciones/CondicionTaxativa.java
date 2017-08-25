@@ -1,14 +1,10 @@
 package dds.tp.model.condiciones;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.criterios.Criterio;
-import dds.tp.model.periodos.Anual;
-import dds.tp.model.periodos.Periodo;
+
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class CondicionTaxativa extends Condicion {
@@ -30,17 +26,4 @@ public class CondicionTaxativa extends Condicion {
 	public boolean evaluar(Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		return criterio.cumpleCriterio(this, empresa, repoIndicadores);
 	}
-
-	@Override
-	public List<Periodo> getPeriodosAEvaluar() {
-		Anual periodoAIngresar = Anual.getPeriodoActual();
-		ArrayList<Periodo> periodosAEvaluar = new ArrayList<>();
-		for(int per = 0; per < cantidadDePeriodosAEvaluar; per++)
-		{
-			periodosAEvaluar.add(periodoAIngresar);
-			periodoAIngresar = periodoAIngresar.anioAnterior();
-		}
-		return periodosAEvaluar;
-	}
-
 }

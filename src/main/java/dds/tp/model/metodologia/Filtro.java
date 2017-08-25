@@ -11,7 +11,6 @@ public class Filtro {
 
 	public List<ResultadoAnalisis> getResultadosNegativos(List<Empresa> empresas, CondicionTaxativa condicion,
 			RepositorioIndicadores repoIndicadores) {
-
 		return empresas.stream()
 				.filter(e -> !condicion.evaluar(e, repoIndicadores))
 				.map(e -> new ResultadoAnalisis(0, e, "No cumple la condicion " + condicion.getNombre()))
