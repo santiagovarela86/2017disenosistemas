@@ -3,12 +3,13 @@ package dds.tp.model;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
+import dds.tp.model.condiciones.NombreAPensar;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 
 
 @Observable
-public class Indicador {
+public class Indicador implements NombreAPensar {
 	
 	private String nombre;
 	private Expresion expresion;
@@ -53,5 +54,10 @@ public class Indicador {
 	@Override
 	public String toString() {
 		return this.getNombre();
+	}
+
+	@Override
+	public Double evaluar(Empresa empresa, Balance balance, RepositorioIndicadores baulIndicadores) {
+		return this.evaluar(balance, baulIndicadores);
 	}
 }

@@ -1,7 +1,6 @@
 package dds.tp.model.condiciones;
 
 import dds.tp.model.Empresa;
-import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.criterios.Criterio;
 
@@ -12,9 +11,9 @@ public class CondicionTaxativa extends Condicion {
 	private Double valorLimite;
 	private Criterio criterio;
 	
-	public CondicionTaxativa(String nombre, String descripcion, Indicador indicador, Comparador comparador,
+	public CondicionTaxativa(String nombre, String descripcion, NombreAPensar nombreAPensar, Comparador comparador,
 			int periodosHaciaAtras, Criterio criterio, Double valorLimite) {		
-		super(nombre, descripcion, indicador, comparador, periodosHaciaAtras);
+		super(nombre, descripcion, nombreAPensar, comparador, periodosHaciaAtras);
 		this.criterio = criterio;
 		this.valorLimite = valorLimite;
 	}

@@ -1,16 +1,15 @@
 package dds.tp.model.condiciones;
 
 import dds.tp.model.Empresa;
-import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class CondicionPriorizante extends Condicion {
 
-	public CondicionPriorizante(String nombre, String descripcion, Indicador indicador, Comparador comparador,
+	public CondicionPriorizante(String nombre, String descripcion, NombreAPensar nombreAPensar, Comparador comparador,
 			int periodosAEvaluar) {
-		super(nombre, descripcion, indicador, comparador, periodosAEvaluar);
+		super(nombre, descripcion, nombreAPensar, comparador, periodosAEvaluar);
 	}
 
 	public boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores){
@@ -23,7 +22,7 @@ public class CondicionPriorizante extends Condicion {
 	}
 	
 	private Double obtenerResultado(Empresa empresa, Anual anio, RepositorioIndicadores repoIndicadores){
-		return this.indicador.evaluar(empresa.getBalance(anio), repoIndicadores);
+		return this.valorAComparar.evaluar(empresa, empresa.getBalance(anio), repoIndicadores);
 	}
 	
 }

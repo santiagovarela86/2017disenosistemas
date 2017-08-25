@@ -10,7 +10,7 @@ public class CriterioPendiente extends Criterio {
 	public boolean cumpleCriterio(CondicionTaxativa condicion, Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		return condicion.getPeriodosAEvaluar().stream()
 			.allMatch(periodo -> condicion.getComparador()
-					.comparar(condicion.getIndicador().evaluar(empresa.getBalance(periodo), repoIndicadores),
-							  condicion.getIndicador().evaluar(empresa.getBalance(((Anual)periodo).anioAnterior()), repoIndicadores)));
+					.comparar(condicion.getIndicador().evaluar(empresa, empresa.getBalance(periodo), repoIndicadores),
+							  condicion.getIndicador().evaluar(empresa, empresa.getBalance(((Anual)periodo).anioAnterior()), repoIndicadores)));
 	}
 }

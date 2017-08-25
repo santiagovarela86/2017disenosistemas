@@ -8,9 +8,10 @@ import dds.tp.model.Metodologia;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
+import dds.tp.model.condiciones.EdadAnalizador;
 import dds.tp.model.condiciones.comparadores.Mayor;
-import dds.tp.model.condiciones.comparadores.MayorIgual;
 import dds.tp.model.condiciones.comparadores.Menor;
+import dds.tp.model.criterios.CriterioComparador;
 import dds.tp.model.criterios.CriterioPendiente;
 
 public class RepositorioMetodologias {
@@ -41,11 +42,8 @@ public class RepositorioMetodologias {
 			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 7))
 			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO"), new Menor(), 1))
 			.agregarCondTaxativa(new CondicionTaxativa("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN"), new Menor(), 8, new CriterioPendiente(), null))
-			
-			//EN EL NUEVO MODELO HAY QUE VER COMO HACER PARA QUE LA LONGEVIDAD DE UNA EMPRESA SEA UN INDICADOR
-			//.agregarCondTaxativa(new CondicionLongevidadSimple("Longevidad Simple",  "Longevidad Simple"))
-			//.agregarCondPriorizar(new CondicionLongevidadComparadora("Longevidad Comparadora",  "Longevidad Comparadora"))
-			
+			.agregarCondTaxativa(new CondicionTaxativa("Longevidad Simple", "Longevidad Simple", new EdadAnalizador(), new Mayor(), 1, new CriterioComparador(), 10d))
+			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new EdadAnalizador(), new Mayor(), 1))			
 			.build();
 		this.addMetodologia(warrenBuffet);
 	}

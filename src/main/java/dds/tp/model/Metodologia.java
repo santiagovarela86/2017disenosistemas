@@ -1,6 +1,7 @@
 package dds.tp.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,7 @@ public class Metodologia {
 					this.removerEmpresasYaAnalizadas(empresas, resultadosTemporales);});
 		
 		resultadosTemporales.addAll(new Ordenador().getResultados(empresas, condicionesQuePriorizan, repoIndicadores));
+		Collections.reverse(resultadosTemporales);
 		return resultadosTemporales;
 	}
 	

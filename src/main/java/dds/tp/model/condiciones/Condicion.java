@@ -7,7 +7,6 @@ import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.BalanceAnual;
 import dds.tp.model.Empresa;
-import dds.tp.model.Indicador;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.periodos.Anual;
 import dds.tp.model.periodos.Periodo;
@@ -18,14 +17,14 @@ public abstract class Condicion {
 
 	protected String nombre;
 	protected String descripcion;
-	protected Indicador indicador;
+	protected NombreAPensar valorAComparar;
 	protected Comparador comparador;
 	protected int cantidadDePeriodosAEvaluar;
 
-	public Condicion(String nombre, String descripcion, Indicador indicador, Comparador comparador, int cantidadDePeriodosAEvaluar){
+	public Condicion(String nombre, String descripcion, NombreAPensar valorAComparar, Comparador comparador, int cantidadDePeriodosAEvaluar){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.indicador = indicador;
+		this.valorAComparar = valorAComparar;
 		this.comparador = comparador;
 		this.cantidadDePeriodosAEvaluar = cantidadDePeriodosAEvaluar;
 	}
@@ -42,8 +41,8 @@ public abstract class Condicion {
 		return cantidadDePeriodosAEvaluar;
 	}
 	
-	public Indicador getIndicador() {
-		return indicador;
+	public NombreAPensar getIndicador() {
+		return valorAComparar;
 	}
 	
 	public Comparador getComparador() {
@@ -65,7 +64,7 @@ public abstract class Condicion {
 	public boolean empresaPuedeSerEvaluada(Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		boolean resultado =  this.getPeriodosAEvaluar().stream()
 					.allMatch(periodo -> empresa.contieneBalance(new BalanceAnual( (Anual) periodo)) 
-					&& this.indicador.puedeEvaluar(empresa.getBalance(periodo), repoIndicadores));
+					&& this.valorAComparar.puedeEvaluar(empresa.getBalance(periodo), repoIndicadores));
 		return resultado;
 	}
 	
