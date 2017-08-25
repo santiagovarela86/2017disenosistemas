@@ -1,5 +1,7 @@
 package dds.tp.model.periodos;
 
+import java.time.Year;
+
 public class Anual implements Periodo {
 	
 	private int anio;
@@ -26,6 +28,10 @@ public class Anual implements Periodo {
 	
 	public boolean igualA(Anual anio){
 		return this.anio == anio.getAnio();
+	}
+	
+	public static Anual getPeriodoActual() {
+		return new Anual(Year.now().getValue());
 	}
 	
 	@Override
