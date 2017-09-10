@@ -4,7 +4,7 @@ import dds.tp.model.Balance;
 import dds.tp.model.Empresa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-public class EdadAnalizador implements NombreAPensar {
+public class CondicionEdad implements Comparado {
 
 	@Override
 	public boolean puedeEvaluar(Balance balance, RepositorioIndicadores baulIndicadores) {

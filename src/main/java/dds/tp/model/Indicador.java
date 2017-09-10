@@ -3,13 +3,13 @@ package dds.tp.model;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
-import dds.tp.model.condiciones.NombreAPensar;
+import dds.tp.model.condiciones.Comparado;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 
 
 @Observable
-public class Indicador implements NombreAPensar {
+public class Indicador implements Comparado {
 	
 	private String nombre;
 	private Expresion expresion;

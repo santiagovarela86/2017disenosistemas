@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import dds.tp.model.BalanceAnual;
 import dds.tp.model.Empresa;
-import dds.tp.model.condiciones.NombreAPensar;
+import dds.tp.model.condiciones.Comparado;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class Mediana extends ModoEstadistico {
 
 	@Override
-	public Double getEstadistica(Empresa empresa, NombreAPensar nombreAPensar, RepositorioIndicadores repoIndicadores) {
+	public Double getEstadistica(Empresa empresa, Comparado nombreAPensar, RepositorioIndicadores repoIndicadores) {
 		ArrayList<Double> resultados = new ArrayList<>();
 		for (BalanceAnual bal : empresa.getBalancesAnuales()) {
 			resultados.add(nombreAPensar.evaluar(empresa, bal, repoIndicadores));

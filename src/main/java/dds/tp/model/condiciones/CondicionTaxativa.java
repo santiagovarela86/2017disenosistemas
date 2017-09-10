@@ -11,9 +11,9 @@ public class CondicionTaxativa extends Condicion {
 	private Double valorLimite;
 	private Criterio criterio;
 	
-	public CondicionTaxativa(String nombre, String descripcion, NombreAPensar nombreAPensar, Comparador comparador,
+	public CondicionTaxativa(String nombre, String descripcion, Comparado indicador, Comparador comparador,
 			int periodosHaciaAtras, Criterio criterio, Double valorLimite) {		
-		super(nombre, descripcion, nombreAPensar, comparador, periodosHaciaAtras);
+		super(nombre, descripcion, indicador, comparador, periodosHaciaAtras);
 		this.criterio = criterio;
 		this.valorLimite = valorLimite;
 	}

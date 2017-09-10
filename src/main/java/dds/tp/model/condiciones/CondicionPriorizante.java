@@ -7,9 +7,9 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class CondicionPriorizante extends Condicion {
 
-	public CondicionPriorizante(String nombre, String descripcion, NombreAPensar nombreAPensar, Comparador comparador,
+	public CondicionPriorizante(String nombre, String descripcion, Comparado indicador, Comparador comparador,
 			int periodosAEvaluar) {
-		super(nombre, descripcion, nombreAPensar, comparador, periodosAEvaluar);
+		super(nombre, descripcion, indicador, comparador, periodosAEvaluar);
 	}
 
 	public boolean evaluar(Empresa empresa1, Empresa empresa2, RepositorioIndicadores repoIndicadores){
@@ -22,7 +22,7 @@ public class CondicionPriorizante extends Condicion {
 	}
 	
 	private Double obtenerResultado(Empresa empresa, Anual anio, RepositorioIndicadores repoIndicadores){
-		return this.valorAComparar.evaluar(empresa, empresa.getBalance(anio), repoIndicadores);
+		return this.getIndicador().evaluar(empresa, empresa.getBalance(anio), repoIndicadores);
 	}
 	
 }

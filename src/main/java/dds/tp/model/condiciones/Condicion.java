@@ -17,14 +17,14 @@ public abstract class Condicion {
 
 	protected String nombre;
 	protected String descripcion;
-	protected NombreAPensar valorAComparar;
+	protected Comparado indicador;
 	protected Comparador comparador;
 	protected int cantidadDePeriodosAEvaluar;
 
-	public Condicion(String nombre, String descripcion, NombreAPensar valorAComparar, Comparador comparador, int cantidadDePeriodosAEvaluar){
+	public Condicion(String nombre, String descripcion, Comparado indicador, Comparador comparador, int cantidadDePeriodosAEvaluar){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.valorAComparar = valorAComparar;
+		this.indicador = indicador;
 		this.comparador = comparador;
 		this.cantidadDePeriodosAEvaluar = cantidadDePeriodosAEvaluar;
 	}
@@ -41,8 +41,8 @@ public abstract class Condicion {
 		return cantidadDePeriodosAEvaluar;
 	}
 	
-	public NombreAPensar getIndicador() {
-		return valorAComparar;
+	public Comparado getIndicador() {
+		return indicador;
 	}
 	
 	public Comparador getComparador() {
@@ -64,7 +64,7 @@ public abstract class Condicion {
 	public boolean empresaPuedeSerEvaluada(Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		boolean resultado =  this.getPeriodosAEvaluar().stream()
 					.allMatch(periodo -> empresa.contieneBalance(new BalanceAnual( (Anual) periodo)) 
-					&& this.valorAComparar.puedeEvaluar(empresa.getBalance(periodo), repoIndicadores));
+					&& this.indicador.puedeEvaluar(empresa.getBalance(periodo), repoIndicadores));
 		return resultado;
 	}
 	
