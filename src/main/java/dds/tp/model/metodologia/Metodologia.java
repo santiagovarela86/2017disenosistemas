@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.excepciones.NoHayCondiciones;
 import dds.tp.model.Empresa;
@@ -13,7 +16,12 @@ import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
+@Entity
 public class Metodologia {
+
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	private String nombre;
 	private ArrayList<CondicionTaxativa> condicionesTaxativas;

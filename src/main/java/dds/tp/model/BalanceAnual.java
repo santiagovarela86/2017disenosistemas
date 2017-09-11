@@ -12,7 +12,6 @@ import dds.tp.model.periodos.Anual;
 public class BalanceAnual extends Balance {
 
 	@OneToOne
-	//@ManyToOne
 	private Anual periodo;
 	
 	public BalanceAnual(Anual periodo) {

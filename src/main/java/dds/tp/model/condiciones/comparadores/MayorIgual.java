@@ -1,7 +1,10 @@
 package dds.tp.model.condiciones.comparadores;
 
-public class MayorIgual implements Comparador {
+import javax.persistence.Entity;
 
+@Entity
+public class MayorIgual extends Comparador {
+	
 	@Override
 	public boolean comparar(Double valorUno, Double valorDos) {
 		return valorUno >= valorDos;

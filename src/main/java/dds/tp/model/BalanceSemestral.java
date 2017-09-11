@@ -12,7 +12,6 @@ import dds.tp.model.periodos.Semestral;
 public class BalanceSemestral extends Balance {
 	
 	@OneToOne
-	//@ManyToOne
 	private Semestral periodo;
 	
 	public BalanceSemestral(Semestral periodo) {

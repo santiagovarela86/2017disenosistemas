@@ -3,6 +3,11 @@ package dds.tp.model.condiciones;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.BalanceAnual;
@@ -12,12 +17,21 @@ import dds.tp.model.periodos.Anual;
 import dds.tp.model.periodos.Periodo;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
+@Entity
 @Observable
 public abstract class Condicion {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	protected String nombre;
 	protected String descripcion;
+	
+	@OneToOne
 	protected Comparado indicador;
+	
+	@OneToOne
 	protected Comparador comparador;
 	protected int cantidadDePeriodosAEvaluar;
 

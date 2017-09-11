@@ -1,10 +1,13 @@
 package dds.tp.model.condiciones;
 
+import javax.persistence.Entity;
+
 import dds.tp.model.Empresa;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
+@Entity
 public class CondicionPriorizante extends Condicion {
 
 	public CondicionPriorizante(String nombre, String descripcion, Comparado indicador, Comparador comparador,

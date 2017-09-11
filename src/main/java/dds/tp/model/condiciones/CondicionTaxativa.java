@@ -1,14 +1,20 @@
 package dds.tp.model.condiciones;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 import dds.tp.model.Empresa;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.criterios.Criterio;
 
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
+@Entity
 public class CondicionTaxativa extends Condicion {
 	
 	private Double valorLimite;
+	
+	@OneToOne
 	private Criterio criterio;
 	
 	public CondicionTaxativa(String nombre, String descripcion, Comparado indicador, Comparador comparador,

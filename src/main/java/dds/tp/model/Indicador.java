@@ -9,7 +9,7 @@ import dds.tp.parsertools.Parser;
 
 
 @Observable
-public class Indicador implements Comparado {
+public class Indicador extends Comparado {
 	
 	private String nombre;
 	private Expresion expresion;

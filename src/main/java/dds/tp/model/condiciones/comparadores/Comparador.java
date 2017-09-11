@@ -1,6 +1,16 @@
 package dds.tp.model.condiciones.comparadores;
 
-public interface Comparador {
-	public String getNombre();
-	public boolean comparar(Double valorUno, Double valorDos);
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public abstract class Comparador{
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	public abstract String getNombre();
+	public abstract boolean comparar(Double valorUno, Double valorDos);
 }
