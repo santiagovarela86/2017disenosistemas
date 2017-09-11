@@ -1,10 +1,19 @@
 package dds.tp.model.periodos;
 
-public interface Periodo {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public abstract class Periodo {
+
+	@Id
+	@GeneratedValue
+	private Long id;
 	
-	public boolean igualA(String periodo);
-	public boolean igualA(Semestral semestre);
-	public boolean igualA(Anual semestre);
-	public boolean igualA(Periodo semestre);
+	public abstract boolean igualA(String periodo);
+	public abstract boolean igualA(Semestral semestre);
+	public abstract boolean igualA(Anual semestre);
+	public abstract boolean igualA(Periodo semestre);
 
 }

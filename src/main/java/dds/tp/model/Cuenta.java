@@ -1,9 +1,18 @@
 package dds.tp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.uqbar.commons.utils.Observable;
 
+@Entity
 @Observable
 public class Cuenta {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	private String nombre;
 	private Double valor;

@@ -1,12 +1,18 @@
 package dds.tp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.periodos.Anual;
 
+@Entity
 @Observable
 public class BalanceAnual extends Balance {
 
+	@OneToOne
+	//@ManyToOne
 	private Anual periodo;
 	
 	public BalanceAnual(Anual periodo) {

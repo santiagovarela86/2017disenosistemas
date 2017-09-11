@@ -5,17 +5,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.periodos.Periodo;
+
+@Entity
 @Observable
 public class Empresa {
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	private String nombre;
 	private Integer antiguedad;
+	
+	@OneToMany
 	private List<BalanceSemestral> balancesSemestrales;
+	
+	@OneToMany
 	private List<BalanceAnual> balancesAnuales;
 	
 	public Empresa(String nombre, Integer anioFundacion) {

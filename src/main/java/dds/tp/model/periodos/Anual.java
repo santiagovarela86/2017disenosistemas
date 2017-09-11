@@ -2,7 +2,10 @@ package dds.tp.model.periodos;
 
 import java.time.Year;
 
-public class Anual implements Periodo {
+import javax.persistence.Entity;
+
+@Entity
+public class Anual extends Periodo {
 	
 	private int anio;
 	

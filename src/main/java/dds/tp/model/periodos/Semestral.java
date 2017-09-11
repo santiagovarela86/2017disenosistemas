@@ -1,7 +1,10 @@
 package dds.tp.model.periodos;
 
-public class Semestral implements Periodo {
-	
+import javax.persistence.Entity;
+
+@Entity
+public class Semestral extends Periodo {
+
 	private int numeroDeSemestre;
 	private int anio;
 	
