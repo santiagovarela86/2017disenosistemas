@@ -6,6 +6,7 @@ import java.util.List;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.BalanceAnual;
+import dds.tp.model.Comparado;
 import dds.tp.model.Empresa;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.periodos.Anual;

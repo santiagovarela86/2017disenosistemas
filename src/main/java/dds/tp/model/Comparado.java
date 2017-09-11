@@ -1,7 +1,5 @@
-package dds.tp.model.condiciones;
+package dds.tp.model;
 
-import dds.tp.model.Balance;
-import dds.tp.model.Empresa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public interface Comparado {

@@ -1,10 +1,8 @@
-package dds.tp.model.condiciones;
+package dds.tp.model;
 
-import dds.tp.model.Balance;
-import dds.tp.model.Empresa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
-public class CondicionEdad implements Comparado {
+public class EvaluadorAntiguedad implements Comparado {
 
 	@Override
 	public boolean puedeEvaluar(Balance balance, RepositorioIndicadores baulIndicadores) {

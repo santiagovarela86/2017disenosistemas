@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.EvaluadorAntiguedad;
 import dds.tp.model.Metodologia;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
-import dds.tp.model.condiciones.CondicionEdad;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
 import dds.tp.model.criterios.CriterioComparador;
@@ -42,8 +42,8 @@ public class RepositorioMetodologias {
 			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 7))
 			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO"), new Menor(), 1))
 			.agregarCondTaxativa(new CondicionTaxativa("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN"), new Menor(), 8, new CriterioPendiente(), null))
-			.agregarCondTaxativa(new CondicionTaxativa("Longevidad Simple", "Longevidad Simple", new CondicionEdad(), new Mayor(), 1, new CriterioComparador(), 10d))
-			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new CondicionEdad(), new Mayor(), 1))			
+			.agregarCondTaxativa(new CondicionTaxativa("Longevidad Simple", "Longevidad Simple", new EvaluadorAntiguedad(), new Mayor(), 1, new CriterioComparador(), 10d))
+			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new EvaluadorAntiguedad(), new Mayor(), 1))			
 			.build();
 		this.addMetodologia(warrenBuffet);
 	}

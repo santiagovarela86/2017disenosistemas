@@ -3,17 +3,17 @@ package dds.tp.model.condiciones.modosestadisticos;
 import java.util.ArrayList;
 
 import dds.tp.model.BalanceAnual;
+import dds.tp.model.Comparado;
 import dds.tp.model.Empresa;
-import dds.tp.model.condiciones.Comparado;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class Mediana extends ModoEstadistico {
 
 	@Override
-	public Double getEstadistica(Empresa empresa, Comparado nombreAPensar, RepositorioIndicadores repoIndicadores) {
+	public Double getEstadistica(Empresa empresa, Comparado indicador, RepositorioIndicadores repoIndicadores) {
 		ArrayList<Double> resultados = new ArrayList<>();
 		for (BalanceAnual bal : empresa.getBalancesAnuales()) {
-			resultados.add(nombreAPensar.evaluar(empresa, bal, repoIndicadores));
+			resultados.add(indicador.evaluar(empresa, bal, repoIndicadores));
 		}
 		resultados.sort((p1,p2) -> p1.compareTo(p2));
 		return getResultadoBySize(resultados);
