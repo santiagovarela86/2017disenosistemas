@@ -1,4 +1,4 @@
-package dds.tp.model;
+package dds.tp.model.metodologia;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,12 +7,10 @@ import java.util.stream.Collectors;
 
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.excepciones.NoHayCondiciones;
+import dds.tp.model.Empresa;
 import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
-import dds.tp.model.metodologia.Filtro;
-import dds.tp.model.metodologia.Ordenador;
-import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class Metodologia {

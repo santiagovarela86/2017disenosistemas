@@ -3,10 +3,10 @@ package dds.tp.model.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-import dds.tp.model.Metodologia;
 import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
+import dds.tp.model.metodologia.Metodologia;
 
 public class MetodologiaBuilder {
 

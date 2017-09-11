@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
-import dds.tp.model.EvaluadorAntiguedad;
-import dds.tp.model.Metodologia;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
+import dds.tp.model.condiciones.EvaluadorAntiguedad;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
 import dds.tp.model.criterios.CriterioComparador;
 import dds.tp.model.criterios.CriterioPendiente;
+import dds.tp.model.metodologia.Metodologia;
 
 public class RepositorioMetodologias {
 	

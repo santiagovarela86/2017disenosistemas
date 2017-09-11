@@ -3,8 +3,8 @@ package dds.tp.model.condiciones.modosestadisticos;
 import java.util.ArrayList;
 
 import dds.tp.model.BalanceAnual;
-import dds.tp.model.Comparado;
 import dds.tp.model.Empresa;
+import dds.tp.model.condiciones.Comparado;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class Mediana extends ModoEstadistico {

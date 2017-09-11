@@ -1,5 +1,7 @@
-package dds.tp.model;
+package dds.tp.model.condiciones;
 
+import dds.tp.model.Balance;
+import dds.tp.model.Empresa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class EvaluadorAntiguedad implements Comparado {

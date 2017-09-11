@@ -1,6 +1,5 @@
 package dds.tp.model.condiciones;
 
-import dds.tp.model.Comparado;
 import dds.tp.model.Empresa;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.periodos.Anual;

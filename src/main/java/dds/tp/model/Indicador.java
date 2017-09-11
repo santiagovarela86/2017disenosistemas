@@ -3,6 +3,7 @@ package dds.tp.model;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
+import dds.tp.model.condiciones.Comparado;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 

@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dds.tp.model.LectorCuentas;
-import dds.tp.model.Metodologia;
+import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
