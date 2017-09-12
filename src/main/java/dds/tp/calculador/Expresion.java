@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import dds.tp.model.Balance;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.MyToken;
