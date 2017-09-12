@@ -1,5 +1,6 @@
 package dds.tp.model;
 
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,11 +18,8 @@ import dds.tp.parsertools.Parser;
 @Observable
 public class Indicador extends Comparado {
 	
-	@Id
-	@GeneratedValue
-	private Long id;
-	
 	private String nombre;
+	@Column
 	@Convert(converter=ExpresionConverter.class)
 	private Expresion expresion;
 	

@@ -7,10 +7,6 @@ import javax.persistence.Id;
 
 public abstract class Comparador{
 	
-	@Id
-	@GeneratedValue
-	private Long id;
-	
 	public abstract String getNombre();
 	public abstract boolean comparar(Double valorUno, Double valorDos);
 }
