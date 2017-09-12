@@ -24,6 +24,10 @@ public class Metodologia {
 	private Long id;
 
 	private String nombre;
+	
+	//No estoy pudiendo hacer el OneToMany en estos dos, me dice que no es una colección:
+	//Exception in thread "main" org.hibernate.AnnotationException: Illegal attempt to map a non collection as a @OneToMany, @ManyToMany or @CollectionOfElements: dds.tp.model.metodologia.Metodologia.condicionesTaxativas
+	//Me lo está guardando como TinyBlob... no sé si está bien
 	private ArrayList<CondicionTaxativa> condicionesTaxativas;
 	private ArrayList<CondicionPriorizante> condicionesQuePriorizan;
 	

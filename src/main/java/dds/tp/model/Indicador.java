@@ -1,5 +1,8 @@
 package dds.tp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
@@ -7,11 +10,13 @@ import dds.tp.model.condiciones.Comparado;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 
-
+@Entity
 @Observable
 public class Indicador extends Comparado {
 	
 	private String nombre;
+	
+	@OneToOne
 	private Expresion expresion;
 	
 	public Indicador(String nombre, Expresion exp){
