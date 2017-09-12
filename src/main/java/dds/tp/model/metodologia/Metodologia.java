@@ -27,13 +27,14 @@ public class Metodologia {
 	private Long id;
 
 	private String nombre;
-	
+
 	@OneToMany
 	@JoinColumn(name="metodologia_id")
 	private List<CondicionTaxativa> condicionesTaxativas;
 	@OneToMany
 	@JoinColumn(name="metodologia_id")
 	private List<CondicionPriorizante> condicionesQuePriorizan;
+
 	
 	public Metodologia(String nombre, ArrayList<CondicionTaxativa> condicionesTaxativas, ArrayList<CondicionPriorizante> condicionesQuePriorizan) {
 		if(nombre == null || nombre.equalsIgnoreCase(""))

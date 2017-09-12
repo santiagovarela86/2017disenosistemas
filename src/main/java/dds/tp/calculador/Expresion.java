@@ -2,12 +2,22 @@ package dds.tp.calculador;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import dds.tp.model.Balance;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.MyToken;
 
+@Entity
 public class Expresion {
-
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	//No estoy pudiendo hacer el OneToMany acá tampoco, me dice que no es una colección:
+	//Me lo está guardando como TinyBlob... no sé si está bien
 	private ArrayList<MyToken> expresionTokeniseada;
 
 	public Expresion(ArrayList<MyToken> expresionTokeniseada) {
