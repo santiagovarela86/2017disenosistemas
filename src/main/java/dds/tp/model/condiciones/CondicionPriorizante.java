@@ -1,5 +1,6 @@
 package dds.tp.model.condiciones;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import dds.tp.model.Empresa;
@@ -8,6 +9,7 @@ import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Entity
+@DiscriminatorValue("condPriorizante")
 public class CondicionPriorizante extends Condicion {
 
 	public CondicionPriorizante(String nombre, String descripcion, Comparado indicador, Comparador comparador,

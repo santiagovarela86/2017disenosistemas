@@ -2,9 +2,11 @@ package dds.tp.model.periodos;
 
 import java.time.Year;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("periodoAnual")
 public class Anual extends Periodo {
 	
 	private int anio;

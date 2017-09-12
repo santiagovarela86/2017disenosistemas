@@ -3,13 +3,19 @@ package dds.tp.model.condiciones;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 import org.uqbar.commons.utils.Observable;
 
+import dds.tp.jpa.converters.ComparadorConverter;
 import dds.tp.model.BalanceAnual;
 import dds.tp.model.Empresa;
 import dds.tp.model.condiciones.comparadores.Comparador;
@@ -18,20 +24,20 @@ import dds.tp.model.periodos.Periodo;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tipoCondicion")
 @Observable
 public abstract class Condicion {
 	
 	@Id
 	@GeneratedValue
 	private Long id;
-
 	protected String nombre;
 	protected String descripcion;
-	
 	@OneToOne
 	protected Comparado indicador;
-	
-	@OneToOne
+	@Column
+	@Convert(converter = ComparadorConverter.class)
 	protected Comparador comparador;
 	protected int cantidadDePeriodosAEvaluar;
 

@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import org.uqbar.commons.utils.Observable;
 
@@ -15,6 +19,8 @@ import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.periodos.Periodo;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tipoBalance")
 @Observable
 public abstract class Balance {
 	
@@ -23,6 +29,7 @@ public abstract class Balance {
 	private Long id;
 	
 	@OneToMany
+	@JoinColumn(name="balance_id")
 	private List<Cuenta> cuentas;
 	
 	public Balance() {

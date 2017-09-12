@@ -1,5 +1,6 @@
 package dds.tp.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -8,6 +9,7 @@ import org.uqbar.commons.utils.Observable;
 import dds.tp.model.periodos.Semestral;
 
 @Entity
+@DiscriminatorValue("balanceSemestral")
 @Observable
 public class BalanceSemestral extends Balance {
 	

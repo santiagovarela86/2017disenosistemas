@@ -1,17 +1,28 @@
 package dds.tp.model;
 
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
+import dds.tp.jpa.converters.ExpresionConverter;
 import dds.tp.model.condiciones.Comparado;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 
-
+@Entity
 @Observable
 public class Indicador extends Comparado {
 	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	private String nombre;
+	@Convert(converter=ExpresionConverter.class)
 	private Expresion expresion;
 	
 	public Indicador(String nombre, Expresion exp){

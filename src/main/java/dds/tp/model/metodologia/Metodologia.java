@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.excepciones.NoHayCondiciones;
 import dds.tp.model.Empresa;
@@ -24,8 +27,13 @@ public class Metodologia {
 	private Long id;
 
 	private String nombre;
-	private ArrayList<CondicionTaxativa> condicionesTaxativas;
-	private ArrayList<CondicionPriorizante> condicionesQuePriorizan;
+	
+	@OneToMany
+	@JoinColumn(name="metodologia_id")
+	private List<CondicionTaxativa> condicionesTaxativas;
+	@OneToMany
+	@JoinColumn(name="metodologia_id")
+	private List<CondicionPriorizante> condicionesQuePriorizan;
 	
 	public Metodologia(String nombre, ArrayList<CondicionTaxativa> condicionesTaxativas, ArrayList<CondicionPriorizante> condicionesQuePriorizan) {
 		if(nombre == null || nombre.equalsIgnoreCase(""))

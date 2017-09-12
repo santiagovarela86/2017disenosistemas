@@ -1,8 +1,10 @@
 package dds.tp.model.periodos;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("periodoSemestral")
 public class Semestral extends Periodo {
 
 	private int numeroDeSemestre;

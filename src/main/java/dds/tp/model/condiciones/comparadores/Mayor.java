@@ -2,7 +2,7 @@ package dds.tp.model.condiciones.comparadores;
 
 import javax.persistence.Entity;
 
-@Entity
+
 public class Mayor extends Comparador {
 	
 	@Override

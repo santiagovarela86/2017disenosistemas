@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.uqbar.commons.utils.Observable;
@@ -28,9 +29,11 @@ public class Empresa {
 	private Integer antiguedad;
 	
 	@OneToMany
+	@JoinColumn(name="empresa_id")
 	private List<BalanceSemestral> balancesSemestrales;
 	
 	@OneToMany
+	@JoinColumn(name="empresa_id")
 	private List<BalanceAnual> balancesAnuales;
 	
 	public Empresa(String nombre, Integer anioFundacion) {
