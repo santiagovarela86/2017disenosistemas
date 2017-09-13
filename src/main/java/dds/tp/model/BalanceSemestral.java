@@ -1,5 +1,6 @@
 package dds.tp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -13,7 +14,7 @@ import dds.tp.model.periodos.Semestral;
 @Observable
 public class BalanceSemestral extends Balance {
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Semestral periodo;
 	
 	public BalanceSemestral(Semestral periodo) {

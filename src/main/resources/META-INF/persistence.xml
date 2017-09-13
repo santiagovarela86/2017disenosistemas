@@ -7,7 +7,11 @@
   
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
-
+		<class>dds.tp.model.Empresa</class>
+		<class>dds.tp.model.Cuenta</class>
+		<class>dds.tp.model.BalanceAnual</class>
+		<class>dds.tp.model.BalanceSemestral</class>
+		<class>dds.tp.model.Balance</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         

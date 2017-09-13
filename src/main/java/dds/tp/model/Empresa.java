@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,13 +29,17 @@ public class Empresa {
 	private String nombre;
 	private Integer antiguedad;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="empresa_id")
 	private List<BalanceSemestral> balancesSemestrales;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="empresa_id")
 	private List<BalanceAnual> balancesAnuales;
+	
+	public Empresa() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Empresa(String nombre, Integer anioFundacion) {
 		super();

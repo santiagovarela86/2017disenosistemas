@@ -19,9 +19,6 @@ public class StockApplication extends Application {
 	
 	@Override
 	protected Window<?> createMainWindow() {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		manager.persist(new Cuenta("Pepe",10d));
-		manager.close();
 		PantallaPrincipalViewModel viewModel = new PantallaPrincipalViewModel();
 		return new PantallaPrincipal(this, viewModel);
 	}

@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Balance;
@@ -75,7 +80,28 @@ public class RepositorioEmpresas {
 	public boolean contieneEmpresa(String nombre) {
 		return this.empresas.stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(nombre));
 	}
-
+	
+	public void guardarEmpresa(Empresa empresa) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		try {
+			transaction.begin();
+			manager.persist(empresa);
+			transaction.commit();
+		} catch (Exception ex) {
+			//transaction.rollback();
+			ex.printStackTrace();
+		}finally {
+			manager.close();
+		}
+	}
+	
+	public List<Empresa> cargarEmpresas() {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		List<Empresa> empresas = manager.createQuery("from Empresa", Empresa.class).getResultList();
+		manager.close();
+		return empresas;
+	}
 	
 }
 
