@@ -1,7 +1,5 @@
 package dds.tp.model.condiciones.comparadores;
 
-import javax.persistence.Entity;
-
 
 public class Menor extends Comparador {
 	
