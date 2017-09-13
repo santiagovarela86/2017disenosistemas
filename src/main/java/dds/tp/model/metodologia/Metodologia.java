@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,13 +30,17 @@ public class Metodologia {
 
 	private String nombre;
 
-	@OneToMany
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="metodologia_id")
 	private List<CondicionTaxativa> condicionesTaxativas;
-	@OneToMany
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="metodologia_id")
 	private List<CondicionPriorizante> condicionesQuePriorizan;
 
+	
+	public Metodologia() {
+		
+	}
 	
 	public Metodologia(String nombre, ArrayList<CondicionTaxativa> condicionesTaxativas, ArrayList<CondicionPriorizante> condicionesQuePriorizan) {
 		if(nombre == null || nombre.equalsIgnoreCase(""))
@@ -67,6 +73,14 @@ public class Metodologia {
 		return resultadosTemporales;
 	}
 	
+	public void setCondicionesQuePriorizan(List<CondicionPriorizante> condicionesQuePriorizan) {
+		this.condicionesQuePriorizan = condicionesQuePriorizan;
+	}
+	
+	public void setCondicionesTaxativas(List<CondicionTaxativa> condicionesTaxativas) {
+		this.condicionesTaxativas = condicionesTaxativas;
+	}
+	
 	public List<Condicion> getCondiciones() {
 		ArrayList<Condicion> allCondiciones = new ArrayList<>(this.condicionesQuePriorizan);
 		allCondiciones.addAll(condicionesTaxativas);
@@ -82,5 +96,10 @@ public class Metodologia {
 	@Override
 	public String toString() {
 		return this.nombre;
+	}
+
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 }

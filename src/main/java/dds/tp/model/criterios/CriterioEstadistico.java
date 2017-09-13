@@ -15,6 +15,10 @@ public class CriterioEstadistico extends Criterio {
 	@Convert(converter=ModoEstadisticoConverter.class)
 	private ModoEstadistico modo;
 	
+	public CriterioEstadistico() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public CriterioEstadistico(ModoEstadistico modo) {
 		this.modo = modo;
 	}

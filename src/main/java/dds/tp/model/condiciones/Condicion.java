@@ -3,10 +3,12 @@ package dds.tp.model.condiciones;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -34,13 +36,17 @@ public abstract class Condicion {
 	private Long id;
 	protected String nombre;
 	protected String descripcion;
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	protected Comparado indicador;
 	@Column
 	@Convert(converter = ComparadorConverter.class)
 	protected Comparador comparador;
 	protected int cantidadDePeriodosAEvaluar;
 
+	public Condicion() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Condicion(String nombre, String descripcion, Comparado indicador, Comparador comparador, int cantidadDePeriodosAEvaluar){
 		this.nombre = nombre;
 		this.descripcion = descripcion;

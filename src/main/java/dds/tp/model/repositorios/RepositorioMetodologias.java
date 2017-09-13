@@ -1,9 +1,18 @@
 package dds.tp.model.repositorios;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.BalanceAnual;
+import dds.tp.model.BalanceSemestral;
+import dds.tp.model.Empresa;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
@@ -55,6 +64,41 @@ public class RepositorioMetodologias {
 		return this.metodologias.stream()
 				.filter(metodologia -> metodologia.getNombre().equalsIgnoreCase(nombre))
 				.findFirst().get();
+	}
+	
+	public List<Metodologia> cargarMetodologias() {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		List<Metodologia> metodologias = manager.createQuery("from Metodologia", Metodologia.class).getResultList();
+		manager.close();
+		return metodologias;
+	}
+	
+	public void guardarMetodologia(Metodologia metodologia) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		try {
+			transaction.begin();
+			manager.persist(metodologia);
+			transaction.commit();
+		} catch (Exception ex) {
+			//transaction.rollback();
+			ex.printStackTrace();
+		}finally {
+			manager.close();
+		}
+	}
+	
+	public void inicializarCondiciones(Metodologia metodologia) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		@SuppressWarnings("unchecked")
+		List<CondicionTaxativa> condicionesTaxativas = manager.createQuery("SELECT c FROM Condicion c WHERE tipoCondicion = :tcondicion AND metodologia_id = :meto_id")
+				.setParameter("tcondicion", "condTaxativa").setParameter("meto_id", metodologia.getId()).getResultList();
+		@SuppressWarnings("unchecked")
+		List<CondicionPriorizante> condicionesPriorizantes = manager.createQuery("SELECT c FROM Condicion c WHERE tipoCondicion = :tcondicion AND metodologia_id = :meto_id")
+				.setParameter("tcondicion", "condPriorizante").setParameter("meto_id", metodologia.getId()).getResultList();
+		manager.close();
+		metodologia.setCondicionesQuePriorizan(condicionesPriorizantes);
+		metodologia.setCondicionesTaxativas(condicionesTaxativas);
 	}
 	
 }

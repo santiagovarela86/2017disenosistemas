@@ -12,6 +12,10 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 @DiscriminatorValue("condPriorizante")
 public class CondicionPriorizante extends Condicion {
 
+	public CondicionPriorizante() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public CondicionPriorizante(String nombre, String descripcion, Comparado indicador, Comparador comparador,
 			int periodosAEvaluar) {
 		super(nombre, descripcion, indicador, comparador, periodosAEvaluar);

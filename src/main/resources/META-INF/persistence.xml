@@ -13,6 +13,16 @@
 		<class>dds.tp.model.BalanceSemestral</class>
 		<class>dds.tp.model.Balance</class>
 		<class>dds.tp.model.Indicador</class>
+		<class>dds.tp.model.metodologia.Metodologia</class>
+		<class>dds.tp.model.criterios.Criterio</class>
+		<class>dds.tp.model.criterios.CriterioComparador</class>
+		<class>dds.tp.model.criterios.CriterioEstadistico</class>
+		<class>dds.tp.model.criterios.CriterioPendiente</class>
+		<class>dds.tp.model.condicion.Condicion</class>
+		<class>dds.tp.model.condicion.CondicionPriorizante</class>
+		<class>dds.tp.model.condicion.CondicionTaxativa</class>
+		<class>dds.tp.model.condicion.EvaluadorAntiguedad</class>
+		<class>dds.tp.model.condicion.Comparado</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         

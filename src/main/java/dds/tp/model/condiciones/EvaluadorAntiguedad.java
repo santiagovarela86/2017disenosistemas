@@ -8,6 +8,10 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 @Entity
 public class EvaluadorAntiguedad extends Comparado {
 	
+	public EvaluadorAntiguedad() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public boolean puedeEvaluar(Balance balance, RepositorioIndicadores baulIndicadores) {
 		return true;

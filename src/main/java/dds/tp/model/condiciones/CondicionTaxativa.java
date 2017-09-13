@@ -1,7 +1,9 @@
 package dds.tp.model.condiciones;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 import dds.tp.model.Empresa;
@@ -16,7 +18,11 @@ public class CondicionTaxativa extends Condicion {
 	
 	private Double valorLimite;
 	
-	@OneToOne
+	public CondicionTaxativa() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Criterio criterio;
 	
 	public CondicionTaxativa(String nombre, String descripcion, Comparado indicador, Comparador comparador,
