@@ -12,6 +12,8 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Balance;
+import dds.tp.model.BalanceAnual;
+import dds.tp.model.BalanceSemestral;
 import dds.tp.model.Empresa;
 
 public class RepositorioEmpresas {
@@ -101,6 +103,27 @@ public class RepositorioEmpresas {
 		List<Empresa> empresas = manager.createQuery("from Empresa", Empresa.class).getResultList();
 		manager.close();
 		return empresas;
+	}
+	
+	public List<Empresa> cargarEmpresas(String nombre) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		List<Empresa> empresas = manager.createQuery("SELECT t FROM Empresa t WHERE t.nombre = :nombre",Empresa.class)
+				.setParameter("nombre", nombre).getResultList();
+		manager.close();
+		return empresas;
+	}
+	//Pusismos esto ya que es lazy init entonces cuando necesitamos los balances de la empresa usamos esto
+	public void inicializarBalances(Empresa empresa) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		@SuppressWarnings("unchecked")
+		List<BalanceAnual> balancesAnuales = manager.createQuery("SELECT b FROM Balance b WHERE tipoBalance = :tbalance AND empresa_id = :emp_id")
+				.setParameter("tbalance", "balanceAnual").setParameter("emp_id", empresa.getId()).getResultList();
+		@SuppressWarnings("unchecked")
+		List<BalanceSemestral> balancesSemestrales = manager.createQuery("SELECT b FROM Balance b WHERE tipoBalance = :tbalance AND empresa_id = :emp_id")
+				.setParameter("tbalance", "balanceSemestral").setParameter("emp_id", empresa.getId()).getResultList();
+		manager.close();
+		empresa.setBalancesAnuales(balancesAnuales);
+		empresa.setBalancesSemestrales(balancesSemestrales);
 	}
 	
 }

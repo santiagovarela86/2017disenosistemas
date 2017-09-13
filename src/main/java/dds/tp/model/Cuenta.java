@@ -17,6 +17,10 @@ public class Cuenta {
 	private String nombre;
 	private Double valor;
 	
+	public Cuenta() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Cuenta(String nombre, Double valor) {
 		super();
 		this.nombre = nombre;

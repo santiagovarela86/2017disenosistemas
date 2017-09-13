@@ -14,7 +14,11 @@ public class Anual extends Periodo {
 	public Anual(int anio) {
 		this.anio = anio;
 	}
-
+ 
+	public Anual() {
+		
+	}
+	
 	public Anual(String anio) {
 		this.anio = Integer.parseInt(anio);
 	}

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,11 +30,11 @@ public class Empresa {
 	private String nombre;
 	private Integer antiguedad;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="empresa_id")
 	private List<BalanceSemestral> balancesSemestrales;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="empresa_id")
 	private List<BalanceAnual> balancesAnuales;
 	
@@ -49,6 +50,10 @@ public class Empresa {
 		this.balancesSemestrales = new ArrayList<>();
 	}
 
+	public Long getId() {
+		return id;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

@@ -21,6 +21,10 @@ public class Semestral extends Periodo {
 		this.anio = anio;
 	}
 	
+	public Semestral() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public int getAnio() {
 		return anio;
 	}

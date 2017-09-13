@@ -45,6 +45,10 @@ public class TestPersistenciaEmpresa {
 		empresaJojo.getBalance(new Semestral(2,2018)).addCuenta(new Cuenta("Deuda",987d));
 		try {
 			repoEmpresa.guardarEmpresa(empresaJojo);
+			empresaJojo = repoEmpresa.cargarEmpresas("Jojo").get(0);
+			assertEquals(empresaJojo.getNombre(),"Jojo");
+			repoEmpresa.inicializarBalances(empresaJojo);
+			assertEquals(empresaJojo.getBalance("2017").getCuenta("Roe").getValor(), (Double)55.56d);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
