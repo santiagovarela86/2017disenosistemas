@@ -3,10 +3,6 @@ package dds.tp.model;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 
 import org.uqbar.commons.utils.Observable;
 

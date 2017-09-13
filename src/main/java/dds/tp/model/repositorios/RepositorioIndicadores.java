@@ -11,7 +11,6 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
-import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 
 public class RepositorioIndicadores {

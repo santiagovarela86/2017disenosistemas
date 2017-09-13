@@ -7,15 +7,13 @@ import dds.tp.model.condiciones.comparadores.Comparador;
 public class ComparadorConverter implements AttributeConverter<Comparador, String> {
 
 	@Override
-	public String convertToDatabaseColumn(Comparador arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public String convertToDatabaseColumn(Comparador comp) {
+		return comp.getNombre();
 	}
 
 	@Override
 	public Comparador convertToEntityAttribute(String arg0) {
-
-		return null;
+		return Comparador.crearComparador(arg0);
 	}
 
 }
