@@ -12,6 +12,7 @@
 		<class>dds.tp.model.BalanceAnual</class>
 		<class>dds.tp.model.BalanceSemestral</class>
 		<class>dds.tp.model.Balance</class>
+		<class>dds.tp.model.Indicador</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         

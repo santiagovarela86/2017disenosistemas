@@ -25,6 +25,10 @@ public class Indicador extends Comparado {
 	@Convert(converter=ExpresionConverter.class)
 	private Expresion expresion;
 	
+	public Indicador() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Indicador(String nombre, Expresion exp){
 		this.nombre = nombre;
 		this.expresion = exp;

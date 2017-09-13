@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 
 public class RepositorioIndicadores {
@@ -48,6 +54,28 @@ public class RepositorioIndicadores {
 		this.addIndicador(new Indicador("Indicador ROE", "roe"));
 		this.addIndicador(new Indicador("Indicador Endeudamiento", "endeudamiento"));
 		this.addIndicador(new Indicador("Indicador Margen", "margen"));
+	}
+	
+	public void guardarIndicador(Indicador indicador) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		try {
+			transaction.begin();
+			manager.persist(indicador);
+			transaction.commit();
+		} catch (Exception ex) {
+			transaction.rollback();
+			ex.printStackTrace();
+		}finally {
+			manager.close();
+		}
+	}
+	
+	public List<Indicador> cargarIndicadores() {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		List<Indicador> indicadores = manager.createQuery("from Indicador", Indicador.class).getResultList();
+		manager.close();
+		return indicadores;
 	}
 	
 }
