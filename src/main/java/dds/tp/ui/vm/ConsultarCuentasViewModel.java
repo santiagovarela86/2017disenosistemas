@@ -1,4 +1,4 @@
-package dds.tp.ui.vm;
+	package dds.tp.ui.vm;
 
 import java.util.List;
 
@@ -7,21 +7,22 @@ import org.uqbar.commons.utils.Observable;
 import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
+import dds.tp.model.repositorios.RepositorioEmpresas;
 
 @Observable
 public class ConsultarCuentasViewModel{
 
-	private List<Empresa> empresas;
+	private RepositorioEmpresas repoEmpresas;
 	private Empresa empresa;
 	private Balance balance;
 	private Cuenta cuenta;
 	
-	public ConsultarCuentasViewModel(List<Empresa> empresas) {
-		this.empresas = empresas;
+	public ConsultarCuentasViewModel(RepositorioEmpresas empresas) {
+		this.repoEmpresas = empresas;
 	}
 	
 	public List<Empresa> getEmpresas() {
-		return this.empresas;
+		return this.repoEmpresas.getEmpresas();
 	}
 	
 	public Empresa getEmpresa() {
@@ -29,6 +30,7 @@ public class ConsultarCuentasViewModel{
 	} 
 	
 	public void setEmpresa(Empresa empresa) {
+		repoEmpresas.inicializarBalances(empresa);
 		this.empresa = empresa;
 		this.setBalance(this.getBalances().get(0));
 	}

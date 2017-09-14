@@ -22,6 +22,7 @@ public class PantallaPrincipalViewModel{
 		this.baulIindicadores.cargarPredeterminados();
 		this.repoMetodologia = new RepositorioMetodologias();
 		this.repoMetodologia.cargarPredeterminados(baulIindicadores);
+		this.baulEmpresas.cargarEmpresasGuardadas();
 	}
 	
 	public RepositorioEmpresas getBaulEmpresas() {

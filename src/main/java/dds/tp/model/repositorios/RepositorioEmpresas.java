@@ -99,17 +99,11 @@ public class RepositorioEmpresas {
 		EntityTransaction transaction = manager.getTransaction();
 		try {
 			transaction.begin();
-			/*empresas.stream().forEach(empresa->{if(empresa.estasGuardada())
+			empresas.stream().forEach(empresa->{if(empresa.estasGuardada())
 													manager.merge(empresa);
 												else
 													manager.persist(empresa);
-												});*/
-			for (Empresa empresa : empresas) {
-				if(empresa.estasGuardada())
-					manager.merge(empresa);
-				else
-					manager.persist(empresa);
-			}
+												});
 			transaction.commit();
 		} catch (Exception ex) {
 			transaction.rollback();
@@ -133,6 +127,7 @@ public class RepositorioEmpresas {
 		manager.close();
 		return empresas;
 	}
+	
 	//Pusismos esto ya que es lazy init entonces cuando necesitamos los balances de la empresa usamos esto
 	public void inicializarBalances(Empresa empresa) {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
@@ -145,6 +140,10 @@ public class RepositorioEmpresas {
 		manager.close();
 		empresa.setBalancesAnuales(balancesAnuales);
 		empresa.setBalancesSemestrales(balancesSemestrales);
+	}
+	
+	public void cargarEmpresasGuardadas() {
+		this.empresas = this.cargarEmpresas();
 	}
 	
 }
