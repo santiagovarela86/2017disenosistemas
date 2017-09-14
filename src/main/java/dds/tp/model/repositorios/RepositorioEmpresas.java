@@ -44,26 +44,22 @@ public class RepositorioEmpresas {
 			throw new ElementoYaExiste("Empresa ya existe, pruebe unir empresa");
 	}
 	
-	public void agregarEmpresaYaExistente(Empresa empr) {
-		Empresa emprExistente = this.getEmpresa(empr.getNombre());
-		for (Balance balance : empr.getTodosLosBalances()) {
-			try {
-				emprExistente.addBalance(balance);
-			}
-			catch(ElementoYaExiste ex) {
-				emprExistente.unirBalanceConUnoYaExistente(balance);
-			}
+	public void agregarEmpresaYaExistente(Empresa empresaConDatosAUnir) {
+		Empresa emprExistente = this.getEmpresa(empresaConDatosAUnir.getNombre());
+		for (Balance balanceAUnir : empresaConDatosAUnir.getTodosLosBalances()) {
+			if(!emprExistente.contieneBalance(balanceAUnir))
+				emprExistente.addBalance(balanceAUnir);
+			else
+				emprExistente.unirBalanceConUnoYaExistente(balanceAUnir);
 		}
 	}
 	
-	public void addEmpresas(List<Empresa> empresas) {
-		for (Empresa empresa : empresas) {
-			try {
-				this.addEmpresa(empresa);
-			}catch(ElementoYaExiste e) {
-				this.agregarEmpresaYaExistente(empresa);
-			}
-		}
+	public void addEmpresas(List<Empresa> empresasNuevas) {
+			empresasNuevas.stream().forEach(empresa->{if(!this.contieneEmpresa(empresa))
+															this.addEmpresa(empresa);
+														else
+															this.agregarEmpresaYaExistente(empresa);
+													 });
 	}
 	
 	public Empresa getEmpresa(String empresa) throws ElementoNotFound {
@@ -91,7 +87,32 @@ public class RepositorioEmpresas {
 			manager.persist(empresa);
 			transaction.commit();
 		} catch (Exception ex) {
-			//transaction.rollback();
+			transaction.rollback();
+			ex.printStackTrace();
+		}finally {
+			manager.close();
+		}
+	}
+	
+	public void guardarEmpresas(List<Empresa> empresas) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		try {
+			transaction.begin();
+			/*empresas.stream().forEach(empresa->{if(empresa.estasGuardada())
+													manager.merge(empresa);
+												else
+													manager.persist(empresa);
+												});*/
+			for (Empresa empresa : empresas) {
+				if(empresa.estasGuardada())
+					manager.merge(empresa);
+				else
+					manager.persist(empresa);
+			}
+			transaction.commit();
+		} catch (Exception ex) {
+			transaction.rollback();
 			ex.printStackTrace();
 		}finally {
 			manager.close();

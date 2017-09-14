@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Where;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.excepciones.ElementoNotFound;
@@ -32,10 +33,12 @@ public class Empresa {
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="empresa_id")
+	@Where(clause="tipobalance='balanceSemestral'")
 	private List<BalanceSemestral> balancesSemestrales;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="empresa_id")
+	@Where(clause="tipobalance='balanceAnual'")
 	private List<BalanceAnual> balancesAnuales;
 	
 	public Empresa() {
@@ -101,18 +104,11 @@ public class Empresa {
 	}
 	
 	public void unirBalanceConUnoYaExistente(Balance bal) {
-		if(contieneBalance(bal)){
-			try {
-				Balance balanceExistente = this.getBalance(bal.getPeriodoNombre());
-				for (Cuenta cta : bal.getCuentas()) {
-					try {
-						balanceExistente.addCuenta(cta);
-					}catch (ElementoYaExiste e) {
-						//No hace nada, ya que existe la cuenta
-					}
-				}
-			}catch (ElementoNotFound e) {
-				e.printStackTrace();
+		if(this.contieneBalance(bal)){
+			Balance balanceExistente = this.getBalance(bal.getPeriodoNombre());
+			for (Cuenta cta : bal.getCuentas()) {
+				if(!balanceExistente.contieneCuenta(cta))
+					balanceExistente.addCuenta(cta);
 			}
 		}
 	}
@@ -136,5 +132,12 @@ public class Empresa {
 	@Override
 	public String toString() {
 		return this.nombre;
+	}
+	
+	public boolean estasGuardada() {
+		if(id == null)
+			return false;
+		else
+			return true;
 	}
 }

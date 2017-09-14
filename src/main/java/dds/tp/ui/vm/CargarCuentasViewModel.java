@@ -36,6 +36,7 @@ public class CargarCuentasViewModel{
 	public void cargarEmpresas(String path, Stream<String> lineas){
 		List<Empresa> aIngresar = new LectorCuentas(path).obtenerDatos(lineas);
 		this.baulEmpresas.addEmpresas(aIngresar);
+		this.baulEmpresas.guardarEmpresas(this.baulEmpresas.getEmpresas());
 	}
 	
 	public String getPath(){
