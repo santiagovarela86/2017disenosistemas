@@ -12,6 +12,7 @@ import dds.tp.model.Balance;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
+import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Observable
@@ -20,7 +21,7 @@ public class UsarIndicadoresViewModel {
 	private String tipoResultado;
 	private Color color;
 	private RepositorioIndicadores baulIndicadores;
-	private List<Empresa> empresas;
+	private RepositorioEmpresas repoEmpresas;
 	private Indicador indicador;
 	private Empresa empresa;
 	private Balance balance;
@@ -46,9 +47,9 @@ public class UsarIndicadoresViewModel {
 		return "Formula: " + this.indicador.getFormula();
 	}
 	
-	public UsarIndicadoresViewModel(List<Empresa> empresa, RepositorioIndicadores indicadores) {
+	public UsarIndicadoresViewModel(RepositorioEmpresas empresa, RepositorioIndicadores indicadores) {
 		this.baulIndicadores = indicadores;
-		this.empresas = empresa;
+		this.repoEmpresas = empresa;
 	}
 	
 	public List<Indicador> getIndicadores() {
@@ -60,7 +61,7 @@ public class UsarIndicadoresViewModel {
 	}
 	
 	public List<Empresa> getEmpresas() {
-		return this.empresas;
+		return this.repoEmpresas.getEmpresas();
 	}
 	
 	public void setIndicador(Indicador indicador) {
@@ -80,6 +81,7 @@ public class UsarIndicadoresViewModel {
 	} 
 	
 	public void setEmpresa(Empresa empresa) {
+		repoEmpresas.inicializarBalances(empresa);
 		this.empresa = empresa;
 		this.setBalance(this.getBalances().get(0));
 		if(this.empresa!=null) {

@@ -41,9 +41,7 @@ public class Empresa {
 	@Where(clause="tipobalance='balanceAnual'")
 	private List<BalanceAnual> balancesAnuales;
 	
-	public Empresa() {
-		// TODO Auto-generated constructor stub
-	}
+	public Empresa() {}
 	
 	public Empresa(String nombre, Integer anioFundacion) {
 		super();

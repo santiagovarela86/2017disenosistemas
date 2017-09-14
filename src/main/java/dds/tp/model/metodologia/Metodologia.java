@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Where;
+
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.excepciones.NoHayCondiciones;
 import dds.tp.model.Empresa;
@@ -32,9 +34,11 @@ public class Metodologia {
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="metodologia_id")
+	@Where(clause="tipobalance='condTaxativa'")
 	private List<CondicionTaxativa> condicionesTaxativas;
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="metodologia_id")
+	@Where(clause="tipobalance='condPriorizante'")
 	private List<CondicionPriorizante> condicionesQuePriorizan;
 
 	

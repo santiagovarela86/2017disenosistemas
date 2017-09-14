@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -36,16 +36,14 @@ public abstract class Condicion {
 	private Long id;
 	protected String nombre;
 	protected String descripcion;
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	protected Comparado indicador;
 	@Column
 	@Convert(converter = ComparadorConverter.class)
 	protected Comparador comparador;
 	protected int cantidadDePeriodosAEvaluar;
 
-	public Condicion() {
-		// TODO Auto-generated constructor stub
-	}
+	public Condicion() {}
 	
 	public Condicion(String nombre, String descripcion, Comparado indicador, Comparador comparador, int cantidadDePeriodosAEvaluar){
 		this.nombre = nombre;

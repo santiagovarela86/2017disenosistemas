@@ -31,6 +31,7 @@ public class RepositorioIndicadores {
 			throw new ElementoYaExiste("Ya existe un indicador con este nombre");
 		}
 		this.indicadores.add(indc);
+		this.guardarIndicador(indc);
 	}
 	
 	public boolean contieneIndicador(String nombre) {
@@ -43,16 +44,16 @@ public class RepositorioIndicadores {
 		}
 		return this.indicadores.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList()).get(0);
 	}
-	
+	@Deprecated
 	public void cargarPredeterminados() {
-		this.addIndicador(new Indicador("Ingreso Neto", "ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas"));
-		this.addIndicador(new Indicador("Razon Corriente", "activoCorriente/pasivoCorriente"));
-		this.addIndicador(new Indicador("ROA", "utilidadBruta/activoTotal"));
+		this.indicadores.add(new Indicador("Ingreso Neto", "ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas"));
+		this.indicadores.add(new Indicador("Razon Corriente", "activoCorriente/pasivoCorriente"));
+		this.indicadores.add(new Indicador("ROA", "utilidadBruta/activoTotal"));
 		//Pongo indicador antes xq sino tiene la cuenta se llama recursivamente el mismo indicador y tira stackoverflow
 		//Normalmente un indicador no se llama igual q el calculo...
-		this.addIndicador(new Indicador("Indicador ROE", "roe"));
-		this.addIndicador(new Indicador("Indicador Endeudamiento", "endeudamiento"));
-		this.addIndicador(new Indicador("Indicador Margen", "margen"));
+		this.indicadores.add(new Indicador("Indicador ROE", "roe"));
+		this.indicadores.add(new Indicador("Indicador Endeudamiento", "endeudamiento"));
+		this.indicadores.add(new Indicador("Indicador Margen", "margen"));
 	}
 	
 	public void guardarIndicador(Indicador indicador) {
@@ -70,11 +71,30 @@ public class RepositorioIndicadores {
 		}
 	}
 	
+	public void guardarIndicadores(List<Indicador> indicadores) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		try {
+			transaction.begin();
+			indicadores.stream().forEach(indicador->manager.persist(indicador));
+			transaction.commit();
+		} catch (Exception ex) {
+			transaction.rollback();
+			ex.printStackTrace();
+		}finally {
+			manager.close();
+		}
+	}
+	
 	public List<Indicador> cargarIndicadores() {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
 		List<Indicador> indicadores = manager.createQuery("from Indicador", Indicador.class).getResultList();
 		manager.close();
 		return indicadores;
+	}
+
+	public void cargarIndicadoresGuardados() {
+		this.indicadores = this.cargarIndicadores();
 	}
 	
 }

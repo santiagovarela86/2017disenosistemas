@@ -41,8 +41,9 @@ public class RepositorioMetodologias {
 			throw new ElementoYaExiste("Ya existe una metodologia con este nombre");
 		}
 		this.metodologias.add(metodologia);
+		this.metodologias.add(metodologia);
 	}
-
+	@Deprecated
 	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
 			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 7))
@@ -51,7 +52,7 @@ public class RepositorioMetodologias {
 			.agregarCondTaxativa(new CondicionTaxativa("Longevidad Simple", "Longevidad Simple", new EvaluadorAntiguedad(), new Mayor(), 1, new CriterioComparador(), 10d))
 			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new EvaluadorAntiguedad(), new Mayor(), 1))			
 			.build();
-		this.addMetodologia(warrenBuffet);
+		this.metodologias.add(warrenBuffet);
 	}
 	
 	public Metodologia getMetodlogia(String nombre) {
@@ -75,10 +76,10 @@ public class RepositorioMetodologias {
 		EntityTransaction transaction = manager.getTransaction();
 		try {
 			transaction.begin();
-			manager.persist(metodologia);
+			manager.merge(metodologia);
 			transaction.commit();
 		} catch (Exception ex) {
-			//transaction.rollback();
+			transaction.rollback();
 			ex.printStackTrace();
 		}finally {
 			manager.close();
@@ -96,6 +97,10 @@ public class RepositorioMetodologias {
 		manager.close();
 		metodologia.setCondicionesQuePriorizan(condicionesPriorizantes);
 		metodologia.setCondicionesTaxativas(condicionesTaxativas);
+	}
+
+	public void cargarMetodologiaGuardadas() {
+		this.metodologias = (ArrayList<Metodologia>) this.cargarMetodologias();	
 	}
 	
 }

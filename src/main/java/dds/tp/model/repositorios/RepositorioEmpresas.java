@@ -142,6 +142,11 @@ public class RepositorioEmpresas {
 		empresa.setBalancesSemestrales(balancesSemestrales);
 	}
 	
+	//Esto hay q usarlo a evaluar las metodologias
+	public void inicializarTodosLosbalances() {
+		this.empresas.forEach(empresa-> this.inicializarBalances(empresa));
+	}
+	
 	public void cargarEmpresasGuardadas() {
 		this.empresas = this.cargarEmpresas();
 	}

@@ -34,6 +34,7 @@ public class AplicarMetodologiaViewModel {
 	}
 	
 	public void setMetodologia(Metodologia metodologia) {
+		repoMetodologias.inicializarCondiciones(metodologia);
 		this.metodologia = metodologia;
 		ObservableUtils.firePropertyChanged(this, "condiciones");
 	}
@@ -51,6 +52,7 @@ public class AplicarMetodologiaViewModel {
 	}
 
 	public void aplicarMetodologia() {
+		this.repoEmpresas.inicializarTodosLosbalances();
 		this.resultados = this.metodologia.evaluarEn(this.repoEmpresas.getEmpresas(), this.repoIndicadores);
 		
 	}

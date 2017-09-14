@@ -19,10 +19,10 @@ public class PantallaPrincipalViewModel{
 		super();
 		this.baulEmpresas = new RepositorioEmpresas();
 		this.baulIindicadores = new RepositorioIndicadores();
-		this.baulIindicadores.cargarPredeterminados();
 		this.repoMetodologia = new RepositorioMetodologias();
-		this.repoMetodologia.cargarPredeterminados(baulIindicadores);
 		this.baulEmpresas.cargarEmpresasGuardadas();
+		this.baulIindicadores.cargarIndicadoresGuardados();
+		this.repoMetodologia.cargarMetodologiaGuardadas();
 	}
 	
 	public RepositorioEmpresas getBaulEmpresas() {

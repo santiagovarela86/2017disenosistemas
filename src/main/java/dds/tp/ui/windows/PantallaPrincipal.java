@@ -78,12 +78,11 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 			this.comprobarCuentas();
 			this.comprobarIndicadores();
 			this.refresh();
-			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas().getEmpresas(),this.getModelObject().getBaulIndicadores())).open();
+			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas(),this.getModelObject().getBaulIndicadores())).open();
 		}
 		catch(ElementNotLoad ex) {
 			this.getModelObject().setMensajeError(ex.getMessage());
 		}
-
 	}
 	
 	private void comprobarCuentas() throws ElementNotLoad{
