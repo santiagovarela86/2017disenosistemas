@@ -41,7 +41,7 @@ public class RepositorioMetodologias {
 			throw new ElementoYaExiste("Ya existe una metodologia con este nombre");
 		}
 		this.metodologias.add(metodologia);
-		this.metodologias.add(metodologia);
+		this.guardarMetodologia(metodologia);
 	}
 	@Deprecated
 	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {
