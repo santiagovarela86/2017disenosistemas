@@ -27,21 +27,20 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	public void createContents(Panel mainPanel) {
 		this.setTitle("Aplicacion de decisiones");
 
-		new Label(mainPanel).setText("Elija la acción que desea realizar: ").setWidth(500);
+		new Label(mainPanel).setText("Elija la acción que desea realizar: ").setWidth(400);
 
 		Panel panelBotones = new Panel(mainPanel);
 		panelBotones.setLayout(new ColumnLayout(2));
 
-		new Button(panelBotones).setCaption("Cargar cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(220);
-		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(220);
-		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(220);
-		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(220);
-		new Button(panelBotones).setCaption("Crear Metodologia").onClick(() -> this.abrirCrearMetodologia()).setWidth(220);
-		
-		new Button(panelBotones).setCaption("Aplicar Metodologia").onClick(() -> this.abrirAplicarMetodologia()).setWidth(220);
+		new Button(panelBotones).setCaption("Importar Cuentas").onClick(() -> this.abrirCargarCuentas()).setWidth(200);
+		new Button(panelBotones).setCaption("Consultar cuentas").onClick(() -> this.abrirConsultarCuentas()).setWidth(200);
+		new Button(panelBotones).setCaption("Cargar Indicadores").onClick(() -> this.abrirCargarIndicadores()).setWidth(200);
+		new Button(panelBotones).setCaption("Usar Indicadores").onClick(() -> this.abrirUsarIndicadores()).setWidth(200);
+		new Button(panelBotones).setCaption("Crear Metodologia").onClick(() -> this.abrirCrearMetodologia()).setWidth(200);
+		new Button(panelBotones).setCaption("Aplicar Metodologia").onClick(() -> this.abrirAplicarMetodologia()).setWidth(200);
 		
 		new Label(mainPanel).setForeground(java.awt.Color.RED).bindValueToProperty("mensajeError");
-		new Label(mainPanel).setText("");
+		//new Label(mainPanel).setText("");
 		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
 		
 	}
