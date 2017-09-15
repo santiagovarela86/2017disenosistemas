@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnitUtil;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -89,6 +90,13 @@ public class RepositorioMetodologias {
 	
 	public void inicializarCondiciones(Metodologia metodologia) {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		PersistenceUnitUtil checkeadorDeLoad = manager.getEntityManagerFactory().getPersistenceUnitUtil();
+		
+		if(checkeadorDeLoad.isLoaded(metodologia, "condicionesTaxativas") && checkeadorDeLoad.isLoaded(metodologia, "condicionesQuePriorizan")) 
+		{
+			manager.close();
+			return;
+		}
 		@SuppressWarnings("unchecked")
 		List<CondicionTaxativa> condicionesTaxativas = manager.createQuery("SELECT c FROM Condicion c WHERE tipoCondicion = :tcondicion AND metodologia_id = :meto_id")
 				.setParameter("tcondicion", "condTaxativa").setParameter("meto_id", metodologia.getId()).getResultList();

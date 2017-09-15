@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnitUtil;
+import javax.persistence.PersistenceUtil;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -131,12 +133,20 @@ public class RepositorioEmpresas {
 	//Pusismos esto ya que es lazy init entonces cuando necesitamos los balances de la empresa usamos esto
 	public void inicializarBalances(Empresa empresa) {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		PersistenceUnitUtil checkeadorDeLoad = manager.getEntityManagerFactory().getPersistenceUnitUtil();
+		if(checkeadorDeLoad.isLoaded(empresa, "balancesSemestrales" ) && checkeadorDeLoad.isLoaded(empresa, "balancesAnuales"))
+		{
+			manager.close();
+			return;
+		}
 		@SuppressWarnings("unchecked")
 		List<BalanceAnual> balancesAnuales = manager.createQuery("SELECT b FROM Balance b WHERE tipoBalance = :tbalance AND empresa_id = :emp_id")
 				.setParameter("tbalance", "balanceAnual").setParameter("emp_id", empresa.getId()).getResultList();
+		
 		@SuppressWarnings("unchecked")
 		List<BalanceSemestral> balancesSemestrales = manager.createQuery("SELECT b FROM Balance b WHERE tipoBalance = :tbalance AND empresa_id = :emp_id")
 				.setParameter("tbalance", "balanceSemestral").setParameter("emp_id", empresa.getId()).getResultList();
+		
 		manager.close();
 		empresa.setBalancesAnuales(balancesAnuales);
 		empresa.setBalancesSemestrales(balancesSemestrales);
