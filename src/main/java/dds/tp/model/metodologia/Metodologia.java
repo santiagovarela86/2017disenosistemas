@@ -64,7 +64,8 @@ public class Metodologia {
 		this.id = id;
 	}
 
-	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
+	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresasAAnalizar, RepositorioIndicadores repoIndicadores){
+		List<Empresa> empresas = new ArrayList<>(empresasAAnalizar);
 		List<ResultadoAnalisis> resultadosTemporales = empresas.stream()
 			.filter(empresa -> this.getCondiciones().stream().anyMatch(cond -> !cond.empresaPuedeSerEvaluada(empresa, repoIndicadores)))
 			.map(elem -> new ResultadoAnalisis(0, elem, "Esta empresa no tiene los elementos suficientes"))
