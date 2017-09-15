@@ -86,6 +86,9 @@ public class AplicarMetodologiaWindow extends Window<AplicarMetodologiaViewModel
 		new Button(mainPanel)
 		.setCaption("Cerrar")
 		.onClick(()->this.close());
+		
+		new Label(mainPanel).setText("");
+	    new Label(mainPanel).setForeground(java.awt.Color.BLUE).bindValueToProperty("aplicarMetodologiaOk");
 	}
 
 	private void aplicarMetodologia() {

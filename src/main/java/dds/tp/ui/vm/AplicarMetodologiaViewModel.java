@@ -6,6 +6,7 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.metodologia.ResultadoAnalisis;
@@ -22,6 +23,7 @@ public class AplicarMetodologiaViewModel {
 	private Metodologia metodologia;
 	private ResultadoAnalisis resultado;
 	private Condicion condicion;
+	private String aplicarMetodologiaOk;
 	
 	public AplicarMetodologiaViewModel(RepositorioMetodologias repoMeto,RepositorioEmpresas repoEmpresas, RepositorioIndicadores repoIndicadores){
 		this.repoMetodologias = repoMeto;
@@ -53,7 +55,20 @@ public class AplicarMetodologiaViewModel {
 
 	public void aplicarMetodologia() {
 		this.repoEmpresas.inicializarTodosLosbalances();
-		this.resultados = this.metodologia.evaluarEn(this.repoEmpresas.getEmpresas(), this.repoIndicadores);
+		
+		
+		
+		try {
+			this.resultados = this.metodologia.evaluarEn(this.repoEmpresas.getEmpresas(), this.repoIndicadores);
+			setAplicarMetodologiaOk("Se aplico la metodologia correctamente");
+		} catch (NullPointerException e) {
+			setAplicarMetodologiaOk("Elija una metodología primero");
+			e.printStackTrace();
+		} catch (ElementoNotFound e) {
+			setAplicarMetodologiaOk(e.getMessage());
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
@@ -94,6 +109,14 @@ public class AplicarMetodologiaViewModel {
 	
 	public void setCondicion(Condicion condicion) {
 		this.condicion = condicion;
+	}
+
+	public String getAplicarMetodologiaOk() {
+		return aplicarMetodologiaOk;
+	}
+
+	public void setAplicarMetodologiaOk(String aplicarMetodologiaOk) {
+		this.aplicarMetodologiaOk = aplicarMetodologiaOk;
 	}
 	
 }
