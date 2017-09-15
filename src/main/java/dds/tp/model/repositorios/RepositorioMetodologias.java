@@ -76,11 +76,12 @@ public class RepositorioMetodologias {
 		EntityTransaction transaction = manager.getTransaction();
 		try {
 			transaction.begin();
-			manager.merge(metodologia);
+			Metodologia metodologiaGuardada = manager.merge(metodologia);
+			metodologia.setId(metodologiaGuardada.getId());
 			transaction.commit();
 		} catch (Exception ex) {
-			transaction.rollback();
 			ex.printStackTrace();
+			transaction.rollback();
 		}finally {
 			manager.close();
 		}

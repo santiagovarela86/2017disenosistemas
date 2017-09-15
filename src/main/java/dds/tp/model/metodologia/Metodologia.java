@@ -59,6 +59,10 @@ public class Metodologia {
 	public String getNombre() {
 		return nombre;
 	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresas, RepositorioIndicadores repoIndicadores){
 		List<ResultadoAnalisis> resultadosTemporales = empresas.stream()
