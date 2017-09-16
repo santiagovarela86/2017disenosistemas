@@ -68,7 +68,7 @@ public class Metodologia {
 		List<Empresa> empresas = new ArrayList<>(empresasAAnalizar);
 		List<ResultadoAnalisis> resultadosTemporales = empresas.stream()
 			.filter(empresa -> this.getCondiciones().stream().anyMatch(cond -> !cond.empresaPuedeSerEvaluada(empresa, repoIndicadores)))
-			.map(elem -> new ResultadoAnalisis(0, elem, "Esta empresa no tiene los elementos suficientes"))
+			.map(empresa -> new ResultadoAnalisis(0, empresa, "Esta empresa no tiene los elementos suficientes"))
 			.collect(Collectors.toList());
 		
 		this.removerEmpresasYaAnalizadas(empresas, resultadosTemporales);

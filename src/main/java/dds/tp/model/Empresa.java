@@ -3,8 +3,7 @@ package dds.tp.model;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
+import java.util.Optional;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -116,11 +115,10 @@ public class Empresa {
 	}
 	
 	public Balance getBalance(String periodo) throws ElementoNotFound {
-		try {
-			return this.getTodosLosBalances().stream().filter(elem->elem.getPeriodo().igualA(periodo)).collect(Collectors.toList()).get(0);
-		}catch (IndexOutOfBoundsException e) {
+		Optional<Balance> balanceOpcional = this.getTodosLosBalances().stream().filter(elem->elem.getPeriodo().igualA(periodo)).findFirst();
+		if(!balanceOpcional.isPresent())
 			throw new ElementoNotFound("El balance " + periodo+ " no se ha encontrado");
-		}
+		return balanceOpcional.get();
 	}
 
 	public Balance getBalance(Periodo periodo) {
