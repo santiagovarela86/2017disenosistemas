@@ -66,21 +66,31 @@ public class Metodologia {
 
 	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresasAAnalizar, RepositorioIndicadores repoIndicadores){
 		List<Empresa> empresasParaAnalizar = new ArrayList<>(empresasAAnalizar);
-		List<ResultadoAnalisis> resultadosTemporales = empresasParaAnalizar.stream()
+		
+		List<ResultadoAnalisis> resultadosConDatosInsuficientes = empresasParaAnalizar.stream()
 			.filter(empresa -> this.getCondiciones().stream().anyMatch(cond -> !cond.empresaPuedeSerEvaluada(empresa, repoIndicadores)))
 			.map(empresa -> ResultadoAnalisis.crearResultadoConDatosInsuficientes(empresa))
 			.collect(Collectors.toList());
 		
-		List<Empresa> empresasConLoNecesario = empresasParaAnalizar.stream().filter(empresa -> resultadosTemporales.stream()
-				.anyMatch(resultado-> resultado.getEmpresa().getNombre().equalsIgnoreCase(empresa.getNombre()))).collect(Collectors.toList());
+		List<Empresa> empresasConLoNecesario = empresasParaAnalizar.stream()
+			.filter(empresa -> this.getCondiciones().stream().allMatch(cond -> cond.empresaPuedeSerEvaluada(empresa, repoIndicadores)))
+			.collect(Collectors.toList());
+			
+		List<ResultadoAnalisis> resultadosQueNoCumplenCondicionesTaxativas = empresasConLoNecesario.stream().filter(empresa->condicionesTaxativas.stream()
+			.anyMatch(condicion -> !condicion.evaluar(empresa, repoIndicadores)))
+			.map(empresa -> ResultadoAnalisis.crearResultadoNoCumpleCondiconTaxativa(empresa))
+			.collect(Collectors.toList());
 		
-		condicionesTaxativas.forEach(cond -> 
-					{resultadosTemporales.addAll(new Filtro().getResultadosNegativos(empresasConLoNecesario, cond, repoIndicadores));
-					this.removerEmpresasYaAnalizadas(empresasParaAnalizar, resultadosTemporales);});
+		List<Empresa> empresasPasanTaxativas = empresasConLoNecesario.stream().filter(empresa->condicionesTaxativas.stream()
+				.allMatch((condicion -> condicion.evaluar(empresa, repoIndicadores))))
+				.collect(Collectors.toList());
 		
-		resultadosTemporales.addAll(new Ordenador().getResultados(empresasParaAnalizar, condicionesQuePriorizan, repoIndicadores));
-		Collections.reverse(resultadosTemporales);
-		return resultadosTemporales;
+		List<ResultadoAnalisis> resultadosEmpresasOrdenados = new Ordenador().getResultados(empresasPasanTaxativas, condicionesQuePriorizan, repoIndicadores);
+		List<ResultadoAnalisis> resultadosFinales = new ArrayList<>();
+		resultadosFinales.addAll(resultadosEmpresasOrdenados);
+		resultadosFinales.addAll(resultadosQueNoCumplenCondicionesTaxativas);
+		resultadosFinales.addAll(resultadosConDatosInsuficientes);
+		return resultadosFinales;
 	}
 	
 	public void setCondicionesQuePriorizan(List<CondicionPriorizante> condicionesQuePriorizan) {

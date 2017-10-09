@@ -22,7 +22,6 @@ public class Ordenador {
 		
 		//GENERO LA LISTA FINAL A PARTIR DE LAS LISTAS INTERMEDIAS
 		resultadosOrdenados = generarListaFinal(empresasQueConvieneInvertir, listasIntermedias);
-		Collections.reverse(resultadosOrdenados);
 		return resultadosOrdenados;
 	}
 	

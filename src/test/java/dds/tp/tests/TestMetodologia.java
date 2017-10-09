@@ -58,8 +58,8 @@ public class TestMetodologia {
 		List<ResultadoAnalisis> resultadosNegativos = (ArrayList<ResultadoAnalisis>) resultados.stream().filter(elem -> elem.getPuntaje()==0).collect(Collectors.toList());
 		ResultadoAnalisis resultadoNuevita = resultadosNegativos.stream().filter(elem -> elem.getEmpresa().getNombre().equalsIgnoreCase("NUEVITA")).findFirst().get();
 		ResultadoAnalisis resultadoBadMargen = resultadosNegativos.stream().filter(elem -> elem.getEmpresa().getNombre().equalsIgnoreCase("BADMARGEN")).findFirst().get();
-		assertEquals(resultadoNuevita.getJustificacion(), "No cumple la condicion Longevidad Simple");
-		assertEquals(resultadoBadMargen.getJustificacion(), "No cumple la condicion Margenes Crecientes");
+		assertEquals(resultadoNuevita.getJustificacion(), "Esta empresa no cumple una de las condiciones taxativas");
+		assertEquals(resultadoBadMargen.getJustificacion(), "Esta empresa no cumple una de las condiciones taxativas");
 	}
 	
 	@Test

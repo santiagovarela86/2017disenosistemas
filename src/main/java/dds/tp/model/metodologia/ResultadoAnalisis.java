@@ -44,5 +44,9 @@ public class ResultadoAnalisis {
 	public static ResultadoAnalisis crearResultadoConDatosInsuficientes(Empresa empresa) {
 		return new ResultadoAnalisis(0, empresa, "Esta empresa no tiene los elementos suficientes");	
 	}
+	
+	public static ResultadoAnalisis crearResultadoNoCumpleCondiconTaxativa(Empresa empresa) {
+		return new ResultadoAnalisis(0, empresa, "Esta empresa no cumple una de las condiciones taxativas");	
+	}
 
 }
