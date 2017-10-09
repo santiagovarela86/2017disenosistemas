@@ -65,19 +65,20 @@ public class Metodologia {
 	}
 
 	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresasAAnalizar, RepositorioIndicadores repoIndicadores){
-		List<Empresa> empresas = new ArrayList<>(empresasAAnalizar);
-		List<ResultadoAnalisis> resultadosTemporales = empresas.stream()
+		List<Empresa> empresasParaAnalizar = new ArrayList<>(empresasAAnalizar);
+		List<ResultadoAnalisis> resultadosTemporales = empresasParaAnalizar.stream()
 			.filter(empresa -> this.getCondiciones().stream().anyMatch(cond -> !cond.empresaPuedeSerEvaluada(empresa, repoIndicadores)))
-			.map(empresa -> new ResultadoAnalisis(0, empresa, "Esta empresa no tiene los elementos suficientes"))
+			.map(empresa -> ResultadoAnalisis.crearResultadoConDatosInsuficientes(empresa))
 			.collect(Collectors.toList());
 		
-		this.removerEmpresasYaAnalizadas(empresas, resultadosTemporales);
+		List<Empresa> empresasConLoNecesario = empresasParaAnalizar.stream().filter(empresa -> resultadosTemporales.stream()
+				.anyMatch(resultado-> resultado.getEmpresa().getNombre().equalsIgnoreCase(empresa.getNombre()))).collect(Collectors.toList());
 		
 		condicionesTaxativas.forEach(cond -> 
-					{resultadosTemporales.addAll(new Filtro().getResultadosNegativos(empresas, cond, repoIndicadores));
-					this.removerEmpresasYaAnalizadas(empresas, resultadosTemporales);});
+					{resultadosTemporales.addAll(new Filtro().getResultadosNegativos(empresasConLoNecesario, cond, repoIndicadores));
+					this.removerEmpresasYaAnalizadas(empresasParaAnalizar, resultadosTemporales);});
 		
-		resultadosTemporales.addAll(new Ordenador().getResultados(empresas, condicionesQuePriorizan, repoIndicadores));
+		resultadosTemporales.addAll(new Ordenador().getResultados(empresasParaAnalizar, condicionesQuePriorizan, repoIndicadores));
 		Collections.reverse(resultadosTemporales);
 		return resultadosTemporales;
 	}

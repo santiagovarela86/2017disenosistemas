@@ -17,8 +17,8 @@ import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.EvaluadorAntiguedad;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
-import dds.tp.model.criterios.CriterioComparador;
-import dds.tp.model.criterios.CriterioPendiente;
+import dds.tp.model.condicionesTaxativas.CondicionTaxComparadora;
+import dds.tp.model.condicionesTaxativas.CondicionTaxPendiente;
 import dds.tp.model.metodologia.Metodologia;
 
 public class RepositorioMetodologias {
@@ -49,8 +49,8 @@ public class RepositorioMetodologias {
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
 			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 7))
 			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO"), new Menor(), 1))
-			.agregarCondTaxativa(new CondicionTaxativa("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN"), new Menor(), 8, new CriterioPendiente(), null))
-			.agregarCondTaxativa(new CondicionTaxativa("Longevidad Simple", "Longevidad Simple", new EvaluadorAntiguedad(), new Mayor(), 1, new CriterioComparador(), 10d))
+			.agregarCondTaxativa(new CondicionTaxPendiente("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN"), new Menor(), 8, null))
+			.agregarCondTaxativa(new CondicionTaxComparadora("Longevidad Simple", "Longevidad Simple", new EvaluadorAntiguedad(), new Mayor(), 1, 10d))
 			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new EvaluadorAntiguedad(), new Mayor(), 1))			
 			.build();
 		this.metodologias.add(warrenBuffet);

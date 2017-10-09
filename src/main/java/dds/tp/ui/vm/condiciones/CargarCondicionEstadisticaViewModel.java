@@ -8,7 +8,7 @@ import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.condiciones.modosestadisticos.ModoEstadistico;
-import dds.tp.model.criterios.CriterioEstadistico;
+import dds.tp.model.condicionesTaxativas.CondicionTaxEstadistica;
 import dds.tp.model.repositorios.RepositorioComparadores;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioModoEstadistico;
@@ -72,8 +72,8 @@ public class CargarCondicionEstadisticaViewModel {
 		if(nombreCondicion.isEmpty() || descripcion.isEmpty())
 			throw new RuntimeException("Nombre y descripcion son obligatorios");
 		metodologiaBuilder.agregarCondTaxativa(
-				new CondicionTaxativa(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador),
-						this.comparadorSeleccionado, 0, new CriterioEstadistico(this.modoSeleccionado), Double.parseDouble(this.valor)));		
+				new CondicionTaxEstadistica(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador),
+						this.comparadorSeleccionado, 0, Double.parseDouble(this.valor), this.modoSeleccionado));		
 	}
 	
 	public List<Comparador> getComparadores() {

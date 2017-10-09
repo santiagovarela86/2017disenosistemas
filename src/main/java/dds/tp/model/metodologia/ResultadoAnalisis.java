@@ -40,5 +40,9 @@ public class ResultadoAnalisis {
 	public String getNombreEmpresa() {
 		return this.empresa.getNombre();
 	}
+	
+	public static ResultadoAnalisis crearResultadoConDatosInsuficientes(Empresa empresa) {
+		return new ResultadoAnalisis(0, empresa, "Esta empresa no tiene los elementos suficientes");	
+	}
 
 }
