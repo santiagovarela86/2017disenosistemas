@@ -138,12 +138,12 @@ public class RepositorioEmpresas {
 			return;
 		}
 		@SuppressWarnings("unchecked")
-		List<BalanceAnual> balancesAnuales = manager.createQuery("SELECT b FROM Balance b WHERE tipoBalance = :tbalance AND empresa_id = :emp_id")
-				.setParameter("tbalance", "balanceAnual").setParameter("emp_id", empresa.getId()).getResultList();
+		List<BalanceAnual> balancesAnuales = manager.createQuery("SELECT b FROM BalanceAnual b WHERE empresa_id = :emp_id")
+				.setParameter("emp_id", empresa.getId()).getResultList();
 		
 		@SuppressWarnings("unchecked")
-		List<BalanceSemestral> balancesSemestrales = manager.createQuery("SELECT b FROM Balance b WHERE tipoBalance = :tbalance AND empresa_id = :emp_id")
-				.setParameter("tbalance", "balanceSemestral").setParameter("emp_id", empresa.getId()).getResultList();
+		List<BalanceSemestral> balancesSemestrales = manager.createQuery("SELECT b FROM BalanceSemestral b WHERE empresa_id = :emp_id")
+				.setParameter("emp_id", empresa.getId()).getResultList();
 		
 		manager.close();
 		empresa.setBalancesAnuales(balancesAnuales);

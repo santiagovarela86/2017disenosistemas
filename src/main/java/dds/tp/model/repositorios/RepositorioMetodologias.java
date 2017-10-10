@@ -98,8 +98,8 @@ public class RepositorioMetodologias {
 			return;
 		}
 		@SuppressWarnings("unchecked")
-		List<CondicionTaxativa> condicionesTaxativas = manager.createQuery("SELECT c FROM Condicion c WHERE tipoCondicion = :tcondicion AND metodologia_id = :meto_id")
-				.setParameter("tcondicion", "condTaxativa").setParameter("meto_id", metodologia.getId()).getResultList();
+		List<CondicionTaxativa> condicionesTaxativas = manager.createQuery("SELECT c FROM Condicion c WHERE tipoCondicion != :tcondicion AND metodologia_id = :meto_id")
+				.setParameter("tcondicion", "condPriorizante").setParameter("meto_id", metodologia.getId()).getResultList();
 		@SuppressWarnings("unchecked")
 		List<CondicionPriorizante> condicionesPriorizantes = manager.createQuery("SELECT c FROM Condicion c WHERE tipoCondicion = :tcondicion AND metodologia_id = :meto_id")
 				.setParameter("tcondicion", "condPriorizante").setParameter("meto_id", metodologia.getId()).getResultList();
