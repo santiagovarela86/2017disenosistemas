@@ -6,17 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 import dds.tp.model.Balance;
 import dds.tp.model.Empresa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class Comparado {
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Table(name="Indicadores")
+public abstract class Comparable {
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.TABLE)
+	@GeneratedValue
 	private Long id ;
 	public abstract Double evaluar(Empresa empresa,Balance balance, RepositorioIndicadores baulIndicadores);
 	public abstract boolean puedeEvaluar(Balance balance, RepositorioIndicadores baulIndicadores);

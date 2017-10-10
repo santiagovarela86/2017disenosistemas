@@ -2,12 +2,12 @@ package dds.tp.model.condiciones.modosestadisticos;
 
 import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.model.Empresa;
-import dds.tp.model.condiciones.Comparado;
+import dds.tp.model.condiciones.Comparable;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public abstract class  ModoEstadistico {
 	
-	public abstract Double getEstadistica(Empresa empresa, Comparado indicador, RepositorioIndicadores repoIndicadores);
+	public abstract Double getEstadistica(Empresa empresa, Comparable indicador, RepositorioIndicadores repoIndicadores);
 	
 	public static ModoEstadistico crearModoEstatistico(String nombre) {
 		switch (nombre) {

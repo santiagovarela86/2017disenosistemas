@@ -11,7 +11,6 @@ import org.uqbar.commons.utils.Observable;
 import dds.tp.model.periodos.Anual;
 
 @Entity
-@DiscriminatorValue("balanceAnual")
 @Observable
 public class BalanceAnual extends Balance {
 

@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -21,13 +21,12 @@ import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.periodos.Periodo;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="tipoBalance")
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 @Observable
 public abstract class Balance {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)

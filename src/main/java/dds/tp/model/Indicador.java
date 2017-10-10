@@ -8,13 +8,13 @@ import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
 import dds.tp.jpa.converters.ExpresionConverter;
-import dds.tp.model.condiciones.Comparado;
+import dds.tp.model.condiciones.Comparable;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
 
 @Entity
 @Observable
-public class Indicador extends Comparado {
+public class Indicador extends Comparable {
 	
 	private String nombre;
 	@Column

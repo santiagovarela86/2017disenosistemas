@@ -37,7 +37,7 @@ public abstract class Condicion {
 	protected String nombre;
 	protected String descripcion;
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	protected Comparado indicador;
+	protected Comparable indicador;
 	@Column
 	@Convert(converter = ComparadorConverter.class)
 	protected Comparador comparador;
@@ -45,7 +45,7 @@ public abstract class Condicion {
 
 	public Condicion() {}
 	
-	public Condicion(String nombre, String descripcion, Comparado indicador, Comparador comparador, int cantidadDePeriodosAEvaluar){
+	public Condicion(String nombre, String descripcion, Comparable indicador, Comparador comparador, int cantidadDePeriodosAEvaluar){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.indicador = indicador;
@@ -65,7 +65,7 @@ public abstract class Condicion {
 		return cantidadDePeriodosAEvaluar;
 	}
 	
-	public Comparado getIndicador() {
+	public Comparable getIndicador() {
 		return indicador;
 	}
 	

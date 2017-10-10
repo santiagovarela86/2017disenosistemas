@@ -6,7 +6,7 @@ import dds.tp.model.Empresa;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Entity
-public class EvaluadorAntiguedad extends Comparado {
+public class EvaluadorAntiguedad extends Comparable {
 	
 	public EvaluadorAntiguedad() {
 		// TODO Auto-generated constructor stub

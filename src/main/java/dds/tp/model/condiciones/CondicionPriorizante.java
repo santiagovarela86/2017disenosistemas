@@ -16,7 +16,7 @@ public class CondicionPriorizante extends Condicion {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CondicionPriorizante(String nombre, String descripcion, Comparado indicador, Comparador comparador,
+	public CondicionPriorizante(String nombre, String descripcion, Comparable indicador, Comparador comparador,
 			int periodosAEvaluar) {
 		super(nombre, descripcion, indicador, comparador, periodosAEvaluar);
 	}
