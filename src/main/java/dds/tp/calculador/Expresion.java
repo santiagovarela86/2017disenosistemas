@@ -1,20 +1,42 @@
 package dds.tp.calculador;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 import dds.tp.model.Balance;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.MyToken;
 
+@Entity
 public class Expresion {
 	
-	private ArrayList<MyToken> expresionTokeniseada;
+	@Id
+	@GeneratedValue
+	int id;
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OrderColumn(name="ordenEnLaExpresion")
+	@JoinColumn(name="expresion_id")
+	private List<MyToken> expresionTokeniseada;
 
-	public Expresion(ArrayList<MyToken> expresionTokeniseada) {
+	public Expresion() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Expresion(List<MyToken> expresionTokeniseada) {
 		this.expresionTokeniseada = expresionTokeniseada;
 	}
 	
-	public ArrayList<MyToken> getExpresionTokeniseada() {
+	public List<MyToken> getExpresionTokeniseada() {
 		return expresionTokeniseada;
 	}
 	

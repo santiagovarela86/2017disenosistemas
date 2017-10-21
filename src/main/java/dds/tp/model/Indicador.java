@@ -1,13 +1,13 @@
 package dds.tp.model;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
-import dds.tp.jpa.converters.ExpresionConverter;
 import dds.tp.model.condiciones.Comparable;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;
@@ -17,8 +17,7 @@ import dds.tp.parsertools.Parser;
 public class Indicador extends Comparable {
 	
 	private String nombre;
-	@Column
-	@Convert(converter=ExpresionConverter.class)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Expresion expresion;
 	
 	public Indicador() {
