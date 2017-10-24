@@ -1,0 +1,36 @@
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<title>Donde Invertir | Login</title>
+
+</head>
+<body>
+
+	<div class="container">
+	
+	<h2>Donde Invertir</h2>
+
+		<form class="" method="post" action="/login">
+
+			<h2 class="">Iniciar Sesion</h2>
+			
+			<label for="user" class="">Usuario</label> 			
+			<input type="text" id="user" name="user" class="" placeholder="Usuario" required="true" />
+
+			<label for="password" class="">Password</label> 
+			<input type="password" id="password" name="password" class="" placeholder="Password" required="true" />
+
+			<br>
+			
+			<br>
+
+			<button class="" type="submit">Ingresar</button>
+
+		</form>
+
+	</div>
+
+</body>
+</html>

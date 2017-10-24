@@ -1,0 +1,8 @@
+2017-10-23 23:12:00,592 - ResourceManager : unable to find resource 'pantallaPrincipal.html' in any resource loader.
+2017-10-23 23:12:27,678 - ResourceManager : unable to find resource 'templates/pantallaPrincipal.html' in any resource loader.
+2017-10-23 23:13:10,010 - ResourceManager : unable to find resource '/Stock Application/src/main/resources/templates/pantallaPrincipal.html' in any resource loader.
+2017-10-23 23:13:47,992 - ResourceManager : unable to find resource 'templates\pantallaPrincipal.html' in any resource loader.
+2017-10-23 23:15:02,958 - ResourceManager : unable to find resource 'templates\pantallaPrincipal.html' in any resource loader.
+2017-10-23 23:15:16,681 - ResourceManager : unable to find resource 'templates/pantallaPrincipal.html' in any resource loader.
+2017-10-23 23:16:01,965 - ResourceManager : unable to find resource 'pantallaPrincipal.vm' in any resource loader.
+2017-10-23 23:18:25,418 - ResourceManager : unable to find resource 'pantallaPrincipal.vm' in any resource loader.
