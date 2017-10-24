@@ -13,13 +13,30 @@ import spark.Response;
 
 public class Controller {
 	
-	public static Object pantallaLogin(Request request, Response response){
+	public static VelocityEngine velocityInit()
+	{
 		VelocityEngine ve = new VelocityEngine();
 		//ESTO ES PARA QUE ME ENCUENTRE LOS TEMPLATES EN SRC/MAIN/RESOURCES
 		ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
 		ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         ve.init();
+        return ve;
+	}
+	
+	public static Object pantallaLogin(Request request, Response response){
+		VelocityEngine ve  = velocityInit();        
+        Template t = ve.getTemplate("templates/pantallaLogin.vm");
         
+        VelocityContext context = new VelocityContext();
+        //context.put("name", "World");
+        
+        StringWriter writer = new StringWriter();
+        t.merge(context, writer);
+		return writer.toString();
+	}
+	
+	public static Object pantallaPrincipal(Request request, Response response){
+		VelocityEngine ve  = velocityInit();          
         Template t = ve.getTemplate("templates/pantallaPrincipal.vm");
         
         VelocityContext context = new VelocityContext();
