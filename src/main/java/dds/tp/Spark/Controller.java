@@ -1,50 +1,22 @@
 package dds.tp.Spark;
 
-import java.io.StringWriter;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import java.util.HashMap;
+import java.util.Map;
 
 import spark.Request;
 import spark.Response;
 
 public class Controller {
-	
-	public static VelocityEngine velocityInit()
-	{
-		VelocityEngine ve = new VelocityEngine();
-		//ESTO ES PARA QUE ME ENCUENTRE LOS TEMPLATES EN SRC/MAIN/RESOURCES
-		ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-		ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-        ve.init();
-        return ve;
+
+	public static Object index(Request request, Response response){
+		Map<String, Object> model = new HashMap<>();
+		return Utils.render(model, "templates/index.vm");
 	}
-	
-	public static Object pantallaLogin(Request request, Response response){
-		VelocityEngine ve  = velocityInit();        
-        Template t = ve.getTemplate("templates/pantallaLogin.vm");
-        
-        VelocityContext context = new VelocityContext();
-        //context.put("name", "World");
-        
-        StringWriter writer = new StringWriter();
-        t.merge(context, writer);
-		return writer.toString();
-	}
-	
+		
 	public static Object pantallaPrincipal(Request request, Response response){
-		VelocityEngine ve  = velocityInit();          
-        Template t = ve.getTemplate("templates/pantallaPrincipal.vm");
-        
-        VelocityContext context = new VelocityContext();
-        //context.put("name", "World");
-        
-        StringWriter writer = new StringWriter();
-        t.merge(context, writer);
-		return writer.toString();
+		Map<String, Object> model = new HashMap<>();
+		//model.put("name", "Santiago");
+		return Utils.render(model, "templates/pantallaPrincipal.vm");
 	}
 
 }
