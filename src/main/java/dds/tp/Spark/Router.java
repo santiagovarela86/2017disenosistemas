@@ -9,7 +9,14 @@ public class Router {
 		get("/index", Controller::index);
 		
 		get("/pantallaPrincipal", Controller::pantallaPrincipal);
-
+		
+		get("/visualizarCuentas", Controller::visualizarCuentas);
+		
+		get("/crearIndicadores", Controller::crearIndicadores);
+		
+		get("/evaluarIndicadores", Controller::evaluarIndicadores);
+		
+		get("/evaluarMetodologias", Controller::evaluarMetodologias);
 	}
 
 }
