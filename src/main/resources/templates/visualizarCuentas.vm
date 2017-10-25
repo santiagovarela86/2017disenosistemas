@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!--Script para cargar los dropdown dinámicamente, sacado de http://javascripttoolbox.com/lib/dynamicoptionlist/index.php-->
+    <SCRIPT SRC="scripts/dynamicoptionlist.js"></SCRIPT>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     
     <title>Donde Invertir | Visualizar Cuentas</title>
     <link rel="icon" href="images/index.ico">
   </head>
-  <body>
+  <!--OnLoad necesario para el script de dropdown dinámicos-->
+  <body onLoad="initDynamicOptionLists()">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -62,7 +65,31 @@
 		</div>
 		
 		<div style="display:flex;justify-content:center;align-items:center;">
-  			<p>blablabla</p>
+
+
+
+		<form name="form">
+
+			<select name="empresa" id="empresa">
+			    <option id="">Elegir Empresa ...</option>
+			    
+			    #foreach( $empresa in $empresas )
+    				<option value="$empresa.nombre" id="$empresa.nombre">$empresa.nombre</option>
+				#end
+				
+			</select>
+			
+			&nbsp;
+			 
+			<select name="periodo" id="periodo">
+			    <option id="">Elegir Período ...</option>
+			    
+			   <script>empresaPeriodo.printOptions("periodo")</script>
+
+			</select>
+			
+		</form>
+
 		</div>
 	</div>
 </div>
@@ -72,6 +99,14 @@
   		<h6>Grupo 15 - TP Anual Entrega 5 - Diseño de Sistemas</h6>
 	</div>
 </div>
+
+<script type="text/javascript">
+	var empresaPeriodo = new DynamicOptionList();
+	empresaPeriodo.addDependentFields("empresa","periodo");
+	#foreach( $empresa in $empresas )
+    	empresaPeriodo.forValue("$empresa").addOptions(#foreach($balance in $empresa.getTodosLosBalances())"$balance.getPeriodoNombre()"#if($foreach.hasNext),#end#end);
+	#end
+</script>
 
   </body>
 </html>
