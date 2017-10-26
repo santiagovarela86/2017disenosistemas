@@ -19,7 +19,7 @@ public class Utils {
 		ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         ve.init();
 
-        Template t = ve.getTemplate(templatePath);
+        Template t = ve.getTemplate(templatePath, "UTF-8");
         
         VelocityContext context = new VelocityContext(model);
         
