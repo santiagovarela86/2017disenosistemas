@@ -67,11 +67,15 @@
 	<form action="/crearIndicadores" method="post">
 	
 	Nombre del Indicador:<br>
-  	<input type="text" name="nombreIndicador" required="true"><br>
+  	<input class="form-control" type="text" name="nombreIndicador" required="true" placeholder="Ebitda sobre Margen">
   	Expresion del Indicador:<br>
-  	<input type="text" name="expresionIndicador" required="true"><br>
+  	<input class="form-control" type="text" name="expresionIndicador" required="true" placeholder="EBITDA/MARGEN">
   	<br>
-  	<input type="submit" value="Enviar">
+  	
+  	<div style="display:flex;justify-content:center;align-items:center;">
+  			<input class="btn" type="submit" value="Enviar">
+	</div>
+  	
 	
 	</form>
 	
@@ -83,10 +87,10 @@
 	</div>
 </div>
 
+
 	<div style="display:flex;justify-content:center;align-items:center;">
 			<h2>${message}</h2>
 	</div>
-
 
 <footer style="footer" class="fixed-bottom footer-light bg-light ">
 	<div style="display:flex;justify-content:center;align-items:center;">
