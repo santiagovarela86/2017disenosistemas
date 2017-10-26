@@ -5,7 +5,6 @@ import java.util.List;
 import org.uqbar.commons.utils.Observable;
 
 import dds.tp.model.builders.MetodologiaBuilder;
-import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.comparadores.Comparador;
 import dds.tp.model.condicionesTaxativas.CondicionTaxPendiente;
 import dds.tp.model.repositorios.RepositorioComparadores;

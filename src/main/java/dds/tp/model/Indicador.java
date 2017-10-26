@@ -9,7 +9,6 @@ import org.uqbar.commons.utils.Observable;
 
 import dds.tp.calculador.Expresion;
 import dds.tp.excepciones.SintaxisIncorrecta;
-import dds.tp.lexer.ParseException;
 import dds.tp.model.condiciones.Comparable;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.Parser;

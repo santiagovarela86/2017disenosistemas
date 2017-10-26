@@ -5,13 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import dds.tp.model.Balance;
 import dds.tp.model.BalanceAnual;
 import dds.tp.model.BalanceSemestral;
 import dds.tp.model.Cuenta;
 import dds.tp.model.Empresa;
 import dds.tp.model.periodos.Anual;
-import dds.tp.model.periodos.Periodo;
 import dds.tp.model.periodos.Semestral;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 
