@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!--Script para cargar los dropdown dinámicamente, sacado de http://javascripttoolbox.com/lib/dynamicoptionlist/index.php-->
+    <SCRIPT SRC="scripts/dynamicoptionlist.js"></SCRIPT>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    
+    <title>Donde Invertir | Visualizar Cuentas</title>
+    <link rel="icon" href="images/index.ico">  
+  </head>
+  <!--OnLoad necesario para el script de dropdown dinámicos-->
+  <body onLoad="initDynamicOptionLists()">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand">StockApp</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    
+      <li class="nav-item">
+        <a class="nav-link" href="/pantallaPrincipal">Home </a>
+      </li>
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="/visualizarCuentas">Visualizar Cuentas <span class="sr-only">(current)</span></a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/crearIndicadores">Crear Indicadores</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/evaluarIndicadores">Evaluar Indicadores</a>
+      </li>
+      
+	  <li class="nav-item">
+        <a class="nav-link" href="/evaluarMetodologias">Evaluar Metodologías</a>
+      </li>
+      
+    </ul>
+
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logoff</button>
+
+  </div>
+</nav>
+
+<div style="display:flex;justify-content:center;align-items:center;">
+	<div>
+  		<hr>
+  		<br>
+  		
+  		<div style="display:flex;justify-content:center;align-items:center;">
+  			<h2>Visualizar Cuentas</h2>
+		</div>
+		
+		<div style="display:flex;justify-content:center;align-items:center;">
+
+
+
+		<form name="form">
+
+			<select name="empresa" id="empresa" onChange="empresaPeriodo.change(this); obtenerEmpresaElegida(); obtenerPeriodoElegido()">
+			    <option value="" id="">Elegir Empresa ...</option>
+			    
+			    #foreach( $empresa in $empresas )
+    				<option value="$empresa.nombre" id="$empresa.nombre">$empresa.nombre</option>
+				#end
+				
+			</select>
+			
+			&nbsp;
+			 
+			<select name="periodo" id="periodo" onChange="empresaPeriodo.change(this); obtenerEmpresaElegida(); obtenerPeriodoElegido()">
+			    <option value="" id="">Elegir Período ...</option>
+			    
+			   <script>empresaPeriodo.printOptions("periodo")</script>
+
+			</select>
+			
+		</form>
+			
+		</div>
+	</div>
+</div>
+
+<div style="display:flex;justify-content:center;align-items:center;">
+
+<table>
+
+<tr>
+<th>Nombre</th>
+<th>Valor</th>
+</tr>
+
+	#foreach( $cuenta in $empresas.get().getBalance().getCuentas() )
+    	
+    	<tr>
+		    <td>$cuenta.nombre</td> 
+		    <td>$cuenta.valor</td>
+  		</tr>
+    	
+	#end
+
+</table>
+
+
+</div>
+
+<div style="display:flex;justify-content:center;align-items:center;">
+
+	<input type="text" id="empresaContainer" placeholder="get value on option select"><br>
+	<input type="text" id="periodoContainer" placeholder="get value on option select"><br>
+
+</div>
+
+<div style="display:flex;justify-content:center;align-items:center;">
+
+	<input type="text" id="empresaContainerIndex" placeholder="get value on option select"><br>
+
+</div>
+
+<div class="footer fixed-bottom">
+	<div style="display:flex;justify-content:center;align-items:center;">
+  		<h6>Grupo 15 - TP Anual Entrega 5 - Diseño de Sistemas</h6>
+	</div>
+</div>
+
+    <!--Script para dropdown dinámicos-->
+<script type="text/javascript">
+	var empresaPeriodo = new DynamicOptionList();
+	empresaPeriodo.addDependentFields("empresa","periodo");
+	#foreach( $empresa in $empresas )
+    	empresaPeriodo.forValue("$empresa").addOptions(#foreach($balance in $empresa.getTodosLosBalances())"$balance.getPeriodoNombre()"#if($foreach.hasNext),#end#end);
+	#end
+</script>
+
+<!--Scripts para saber qué items elegimos en los dropdown dinámicos-->
+<script type="text/javascript">
+	function obtenerEmpresaElegida() {
+		document.getElementById("empresaContainer").value = "";
+		document.getElementById("empresaContainerIndex").value = "";
+		
+		var empresaElement = document.getElementById("empresa");
+		
+		var empresaElegida = empresaElement.options[empresaElement.selectedIndex].value;
+		document.getElementById("empresaContainer").value = empresaElegida;
+		
+		var empresaElegidaIndex = empresaElement.options[empresaElement.selectedIndex].index;
+		document.getElementById("empresaContainerIndex").value = empresaElegidaIndex;
+	}
+
+	function obtenerPeriodoElegido() {
+		document.getElementById("periodoContainer").value = "";
+		
+		var periodoElement = document.getElementById("periodo");
+		
+		var periodoElegido = periodoElement.options[periodoElement.selectedIndex].value;
+		var periodoElegidoString = periodoElegido.toString();		
+		document.getElementById("periodoContainer").value = periodoElegidoString;
+	}
+</script>  
+
+  </body>
+</html>
