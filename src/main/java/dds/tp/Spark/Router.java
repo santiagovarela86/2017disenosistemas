@@ -14,6 +14,8 @@ public class Router {
 		
 		get("/crearIndicadores", Controller::crearIndicadores);
 		
+		post("/crearIndicadores", Controller::crearIndicadorEspecifico);
+		
 		get("/evaluarIndicadores", Controller::evaluarIndicadores);
 		
 		get("/evaluarMetodologias", Controller::evaluarMetodologias);

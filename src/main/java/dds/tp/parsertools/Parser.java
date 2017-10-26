@@ -12,7 +12,7 @@ import dds.tp.lexer.ParseException;
 
 public class Parser {
 
-	public ArrayList<MyToken> parsear(String expresion) {
+	public ArrayList<MyToken> parsear(String expresion) throws SintaxisIncorrecta {
 		try {
 			InputStream is = new ByteArrayInputStream(expresion.getBytes( Charset.defaultCharset() ) );
 			GramaticaParser parser = new GramaticaParser(is);

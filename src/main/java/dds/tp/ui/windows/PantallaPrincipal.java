@@ -41,7 +41,8 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 		
 		new Label(mainPanel).setForeground(java.awt.Color.RED).bindValueToProperty("mensajeError");
 		//new Label(mainPanel).setText("");
-		new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
+		//new Button(mainPanel).setCaption("Cerrar").onClick(()->this.close());
+		new Button(mainPanel).setCaption("Cerrar").onClick(()->System.exit(0));
 		
 	}
 
