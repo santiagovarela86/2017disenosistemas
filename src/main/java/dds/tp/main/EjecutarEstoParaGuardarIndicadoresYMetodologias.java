@@ -16,6 +16,8 @@ public class EjecutarEstoParaGuardarIndicadoresYMetodologias {
 		repositorioMetodologias.guardarMetodologia(repositorioMetodologias.getMetodologias().get(0));
 		
 		//CAMBIAR A VALIDATE
+		
+		System.exit(0);
 	}
 
 }

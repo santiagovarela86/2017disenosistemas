@@ -18,6 +18,8 @@ public class Router {
 		
 		get("/evaluarIndicadores", Controller::evaluarIndicadores);
 		
+		post("/evaluarIndicadores", Controller::evaluarIndicadorEspecifico);
+		
 		get("/evaluarMetodologias", Controller::evaluarMetodologias);
 	}
 

@@ -66,7 +66,22 @@
 
 
 	
-
+	<form action="/evaluarIndicadores" method="post">
+	
+	Nombre del Indicador:<br>
+  	<input class="form-control" type="text" name="nombreIndicador" required="true" placeholder="Ebitda sobre Margen">
+  	Empresa:<br>
+  	<input class="form-control" type="text" name="nombreEmpresa" required="true" placeholder="Contoso Ltd">
+  	Período:<br>
+  	<input class="form-control" type="text" name="periodo" required="true" placeholder="1986">
+  	<br>
+  	
+  	<div style="display:flex;justify-content:center;align-items:center;">
+  			<input class="btn" type="submit" value="Evaluar">
+	</div>
+  	
+	
+	</form>
 			
 		
 			
@@ -74,7 +89,9 @@
 	</div>
 </div>
 
-
+	<div style="display:flex;justify-content:center;align-items:center;" align="center">
+			<h2>${message}</h2>
+	</div>
 
 
 <footer style="footer" class="fixed-bottom footer-light bg-light ">

@@ -72,7 +72,7 @@
   	<input class="form-control" type="text" name="expresionIndicador" required="true" placeholder="EBITDA/MARGEN">
   	<br>
   	
-  	<div style="display:flex;justify-content:center;align-items:center;">
+  	<div style="display:flex;justify-content:center;align-items:center;" align="center">
   			<input class="btn" type="submit" value="Enviar">
 	</div>
   	

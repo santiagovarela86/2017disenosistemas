@@ -38,7 +38,7 @@ public class RepositorioIndicadores {
 		return this.indicadores.stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(nombre));
 	}
 
-	public Indicador getIndicador(String nombre) {
+	public Indicador getIndicador(String nombre) throws ElementoNotFound {
 		if(!this.contieneIndicador(nombre)){
 			throw new ElementoNotFound("No existe el indicador " + nombre);
 		}
