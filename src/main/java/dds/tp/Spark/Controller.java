@@ -176,7 +176,7 @@ public class Controller {
 		resultados = metodologia.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		
 		model.put("resultados", resultados);
-		return Utils.render(model, "templates/evaluarMetodologiasResultados.vm");
+		return Utils.render(model, "templates/evaluarMetodologiaResultados.vm");
 		
 	}
 }
