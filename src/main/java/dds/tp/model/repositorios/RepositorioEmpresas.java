@@ -67,7 +67,7 @@ public class RepositorioEmpresas {
 			return this.empresas.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(empresa)).collect(Collectors.toList()).get(0);	
 		}
 		else {
-			throw new ElementoNotFound("Empresa " + empresa  + " no encontrada");
+			throw new ElementoNotFound("No existe la empresa " + empresa);
 		}
 	}
 	

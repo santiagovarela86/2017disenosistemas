@@ -56,9 +56,9 @@ public class RepositorioMetodologias {
 		this.metodologias.add(warrenBuffet);
 	}
 	
-	public Metodologia getMetodlogia(String nombre) {
+	public Metodologia getMetodologia(String nombre) {
 		if(!this.contieneMetodologia(nombre)){
-			throw new ElementoNotFound("No se encontro la metodologia " + nombre);
+			throw new ElementoNotFound("No existe la metodología " + nombre);
 		}
 		return this.metodologias.stream()
 				.filter(metodologia -> metodologia.getNombre().equalsIgnoreCase(nombre))

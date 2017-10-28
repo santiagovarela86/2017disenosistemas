@@ -114,7 +114,7 @@ public class Empresa {
 	public Balance getBalance(String periodo) throws ElementoNotFound {
 		Optional<Balance> balanceOpcional = this.getTodosLosBalances().stream().filter(elem->elem.getPeriodo().igualA(periodo)).findFirst();
 		if(!balanceOpcional.isPresent())
-			throw new ElementoNotFound("El balance " + periodo+ " no se ha encontrado");
+			throw new ElementoNotFound("No existen datos para el período " + periodo);
 		return balanceOpcional.get();
 	}
 

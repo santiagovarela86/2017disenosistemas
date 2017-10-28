@@ -12,15 +12,17 @@ public class Router {
 		
 		get("/visualizarCuentas", Controller::visualizarCuentas);
 		
-		get("/crearIndicadores", Controller::crearIndicadores);
+		get("/crearIndicador", Controller::crearIndicador);
 		
-		post("/crearIndicadores", Controller::crearIndicadorEspecifico);
+		post("/crearIndicador", Controller::crearIndicadorEspecifico);
 		
-		get("/evaluarIndicadores", Controller::evaluarIndicadores);
+		get("/evaluarIndicador", Controller::evaluarIndicador);
 		
-		post("/evaluarIndicadores", Controller::evaluarIndicadorEspecifico);
+		post("/evaluarIndicador", Controller::evaluarIndicadorEspecifico);
 		
-		get("/evaluarMetodologias", Controller::evaluarMetodologias);
+		get("/evaluarMetodologia", Controller::evaluarMetodologia);
+		
+		post("/evaluarMetodologia", Controller::evaluarMetodologiaEspecifica);
 	}
 
 }

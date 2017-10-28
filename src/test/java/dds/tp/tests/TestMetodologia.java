@@ -45,7 +45,7 @@ public class TestMetodologia {
 	
 	@Test
 	public void metodologiaWarrenBuffetNoConvienteInvertirEmpresasNuevitaYBadMargen() {
-		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
+		Metodologia warrenBuffet = repoMetodologia.getMetodologia("Warren Buffet");
 		List<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		List<ResultadoAnalisis> resultadosNegativos = resultados.stream().filter(elem -> elem.getPuntaje()==0).collect(Collectors.toList());
 		assertEquals(resultadosNegativos.size(),2);
@@ -53,7 +53,7 @@ public class TestMetodologia {
 	
 	@Test
 	public void metodologiaWarrenBuffetNoConvienteInvertirEmpresasNuevitaYBadMargenJustificacionesCorrectas() {
-		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
+		Metodologia warrenBuffet = repoMetodologia.getMetodologia("Warren Buffet");
 		List<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		List<ResultadoAnalisis> resultadosNegativos = (ArrayList<ResultadoAnalisis>) resultados.stream().filter(elem -> elem.getPuntaje()==0).collect(Collectors.toList());
 		ResultadoAnalisis resultadoNuevita = resultadosNegativos.stream().filter(elem -> elem.getEmpresa().getNombre().equalsIgnoreCase("NUEVITA")).findFirst().get();
@@ -64,7 +64,7 @@ public class TestMetodologia {
 	
 	@Test
 	public void metodologiaWarrenBuffetOrdenCorrectoDeLosQueConvieneInvertir() {
-		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
+		Metodologia warrenBuffet = repoMetodologia.getMetodologia("Warren Buffet");
 		List<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		assertEquals(resultados.get(0).getEmpresa().getNombre(),"ADIDAS");
 		assertEquals(resultados.get(1).getEmpresa().getNombre(),"NIKE");
@@ -73,7 +73,7 @@ public class TestMetodologia {
 	
 	@Test
 	public void metodologiaWarrenBuffetPuntajesCorrectos() {
-		Metodologia warrenBuffet = repoMetodologia.getMetodlogia("Warren Buffet");
+		Metodologia warrenBuffet = repoMetodologia.getMetodologia("Warren Buffet");
 		List<ResultadoAnalisis> resultados = warrenBuffet.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		assertEquals(resultados.get(0).getPuntaje(),8);
 		assertEquals(resultados.get(1).getPuntaje(),7);

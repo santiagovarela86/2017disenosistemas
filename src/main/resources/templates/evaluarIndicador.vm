@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     
-    <title>Donde Invertir | Evaluar Indicadores</title>
+    <title>Donde Invertir | Evaluar Indicador</title>
     <link rel="icon" href="images/index.ico">
   </head>
   <body>
@@ -37,15 +37,15 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="/crearIndicadores">Crear Indicadores</a>
+        <a class="nav-link" href="/crearIndicador">Crear Indicador</a>
       </li>
       
       <li class="nav-item active">
-        <a class="nav-link" href="/evaluarIndicadores">Evaluar Indicadores<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/evaluarIndicador">Evaluar Indicador<span class="sr-only">(current)</span></a>
       </li>
       
 	  <li class="nav-item">
-        <a class="nav-link" href="/evaluarMetodologias">Evaluar Metodologías</a>
+        <a class="nav-link" href="/evaluarMetodologia">Evaluar Metodología</a>
       </li>
       
     </ul>
@@ -58,7 +58,7 @@
 <div style="display:flex;justify-content:center;align-items:center;" class="mt-3">
 	<div class="middle">
   		<div style="display:flex;justify-content:center;align-items:center;">
-  			<h2>Evaluar Indicadores</h2>
+  			<h2>Evaluar Indicador</h2>
 		</div>
 		
 		<div style="display:flex;justify-content:center;align-items:center;">
@@ -66,7 +66,7 @@
 
 
 	
-	<form action="/evaluarIndicadores" method="post">
+	<form action="/evaluarIndicador" method="post">
 	
 	Nombre del Indicador:<br>
   	<input class="form-control" type="text" name="nombreIndicador" required="true" placeholder="Ebitda sobre Margen">

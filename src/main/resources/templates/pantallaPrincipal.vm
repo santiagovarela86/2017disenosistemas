@@ -37,15 +37,15 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="/crearIndicadores">Crear Indicadores</a>
+        <a class="nav-link" href="/crearIndicador">Crear Indicador</a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="/evaluarIndicadores">Evaluar Indicadores</a>
+        <a class="nav-link" href="/evaluarIndicador">Evaluar Indicador</a>
       </li>
       
 	  <li class="nav-item">
-        <a class="nav-link" href="/evaluarMetodologias">Evaluar Metodologías</a>
+        <a class="nav-link" href="/evaluarMetodologia">Evaluar Metodología</a>
       </li>
       
     </ul>

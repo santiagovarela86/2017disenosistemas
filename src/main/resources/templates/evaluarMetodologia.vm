@@ -37,15 +37,15 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="/crearIndicadores">Crear Indicadores</a>
+        <a class="nav-link" href="/crearIndicador">Crear Indicador</a>
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="/evaluarIndicadores">Evaluar Indicadores</a>
+        <a class="nav-link" href="/evaluarIndicador">Evaluar Indicador</a>
       </li>
       
 	  <li class="nav-item active">
-        <a class="nav-link" href="/evaluarMetodologias">Evaluar Metodologías <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/evaluarMetodologia">Evaluar Metodología <span class="sr-only">(current)</span></a>
       </li>
       
     </ul>
@@ -59,14 +59,25 @@
 <div style="display:flex;justify-content:center;align-items:center" class="mt-3">
 	<div class="middle">
   		<div style="display:flex;justify-content:center;align-items:center;">
-  			<h2>Evaluar Metodologías</h2>
+  			<h2>Evaluar Metodología</h2>
 		</div>
 		
 		<div style="display:flex;justify-content:center;align-items:center;">
 
 
 
+	<form action="/evaluarMetodologia" method="post">
 	
+	Nombre de la Metodología:<br>
+  	<input class="form-control" type="text" name="nombreMetodologia" required="true" placeholder="Metodología W. Buffet">
+  	  	<br>
+  	
+  	<div style="display:flex;justify-content:center;align-items:center;">
+  			<input class="btn" type="submit" value="Evaluar">
+	</div>
+  	
+	
+	</form>
 
 			
 		
@@ -74,6 +85,10 @@
 		</div>
 	</div>
 </div>
+
+	<div style="display:flex;justify-content:center;align-items:center;" align="center">
+			<h2>${message}</h2>
+	</div>
 
 <footer style="footer" class="fixed-bottom footer-light bg-light ">
 	<div style="display:flex;justify-content:center;align-items:center;">
