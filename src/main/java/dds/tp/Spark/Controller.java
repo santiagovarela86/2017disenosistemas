@@ -163,7 +163,7 @@ public class Controller {
 		repoIndicadores.cargarIndicadoresGuardados();
 		
 		RepositorioMetodologias repoMetodologias = new RepositorioMetodologias();
-		repoMetodologias.cargarMetodologiaGuardadas();
+		repoMetodologias.cargarMetodologiaGuardadas();		
 		
 		try {
 			metodologia = repoMetodologias.getMetodologia(nombreMetodologia);
@@ -172,6 +172,7 @@ public class Controller {
 			return Utils.render(model, "templates/evaluarMetodologia.vm");
 		}
 		
+		repoMetodologias.inicializarCondiciones(metodologia);
 		resultados = metodologia.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
 		
 		model.put("resultados", resultados);

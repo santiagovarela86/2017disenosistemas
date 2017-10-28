@@ -85,6 +85,26 @@ public abstract class Condicion {
 		return periodosAEvaluar;
 	}
 	
+	public List<Periodo> getPeriodosAEvaluar(Integer n) {
+		Anual periodoAIngresar = Anual.getPeriodoActual();
+		ArrayList<Periodo> periodosAEvaluar = new ArrayList<>();
+		for(int per = 0; per < cantidadDePeriodosAEvaluar; per++)
+		{
+			periodosAEvaluar.add(periodoAIngresar);
+			periodoAIngresar = periodoAIngresar.anioAnterior();
+		}
+		return periodosAEvaluar;
+	}
+	
+	/*
+	public boolean empresaPuedeSerEvaluada(Empresa empresa, RepositorioIndicadores repoIndicadores) {
+		boolean resultado =  this.getPeriodosAEvaluar().stream()
+					.allMatch(periodo -> empresa.contieneBalance(new BalanceAnual( (Anual) periodo)) 
+					&& this.indicador.puedeEvaluar(empresa.getBalance(periodo), repoIndicadores));
+		return resultado;
+	}
+	*/
+	
 	public boolean empresaPuedeSerEvaluada(Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		boolean resultado =  this.getPeriodosAEvaluar().stream()
 					.allMatch(periodo -> empresa.contieneBalance(new BalanceAnual( (Anual) periodo)) 
