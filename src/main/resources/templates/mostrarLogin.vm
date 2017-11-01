@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+	<link href="css/style.css" rel="stylesheet">
+ 
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	
+    <title>Donde Invertir | Iniciar Sesión</title>
+    <link rel="icon" href="images/index.ico">
+  </head>
+  <body>
+
+<div style="display:flex;justify-content:center;align-items:center;">
+	<h2>TP Donde Invertir</h2>
+</div>
+
+<div style="display:flex;justify-content:center;align-items:center;">
+	<h2 class="">Iniciar Sesión</h2>
+</div>
+
+<div class="mt-3" style="display:flex;justify-content:center;align-items:center;">
+	<form method="post" action="/login">
+	  <div class="form-group">
+	    <label for="user">Usuario</label>
+	    <input type="text" class="form-control" name="user" placeholder="Usuario" required="true">
+	  </div>
+	  <div class="form-group">
+	    <label for="password">Password</label>
+	    <input type="password" class="form-control" name="password" placeholder="Password" required="true">
+	  </div>
+	  <button type="submit" class="btn btn-primary">Ingresar</button>
+	</form>
+</div>
+
+<br>
+
+<div style="display:flex;justify-content:center;align-items:center;" align="center">
+	<h4>${message}</h4>
+</div>
+
+<footer style="footer" class="fixed-bottom footer-light bg-light ">
+	<div style="display:flex;justify-content:center;align-items:center;">
+  		<h6>Grupo 15 - TP Anual Entrega 5 - Diseño de Sistemas</h6>
+	</div>
+</footer>
+
+  </body>
+</html>

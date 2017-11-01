@@ -6,7 +6,11 @@ public class Router {
 	
 	public static void start(){
 
-		get("/index", Controller::index);
+		get("/login", Controller::mostrarLogin);
+		
+		post("/login", Controller::procesarLogin);
+		
+		get("/logout", Controller::procesarLogout);
 		
 		get("/pantallaPrincipal", Controller::pantallaPrincipal);
 		
