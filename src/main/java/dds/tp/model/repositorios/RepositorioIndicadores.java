@@ -26,6 +26,10 @@ public class RepositorioIndicadores {
 		return indicadores;
 	}
 	
+	public void setIndicadores(List<Indicador> indicadores) {
+		this.indicadores = indicadores;
+	}
+	
 	public void addIndicador(Indicador indc) throws ElementoYaExiste {
 		if(this.contieneIndicador(indc.getNombre())) {
 			throw new ElementoYaExiste("Ya existe un indicador con este nombre");

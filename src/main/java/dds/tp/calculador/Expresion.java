@@ -51,6 +51,5 @@ public class Expresion {
 	public Double calculateCon(Balance balance, RepositorioIndicadores baulIndicadores) {
 		return new Calculador().calcularExpresion(this, balance, baulIndicadores);
 	}
-	
 
 }

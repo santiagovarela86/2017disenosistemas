@@ -5,6 +5,8 @@ import static spark.Spark.*;
 public class Router {
 	
 	public static void start(){
+		
+		get("/", Controller::redirectLogin);
 
 		get("/login", Controller::mostrarLogin);
 		

@@ -1,22 +1,14 @@
 package dds.tp.Spark;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dds.tp.excepciones.UsuarioNoExistente;
+import dds.tp.model.Usuario;
+import dds.tp.model.repositorios.RepositorioUsuarios;
 
 public class UserController {
 	
-	@SuppressWarnings("serial")
-	static List<User> usuarios = new ArrayList<User>(){{
-		add(new User("santiago","santiago"));
-		add(new User("ezequiel","ezequiel"));
-		add(new User("leonardo","leonardo"));
-	}};
-
 	public static Boolean autenticar(String userIngresado, String passwordIngresado){
 		
-		User user;
+		Usuario user;
 		
 		try {
 			user = buscarUsuario(userIngresado);
@@ -31,9 +23,12 @@ public class UserController {
 		return false;
 	}
 
-	public static User buscarUsuario(String userBuscado) throws UsuarioNoExistente {
+	public static Usuario buscarUsuario(String userBuscado) throws UsuarioNoExistente {
+		
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		repoUsuarios.cargarUsuariosCargados();
 	
-		for(User user : usuarios) {
+		for(Usuario user : repoUsuarios.getUsuarios()) {
 	        if(user.getNombre().equals(userBuscado)) {
 	            return user;
 	        }
