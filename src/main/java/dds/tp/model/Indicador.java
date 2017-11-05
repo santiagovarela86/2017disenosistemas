@@ -13,6 +13,7 @@ import dds.tp.calculador.Expresion;
 import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.model.condiciones.Comparable;
 import dds.tp.model.repositorios.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioUsuarios;
 import dds.tp.parsertools.Parser;
 
 @Entity
@@ -20,21 +21,27 @@ import dds.tp.parsertools.Parser;
 public class Indicador extends Comparable {
 	
 	private String nombre;
+	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Expresion expresion;
+	
+	@ManyToOne(optional = false)
+	private Usuario usuario;
 	
 	public Indicador() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Indicador(String nombre, Expresion exp){
+
+	public Indicador(String nombre, Expresion exp, Usuario usuario){
 		this.nombre = nombre;
 		this.expresion = exp;
+		this.usuario = usuario;
 	}
-	
-	public Indicador(String nombre, String exp) throws SintaxisIncorrecta {
+
+	public Indicador(String nombre, String exp, Usuario usuario) throws SintaxisIncorrecta {
 		this.nombre = nombre;
 		this.expresion = new Expresion(new Parser().parsear(exp));
+		this.usuario = usuario;
 	}
 
 	public void setNombre(String nombre){

@@ -12,6 +12,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Indicador;
+import dds.tp.model.Usuario;
 
 public class RepositorioIndicadores {
 
@@ -50,14 +51,24 @@ public class RepositorioIndicadores {
 	}
 	@Deprecated
 	public void cargarPredeterminados() {
-		this.indicadores.add(new Indicador("Ingreso Neto", "ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas"));
-		this.indicadores.add(new Indicador("Razon Corriente", "activoCorriente/pasivoCorriente"));
-		this.indicadores.add(new Indicador("ROA", "utilidadBruta/activoTotal"));
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		repoUsuarios.cargarUsuariosCargados();
+		Usuario usuarioDefault = repoUsuarios.getUsuario("default");		
+		
+		this.indicadores.add(new Indicador("Ingreso Neto", "ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas", usuarioDefault));
+		this.indicadores.add(new Indicador("Razon Corriente", "activoCorriente/pasivoCorriente", usuarioDefault));
+		this.indicadores.add(new Indicador("ROA", "utilidadBruta/activoTotal", usuarioDefault));
 		//Pongo indicador antes xq sino tiene la cuenta se llama recursivamente el mismo indicador y tira stackoverflow
 		//Normalmente un indicador no se llama igual q el calculo...
-		this.indicadores.add(new Indicador("Indicador ROE", "roe"));
-		this.indicadores.add(new Indicador("Indicador Endeudamiento", "endeudamiento"));
-		this.indicadores.add(new Indicador("Indicador Margen", "margen"));
+		this.indicadores.add(new Indicador("Indicador ROE", "roe", usuarioDefault));
+		this.indicadores.add(new Indicador("Indicador Endeudamiento", "endeudamiento", usuarioDefault));
+		this.indicadores.add(new Indicador("Indicador Margen", "margen", usuarioDefault));
+		
+		for (Indicador i : this.getIndicadores()){
+			usuarioDefault.addIndicador(i);
+		}
+		repoUsuarios.actualizarUsuario(usuarioDefault);
+		
 	}
 	
 	public void guardarIndicador(Indicador indicador) {
@@ -96,9 +107,22 @@ public class RepositorioIndicadores {
 		manager.close();
 		return indicadores;
 	}
+	
+	public List<Indicador> cargarIndicadoresPublicos() {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		List<Indicador> indicadores = manager.createQuery(
+				"SELECT i FROM Indicador i, IN (i.usuario) AS u WHERE u.nombre = 'default'", Indicador.class)
+					.getResultList();
+		manager.close();
+		return indicadores;
+	}
 
 	public void cargarIndicadoresGuardados() {
 		this.indicadores = this.cargarIndicadores();
+	}
+	
+	public void cargarIndicadoresPublicosGuardados() {
+		this.indicadores = this.cargarIndicadoresPublicos();
 	}
 	
 }

@@ -4,7 +4,9 @@ import dds.tp.calculador.Expresion;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.model.Indicador;
+import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioUsuarios;
 import dds.tp.parsertools.Parser;
 import dds.tp.parsertools.MyToken;
 
@@ -56,7 +58,13 @@ public class CargarIndicadoresViewModel {
 			ArrayList<MyToken> operacion = new Parser().parsear(this.getExpresion());
 			this.setColor(Color.BLUE);
 			resultado = "Indicador guardado con exito";
-			baulIndicadores.addIndicador(new Indicador(this.getNombreIndicador(), new Expresion(operacion)));
+			
+			RepositorioUsuarios repoUsuarios =  new RepositorioUsuarios().obtenerRepoCompleto();
+			Usuario usuarioDefault = repoUsuarios.cargarUsuarioDefault();
+			Indicador indicador = new Indicador(this.getNombreIndicador(), new Expresion(operacion), usuarioDefault);
+			
+			usuarioDefault.addIndicador(indicador);			
+			repoUsuarios.actualizarUsuario(usuarioDefault);
 		}
 		catch (ElementoYaExiste e) {
 			this.setColor(Color.RED);

@@ -121,5 +121,20 @@ public class RepositorioUsuarios {
 		this.usuarios = this.cargarUsuarios();
 	}
 	
+	public Usuario cargarUsuarioDefault() {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		Usuario usuario = manager.createQuery(
+				"SELECT u FROM Usuario u WHERE u.nombre LIKE 'default'", Usuario.class)
+			    .getResultList()
+			    .get(0);
+		manager.close();
+		return usuario;
+	}
+	
+	public RepositorioUsuarios obtenerRepoCompleto(){
+		this.usuarios = this.cargarUsuarios();
+		return this;
+	}
+	
 }
 

@@ -14,18 +14,23 @@ import org.junit.Test;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.LectorCuentas;
+import dds.tp.model.Usuario;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.metodologia.Ordenador;
 import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioUsuarios;
 
 public class TestOrdenador {
 
 	private RepositorioEmpresas repoEmpresas;
 	private RepositorioIndicadores repoIndicadores;
 	private ArrayList<CondicionPriorizante> condiciones;
+	
+	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
+	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
 	
 	@Before
 	public void inicializar() {
@@ -61,7 +66,7 @@ public class TestOrdenador {
 		List<Empresa> resultado = new Ordenador()
 				.generarListaOrdenada(repoEmpresas.getEmpresas(), 
 						new CondicionPriorizante("CondTest", "Condicion longevidad comparadora", 
-						new Indicador("ROE", "roe"),new Mayor(),1), repoIndicadores);
+						new Indicador("ROE", "roe", usuarioDefault),new Mayor(),1), repoIndicadores);
 		
 		assertEquals(resultado.get(0).getNombre(),"Test3");
 		assertEquals(resultado.get(1).getNombre(),"Test2");
@@ -72,7 +77,7 @@ public class TestOrdenador {
 	public void puntajePorRoeResultadoTest3Test2Test1() {
 		condiciones.clear();
 		condiciones.add((new CondicionPriorizante("CondTest", "Condicion longevidad comparadora", 
-			new Indicador("ROE", "roe"),new Mayor(),1)));
+			new Indicador("ROE", "roe", usuarioDefault),new Mayor(),1)));
 		
 		List<ResultadoAnalisis> resultado = new Ordenador()
 				.getResultados(repoEmpresas.getEmpresas(), condiciones,repoIndicadores);

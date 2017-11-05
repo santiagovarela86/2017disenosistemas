@@ -82,19 +82,19 @@ public class Controller {
 			String nombreIndicador = request.queryParams("nombreIndicador");
 			String expresionIndicador = request.queryParams("expresionIndicador");
 			String nombreUsuario = request.session().attribute("currentUser");
+			
+			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+			repoUsuarios.cargarUsuariosCargados();
+			Usuario usuario = repoUsuarios.getUsuario(nombreUsuario);
 
 			try {
 
-				indicador = new Indicador(nombreIndicador, expresionIndicador);
+				indicador = new Indicador(nombreIndicador, expresionIndicador, usuario);
 
 			} catch (SintaxisIncorrecta e1) {
 				model.put("message", "Error en la expresión. <br> Intente nuevamente. <br>");
 				return Utils.render(model, "templates/crearIndicador.vm");
 			}
-
-			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
-			repoUsuarios.cargarUsuariosCargados();
-			Usuario usuario = repoUsuarios.getUsuario(nombreUsuario);
 			
 			RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
 			repoIndicadores.cargarIndicadoresGuardados();

@@ -30,6 +30,7 @@ public class PantallaPrincipalViewModel{
 	}
 	
 	public RepositorioIndicadores getBaulIndicadores() {
+		baulIindicadores.cargarIndicadoresPublicosGuardados();
 		return baulIindicadores;
 	}
 	
