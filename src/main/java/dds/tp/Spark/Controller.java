@@ -92,14 +92,18 @@ public class Controller {
 				return Utils.render(model, "templates/crearIndicador.vm");
 			}
 			
-			RepositorioUsuarios repositorio = new RepositorioUsuarios();
-			repositorio.cargarUsuariosCargados();
-			Usuario usuario = repositorio.getUsuario(nombreUsuario);
+			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+			repoUsuarios.cargarUsuariosCargados();
+			Usuario usuario = repoUsuarios.getUsuario(nombreUsuario);
+			
+			RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
+			repoIndicadores.cargarIndicadoresGuardados();
 
 			try {
 
-				usuario.addIndicador(indicador, repositorio);
-				repositorio.guardarUsuario(usuario);
+				usuario.addIndicador(indicador);
+				repoIndicadores.addIndicador(indicador);
+				repoUsuarios.actualizarUsuario(usuario);
 
 			} catch (ElementoYaExiste e2) {
 				model.put("message", "Indicador existente. <br> Intente nuevamente. <br>");

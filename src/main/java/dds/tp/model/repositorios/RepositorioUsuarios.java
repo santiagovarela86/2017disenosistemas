@@ -68,6 +68,21 @@ public class RepositorioUsuarios {
 		}
 	}
 	
+	public void actualizarUsuario(Usuario usuario) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		try {
+			transaction.begin();
+			manager.merge(usuario);
+			transaction.commit();
+		} catch (Exception ex) {
+			transaction.rollback();
+			ex.printStackTrace();
+		}finally {
+			manager.close();
+		}
+	}
+	
 	public void guardarUsuarios(List<Usuario> usuarios) {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = manager.getTransaction();

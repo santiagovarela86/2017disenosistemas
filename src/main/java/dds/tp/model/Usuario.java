@@ -72,7 +72,7 @@ public class Usuario {
 		this.metodologias = metodologias;
 	}
 	
-	public void addIndicador(Indicador indicador, RepositorioUsuarios repositorio) {
+	public void addIndicador(Indicador indicador) {
 		
 		if (this.contieneIndicador(indicador.getNombre())) {
 			throw new ElementoYaExiste("Ya existe un indicador con este nombre");
