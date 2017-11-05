@@ -91,7 +91,7 @@ public class Controller {
 				model.put("message", "Error en la expresión. <br> Intente nuevamente. <br>");
 				return Utils.render(model, "templates/crearIndicador.vm");
 			}
-			
+
 			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
 			repoUsuarios.cargarUsuariosCargados();
 			Usuario usuario = repoUsuarios.getUsuario(nombreUsuario);
@@ -101,8 +101,8 @@ public class Controller {
 
 			try {
 
-				usuario.addIndicador(indicador);
 				repoIndicadores.addIndicador(indicador);
+				usuario.addIndicador(indicador);
 				repoUsuarios.actualizarUsuario(usuario);
 
 			} catch (ElementoYaExiste e2) {
