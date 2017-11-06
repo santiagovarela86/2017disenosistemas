@@ -20,7 +20,7 @@ import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
 
-public class TestMetodologia {
+public class TestMetodologiaWB {
 
 	private RepositorioEmpresas repoEmpresas;
 	private RepositorioIndicadores repoIndicadores;
