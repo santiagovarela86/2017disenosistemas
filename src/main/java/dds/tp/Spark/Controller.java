@@ -158,25 +158,17 @@ public class Controller {
 			RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 			repoEmpresas.setEmpresas(repoEmpresas.cargarEmpresas());
 			repoEmpresas.inicializarTodosLosbalances();
-
-			RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
-			repoIndicadores.cargarIndicadoresGuardados();
-
-			RepositorioMetodologias repoMetodologias = new RepositorioMetodologias();
-			repoMetodologias.cargarMetodologiaGuardadas();
-
 			try {
-				metodologia = repoMetodologias.getMetodologia(nombreMetodologia);
+				metodologia = usuarioLogueado.getMetodologia(nombreMetodologia);
+				RepositorioMetodologias.inicializarCondiciones(metodologia);
+				resultados = metodologia.evaluarEn(repoEmpresas.getEmpresas(), usuarioLogueado.getRepoIndicadores());
+				model.put("resultados", resultados);
+				return Utils.render(model, "templates/evaluarMetodologiaResultados.vm");
 			} catch (ElementoNotFound e) {
 				model.put("message", e.getMessage() + ".");
 				return Utils.render(model, "templates/evaluarMetodologia.vm");
 			}
 
-			repoMetodologias.inicializarCondiciones(metodologia);
-			resultados = metodologia.evaluarEn(repoEmpresas.getEmpresas(), repoIndicadores);
-
-			model.put("resultados", resultados);
-			return Utils.render(model, "templates/evaluarMetodologiaResultados.vm");
 		} else
 			return null;
 	}

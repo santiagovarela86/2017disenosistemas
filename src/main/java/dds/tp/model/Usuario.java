@@ -1,8 +1,6 @@
 package dds.tp.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Convert;
@@ -16,10 +14,7 @@ import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
-import dds.tp.excepciones.ElementoNotFound;
-import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.jpa.converters.RepoIndicadoresConverter;
-import dds.tp.jpa.converters.RepoMetodologiasConverter;
 import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
@@ -98,8 +93,12 @@ public class Usuario {
 		return this.repoIndicadores.contieneIndicador(nombre);
 	}
 	
-	public Indicador getIndicador(String nombre) throws ElementoNotFound {
+	public Indicador getIndicador(String nombre) {
 		return this.repoIndicadores.getIndicador(nombre);
+	}
+	
+	public Metodologia getMetodologia(String nombre) {
+		return this.repoMetodologias.getMetodologia(nombre);
 	}
 	
 	public boolean estasGuardado() {

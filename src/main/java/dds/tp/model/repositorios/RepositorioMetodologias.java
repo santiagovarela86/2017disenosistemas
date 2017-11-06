@@ -90,7 +90,7 @@ public class RepositorioMetodologias {
 		}
 	}
 	
-	public void inicializarCondiciones(Metodologia metodologia) {
+	public static void inicializarCondiciones(Metodologia metodologia) {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
 		PersistenceUnitUtil checkeadorDeLoad = manager.getEntityManagerFactory().getPersistenceUnitUtil();
 		
