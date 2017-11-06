@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Where;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.Where;
 import dds.tp.excepciones.ElementNotLoad;
 import dds.tp.excepciones.NoHayCondiciones;
 import dds.tp.model.Empresa;
+import dds.tp.model.Usuario;
 import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
@@ -39,7 +41,8 @@ public class Metodologia {
 	@JoinColumn(name="metodologia_id")
 	@Where(clause="tipobalance='condPriorizante'")
 	private List<CondicionPriorizante> condicionesQuePriorizan;
-
+	@ManyToOne(optional = false,fetch=FetchType.EAGER)
+	private Usuario usuario;
 	
 	public Metodologia() {
 		
@@ -61,6 +64,10 @@ public class Metodologia {
 	
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public List<ResultadoAnalisis> evaluarEn(List<Empresa> empresasAAnalizar, RepositorioIndicadores repoIndicadores){

@@ -67,11 +67,8 @@ public class RepositorioIndicadores {
 		this.indicadores.add(new Indicador("Indicador Endeudamiento", "endeudamiento", usuarioDefault));
 		this.indicadores.add(new Indicador("Indicador Margen", "margen", usuarioDefault));
 		
-		for (Indicador i : this.getIndicadores()){
-			usuarioDefault.addIndicador(i);
-		}
-		repoUsuarios.actualizarUsuario(usuarioDefault);
-		
+		this.indicadores.forEach(ind->usuarioDefault.addIndicador(ind));
+		this.guardarIndicadores(this.getIndicadores());	
 	}
 	
 	public void guardarIndicador(Indicador indicador) {

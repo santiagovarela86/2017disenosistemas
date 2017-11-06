@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.uqbar.commons.utils.Observable;
@@ -15,7 +16,6 @@ import org.uqbar.commons.utils.Observable;
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.metodologia.Metodologia;
-import dds.tp.model.repositorios.RepositorioUsuarios;
 
 @Entity
 @Observable
@@ -29,9 +29,11 @@ public class Usuario {
 	private String password;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="usuario_id")
 	private List<Indicador> indicadores;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="usuario_id")
 	private List<Metodologia> metodologias;
 	
 	public Usuario(String nombre, String password){
@@ -73,20 +75,31 @@ public class Usuario {
 	}
 	
 	public void addIndicador(Indicador indicador) {
-		
-		if (this.contieneIndicador(indicador.getNombre())) {
+		if (this.tieneIndicador(indicador.getNombre())) {
 			throw new ElementoYaExiste("Ya existe un indicador con este nombre");
 		}
 		
 		this.indicadores.add(indicador);
 	}
+	
+	public void addMetodologia(Metodologia metodologia) {
+		if (this.tieneMetodologia(metodologia.getNombre())) {
+			throw new ElementoYaExiste("Ya existe un indicador con este nombre");
+		}
+		
+		this.metodologias.add(metodologia);
+	}
 
-	public boolean contieneIndicador(String nombre) {
+	private boolean tieneMetodologia(String nombre) {
+		return this.metodologias.stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(nombre));
+	}
+
+	public boolean tieneIndicador(String nombre) {
 		return this.indicadores.stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(nombre));
 	}
 	
 	public Indicador getIndicador(String nombre) throws ElementoNotFound {
-		if(!this.contieneIndicador(nombre)){
+		if(!this.tieneIndicador(nombre)){
 			throw new ElementoNotFound("No existe el indicador " + nombre);
 		}
 		return this.indicadores.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList()).get(0);

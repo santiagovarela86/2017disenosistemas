@@ -11,6 +11,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.Usuario;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
@@ -41,11 +42,15 @@ public class RepositorioMetodologias {
 		if(this.contieneMetodologia(metodologia.getNombre())) {
 			throw new ElementoYaExiste("Ya existe una metodologia con este nombre");
 		}
-		this.metodologias.add(metodologia);
 		this.guardarMetodologia(metodologia);
+		this.metodologias.add(metodologia);
 	}
 	@Deprecated
 	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {		
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		repoUsuarios.cargarUsuariosCargados();
+		Usuario usuarioDefault = repoUsuarios.getUsuario("default");
+		
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
 			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE", "default"), new Mayor(), 7))
 			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO", "default"), new Menor(), 1))
@@ -53,7 +58,9 @@ public class RepositorioMetodologias {
 			.agregarCondTaxativa(new CondicionTaxativaSimple("Longevidad Simple", "Longevidad Simple", new EvaluadorAntiguedad(), new Mayor(), 1, 10d))
 			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new EvaluadorAntiguedad(), new Mayor(), 1))			
 			.build();
-		this.metodologias.add(warrenBuffet);
+		warrenBuffet.setUsuario(usuarioDefault);
+		usuarioDefault.addMetodologia(warrenBuffet);
+		this.addMetodologia(warrenBuffet);
 	}
 	
 	public Metodologia getMetodologia(String nombre) {

@@ -19,6 +19,7 @@ public abstract class Comparable {
 	@Id
 	@GeneratedValue
 	private Long id ;
+	
 	public abstract Double evaluar(Empresa empresa,Balance balance, RepositorioIndicadores baulIndicadores);
 	public abstract boolean puedeEvaluar(Balance balance, RepositorioIndicadores baulIndicadores);
 }

@@ -3,7 +3,6 @@ package dds.tp.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -13,7 +12,6 @@ import dds.tp.calculador.Expresion;
 import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.model.condiciones.Comparable;
 import dds.tp.model.repositorios.RepositorioIndicadores;
-import dds.tp.model.repositorios.RepositorioUsuarios;
 import dds.tp.parsertools.Parser;
 
 @Entity
@@ -24,9 +22,9 @@ public class Indicador extends Comparable {
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Expresion expresion;
-	
-	@ManyToOne(optional = false)
-	private Usuario usuario;
+
+	@ManyToOne(optional = true,fetch=FetchType.EAGER)
+	protected Usuario usuario;
 	
 	public Indicador() {
 		// TODO Auto-generated constructor stub

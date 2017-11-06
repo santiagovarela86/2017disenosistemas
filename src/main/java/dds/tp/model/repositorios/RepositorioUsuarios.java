@@ -6,15 +6,10 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceUnitUtil;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
-import dds.tp.model.Balance;
-import dds.tp.model.BalanceAnual;
-import dds.tp.model.BalanceSemestral;
-import dds.tp.model.Empresa;
 import dds.tp.model.Usuario;
 
 public class RepositorioUsuarios {
