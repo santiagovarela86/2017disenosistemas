@@ -1,6 +1,12 @@
 package dds.tp.main;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import dds.tp.model.LectorCuentas;
 import dds.tp.model.Usuario;
+import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
 import dds.tp.model.repositorios.RepositorioUsuarios;
@@ -10,11 +16,22 @@ public class InicializarDB {
 	private static RepositorioIndicadores repositorioIndicadores = new RepositorioIndicadores();
 	private static RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
 	public static void main(String[] args) {
+		guardarCuentas();
 		guardarUsuarios();
 		Usuario usuarioDefault = repoUsuarios.getUsuario("default");
 		guardarIndicadores(usuarioDefault);
 		guardarMetodologias(usuarioDefault);
 		System.exit(0);
+	}
+	
+	private static void guardarCuentas() {
+		try {
+			RepositorioEmpresas repoEmpresas = new RepositorioEmpresas(new LectorCuentas("testsMetodologia.txt").obtenerDatos(Files.lines(Paths.get("testsMetodologia.txt"))));
+			repoEmpresas.guardarEmpresas(repoEmpresas.getEmpresas());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private static void guardarUsuarios() {

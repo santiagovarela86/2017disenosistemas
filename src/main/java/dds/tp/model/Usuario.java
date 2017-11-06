@@ -109,4 +109,8 @@ public class Usuario {
 			return true;
 	}
 
+	public RepositorioIndicadores getRepoIndicadores() {
+		return this.repoIndicadores;
+	}
+
 }

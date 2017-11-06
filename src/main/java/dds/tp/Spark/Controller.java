@@ -8,6 +8,7 @@ import java.util.Map;
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
+import dds.tp.model.Balance;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.Usuario;
@@ -102,77 +103,37 @@ public class Controller {
 			return null;
 	}
 
-	/*public static Object evaluarIndicadorEspecifico(Request request, Response response) {
+	public static Object evaluarIndicadorEspecifico(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
 			Map<String, Object> model = new HashMap<>();
-			Indicador indicador = new Indicador();
-			Empresa empresa = new Empresa();
-			Balance balance = null;
 
 			String nombreEmpresa = request.queryParams("nombreEmpresa");
 			String nombreIndicador = request.queryParams("nombreIndicador");
 			String periodo = request.queryParams("periodo");
-			String nombreUsuario = request.session().attribute("currentUser");
-
+			
+			//Esto se puede poner como usuario logueado
 			RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 			repoEmpresas.setEmpresas(repoEmpresas.cargarEmpresas());
 			repoEmpresas.inicializarTodosLosbalances();
-
-			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
-			Usuario usuario = repoUsuarios.getUsuario(nombreUsuario);
-			Usuario usuarioDefault = repoUsuarios.getUsuario("default");
+		  
 			
-			RepositorioIndicadores repoIndicadores = new RepositorioIndicadores().obtenerRepositorioCompleto();		
-
 			try {
-				//BUSCO PRIMERO EN LOS INDICADORES PUBLICOS
-				indicador = repoIndicadores.getIndicador(nombreIndicador);				
-			} catch (ElementoNotFound e) {
-				//SI LLEGA ACA ES PORQUE NO EXISTE EL INDICADOR PUBLICO
-				try {
-					indicador = usuario.getIndicador(nombreIndicador);
-				} catch (ElementoNotFound e2) {
-					model.put("message", e2.getMessage() + ".");
-					return Utils.render(model, "templates/evaluarIndicador.vm");
-				}
-			}
+				Empresa empresa = repoEmpresas.getEmpresa(nombreEmpresa);
+				Balance balance = empresa.getBalance(periodo);
+				Indicador indicador = usuarioLogueado.getIndicador(nombreIndicador);
+				Double resultado = indicador.evaluar(empresa, balance, usuarioLogueado.getRepoIndicadores());
+				String message = "Indicador: " + indicador.getNombre() + ", Empresa: " + empresa.getNombre() + ", Período: "
+						+ balance.getPeriodoNombre() + "<br>" + "Valor: " + resultado.toString() + ".";
 
-			try {
-				empresa = repoEmpresas.getEmpresa(nombreEmpresa);
+				model.put("message", message);
+				return Utils.render(model, "templates/evaluarIndicador.vm");
 			} catch (ElementoNotFound e) {
 				model.put("message", e.getMessage() + ".");
 				return Utils.render(model, "templates/evaluarIndicador.vm");
 			}
-
-			try {
-				balance = empresa.getBalance(periodo);
-			} catch (ElementoNotFound e) {
-				model.put("message", e.getMessage() + ".");
-				return Utils.render(model, "templates/evaluarIndicador.vm");
-			}
-
-			RepositorioIndicadores repoIndicadoresUtilizablesPorElUsuario = new RepositorioIndicadores();
-			repoIndicadoresUtilizablesPorElUsuario.setIndicadores(usuario.getIndicadores());
-			RepositorioIndicadores repoIndicadoresPublicos = new RepositorioIndicadores().obtenerIndicadoresPublicosGuardados();
-			repoIndicadoresUtilizablesPorElUsuario.addIndicadores(repoIndicadoresPublicos.getIndicadores());
-
-			Double resultado;
-
-			try {
-				resultado = indicador.evaluar(empresa, balance, repoIndicadoresUtilizablesPorElUsuario);
-			} catch (ElementoNotFound e){
-				model.put("message", e.getMessage() + ".");
-				return Utils.render(model, "templates/evaluarIndicador.vm");
-			}
-
-			String message = "Indicador: " + indicador.getNombre() + ", Empresa: " + empresa.getNombre() + ", Período: "
-					+ balance.getPeriodoNombre() + "<br>" + "Valor: " + resultado.toString() + ".";
-
-			model.put("message", message);
-			return Utils.render(model, "templates/evaluarIndicador.vm");
 		} else
 			return null;
-	}*/
+	}
 
 	public static Object evaluarMetodologia(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
