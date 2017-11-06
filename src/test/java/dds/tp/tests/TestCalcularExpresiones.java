@@ -33,6 +33,7 @@ public class TestCalcularExpresiones {
 	public void inicializar() {
 		baulIndicadores = new RepositorioIndicadores();
 		balanceTest = new BalanceAnual(new Anual("2017"));
+		
 		try {
 			balanceTest.addCuenta(new Cuenta("Ebitda", 200d));
 			balanceTest.addCuenta(new Cuenta("Roe", 20d));
@@ -64,7 +65,7 @@ public class TestCalcularExpresiones {
 	public void testCalculoIndicadoresNoErrorsConCuentaYNumerosEIndicadores()  {
 		Indicador uno = new Indicador("test", new Expresion(new Parser().parsear("10+Roe*2")), usuarioDefault);
 		Indicador dos = new Indicador("testuno", new Expresion(new Parser().parsear("test/5*2+5")), usuarioDefault);
-		baulIndicadores.addIndicador(uno);
+		baulIndicadores.addIndicador(uno, usuarioDefault);
 		assertEquals(50, uno.evaluar(balanceTest, baulIndicadores), 0);
 		assertEquals(10, dos.evaluar(balanceTest, baulIndicadores), 0);
 	}
@@ -78,8 +79,8 @@ public class TestCalcularExpresiones {
 	public void TestNoSePermitenIndicadoresConElMismoNombre(){
 		Indicador uno = new Indicador("test", new Expresion(new Parser().parsear("10+Roe*2")), usuarioDefault);
 		Indicador dos = new Indicador("test", new Expresion(new Parser().parsear("test/5*2+5")), usuarioDefault);
-		baulIndicadores.addIndicador(uno);
-		baulIndicadores.addIndicador(dos);
+		baulIndicadores.addIndicador(uno, usuarioDefault);
+		baulIndicadores.addIndicador(dos, usuarioDefault);
 	}
 	
 	@Test(expected=ElementoNotFound.class)

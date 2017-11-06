@@ -71,7 +71,7 @@ public class CargarCondicionEstadisticaViewModel {
 		if(nombreCondicion.isEmpty() || descripcion.isEmpty())
 			throw new RuntimeException("Nombre y descripcion son obligatorios");
 		metodologiaBuilder.agregarCondTaxativa(
-				new CondicionTaxEstadistica(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador),
+				new CondicionTaxEstadistica(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador, "default"),
 						this.comparadorSeleccionado, 0, Double.parseDouble(this.valor), this.modoSeleccionado));		
 	}
 	

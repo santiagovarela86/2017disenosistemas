@@ -45,11 +45,11 @@ public class RepositorioMetodologias {
 		this.guardarMetodologia(metodologia);
 	}
 	@Deprecated
-	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {
+	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {		
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
-			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 7))
-			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO"), new Menor(), 1))
-			.agregarCondTaxativa(new CondicionTaxPendiente("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN"), new Menor(), 8, null))
+			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE", "default"), new Mayor(), 7))
+			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO", "default"), new Menor(), 1))
+			.agregarCondTaxativa(new CondicionTaxPendiente("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN", "default"), new Menor(), 8, null))
 			.agregarCondTaxativa(new CondicionTaxativaSimple("Longevidad Simple", "Longevidad Simple", new EvaluadorAntiguedad(), new Mayor(), 1, 10d))
 			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new EvaluadorAntiguedad(), new Mayor(), 1))			
 			.build();

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.uqbar.commons.model.Repo;
 
+import dds.tp.calculador.Expresion;
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
@@ -83,8 +84,7 @@ public class Controller {
 			String expresionIndicador = request.queryParams("expresionIndicador");
 			String nombreUsuario = request.session().attribute("currentUser");
 			
-			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
-			repoUsuarios.cargarUsuariosCargados();
+			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
 			Usuario usuario = repoUsuarios.getUsuario(nombreUsuario);
 
 			try {
@@ -96,12 +96,11 @@ public class Controller {
 				return Utils.render(model, "templates/crearIndicador.vm");
 			}
 			
-			RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
-			repoIndicadores.cargarIndicadoresGuardados();
+			//RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
+			//repoIndicadores.cargarIndicadoresDelUsuario(usuario);
 
 			try {
-
-				repoIndicadores.addIndicador(indicador);
+				
 				usuario.addIndicador(indicador);
 				repoUsuarios.actualizarUsuario(usuario);
 
@@ -141,15 +140,23 @@ public class Controller {
 			repoEmpresas.setEmpresas(repoEmpresas.cargarEmpresas());
 			repoEmpresas.inicializarTodosLosbalances();
 
-			RepositorioUsuarios repositorio = new RepositorioUsuarios();
-			repositorio.cargarUsuariosCargados();
-			Usuario usuario = repositorio.getUsuario(nombreUsuario);
+			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
+			Usuario usuario = repoUsuarios.getUsuario(nombreUsuario);
+			Usuario usuarioDefault = repoUsuarios.getUsuario("default");
+			
+			RepositorioIndicadores repoIndicadores = new RepositorioIndicadores().obtenerRepositorioCompleto();		
 
 			try {
-				indicador = usuario.getIndicador(nombreIndicador);
+				//BUSCO PRIMERO EN LOS INDICADORES PUBLICOS
+				indicador = repoIndicadores.getIndicador(nombreIndicador, usuarioDefault.getNombre());				
 			} catch (ElementoNotFound e) {
-				model.put("message", e.getMessage() + ".");
-				return Utils.render(model, "templates/evaluarIndicador.vm");
+				//SI LLEGA ACA ES PORQUE NO EXISTE EL INDICADOR PUBLICO
+				try {
+					indicador = usuario.getIndicador(nombreIndicador);
+				} catch (ElementoNotFound e2) {
+					model.put("message", e2.getMessage() + ".");
+					return Utils.render(model, "templates/evaluarIndicador.vm");
+				}
 			}
 
 			try {
@@ -166,13 +173,15 @@ public class Controller {
 				return Utils.render(model, "templates/evaluarIndicador.vm");
 			}
 
-			RepositorioIndicadores repoIndicadoresDelUsuario = new RepositorioIndicadores();
-			repoIndicadoresDelUsuario.setIndicadores(usuario.getIndicadores());
-			
+			RepositorioIndicadores repoIndicadoresUtilizablesPorElUsuario = new RepositorioIndicadores();
+			repoIndicadoresUtilizablesPorElUsuario.setIndicadores(usuario.getIndicadores());
+			RepositorioIndicadores repoIndicadoresPublicos = new RepositorioIndicadores().obtenerIndicadoresPublicosGuardados();
+			repoIndicadoresUtilizablesPorElUsuario.addIndicadores(repoIndicadoresPublicos.getIndicadores());
+
 			Double resultado;
 
 			try {
-				resultado = indicador.evaluar(empresa, balance, repoIndicadoresDelUsuario);
+				resultado = indicador.evaluar(empresa, balance, repoIndicadoresUtilizablesPorElUsuario);
 			} catch (ElementoNotFound e){
 				model.put("message", e.getMessage() + ".");
 				return Utils.render(model, "templates/evaluarIndicador.vm");

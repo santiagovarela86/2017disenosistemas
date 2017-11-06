@@ -79,7 +79,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 			this.comprobarCuentas();
 			this.comprobarIndicadores();
 			this.refresh();
-			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas(),this.getModelObject().getBaulIndicadores())).open();
+			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas(),this.getModelObject().getBaulIndicadores().obtenerIndicadoresPublicosGuardados())).open();
 		}
 		catch(ElementNotLoad ex) {
 			this.getModelObject().setMensajeError(ex.getMessage());
@@ -92,7 +92,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 
 	private void comprobarIndicadores() throws ElementNotLoad{
-		if(this.getModelObject().getBaulIndicadores().getIndicadores().isEmpty())
+		if(this.getModelObject().getBaulIndicadores().obtenerIndicadoresPublicosGuardados().getIndicadores().isEmpty())
 			throw new ElementNotLoad("No hay indicadores cargados.");
 	}
 	

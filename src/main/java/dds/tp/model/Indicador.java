@@ -35,13 +35,13 @@ public class Indicador extends Comparable {
 	public Indicador(String nombre, Expresion exp, Usuario usuario){
 		this.nombre = nombre;
 		this.expresion = exp;
-		this.usuario = usuario;
+		this.setUsuario(usuario);
 	}
 
 	public Indicador(String nombre, String exp, Usuario usuario) throws SintaxisIncorrecta {
 		this.nombre = nombre;
 		this.expresion = new Expresion(new Parser().parsear(exp));
-		this.usuario = usuario;
+		this.setUsuario(usuario);
 	}
 
 	public void setNombre(String nombre){
@@ -53,14 +53,14 @@ public class Indicador extends Comparable {
 	}
 	
 	public Double evaluar(Balance balance, RepositorioIndicadores baulIndicadores) {	
-		return expresion.calculateCon(balance, baulIndicadores);
+		return expresion.calculateCon(balance, baulIndicadores, this.getUsuario());
 	}
 	
 	public boolean puedeEvaluar(Balance balance, RepositorioIndicadores baulIndicadores) {
 		//Ak habria q fijarse si tiene todas las cuentas la empresa y las cuentas q usan los subindicadores
 		//Por ahora lo resuelvo con un try catch
 		try {
-			expresion.calculateCon(balance, baulIndicadores);
+			expresion.calculateCon(balance, baulIndicadores, this.getUsuario());
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -79,5 +79,13 @@ public class Indicador extends Comparable {
 	@Override
 	public Double evaluar(Empresa empresa, Balance balance, RepositorioIndicadores baulIndicadores) {
 		return this.evaluar(balance, baulIndicadores);
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

@@ -75,7 +75,7 @@ public class CargarCondicionSimpleViewModel {
 		if(nombreCondicion.isEmpty() || descripcion.isEmpty())
 			throw new RuntimeException("Nombre y descripcion son obligatorios");		
 		metodologiaBuilder.agregarCondTaxativa(
-			new CondicionTaxativaSimple(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador),
+			new CondicionTaxativaSimple(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador, "default"),
 				this.comparadorSeleccionado, Integer.parseInt(this.periodosHaciaAtras), Double.parseDouble(this.valor)));
 	}
 	

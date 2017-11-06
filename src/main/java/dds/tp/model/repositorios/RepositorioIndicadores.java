@@ -31,23 +31,26 @@ public class RepositorioIndicadores {
 		this.indicadores = indicadores;
 	}
 	
-	public void addIndicador(Indicador indc) throws ElementoYaExiste {
-		if(this.contieneIndicador(indc.getNombre())) {
+	public void addIndicador(Indicador indc, Usuario usuario) throws ElementoYaExiste {
+		if(this.contieneIndicador(indc.getNombre(), usuario.getNombre())) {
 			throw new ElementoYaExiste("Ya existe un indicador con este nombre");
 		}
 		this.indicadores.add(indc);
 		this.guardarIndicador(indc);
 	}
 	
-	public boolean contieneIndicador(String nombre) {
-		return this.indicadores.stream().anyMatch(elem -> elem.getNombre().equalsIgnoreCase(nombre));
+	public boolean contieneIndicador(String nombreIndicador, String nombreUsuario) {
+		return this.indicadores.stream().anyMatch(
+				elem -> elem.getNombre().equalsIgnoreCase(nombreIndicador)
+					&& (elem.getUsuario().getNombre().equalsIgnoreCase(nombreUsuario)
+							|| elem.getUsuario().getNombre().equalsIgnoreCase("default")));
 	}
 
-	public Indicador getIndicador(String nombre) throws ElementoNotFound {
-		if(!this.contieneIndicador(nombre)){
-			throw new ElementoNotFound("No existe el indicador " + nombre);
+	public Indicador getIndicador(String nombreIndicador, String nombreUsuario) throws ElementoNotFound {
+		if(!this.contieneIndicador(nombreIndicador, nombreUsuario)){
+			throw new ElementoNotFound("No existe el indicador " + nombreIndicador);
 		}
-		return this.indicadores.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList()).get(0);
+		return this.indicadores.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombreIndicador)).collect(Collectors.toList()).get(0);
 	}
 	@Deprecated
 	public void cargarPredeterminados() {
@@ -117,12 +120,42 @@ public class RepositorioIndicadores {
 		return indicadores;
 	}
 
+	public List<Indicador> cargarIndicadoresPorUsuario(Usuario usuario) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		List<Indicador> indicadores = manager.createQuery(
+				"SELECT i FROM Indicador i, IN (i.usuario) AS u WHERE u.nombre = :custName", Indicador.class)
+					.setParameter("custName", usuario.getNombre())
+						.getResultList();
+		manager.close();
+		return indicadores;
+	}
+	
 	public void cargarIndicadoresGuardados() {
 		this.indicadores = this.cargarIndicadores();
 	}
 	
+	public RepositorioIndicadores obtenerRepositorioCompleto() {
+		this.indicadores = this.cargarIndicadores();
+		return this;
+	}
+	
 	public void cargarIndicadoresPublicosGuardados() {
 		this.indicadores = this.cargarIndicadoresPublicos();
+	}
+	
+	public RepositorioIndicadores obtenerIndicadoresPublicosGuardados() {
+		this.indicadores = this.cargarIndicadoresPublicos();
+		return this;
+	}
+	
+	public void cargarIndicadoresDelUsuario(Usuario usuario) {
+		this.indicadores = this.cargarIndicadoresPorUsuario(usuario);
+	}
+	
+	public void addIndicadores(List<Indicador> indicadores) {
+		for (Indicador i : indicadores){
+			this.getIndicadores().add(i);
+		}
 	}
 	
 }

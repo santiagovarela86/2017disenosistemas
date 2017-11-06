@@ -68,7 +68,7 @@ public class CargarCondicionComparadoraViewModel {
 			throw new RuntimeException("Nombre y descripcion son obligatorios");
 		metodologiaBuilder.agregarCondPriorizar(
 					new CondicionPriorizante(this.nombreCondicion, 
-							this.descripcion, repoIndicadores.getIndicador(nombreIndicador), 
+							this.descripcion, repoIndicadores.getIndicador(nombreIndicador, "default"), 
 							this.comparadorSeleccionado, Integer.parseInt(this.periodosHaciaAtras)));
 		
 	}

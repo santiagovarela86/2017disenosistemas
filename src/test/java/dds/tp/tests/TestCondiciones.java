@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dds.tp.model.LectorCuentas;
+import dds.tp.model.Usuario;
 import dds.tp.model.condiciones.CondicionPriorizante;
 import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.comparadores.Mayor;
@@ -16,11 +17,15 @@ import dds.tp.model.condicionesTaxativas.CondicionTaxPendiente;
 import dds.tp.model.condicionesTaxativas.CondicionTaxativaSimple;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
+import dds.tp.model.repositorios.RepositorioUsuarios;
 
 public class TestCondiciones {
 	
 	RepositorioEmpresas repoEmpresas;
 	RepositorioIndicadores repoIndicadores;
+	
+	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
+	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
 	
 	@Before
 	public void inicializar() {
@@ -36,28 +41,28 @@ public class TestCondiciones {
 	
 	@Test
 	public void condicionComparadoraConIndicadorRoe4PeriodosAtrasSiendoMayor() {		
-		CondicionPriorizante condi = new CondicionPriorizante("Test", "Para test", repoIndicadores.getIndicador("indicador ROE"), 
+		CondicionPriorizante condi = new CondicionPriorizante("Test", "Para test", repoIndicadores.getIndicador("indicador ROE", usuarioDefault.getNombre()), 
 				new Mayor(), 4);
 		assert(condi.evaluar(repoEmpresas.getEmpresa("NIKE"), repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}
 	
 	@Test
 	public void noSeCumpleCondicionComparadoraConIndicadorRoe4PeriodosAtrasSiendoMenor() {
-		CondicionPriorizante condi = new CondicionPriorizante("Test", "Para test", repoIndicadores.getIndicador("indicador ROE"), 
+		CondicionPriorizante condi = new CondicionPriorizante("Test", "Para test", repoIndicadores.getIndicador("indicador ROE", usuarioDefault.getNombre()), 
 				new Menor(), 4);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoEmpresas.getEmpresa("Puma"), repoIndicadores));
 	}
 	
 	@Test
 	public void noSeCumpleCondicionCrecienteDecrecienteRoe4PeriodosAtrasCreciente() {
-		CondicionTaxativa condi = new CondicionTaxPendiente("Test", "Para test", repoIndicadores.getIndicador("indicador ROE"), 
+		CondicionTaxativa condi = new CondicionTaxPendiente("Test", "Para test", repoIndicadores.getIndicador("indicador ROE", usuarioDefault.getNombre()), 
 				new Mayor(), 4, null);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}
 	
 	@Test
 	public void condicionTaxativaSimpleEnAdidasSiendoRoeMayorQue40SiempreNoSeCumple() {
-		CondicionTaxativaSimple condi = new CondicionTaxativaSimple("Test", "Para test", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 4, 40.0);
+		CondicionTaxativaSimple condi = new CondicionTaxativaSimple("Test", "Para test", repoIndicadores.getIndicador("Indicador ROE", usuarioDefault.getNombre()), new Mayor(), 4, 40.0);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}	
 }
