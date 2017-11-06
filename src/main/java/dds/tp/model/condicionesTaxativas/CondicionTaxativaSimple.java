@@ -28,7 +28,7 @@ public class CondicionTaxativaSimple extends CondicionTaxativa {
 	public boolean evaluar(Empresa empresa, RepositorioIndicadores repoIndicadores) {
 		return this.getPeriodosAEvaluar().stream()
 				.allMatch(periodo -> this.comparador.comparar(this.indicador.evaluar(empresa, empresa.getBalance(periodo), repoIndicadores),
-						this.indicador.evaluar(empresa, empresa.getBalance(((Anual)periodo).anioAnterior()), repoIndicadores)));
+						this.valorLimite));
 	}
 
 }

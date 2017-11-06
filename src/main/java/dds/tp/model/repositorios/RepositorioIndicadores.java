@@ -31,44 +31,36 @@ public class RepositorioIndicadores {
 		this.indicadores = indicadores;
 	}
 	
-	public void addIndicador(Indicador indc, Usuario usuario) throws ElementoYaExiste {
-		if(this.contieneIndicador(indc.getNombre(), usuario.getNombre())) {
+	public void addIndicador(Indicador indc) throws ElementoYaExiste {
+		if(this.contieneIndicador(indc.getNombre())) {
 			throw new ElementoYaExiste("Ya existe un indicador con este nombre");
 		}
 		this.indicadores.add(indc);
 		this.guardarIndicador(indc);
 	}
 	
-	public boolean contieneIndicador(String nombreIndicador, String nombreUsuario) {
+	public boolean contieneIndicador(String nombreIndicador) {
 		return this.indicadores.stream().anyMatch(
-				elem -> elem.getNombre().equalsIgnoreCase(nombreIndicador)
-					&& (elem.getUsuario().getNombre().equalsIgnoreCase(nombreUsuario)
-							|| elem.getUsuario().getNombre().equalsIgnoreCase("default")));
+				elem -> elem.getNombre().equalsIgnoreCase(nombreIndicador));
 	}
 
-	public Indicador getIndicador(String nombreIndicador, String nombreUsuario) throws ElementoNotFound {
-		if(!this.contieneIndicador(nombreIndicador, nombreUsuario)){
+	public Indicador getIndicador(String nombreIndicador) throws ElementoNotFound {
+		if(!this.contieneIndicador(nombreIndicador)){
 			throw new ElementoNotFound("No existe el indicador " + nombreIndicador);
 		}
 		return this.indicadores.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombreIndicador)).collect(Collectors.toList()).get(0);
 	}
 	@Deprecated
-	public void cargarPredeterminados() {
-		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
-		repoUsuarios.cargarUsuariosCargados();
-		Usuario usuarioDefault = repoUsuarios.getUsuario("default");		
-		
-		this.indicadores.add(new Indicador("Ingreso Neto", "ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas", usuarioDefault));
-		this.indicadores.add(new Indicador("Razon Corriente", "activoCorriente/pasivoCorriente", usuarioDefault));
-		this.indicadores.add(new Indicador("ROA", "utilidadBruta/activoTotal", usuarioDefault));
+	public void cargarPredeterminados(Usuario userPredeterminado) {		
+		this.indicadores.add(new Indicador("Ingreso Neto", "ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas", userPredeterminado));
+		this.indicadores.add(new Indicador("Razon Corriente", "activoCorriente/pasivoCorriente", userPredeterminado));
+		this.indicadores.add(new Indicador("ROA", "utilidadBruta/activoTotal", userPredeterminado));
 		//Pongo indicador antes xq sino tiene la cuenta se llama recursivamente el mismo indicador y tira stackoverflow
 		//Normalmente un indicador no se llama igual q el calculo...
-		this.indicadores.add(new Indicador("Indicador ROE", "roe", usuarioDefault));
-		this.indicadores.add(new Indicador("Indicador Endeudamiento", "endeudamiento", usuarioDefault));
-		this.indicadores.add(new Indicador("Indicador Margen", "margen", usuarioDefault));
-		
-		this.indicadores.forEach(ind->usuarioDefault.addIndicador(ind));
-		this.guardarIndicadores(this.getIndicadores());	
+		this.indicadores.add(new Indicador("Indicador ROE", "roe", userPredeterminado));
+		this.indicadores.add(new Indicador("Indicador Endeudamiento", "endeudamiento", userPredeterminado));
+		this.indicadores.add(new Indicador("Indicador Margen", "margen", userPredeterminado));
+		this.indicadores.forEach(ind->userPredeterminado.addIndicador(ind));
 	}
 	
 	public void guardarIndicador(Indicador indicador) {

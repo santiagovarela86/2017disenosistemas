@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dds.tp.model.LectorCuentas;
+import dds.tp.model.Usuario;
 import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioEmpresas;
@@ -30,6 +31,7 @@ public class TestMetodologia {
 	 *LONGEVIDAD: ADIDAS - NIKE - PUMA
 	 *TOTAL: ADIDAS(8) NIKE(7) PUMA(3)
 	*/
+	@SuppressWarnings("deprecation")
 	@Before
 	public void inicializar() {
 		try {
@@ -37,10 +39,11 @@ public class TestMetodologia {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Usuario tester = new Usuario("pepe", "");
 		repoIndicadores = new RepositorioIndicadores();
-		repoIndicadores.cargarPredeterminados();
+		repoIndicadores.cargarPredeterminados(tester);
 		repoMetodologia = new RepositorioMetodologias();
-		repoMetodologia.cargarPredeterminados(repoIndicadores);
+		repoMetodologia.cargarPredeterminados(repoIndicadores,tester);
 	}
 	
 	@Test

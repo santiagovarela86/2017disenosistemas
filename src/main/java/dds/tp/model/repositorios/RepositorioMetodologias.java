@@ -18,6 +18,7 @@ import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.EvaluadorAntiguedad;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
+import dds.tp.model.condiciones.comparadores.MenorIgual;
 import dds.tp.model.condicionesTaxativas.CondicionTaxPendiente;
 import dds.tp.model.condicionesTaxativas.CondicionTaxativaSimple;
 import dds.tp.model.metodologia.Metodologia;
@@ -46,21 +47,17 @@ public class RepositorioMetodologias {
 		this.metodologias.add(metodologia);
 	}
 	@Deprecated
-	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores) {		
-		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
-		repoUsuarios.cargarUsuariosCargados();
-		Usuario usuarioDefault = repoUsuarios.getUsuario("default");
-		
+	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores, Usuario user) {		
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")
-			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE", "default"), new Mayor(), 7))
-			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO", "default"), new Menor(), 1))
-			.agregarCondTaxativa(new CondicionTaxPendiente("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN", "default"), new Menor(), 8, null))
+			.agregarCondPriorizar(new CondicionPriorizante("Maximizar ROE", "Maximizar ROE", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 7))
+			.agregarCondPriorizar(new CondicionPriorizante("Minimizar DEUDA","Minimizar DEUDA", repoIndicadores.getIndicador("Indicador ENDEUDAMIENTO"), new Menor(), 1))
+			.agregarCondTaxativa(new CondicionTaxPendiente("Margenes Crecientes", "Margenes Crecientes", repoIndicadores.getIndicador("Indicador MARGEN"), new Menor(), 8, null))
 			.agregarCondTaxativa(new CondicionTaxativaSimple("Longevidad Simple", "Longevidad Simple", new EvaluadorAntiguedad(), new Mayor(), 1, 10d))
 			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new EvaluadorAntiguedad(), new Mayor(), 1))			
 			.build();
-		warrenBuffet.setUsuario(usuarioDefault);
-		usuarioDefault.addMetodologia(warrenBuffet);
-		this.addMetodologia(warrenBuffet);
+		warrenBuffet.setUsuario(user);
+		user.addMetodologia(warrenBuffet);
+		this.metodologias.add(warrenBuffet);
 	}
 	
 	public Metodologia getMetodologia(String nombre) {

@@ -51,14 +51,14 @@ public class Indicador extends Comparable {
 	}
 	
 	public Double evaluar(Balance balance, RepositorioIndicadores baulIndicadores) {	
-		return expresion.calculateCon(balance, baulIndicadores, this.getUsuario());
+		return expresion.calculateCon(balance, baulIndicadores);
 	}
 	
 	public boolean puedeEvaluar(Balance balance, RepositorioIndicadores baulIndicadores) {
 		//Ak habria q fijarse si tiene todas las cuentas la empresa y las cuentas q usan los subindicadores
 		//Por ahora lo resuelvo con un try catch
 		try {
-			expresion.calculateCon(balance, baulIndicadores, this.getUsuario());
+			expresion.calculateCon(balance, baulIndicadores);
 			return true;
 		} catch (Exception e) {
 			return false;

@@ -3,7 +3,6 @@ package dds.tp.calculador;
 import java.util.Stack;
 
 import dds.tp.model.Balance;
-import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.MyToken;
 
@@ -16,14 +15,14 @@ public class Calculador {
 		valores = new Stack<>();
 	}
 	
-	public Double calcularExpresion(Expresion expresion,Balance balance, RepositorioIndicadores baulIndicadores, Usuario usuario) {
+	public Double calcularExpresion(Expresion expresion,Balance balance, RepositorioIndicadores baulIndicadores) {
 		for (MyToken token : expresion.getExpresionTokeniseada()) {
 			switch (token.getTipodetoken()) {
 			case NUMERO:
 				valores.push(new Numero(Double.parseDouble(token.getContenido())));
 				break;
 			case IDENTIFICADOR:
-				valores.push(new Identificador(token.getContenido()).buscaTuValorEn(balance, baulIndicadores, usuario));
+				valores.push(new Identificador(token.getContenido()).buscaTuValorEn(balance, baulIndicadores));
 				break;
 			case SUMA:
 				this.agregarOperacion(new Suma());

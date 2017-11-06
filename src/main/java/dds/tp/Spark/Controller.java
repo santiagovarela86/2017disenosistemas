@@ -92,9 +92,6 @@ public class Controller {
 				model.put("message", "Error en la expresión. <br> Intente nuevamente. <br>");
 				return Utils.render(model, "templates/crearIndicador.vm");
 			}
-			
-			//RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
-			//repoIndicadores.cargarIndicadoresDelUsuario(usuario);
 
 			try {
 				
@@ -145,7 +142,7 @@ public class Controller {
 
 			try {
 				//BUSCO PRIMERO EN LOS INDICADORES PUBLICOS
-				indicador = repoIndicadores.getIndicador(nombreIndicador, usuarioDefault.getNombre());				
+				indicador = repoIndicadores.getIndicador(nombreIndicador);				
 			} catch (ElementoNotFound e) {
 				//SI LLEGA ACA ES PORQUE NO EXISTE EL INDICADOR PUBLICO
 				try {

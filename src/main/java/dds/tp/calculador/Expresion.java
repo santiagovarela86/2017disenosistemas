@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
 import dds.tp.model.Balance;
-import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.parsertools.MyToken;
 
@@ -49,8 +48,8 @@ public class Expresion {
 		return valor;
 	}
 	
-	public Double calculateCon(Balance balance, RepositorioIndicadores baulIndicadores, Usuario usuario) {
-		return new Calculador().calcularExpresion(this, balance, baulIndicadores, usuario);
+	public Double calculateCon(Balance balance, RepositorioIndicadores baulIndicadores) {
+		return new Calculador().calcularExpresion(this, balance, baulIndicadores);
 	}
 
 }

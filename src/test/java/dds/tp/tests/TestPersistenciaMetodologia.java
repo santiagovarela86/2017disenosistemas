@@ -2,15 +2,10 @@ package dds.tp.tests;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dds.tp.model.Empresa;
+import dds.tp.model.Usuario;
 import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
@@ -19,12 +14,14 @@ public class TestPersistenciaMetodologia {
 	RepositorioMetodologias repoMetodologias;
 	RepositorioIndicadores repoIndicadores;
 	
+	@SuppressWarnings("deprecation")
 	@Before
 	public void inicializar() {
+		Usuario tester = new Usuario("pepe", "");
 		repoMetodologias = new RepositorioMetodologias();
 		repoIndicadores = new RepositorioIndicadores();
-		repoIndicadores.cargarPredeterminados();
-		repoMetodologias.cargarPredeterminados(repoIndicadores);
+		repoIndicadores.cargarPredeterminados(tester);
+		repoMetodologias.cargarPredeterminados(repoIndicadores,tester);
 	}
 	
 	@Test

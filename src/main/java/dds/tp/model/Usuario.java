@@ -1,5 +1,6 @@
 package dds.tp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,8 @@ public class Usuario {
 	public Usuario(String nombre, String password){
 		this.setNombre(nombre);
 		this.setPassword(password);
+		this.indicadores = new ArrayList<>();
+		this.metodologias = new ArrayList<>();
 	}
 	
 	public Usuario(){

@@ -68,7 +68,7 @@ public class CargarCondicionCrecienteDecrecienteViewModel {
 		if(nombreCondicion.isEmpty() || descripcion.isEmpty())
 			throw new RuntimeException("Nombre y descripcion son obligatorios");
 		metodologiaBuilder.agregarCondTaxativa(
-				new CondicionTaxPendiente(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador, "default"), 
+				new CondicionTaxPendiente(this.nombreCondicion, this.descripcion, repoIndicadores.getIndicador(nombreIndicador), 
 					this.comparadorSeleccionado, Integer.parseInt(this.periodosHaciaAtras), null));
 	}
 	

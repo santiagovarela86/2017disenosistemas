@@ -27,6 +27,7 @@ public class TestCondiciones {
 	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
 	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
 	
+	@SuppressWarnings("deprecation")
 	@Before
 	public void inicializar() {
 		try {
@@ -35,34 +36,35 @@ public class TestCondiciones {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Usuario tester = new Usuario("pepe", "");
 		repoIndicadores = new RepositorioIndicadores();
-		repoIndicadores.cargarPredeterminados();
+		repoIndicadores.cargarPredeterminados(tester);
 	}
 	
 	@Test
 	public void condicionComparadoraConIndicadorRoe4PeriodosAtrasSiendoMayor() {		
-		CondicionPriorizante condi = new CondicionPriorizante("Test", "Para test", repoIndicadores.getIndicador("indicador ROE", usuarioDefault.getNombre()), 
+		CondicionPriorizante condi = new CondicionPriorizante("Test", "Para test", repoIndicadores.getIndicador("indicador ROE"), 
 				new Mayor(), 4);
 		assert(condi.evaluar(repoEmpresas.getEmpresa("NIKE"), repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}
 	
 	@Test
 	public void noSeCumpleCondicionComparadoraConIndicadorRoe4PeriodosAtrasSiendoMenor() {
-		CondicionPriorizante condi = new CondicionPriorizante("Test", "Para test", repoIndicadores.getIndicador("indicador ROE", usuarioDefault.getNombre()), 
+		CondicionPriorizante condi = new CondicionPriorizante("Test", "Para test", repoIndicadores.getIndicador("indicador ROE"), 
 				new Menor(), 4);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoEmpresas.getEmpresa("Puma"), repoIndicadores));
 	}
 	
 	@Test
 	public void noSeCumpleCondicionCrecienteDecrecienteRoe4PeriodosAtrasCreciente() {
-		CondicionTaxativa condi = new CondicionTaxPendiente("Test", "Para test", repoIndicadores.getIndicador("indicador ROE", usuarioDefault.getNombre()), 
+		CondicionTaxativa condi = new CondicionTaxPendiente("Test", "Para test", repoIndicadores.getIndicador("indicador ROE"), 
 				new Mayor(), 4, null);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}
 	
 	@Test
 	public void condicionTaxativaSimpleEnAdidasSiendoRoeMayorQue40SiempreNoSeCumple() {
-		CondicionTaxativaSimple condi = new CondicionTaxativaSimple("Test", "Para test", repoIndicadores.getIndicador("Indicador ROE", usuarioDefault.getNombre()), new Mayor(), 4, 40.0);
+		CondicionTaxativaSimple condi = new CondicionTaxativaSimple("Test", "Para test", repoIndicadores.getIndicador("Indicador ROE"), new Mayor(), 4, 40.0);
 		assert(!condi.evaluar(repoEmpresas.getEmpresa("Adidas"), repoIndicadores));
 	}	
 }
