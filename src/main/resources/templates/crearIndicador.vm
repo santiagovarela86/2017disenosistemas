@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
 	<link href="css/style.css" rel="stylesheet">
@@ -94,11 +93,11 @@
 			<h2>${message}</h2>
 	</div>
 
-<footer style="footer" class="fixed-bottom footer-light bg-light ">
-	<div style="display:flex;justify-content:center;align-items:center;">
-  		<h6>Grupo 15 - TP Anual Entrega 5 - Diseño de Sistemas</h6>
-	</div>
-</footer>
+    <footer style="footer" class="fixed-bottom footer-light bg-light ">
+    	<div style="display:flex;justify-content:center;align-items:center;">
+      		<h6>Grupo 15 - TP Anual Entrega 5 - Diseño de Sistemas</h6>
+    	</div>
+    </footer>
 
 
 

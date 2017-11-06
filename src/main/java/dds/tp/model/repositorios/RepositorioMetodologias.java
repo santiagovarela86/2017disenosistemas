@@ -18,21 +18,20 @@ import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.EvaluadorAntiguedad;
 import dds.tp.model.condiciones.comparadores.Mayor;
 import dds.tp.model.condiciones.comparadores.Menor;
-import dds.tp.model.condiciones.comparadores.MenorIgual;
 import dds.tp.model.condicionesTaxativas.CondicionTaxPendiente;
 import dds.tp.model.condicionesTaxativas.CondicionTaxativaSimple;
 import dds.tp.model.metodologia.Metodologia;
 
 public class RepositorioMetodologias {
 	
-	private ArrayList<Metodologia> metodologias = new ArrayList<>();
+	private List<Metodologia> metodologias = new ArrayList<>();
 	
-	public ArrayList<Metodologia> getMetodologias() {
+	public List<Metodologia> getMetodologias() {
 		return metodologias;
 	}
 	
-	public void setMetodologias(ArrayList<Metodologia> metodologias) {
-		this.metodologias = metodologias;
+	public void setMetodologias(List<Metodologia> metodologias2) {
+		this.metodologias =  metodologias2;
 	}
 
 	public boolean contieneMetodologia(String nombre) {
@@ -56,7 +55,6 @@ public class RepositorioMetodologias {
 			.agregarCondPriorizar(new CondicionPriorizante("Mas Antigua", "Mas Antigua", new EvaluadorAntiguedad(), new Mayor(), 1))			
 			.build();
 		warrenBuffet.setUsuario(user);
-		user.addMetodologia(warrenBuffet);
 		this.metodologias.add(warrenBuffet);
 	}
 	

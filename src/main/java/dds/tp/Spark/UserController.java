@@ -7,35 +7,26 @@ import dds.tp.model.repositorios.RepositorioUsuarios;
 public class UserController {
 	
 	public static Boolean autenticar(String userIngresado, String passwordIngresado){
-		
 		Usuario user;
-		
 		try {
 			user = buscarUsuario(userIngresado);
+			if (user.getPassword().equals(passwordIngresado))
+				return true;
+			else
+				return false;
 		} catch (UsuarioNoExistente e) {
 			return false;
 		}
-		
-		if (user.getPassword().equals(passwordIngresado)) {
-			return true;
-		}
-		
-		return false;
 	}
 
 	public static Usuario buscarUsuario(String userBuscado) throws UsuarioNoExistente {
-		
 		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
-		repoUsuarios.cargarUsuariosCargados();
-	
-		for(Usuario user : repoUsuarios.getUsuarios()) {
-	        if(user.getNombre().equals(userBuscado)) {
-	            return user;
-	        }
-	    }
-		
-	    throw new UsuarioNoExistente("No existe el usuario: " + userBuscado);		
-
+		repoUsuarios.cargarUsuariosCargados();	
+		if(repoUsuarios.contieneUsuario(userBuscado)){
+			return repoUsuarios.getUsuario(userBuscado);
+		}
+		else
+			throw new UsuarioNoExistente("No existe el usuario: " + userBuscado);		
 	}
 	
 }

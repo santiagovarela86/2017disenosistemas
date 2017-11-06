@@ -8,7 +8,6 @@ import java.util.Map;
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
-import dds.tp.model.Balance;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.Usuario;
@@ -23,11 +22,12 @@ import spark.Response;
 
 public class Controller {
 
+	private static Usuario usuarioLogueado;
+	
 	public static Object mostrarLogin(Request request, Response response) {
 		if (validarUsuarioLogueadoPantallaLogin(request, response)) {
 			response.redirect("/pantallaPrincipal");
 			return null;
-
 		} else {
 			Map<String, Object> model = new HashMap<>();
 			model.put("message", "");
@@ -75,36 +75,20 @@ public class Controller {
 	public static Object crearIndicadorEspecifico(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
 			Map<String, Object> model = new HashMap<>();
-
-			Indicador indicador;
 			String nombreIndicador = request.queryParams("nombreIndicador");
 			String expresionIndicador = request.queryParams("expresionIndicador");
-			String nombreUsuario = request.session().attribute("currentUser");
-			
-			RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
-			Usuario usuario = repoUsuarios.getUsuario(nombreUsuario);
-
 			try {
-
-				indicador = new Indicador(nombreIndicador, expresionIndicador, usuario);
-
+				Indicador indicador = new Indicador(nombreIndicador, expresionIndicador, usuarioLogueado);
+				usuarioLogueado.addIndicador(indicador);
+				model.put("message", "Indicador agregado con éxito.<br>");
+				return Utils.render(model, "templates/crearIndicador.vm");
 			} catch (SintaxisIncorrecta e1) {
 				model.put("message", "Error en la expresión. <br> Intente nuevamente. <br>");
 				return Utils.render(model, "templates/crearIndicador.vm");
-			}
-
-			try {
-				
-				usuario.addIndicador(indicador);
-				repoUsuarios.actualizarUsuario(usuario);
-
 			} catch (ElementoYaExiste e2) {
 				model.put("message", "Indicador existente. <br> Intente nuevamente. <br>");
 				return Utils.render(model, "templates/crearIndicador.vm");
 			}
-
-			model.put("message", "Indicador agregado con éxito.<br>");
-			return Utils.render(model, "templates/crearIndicador.vm");
 		} else
 			return null;
 	}
@@ -118,7 +102,7 @@ public class Controller {
 			return null;
 	}
 
-	public static Object evaluarIndicadorEspecifico(Request request, Response response) {
+	/*public static Object evaluarIndicadorEspecifico(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
 			Map<String, Object> model = new HashMap<>();
 			Indicador indicador = new Indicador();
@@ -188,7 +172,7 @@ public class Controller {
 			return Utils.render(model, "templates/evaluarIndicador.vm");
 		} else
 			return null;
-	}
+	}*/
 
 	public static Object evaluarMetodologia(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
@@ -238,18 +222,17 @@ public class Controller {
 
 	public static Object procesarLogin(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
-
 		String user = request.queryParams("user");
 		String password = request.queryParams("password");
-
 		if (UserController.autenticar(user, password)) {
 			request.session().attribute("currentUser", request.queryParams("user"));
+			usuarioLogueado = UserController.buscarUsuario(user);
+			usuarioLogueado.inicializarRepos();
 			response.redirect("/pantallaPrincipal");
 		} else {
 			model.put("message", "Credenciales incorrectas.<br>Intente nuevamente.");
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
-
 		return null;
 	}
 

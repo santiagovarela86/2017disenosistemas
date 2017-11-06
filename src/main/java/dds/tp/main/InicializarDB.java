@@ -18,7 +18,7 @@ public class InicializarDB {
 	}
 	
 	private static void guardarUsuarios() {
-		repoUsuarios.addUsuario(new Usuario("default", ""));
+		repoUsuarios.addUsuario(new Usuario("default", "asd"));
 		repoUsuarios.addUsuario(new Usuario("santiago", "santiago"));
 		repoUsuarios.addUsuario(new Usuario("ezequiel", "ezequiel"));
 		repoUsuarios.addUsuario(new Usuario("leonardo", "leonardo"));
