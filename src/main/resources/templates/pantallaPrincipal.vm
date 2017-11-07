@@ -1,83 +1,71 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
-	<link href="css/style.css" rel="stylesheet">
- 
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-	
-    <title>Donde Invertir | Pantalla Principal</title>
-    <link rel="icon" href="images/index.ico">
-  </head>
-  <body>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <a class="navbar-brand">StockApp</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
+		<link href="css/style.css" rel="stylesheet">
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-    
-      <li class="nav-item active">
-        <a class="nav-link" href="/pantallaPrincipal">Home <span class="sr-only">(current)</span></a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/visualizarCuentas">Visualizar Cuentas</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/crearIndicador">Crear Indicador</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/evaluarIndicador">Evaluar Indicador</a>
-      </li>
-      
-	  <li class="nav-item">
-        <a class="nav-link" href="/evaluarMetodologia">Evaluar Metodología</a>
-      </li>
-      
-    </ul>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
-	<form action="/logout">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logoff</button>
-	</form>
+		<title>Donde Invertir | Pantalla Principal</title>
+		<link rel="icon" href="images/index.ico">
+	</head>
+	<body>
 
-  </div>
-</div>
+		<div class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<a class="navbar-brand">StockApp</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/pantallaPrincipal">Home <span class="sr-only">(current)</span></a>
+					</li>
 
-<div class="mt-3" style="display:flex;justify-content:center;align-items:center;">
+					<li class="nav-item">
+						<a class="nav-link" href="/visualizarCuentas">Visualizar Cuentas</a>
+					</li>
 
-	<div class="middle">
-  		<div style="display:flex;justify-content:center;align-items:center;">
-  			<h2>Bienvenido a StockApp!</h2>
+					<li class="nav-item">
+						<a class="nav-link" href="/crearIndicador">Crear Indicador</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/evaluarIndicador">Evaluar Indicador</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/evaluarMetodologia">Evaluar Metodología</a>
+					</li>
+				</ul>
+
+				<form action="/logout">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logoff</button>
+				</form>
+			</div>
 		</div>
-		
-		<div style="display:flex;justify-content:center;align-items:center;">
-
-			<p>Elegí la operación que querés realizar en la barra de navegación.</p>
-			
+		<div class="mt-3" style="display:flex;justify-content:center;align-items:center;">
+			<div class="middle">
+				<div style="display:flex;justify-content:center;align-items:center;">
+					<h2>Bienvenido a StockApp!</h2>
+				</div>
+				<div style="display:flex;justify-content:center;align-items:center;">
+					<p>Elegí la operación que querés realizar en la barra de navegación.</p>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
-
-
-<footer style="footer" class="fixed-bottom footer-light bg-light ">
-	<div style="display:flex;justify-content:center;align-items:center;">
-  		<h6>Grupo 15 - TP Anual Entrega 5 - Diseño de Sistemas</h6>
-	</div>
-</footer>
-
-  </body>
+		<footer style="footer" class="fixed-bottom footer-light bg-light ">
+			<div style="display:flex;justify-content:center;align-items:center;">
+				<h6>Grupo 15 - TP Anual Entrega 5 - Diseño de Sistemas</h6>
+			</div>
+		</footer>
+	</body>
 </html>
