@@ -84,7 +84,7 @@ public class CargarCondicionSimpleWindow extends Window<CargarCondicionSimpleVie
 			this.getModelObject().guardarCondicionSimple();
 			this.close();
 		}catch (NumberFormatException e) {
-			this.getModelObject().setMensajeError("Comprobar periodoso o valor que sean numeros validos");
+			this.getModelObject().setMensajeError("Comprobar periodos o valor que sean numeros validos");
 		}catch (ElementoNotFound e) {
 			this.getModelObject().setMensajeError("Indicador no existe");
 		}catch (PeriodosCantBeCero e) {

@@ -24,7 +24,7 @@ public class CargarIndicadoresViewModel {
 	private String resultado = "";
 	private String nombreIndicador = "";
 	private Boolean habilitado = false;
-	private RepositorioIndicadores baulIndicadores;
+	private RepositorioIndicadores repoIndicadores;
 	
 	public void setColor(Color color) {
 		this.color = color;
@@ -35,7 +35,7 @@ public class CargarIndicadoresViewModel {
 	}
 	
 	public CargarIndicadoresViewModel(RepositorioIndicadores indcs) {
-		this.baulIndicadores = indcs;
+		this.repoIndicadores = indcs;
 	}
 
 	public void setExpresion(String expresion){
@@ -67,6 +67,7 @@ public class CargarIndicadoresViewModel {
 			
 			usuarioDefault.addIndicador(indicador);			
 			repoUsuarios.actualizarUsuario(usuarioDefault);
+			repoIndicadores.cargarIndicadoresGuardados();
 		}
 		catch (ElementoYaExiste e) {
 			this.setColor(Color.RED);
