@@ -39,7 +39,7 @@ public class DBManager {
 		}
 	}
 
-	public static void guardar(List<Object> listToSave) {
+	public static <E> void guardarList(List<E> listToSave) {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 		try {
@@ -54,7 +54,7 @@ public class DBManager {
 		}
 	}
 	
-	public static void actualizar(List<Object> listToSave) {
+	public static <E> void actualizarList(List<E> listToSave) {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 		try {

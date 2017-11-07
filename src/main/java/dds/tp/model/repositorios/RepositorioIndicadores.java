@@ -66,7 +66,7 @@ public class RepositorioIndicadores {
 	}
 	
 	public void guardarIndicadores(List<Indicador> indicadores) {
-		DBManager.guardar(indicadores);
+		DBManager.guardarList(indicadores);
 	}
 	
 	public List<Indicador> cargarIndicadores() {
