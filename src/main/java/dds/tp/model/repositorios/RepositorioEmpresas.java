@@ -19,6 +19,8 @@ import dds.tp.model.Empresa;
 public class RepositorioEmpresas {
 	
 	private List<Empresa> empresas;
+	private boolean empresasLoaded = false;
+	private boolean balancesLoaded = false;
 	
 	public RepositorioEmpresas() {
 		super();
@@ -55,11 +57,11 @@ public class RepositorioEmpresas {
 	}
 	
 	public void addEmpresas(List<Empresa> empresasNuevas) {
-			empresasNuevas.stream().forEach(empresa->{if(!this.contieneEmpresa(empresa))
-															this.addEmpresa(empresa);
-														else
-															this.agregarEmpresaYaExistente(empresa);
-													 });
+		empresasNuevas.stream().forEach(empresa->{if(!this.contieneEmpresa(empresa))
+														this.addEmpresa(empresa);
+													else
+														this.agregarEmpresaYaExistente(empresa);
+												 });
 	}
 	
 	public Empresa getEmpresa(String empresa) throws ElementoNotFound {
@@ -130,11 +132,21 @@ public class RepositorioEmpresas {
 	
 	//Esto hay q usarlo a evaluar las metodologias
 	public void inicializarTodosLosbalances() {
+		if(balancesLoaded)
+			return;
 		this.empresas.forEach(empresa-> this.inicializarBalances(empresa));
+		balancesLoaded = true;
 	}
 	
 	public void cargarEmpresasGuardadas() {
 		this.empresas = this.cargarEmpresas();
+	}
+	
+	public void inicializarEmpresas() {
+		if(empresasLoaded)
+			return;
+		this.empresas = this.cargarEmpresas();
+		empresasLoaded = true;
 	}
 	
 }

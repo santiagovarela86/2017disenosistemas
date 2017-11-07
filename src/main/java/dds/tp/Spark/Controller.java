@@ -22,6 +22,7 @@ import spark.Response;
 public class Controller {
 
 	private static Usuario usuarioLogueado;
+	private static RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 	
 	public static Object mostrarLogin(Request request, Response response) {
 		if (validarUsuarioLogueadoPantallaLogin(request, response)) {
@@ -50,13 +51,9 @@ public class Controller {
 	public static Object visualizarCuentas(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
 			Map<String, Object> model = new HashMap<>();
-			RepositorioEmpresas repositorio = new RepositorioEmpresas();
-
-			repositorio.setEmpresas(repositorio.cargarEmpresas());
-			repositorio.inicializarTodosLosbalances();
-			List<Empresa> empresas = repositorio.getEmpresas();
-
-			model.put("empresas", empresas);
+			repoEmpresas.inicializarEmpresas();
+			repoEmpresas.inicializarTodosLosbalances();
+			model.put("empresas", repoEmpresas.getEmpresas());
 			return Utils.render(model, "templates/visualizarCuentas.vm");
 		} else
 			return null;
@@ -104,17 +101,12 @@ public class Controller {
 	public static Object evaluarIndicadorEspecifico(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
 			Map<String, Object> model = new HashMap<>();
-
 			String nombreEmpresa = request.queryParams("nombreEmpresa");
 			String nombreIndicador = request.queryParams("nombreIndicador");
 			String periodo = request.queryParams("periodo");
-			
 			//Esto se puede poner como usuario logueado
-			RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
-			repoEmpresas.setEmpresas(repoEmpresas.cargarEmpresas());
-			repoEmpresas.inicializarTodosLosbalances();
-		  
-			
+			repoEmpresas.inicializarEmpresas();
+			repoEmpresas.inicializarTodosLosbalances();	
 			try {
 				Empresa empresa = repoEmpresas.getEmpresa(nombreEmpresa);
 				Balance balance = empresa.getBalance(periodo);
@@ -135,9 +127,7 @@ public class Controller {
 
 	public static Object evaluarMetodologia(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
-
 			Map<String, Object> model = new HashMap<>();
-
 			model.put("message", "");
 			return Utils.render(model, "templates/evaluarMetodologia.vm");
 		} else
@@ -146,15 +136,11 @@ public class Controller {
 
 	public static Object evaluarMetodologiaEspecifica(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
-
 			Map<String, Object> model = new HashMap<>();
 			Metodologia metodologia = new Metodologia();
 			List<ResultadoAnalisis> resultados = new ArrayList<>();
-
 			String nombreMetodologia = request.queryParams("nombreMetodologia");
-
-			RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
-			repoEmpresas.setEmpresas(repoEmpresas.cargarEmpresas());
+			repoEmpresas.inicializarEmpresas();
 			repoEmpresas.inicializarTodosLosbalances();
 			try {
 				metodologia = usuarioLogueado.getMetodologia(nombreMetodologia);
@@ -166,7 +152,6 @@ public class Controller {
 				model.put("message", e.getMessage() + ".");
 				return Utils.render(model, "templates/evaluarMetodologia.vm");
 			}
-
 		} else
 			return null;
 	}
