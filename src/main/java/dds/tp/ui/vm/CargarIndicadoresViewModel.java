@@ -62,6 +62,7 @@ public class CargarIndicadoresViewModel {
 			RepositorioUsuarios repoUsuarios =  new RepositorioUsuarios();
 			repoUsuarios.inicializar();
 			Usuario usuarioDefault = repoUsuarios.getUsuario("Default");
+			usuarioDefault.inicializarRepos();
 			Indicador indicador = new Indicador(this.getNombreIndicador(), new Expresion(operacion), usuarioDefault);
 			
 			usuarioDefault.addIndicador(indicador);			
