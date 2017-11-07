@@ -14,7 +14,7 @@ public class TestPersistenciaIndicador {
 
 	RepositorioIndicadores repoIndicadores;
 	
-	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
+	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().inicializar();
 	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
 	
 	@Before

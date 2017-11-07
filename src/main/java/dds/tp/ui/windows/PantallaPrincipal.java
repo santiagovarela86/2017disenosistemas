@@ -7,7 +7,6 @@ import dds.tp.ui.vm.CargarIndicadoresViewModel;
 import dds.tp.ui.vm.ConsultarCuentasViewModel;
 import dds.tp.ui.vm.CrearMetodologiaViewModel;
 import dds.tp.ui.vm.PantallaPrincipalViewModel;
-import dds.tp.ui.vm.UsarIndicadoresViewModel;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
@@ -79,7 +78,7 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 			this.comprobarCuentas();
 			this.comprobarIndicadores();
 			this.refresh();
-			new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas(),this.getModelObject().getBaulIndicadores().obtenerIndicadoresPublicosGuardados())).open();
+			//new UsarIndicadoresWindow(this, new UsarIndicadoresViewModel(this.getModelObject().getBaulEmpresas(),this.getModelObject().getBaulIndicadores().obtenerIndicadoresPublicosGuardados())).open();
 		}
 		catch(ElementNotLoad ex) {
 			this.getModelObject().setMensajeError(ex.getMessage());
@@ -92,8 +91,8 @@ public class PantallaPrincipal extends Window<PantallaPrincipalViewModel> {
 	}
 
 	private void comprobarIndicadores() throws ElementNotLoad{
-		if(this.getModelObject().getBaulIndicadores().obtenerIndicadoresPublicosGuardados().getIndicadores().isEmpty())
-			throw new ElementNotLoad("No hay indicadores cargados.");
+		/*if(this.getModelObject().getBaulIndicadores().obtenerIndicadoresPublicosGuardados().getIndicadores().isEmpty())
+			throw new ElementNotLoad("No hay indicadores cargados.");*/
 	}
 	
 	private void abrirAplicarMetodologia() {

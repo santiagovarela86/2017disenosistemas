@@ -59,8 +59,9 @@ public class CargarIndicadoresViewModel {
 			this.setColor(Color.BLUE);
 			resultado = "Indicador guardado con exito";
 			
-			RepositorioUsuarios repoUsuarios =  new RepositorioUsuarios().obtenerRepoCompleto();
-			Usuario usuarioDefault = repoUsuarios.cargarUsuarioDefault();
+			RepositorioUsuarios repoUsuarios =  new RepositorioUsuarios();
+			repoUsuarios.inicializar();
+			Usuario usuarioDefault = repoUsuarios.getUsuario("Default");
 			Indicador indicador = new Indicador(this.getNombreIndicador(), new Expresion(operacion), usuarioDefault);
 			
 			usuarioDefault.addIndicador(indicador);			

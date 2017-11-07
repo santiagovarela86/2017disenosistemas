@@ -26,7 +26,7 @@ public class TestCalcularExpresiones {
 	private Balance balanceTest;
 	private RepositorioIndicadores baulIndicadores;
 	
-	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
+	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().inicializar();
 	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
 	
 	@Before

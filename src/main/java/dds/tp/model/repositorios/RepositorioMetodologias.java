@@ -45,6 +45,7 @@ public class RepositorioMetodologias {
 		this.guardarMetodologia(metodologia);
 		this.metodologias.add(metodologia);
 	}
+	
 	@Deprecated
 	public void cargarPredeterminados(RepositorioIndicadores repoIndicadores, Usuario user) {		
 		Metodologia warrenBuffet = new MetodologiaBuilder().setNombre("Warren Buffet")

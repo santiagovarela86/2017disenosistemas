@@ -29,7 +29,7 @@ public class TestOrdenador {
 	private RepositorioIndicadores repoIndicadores;
 	private ArrayList<CondicionPriorizante> condiciones;
 	
-	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
+	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().inicializar();
 	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
 	
 	@Before

@@ -24,7 +24,7 @@ public class TestCondiciones {
 	RepositorioEmpresas repoEmpresas;
 	RepositorioIndicadores repoIndicadores;
 	
-	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().obtenerRepoCompleto();
+	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().inicializar();
 	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
 	
 	@SuppressWarnings("deprecation")

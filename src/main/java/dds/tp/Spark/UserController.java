@@ -21,7 +21,7 @@ public class UserController {
 
 	public static Usuario buscarUsuario(String userBuscado) throws UsuarioNoExistente {
 		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
-		repoUsuarios.cargarUsuariosCargados();	
+		repoUsuarios.inicializar();
 		if(repoUsuarios.contieneUsuario(userBuscado)){
 			return repoUsuarios.getUsuario(userBuscado);
 		}
