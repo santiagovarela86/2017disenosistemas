@@ -78,7 +78,6 @@ public class RepositorioUsuarios {
 		manager.close();
 		return usuarios;
 	}
-
 	
 	public RepositorioUsuarios inicializar() {
 		this.usuarios = this.cargarUsuarios();

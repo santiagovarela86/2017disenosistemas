@@ -9,6 +9,7 @@ import dds.tp.model.condiciones.Condicion;
 import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
+import dds.tp.model.repositorios.RepositorioUsuarios;
 
 @Observable
 public class CrearMetodologiaViewModel {
@@ -66,6 +67,9 @@ public class CrearMetodologiaViewModel {
 	public void guardarMetodologia() {
 		this.metodologiaBuilder.setNombre(this.nombreMetodologia);
 		Metodologia meto = metodologiaBuilder.build();
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		repoUsuarios.inicializar();
+		meto.setUsuario(repoUsuarios.getUsuario("default"));
 		this.repoMetodologias.addMetodologia(meto);
 	}
 	

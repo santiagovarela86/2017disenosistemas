@@ -43,8 +43,8 @@ public class RepositorioMetodologias {
 		if(this.contieneMetodologia(metodologia.getNombre())) {
 			throw new ElementoYaExiste("Ya existe una metodologia con este nombre");
 		}
-		this.guardarMetodologia(metodologia);
 		this.metodologias.add(metodologia);
+		this.guardarMetodologia(metodologia);
 	}
 	
 	@Deprecated
