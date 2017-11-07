@@ -15,9 +15,7 @@ import dds.tp.model.Usuario;
 import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioEmpresas;
-import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
-import dds.tp.model.repositorios.RepositorioUsuarios;
 import spark.Request;
 import spark.Response;
 

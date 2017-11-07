@@ -7,7 +7,6 @@ import dds.tp.model.Empresa;
 import dds.tp.model.condiciones.Comparable;
 import dds.tp.model.condiciones.CondicionTaxativa;
 import dds.tp.model.condiciones.comparadores.Comparador;
-import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 
 @Entity

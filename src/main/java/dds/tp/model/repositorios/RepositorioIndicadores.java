@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.DBManager;
 import dds.tp.model.Indicador;
 import dds.tp.model.Usuario;
 
@@ -50,60 +50,28 @@ public class RepositorioIndicadores {
 		}
 		return this.indicadores.stream().filter(elem -> elem.getNombre().equalsIgnoreCase(nombreIndicador)).collect(Collectors.toList()).get(0);
 	}
+	
 	@Deprecated
 	public void cargarPredeterminados(Usuario userPredeterminado) {		
 		this.indicadores.add(new Indicador("Ingreso Neto", "ingresoNetoEnOperacionesContinuas+ingresoNetoEnOperacionesContinuas", userPredeterminado));
 		this.indicadores.add(new Indicador("Razon Corriente", "activoCorriente/pasivoCorriente", userPredeterminado));
 		this.indicadores.add(new Indicador("ROA", "utilidadBruta/activoTotal", userPredeterminado));
-		//Pongo indicador antes xq sino tiene la cuenta se llama recursivamente el mismo indicador y tira stackoverflow
-		//Normalmente un indicador no se llama igual q el calculo...
 		this.indicadores.add(new Indicador("Indicador ROE", "roe", userPredeterminado));
 		this.indicadores.add(new Indicador("Indicador Endeudamiento", "endeudamiento", userPredeterminado));
 		this.indicadores.add(new Indicador("Indicador Margen", "margen", userPredeterminado));
 	}
 	
 	public void guardarIndicador(Indicador indicador) {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		try {
-			transaction.begin();
-			manager.persist(indicador);
-			transaction.commit();
-		} catch (Exception ex) {
-			transaction.rollback();
-			ex.printStackTrace();
-		}finally {
-			manager.close();
-		}
+		DBManager.guardar(indicador);
 	}
 	
 	public void guardarIndicadores(List<Indicador> indicadores) {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		try {
-			transaction.begin();
-			indicadores.stream().forEach(indicador->manager.persist(indicador));
-			transaction.commit();
-		} catch (Exception ex) {
-			transaction.rollback();
-			ex.printStackTrace();
-		}finally {
-			manager.close();
-		}
+		DBManager.guardar(indicadores);
 	}
 	
 	public List<Indicador> cargarIndicadores() {
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
 		List<Indicador> indicadores = manager.createQuery("from Indicador", Indicador.class).getResultList();
-		manager.close();
-		return indicadores;
-	}
-	
-	public List<Indicador> cargarIndicadoresPublicos() {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		List<Indicador> indicadores = manager.createQuery(
-				"SELECT i FROM Indicador i, IN (i.usuario) AS u WHERE u.nombre = 'default'", Indicador.class)
-					.getResultList();
 		manager.close();
 		return indicadores;
 	}
@@ -124,15 +92,6 @@ public class RepositorioIndicadores {
 	
 	public RepositorioIndicadores obtenerRepositorioCompleto() {
 		this.indicadores = this.cargarIndicadores();
-		return this;
-	}
-	
-	public void cargarIndicadoresPublicosGuardados() {
-		this.indicadores = this.cargarIndicadoresPublicos();
-	}
-	
-	public RepositorioIndicadores obtenerIndicadoresPublicosGuardados() {
-		this.indicadores = this.cargarIndicadoresPublicos();
 		return this;
 	}
 	

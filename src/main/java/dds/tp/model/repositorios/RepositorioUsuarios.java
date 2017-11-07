@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.DBManager;
 import dds.tp.model.Usuario;
 
 public class RepositorioUsuarios {
@@ -49,52 +49,19 @@ public class RepositorioUsuarios {
 	}
 	
 	public void guardarUsuario(Usuario usuario) {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		try {
-			transaction.begin();
-			manager.persist(usuario);
-			transaction.commit();
-		} catch (Exception ex) {
-			transaction.rollback();
-			ex.printStackTrace();
-		}finally {
-			manager.close();
-		}
+		DBManager.guardar(usuario);
 	}
 	
 	public void actualizarUsuario(Usuario usuario) {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		try {
-			transaction.begin();
-			manager.merge(usuario);
-			transaction.commit();
-		} catch (Exception ex) {
-			transaction.rollback();
-			ex.printStackTrace();
-		}finally {
-			manager.close();
-		}
+		DBManager.actualizar(usuario);
 	}
 	
 	public void guardarUsuarios(List<Usuario> usuarios) {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		try {
-			transaction.begin();
-			usuarios.stream().forEach(usuario->{if(usuario.estasGuardado())
-													manager.merge(usuario);
-												else
-													manager.persist(usuario);
-												});
-			transaction.commit();
-		} catch (Exception ex) {
-			transaction.rollback();
-			ex.printStackTrace();
-		}finally {
-			manager.close();
-		}
+		usuarios.stream().forEach(usuario->{if(usuario.estasGuardado())
+												DBManager.actualizar(usuario);
+											else
+												DBManager.guardar(usuario);
+											});
 	}
 	
 	public List<Usuario> cargarUsuarios() {
@@ -114,21 +81,6 @@ public class RepositorioUsuarios {
 	
 	public void cargarUsuariosCargados() {
 		this.usuarios = this.cargarUsuarios();
-	}
-	
-	public Usuario cargarUsuarioDefault() {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		Usuario usuario = manager.createQuery(
-				"SELECT u FROM Usuario u WHERE u.nombre LIKE 'default'", Usuario.class)
-			    .getResultList()
-			    .get(0);
-		manager.close();
-		return usuario;
-	}
-	
-	public RepositorioUsuarios obtenerRepoCompleto(){
-		this.usuarios = this.cargarUsuarios();
-		return this;
 	}
 	
 }

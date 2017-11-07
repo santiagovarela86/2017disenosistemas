@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnitUtil;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
+import dds.tp.model.DBManager;
 import dds.tp.model.Usuario;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionPriorizante;
@@ -75,19 +75,7 @@ public class RepositorioMetodologias {
 	}
 	
 	public void guardarMetodologia(Metodologia metodologia) {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		try {
-			transaction.begin();
-			Metodologia metodologiaGuardada = manager.merge(metodologia);
-			metodologia.setId(metodologiaGuardada.getId());
-			transaction.commit();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			transaction.rollback();
-		}finally {
-			manager.close();
-		}
+		DBManager.guardar(metodologia);
 	}
 	
 	public static void inicializarCondiciones(Metodologia metodologia) {

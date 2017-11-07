@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnitUtil;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -14,6 +13,7 @@ import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.Balance;
 import dds.tp.model.BalanceAnual;
 import dds.tp.model.BalanceSemestral;
+import dds.tp.model.DBManager;
 import dds.tp.model.Empresa;
 
 public class RepositorioEmpresas {
@@ -80,37 +80,15 @@ public class RepositorioEmpresas {
 	}
 	
 	public void guardarEmpresa(Empresa empresa) {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		try {
-			transaction.begin();
-			manager.persist(empresa);
-			transaction.commit();
-		} catch (Exception ex) {
-			transaction.rollback();
-			ex.printStackTrace();
-		}finally {
-			manager.close();
-		}
+		DBManager.guardar(empresa);
 	}
 	
 	public void guardarEmpresas(List<Empresa> empresas) {
-		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		EntityTransaction transaction = manager.getTransaction();
-		try {
-			transaction.begin();
-			empresas.stream().forEach(empresa->{if(empresa.estasGuardada())
-													manager.merge(empresa);
-												else
-													manager.persist(empresa);
-												});
-			transaction.commit();
-		} catch (Exception ex) {
-			transaction.rollback();
-			ex.printStackTrace();
-		}finally {
-			manager.close();
-		}
+		empresas.stream().forEach(empresa->{if(empresa.estasGuardada())
+												DBManager.actualizar(empresa);
+											else
+												DBManager.guardar(empresa);
+											});
 	}
 	
 	public List<Empresa> cargarEmpresas() {
