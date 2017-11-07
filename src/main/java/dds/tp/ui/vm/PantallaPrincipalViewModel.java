@@ -5,6 +5,7 @@ import org.uqbar.commons.utils.Observable;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
+import dds.tp.model.repositorios.RepositorioUsuarios;
 
 @Observable
 public class PantallaPrincipalViewModel{
@@ -21,7 +22,10 @@ public class PantallaPrincipalViewModel{
 		this.baulIindicadores = new RepositorioIndicadores();
 		this.repoMetodologia = new RepositorioMetodologias();
 		this.baulEmpresas.cargarEmpresasGuardadas();
-		this.baulIindicadores.cargarIndicadoresGuardados();
+		//this.baulIindicadores.cargarIndicadoresGuardados();
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		repoUsuarios.inicializar();
+		this.baulIindicadores.cargarIndicadoresDelUsuario(repoUsuarios.getUsuario("default"));
 		this.repoMetodologia.cargarMetodologiaGuardadas();
 	}
 	
