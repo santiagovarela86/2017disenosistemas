@@ -78,6 +78,12 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <INSTANCE_CONNECTION_NAME>dds-tp-2017-grupo15:southamerica-east1:stockapp</INSTANCE_CONNECTION_NAME>
+    <user>root</user>
+    <password>1234</password>
+    <database>stockApp</database>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
   </properties>
 
 </project>
