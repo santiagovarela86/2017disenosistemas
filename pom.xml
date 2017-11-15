@@ -73,17 +73,18 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      <plugin>
+   		<groupId>com.google.appengine</groupId>
+   		<artifactId>appengine-maven-plugin</artifactId>
+   		<version>1.9.58</version>
+	  </plugin>
     </plugins>
   </build>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <INSTANCE_CONNECTION_NAME>dds-tp-2017-grupo15:southamerica-east1:stockapp</INSTANCE_CONNECTION_NAME>
-    <user>root</user>
-    <password>1234</password>
-    <database>stockApp</database>
-    <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
+  	<maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
 </project>
