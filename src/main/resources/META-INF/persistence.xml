@@ -25,7 +25,7 @@
         <class>dds.tp.parsertools.MyToken</class>
         <class>dds.tp.calculador.Expresion</class>
         <class>dds.tp.model.Usuario</class>
-        
+
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         
@@ -38,7 +38,7 @@
             <property name="hibernate.show_sql" value="true" /> 
             <property name="hibernate.format_sql" value="true" /> 
             <property name="use_sql_comments" value="true" /> 
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" /> 
+            <property name="hibernate.hbm2ddl.auto" value="validate" /> 
         </properties>
           
     </persistence-unit> 

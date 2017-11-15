@@ -174,6 +174,7 @@ public class Controller {
 
 	public static Object procesarLogout(Request request, Response response) {
 		request.session().removeAttribute("currentUser");
+		request.session().invalidate();
 		response.redirect("/login");
 		return null;
 	}

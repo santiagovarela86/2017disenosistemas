@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import dds.tp.Spark.UserController;
 import dds.tp.model.LectorCuentas;
 import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioEmpresas;
@@ -19,8 +20,10 @@ public class InicializarDB {
 		guardarCuentas();
 		guardarUsuarios();
 		Usuario usuarioDefault = repoUsuarios.getUsuario("default");
+		Usuario santiago = repoUsuarios.getUsuario("santiago");
 		guardarIndicadores(usuarioDefault);
 		guardarMetodologias(usuarioDefault);
+		guardarMetodologias(santiago);
 		System.exit(0);
 	}
 	
@@ -35,10 +38,10 @@ public class InicializarDB {
 	}
 	
 	private static void guardarUsuarios() {
-		repoUsuarios.addUsuario(new Usuario("default", "asd"));
-		repoUsuarios.addUsuario(new Usuario("santiago", "santiago"));
-		repoUsuarios.addUsuario(new Usuario("ezequiel", "ezequiel"));
-		repoUsuarios.addUsuario(new Usuario("leonardo", "leonardo"));
+		repoUsuarios.addUsuario(new Usuario("default", UserController.Hash("asd")));
+		repoUsuarios.addUsuario(new Usuario("santiago", UserController.Hash("santiago")));
+		repoUsuarios.addUsuario(new Usuario("ezequiel", UserController.Hash("ezequiel")));
+		repoUsuarios.addUsuario(new Usuario("leonardo", UserController.Hash("leonardo")));
 		repoUsuarios.guardarUsuarios(repoUsuarios.getUsuarios());
 	}
 	
