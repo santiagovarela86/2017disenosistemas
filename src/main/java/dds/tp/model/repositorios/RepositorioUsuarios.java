@@ -84,5 +84,9 @@ public class RepositorioUsuarios {
 		return this;
 	}
 	
+	public void removerUsuario(String nombre) {
+		this.usuarios = this.usuarios.stream().filter(elem->!elem.getNombre().equals(nombre)).collect(Collectors.toList());
+	}
+	
 }
 
