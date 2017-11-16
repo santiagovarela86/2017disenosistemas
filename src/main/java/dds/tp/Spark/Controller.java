@@ -16,12 +16,13 @@ import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioMetodologias;
+import dds.tp.model.repositorios.RepositorioUsuarios;
 import spark.Request;
 import spark.Response;
 
 public class Controller {
 
-	private static Usuario usuarioLogueado;
+	private static RepositorioUsuarios usuariosLogueado = new RepositorioUsuarios();
 	private static RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 	
 	public static Object mostrarLogin(Request request, Response response) {
@@ -41,40 +42,42 @@ public class Controller {
 	}
 
 	public static Object pantallaPrincipal(Request request, Response response) {
-		if (validarUsuarioLogueado(request, response)) {
+			if(!validarUsuarioLogueado(request, response))
+				return null;
 			Map<String, Object> model = new HashMap<>();
 			return Utils.render(model, "templates/pantallaPrincipal.vm");
-		} else
-			return null;
 	}
 
 	public static Object visualizarCuentas(Request request, Response response) {
-		if (validarUsuarioLogueado(request, response)) {
+			if(!validarUsuarioLogueado(request, response))
+				return null;
 			Map<String, Object> model = new HashMap<>();
 			repoEmpresas.actualizarValores();
 			model.put("empresas", repoEmpresas.getEmpresas());
 			return Utils.render(model, "templates/visualizarCuentas.vm");
-		} else
-			return null;
 	}
 
 	public static Object crearIndicador(Request request, Response response) {
-		if (validarUsuarioLogueado(request, response)) {
+			if(!validarUsuarioLogueado(request, response))
+				return null;
 			Map<String, Object> model = new HashMap<>();
 			model.put("message", "");
 			return Utils.render(model, "templates/crearIndicador.vm");
-		} else
-			return null;
 	}
 
 	public static Object crearIndicadorEspecifico(Request request, Response response) {
-		if (validarUsuarioLogueado(request, response)) {
+			Usuario user;
+			try{
+				user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
+			}catch(ElementoNotFound e){
+				return null;
+			}
 			Map<String, Object> model = new HashMap<>();
 			String nombreIndicador = request.queryParams("nombreIndicador");
 			String expresionIndicador = request.queryParams("expresionIndicador");
 			try {
-				Indicador indicador = new Indicador(nombreIndicador, expresionIndicador, usuarioLogueado);
-				usuarioLogueado.addIndicador(indicador);
+				Indicador indicador = new Indicador(nombreIndicador, expresionIndicador, user);
+				user.addIndicador(indicador);
 				model.put("message", "Indicador agregado con éxito.<br>");
 				return Utils.render(model, "templates/crearIndicador.vm");
 			} catch (SintaxisIncorrecta e1) {
@@ -84,21 +87,23 @@ public class Controller {
 				model.put("message", "Indicador existente. <br> Intente nuevamente. <br>");
 				return Utils.render(model, "templates/crearIndicador.vm");
 			}
-		} else
-			return null;
 	}
 
 	public static Object evaluarIndicador(Request request, Response response) {
-		if (validarUsuarioLogueado(request, response)) {
+			if(!validarUsuarioLogueado(request, response))
+				return null;
 			Map<String, Object> model = new HashMap<>();
 			model.put("message", "");
 			return Utils.render(model, "templates/evaluarIndicador.vm");
-		} else
-			return null;
 	}
 
 	public static Object evaluarIndicadorEspecifico(Request request, Response response) {
-		if (validarUsuarioLogueado(request, response)) {
+			Usuario user;
+			try{
+				user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
+			}catch(ElementoNotFound e){
+				return null;
+			}
 			Map<String, Object> model = new HashMap<>();
 			String nombreEmpresa = request.queryParams("nombreEmpresa");
 			String nombreIndicador = request.queryParams("nombreIndicador");
@@ -109,8 +114,8 @@ public class Controller {
 			try {
 				Empresa empresa = repoEmpresas.getEmpresa(nombreEmpresa);
 				Balance balance = empresa.getBalance(periodo);
-				Indicador indicador = usuarioLogueado.getIndicador(nombreIndicador);
-				Double resultado = indicador.evaluar(empresa, balance, usuarioLogueado.getRepoIndicadores());
+				Indicador indicador = user.getIndicador(nombreIndicador);
+				Double resultado = indicador.evaluar(empresa, balance, user.getRepoIndicadores());
 				String message = "Indicador: " + indicador.getNombre() + ", Empresa: " + empresa.getNombre() + ", Período: "
 						+ balance.getPeriodoNombre() + "<br>" + "Valor: " + resultado.toString() + ".";
 
@@ -120,21 +125,23 @@ public class Controller {
 				model.put("message", e.getMessage() + ".");
 				return Utils.render(model, "templates/evaluarIndicador.vm");
 			}
-		} else
-			return null;
 	}
 
 	public static Object evaluarMetodologia(Request request, Response response) {
-		if (validarUsuarioLogueado(request, response)) {
-			Map<String, Object> model = new HashMap<>();
-			model.put("message", "");
-			return Utils.render(model, "templates/evaluarMetodologia.vm");
-		} else
+		if(!validarUsuarioLogueado(request, response))
 			return null;
+		Map<String, Object> model = new HashMap<>();
+		model.put("message", "");
+		return Utils.render(model, "templates/evaluarMetodologia.vm");
 	}
 
 	public static Object evaluarMetodologiaEspecifica(Request request, Response response) {
-		if (validarUsuarioLogueado(request, response)) {
+			Usuario user;
+			try{
+				user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
+			}catch(ElementoNotFound e){
+				return null;
+			}
 			Map<String, Object> model = new HashMap<>();
 			Metodologia metodologia = new Metodologia();
 			List<ResultadoAnalisis> resultados = new ArrayList<>();
@@ -142,17 +149,15 @@ public class Controller {
 			repoEmpresas.inicializarEmpresas();
 			repoEmpresas.inicializarTodosLosbalances();
 			try {
-				metodologia = usuarioLogueado.getMetodologia(nombreMetodologia);
+				metodologia = user.getMetodologia(nombreMetodologia);
 				RepositorioMetodologias.inicializarCondiciones(metodologia);
-				resultados = metodologia.evaluarEn(repoEmpresas.getEmpresas(), usuarioLogueado.getRepoIndicadores());
+				resultados = metodologia.evaluarEn(repoEmpresas.getEmpresas(), user.getRepoIndicadores());
 				model.put("resultados", resultados);
 				return Utils.render(model, "templates/evaluarMetodologiaResultados.vm");
 			} catch (ElementoNotFound e) {
 				model.put("message", e.getMessage() + ".");
 				return Utils.render(model, "templates/evaluarMetodologia.vm");
 			}
-		} else
-			return null;
 	}
 
 	public static Object procesarLogin(Request request, Response response) {
@@ -161,8 +166,9 @@ public class Controller {
 		String password = request.queryParams("password");
 		if (UserController.autenticar(user, password)) {
 			request.session().attribute("currentUser", request.queryParams("user"));
-			usuarioLogueado = UserController.buscarUsuario(user);
-			usuarioLogueado.inicializarRepos();
+			Usuario usuario = UserController.buscarUsuario(user);
+			usuario.inicializarRepos();
+			usuariosLogueado.addUsuario(usuario);
 			response.redirect("/pantallaPrincipal");
 		} else {
 			model.put("message", "Credenciales incorrectas.<br>Intente nuevamente.");
@@ -172,6 +178,7 @@ public class Controller {
 	}
 
 	public static Object procesarLogout(Request request, Response response) {
+		usuariosLogueado.removerUsuario(request.session().attribute("currentUser"));
 		request.session().removeAttribute("currentUser");
 		request.session().invalidate();
 		response.redirect("/login");
@@ -192,5 +199,4 @@ public class Controller {
 		} else
 			return false;
 	}
-
 }
