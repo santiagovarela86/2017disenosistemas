@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import dds.tp.Spark.UserController;
+import dds.tp.memcache.MemoriaCache;
 import dds.tp.model.LectorCuentas;
 import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioEmpresas;
@@ -16,6 +17,7 @@ public class InicializarDB {
 		
 	private static RepositorioIndicadores repositorioIndicadores = new RepositorioIndicadores();
 	private static RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+	private static RepositorioEmpresas repoEmpresas;
 	public static void main(String[] args) {
 		guardarCuentas();
 		guardarUsuarios();
@@ -24,12 +26,14 @@ public class InicializarDB {
 		guardarIndicadores(usuarioDefault);
 		guardarMetodologias(usuarioDefault);
 		guardarMetodologias(santiago);
+		MemoriaCache memCache = new MemoriaCache();
+		memCache.inicializarCache(repoEmpresas.getEmpresas(), repositorioIndicadores);
 		System.exit(0);
 	}
 	
 	private static void guardarCuentas() {
 		try {
-			RepositorioEmpresas repoEmpresas = new RepositorioEmpresas(new LectorCuentas("testsMetodologia.txt").obtenerDatos(Files.lines(Paths.get("testsMetodologia.txt"))));
+			repoEmpresas = new RepositorioEmpresas(new LectorCuentas("testsMetodologia.txt").obtenerDatos(Files.lines(Paths.get("testsMetodologia.txt"))));
 			repoEmpresas.guardarEmpresas(repoEmpresas.getEmpresas());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
