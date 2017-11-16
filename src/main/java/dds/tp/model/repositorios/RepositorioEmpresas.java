@@ -150,13 +150,9 @@ public class RepositorioEmpresas {
 	}
 	
 	public void actualizarValores(){
+		this.cargarEmpresasGuardadas();
 		EntityManager manager = PerThreadEntityManagers.getEntityManager();
-		manager.clear();
-		//manager.getEntityManagerFactory().getCache().evictAll();
-		this.empresasLoaded = false;
-		this.balancesLoaded = false;
-		this.inicializarEmpresas();
-		this.inicializarTodosLosbalances();
+		this.getEmpresas().forEach(empresa -> manager.refresh(empresa));
 	}
 	
 }

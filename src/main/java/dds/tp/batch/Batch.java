@@ -80,7 +80,10 @@ public class Batch {
 	}
 	
 	public static String obtenerContenidoArchivoCloud(String archivo) throws IOException, GeneralSecurityException {
-		GoogleCredential credential = GoogleCredential.fromStream(new FileInputStream("cloudStockApp-0e8784ae94b8.json"))
+
+		ClassLoader cl = Batch.class.getClassLoader();
+		InputStream stream = cl.getResourceAsStream("cloudStockApp-0e8784ae94b8.json");
+		GoogleCredential credential = GoogleCredential.fromStream(stream)
 				.createScoped(Collections.singleton(StorageScopes.DEVSTORAGE_READ_ONLY));  
 		String uri = "https://storage.googleapis.com/stockappdds/"+ URLEncoder.encode(archivo, "UTF-8");
 		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
