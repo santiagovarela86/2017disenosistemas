@@ -149,5 +149,15 @@ public class RepositorioEmpresas {
 		empresasLoaded = true;
 	}
 	
+	public void actualizarValores(){
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		manager.clear();
+		//manager.getEntityManagerFactory().getCache().evictAll();
+		this.empresasLoaded = false;
+		this.balancesLoaded = false;
+		this.inicializarEmpresas();
+		this.inicializarTodosLosbalances();
+	}
+	
 }
 

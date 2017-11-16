@@ -22,7 +22,6 @@ public class ArchivoBatch {
 	private Long id;
 	
 	private String name;
-	private String content;
 	
 	public Boolean equals(ArchivoBatch a){
 		return this.getName().equalsIgnoreCase(a.getName());
@@ -45,18 +44,6 @@ public class ArchivoBatch {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
-	public String getContenido(){
-		return this.getContent();
 	}
 
 }

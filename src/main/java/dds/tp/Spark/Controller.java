@@ -51,8 +51,7 @@ public class Controller {
 	public static Object visualizarCuentas(Request request, Response response) {
 		if (validarUsuarioLogueado(request, response)) {
 			Map<String, Object> model = new HashMap<>();
-			repoEmpresas.inicializarEmpresas();
-			repoEmpresas.inicializarTodosLosbalances();
+			repoEmpresas.actualizarValores();
 			model.put("empresas", repoEmpresas.getEmpresas());
 			return Utils.render(model, "templates/visualizarCuentas.vm");
 		} else

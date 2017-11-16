@@ -10,11 +10,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,6 +34,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.services.storage.StorageScopes;
 
+import dds.tp.model.Empresa;
 import dds.tp.model.LectorCuentas;
 import dds.tp.model.repositorios.RepositorioArchivosBatch;
 import dds.tp.model.repositorios.RepositorioEmpresas;
@@ -42,16 +47,19 @@ public class Batch {
 	
 	public static void main(String[] args){
 		
+		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
+		repoEmpresas.cargarEmpresasGuardadas();
+		
 		archivosPendientes = obtengoArchivosDesdeCloud();
 		archivosYaProcesados = obtengoArchivosDesdeBaseDatos();
 		archivosParaProcesar = new ArrayList<ArchivoBatch>(archivosPendientes);		
 		archivosParaProcesar.removeIf(archivo -> archivosYaProcesados.stream().anyMatch(yaprocesado -> yaprocesado.getNombre().equals(archivo.getNombre())));
-		archivosParaProcesar.forEach(archivo -> procesoArchivo(archivo));
+		archivosParaProcesar.forEach(archivo -> procesoArchivo(archivo, repoEmpresas));
 		System.exit(0);
 		
 	}
 	
-	private static void procesoArchivo(ArchivoBatch archivo) {
+	private static void procesoArchivo(ArchivoBatch archivo, RepositorioEmpresas repoEmpresas) {
 		String contenido = null;
 		
 		try {
@@ -63,7 +71,7 @@ public class Batch {
 		}
 		
 		List<String> lineas = new ArrayList<String>(Arrays.asList(contenido.split("\n")));
-		lineas.forEach(linea -> guardarCuenta(linea));
+		lineas.forEach(linea -> guardarCuenta(linea, repoEmpresas));
 		
 		RepositorioArchivosBatch repositorio = new RepositorioArchivosBatch();
 		repositorio.inicializar();
@@ -84,14 +92,13 @@ public class Batch {
 		return content;
 	}
 	
-	private static void guardarCuenta(String linea) {
-				
-		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
-		repoEmpresas.inicializarEmpresas();
-		repoEmpresas.inicializarTodosLosbalances();		
-		LectorCuentas lector = new LectorCuentas("");		
-		lector.convertAndAddCuenta(linea, repoEmpresas);		
-		repoEmpresas.guardarEmpresas(repoEmpresas.getEmpresas());
+	private static void guardarCuenta(String linea, RepositorioEmpresas repoEmpresas) {
+		
+		RepositorioEmpresas repoTemporal = new RepositorioEmpresas();
+		LectorCuentas lector = new LectorCuentas("");
+		
+		lector.convertAndAddCuenta(linea, repoTemporal);		
+		repoEmpresas.guardarEmpresas(repoTemporal.getEmpresas());
 		
 	}
 
