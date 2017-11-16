@@ -52,7 +52,8 @@ public class Controller {
 			if(!validarUsuarioLogueado(request, response))
 				return null;
 			Map<String, Object> model = new HashMap<>();
-			repoEmpresas.actualizarValores();
+			repoEmpresas.refrescarEmpresas();
+			repoEmpresas.refrescarBalances();
 			model.put("empresas", repoEmpresas.getEmpresas());
 			return Utils.render(model, "templates/visualizarCuentas.vm");
 	}
@@ -168,7 +169,11 @@ public class Controller {
 			request.session().attribute("currentUser", request.queryParams("user"));
 			Usuario usuario = UserController.buscarUsuario(user);
 			usuario.inicializarRepos();
-			usuariosLogueado.addUsuario(usuario);
+			try {
+				usuariosLogueado.addUsuario(usuario);
+			} catch (ElementoYaExiste e) {
+				//NO HAGO NADA
+			}
 			response.redirect("/pantallaPrincipal");
 		} else {
 			model.put("message", "Credenciales incorrectas.<br>Intente nuevamente.");

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -58,12 +59,20 @@ public class QuartzJob implements Job {
 		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 		repoEmpresas.cargarEmpresasGuardadas();
 		
-		archivosPendientes = obtengoArchivosDesdeCloud();
-		archivosYaProcesados = obtengoArchivosDesdeBaseDatos();
-		archivosParaProcesar = new ArrayList<ArchivoBatch>(archivosPendientes);		
-		archivosParaProcesar.removeIf(archivo -> archivosYaProcesados.stream().anyMatch(yaprocesado -> yaprocesado.getNombre().equals(archivo.getNombre())));
-		archivosParaProcesar.forEach(archivo -> procesoArchivo(archivo, repoEmpresas));
-		System.exit(0);
+		try {
+			archivosPendientes = obtengoArchivosDesdeCloud();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (GeneralSecurityException e) {
+			e.printStackTrace();
+		}
+		
+		if (archivosPendientes.stream().count() > 0) {
+			archivosYaProcesados = obtengoArchivosDesdeBaseDatos();
+			archivosParaProcesar = new ArrayList<ArchivoBatch>(archivosPendientes);		
+			archivosParaProcesar.removeIf(archivo -> archivosYaProcesados.stream().anyMatch(yaprocesado -> yaprocesado.getNombre().equals(archivo.getNombre())));
+			archivosParaProcesar.forEach(archivo -> procesoArchivo(archivo, repoEmpresas));
+		}	
 		
 	}
 	
@@ -71,7 +80,7 @@ public class QuartzJob implements Job {
 		String contenido = null;
 		
 		try {
-			contenido = obtenerContenidoArchivoCloud(archivo.getNombre());
+			contenido = getGoogleCloudURL("https://storage.googleapis.com/stockappdds/"+ URLEncoder.encode(archivo.getNombre(), "UTF-8"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (GeneralSecurityException e) {
@@ -87,13 +96,12 @@ public class QuartzJob implements Job {
 		repositorio.guardarArchivo(archivo);
 	}
 	
-	public static String obtenerContenidoArchivoCloud(String archivo) throws IOException, GeneralSecurityException {
-		
-		ClassLoader cl = Batch.class.getClassLoader();
+	public static String getGoogleCloudURL(String strUrl) throws IOException, GeneralSecurityException{
+		ClassLoader cl = QuartzJob.class.getClassLoader();
 		InputStream stream = cl.getResourceAsStream("cloudStockApp-0e8784ae94b8.json");
 		GoogleCredential credential = GoogleCredential.fromStream(stream)
 				.createScoped(Collections.singleton(StorageScopes.DEVSTORAGE_READ_ONLY));   
-		String uri = "https://storage.googleapis.com/stockappdds/"+ URLEncoder.encode(archivo, "UTF-8");
+		String uri = strUrl;
 		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 		HttpRequestFactory requestFactory = httpTransport.createRequestFactory(credential);
 		GenericUrl url = new GenericUrl(uri);
@@ -102,28 +110,25 @@ public class QuartzJob implements Job {
 		String content = response.parseAsString();
 		return content;
 	}
-	
+
 	private static void guardarCuenta(String linea, RepositorioEmpresas repoEmpresas) {
-		
 		RepositorioEmpresas repoTemporal = new RepositorioEmpresas();
 		LectorCuentas lector = new LectorCuentas("");
-		
 		lector.convertAndAddCuenta(linea, repoTemporal);		
 		repoEmpresas.guardarEmpresas(repoTemporal.getEmpresas());
-		
 	}
 
-	private static ArrayList<ArchivoBatch> obtengoArchivosDesdeCloud() {
-		ArrayList<ArchivoBatch> archivos = new ArrayList<ArchivoBatch>();
-		String jsonResponse = null;
-		try {
-			jsonResponse = getHTML("https://www.googleapis.com/storage/v1/b/stockappdds/o?prefix=ArchivoBatch");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+	private static ArrayList<ArchivoBatch> obtengoArchivosDesdeCloud() throws IOException, GeneralSecurityException {
+		String jsonResponse = getGoogleCloudURL("https://www.googleapis.com/storage/v1/b/stockappdds/o?prefix=ArchivoBatch"); 
+		ArrayList<ArchivoBatch> archivos = new ArrayList<ArchivoBatch>();		
 	    JSONObject jsonObject = new JSONObject(jsonResponse);
-	    JSONArray jsonArray = jsonObject.getJSONArray("items");
+	    JSONArray jsonArray = null;
+	    
+		try {
+			jsonArray = jsonObject.getJSONArray("items");
+		} catch (JSONException e) {
+			return archivos;
+		}
 	    
 	    for (int i = 0, size = jsonArray.length(); i < size; i++)
 	    {

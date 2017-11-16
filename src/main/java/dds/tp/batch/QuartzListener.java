@@ -28,7 +28,7 @@ public class QuartzListener implements ServletContextListener{
                         .withIdentity("myTrigger", "group1")
                         .startNow()
                         .withSchedule(simpleSchedule()
-                            .withIntervalInSeconds(300)
+                            .withIntervalInSeconds(60)
                             .repeatForever())            
                         .build();
 
