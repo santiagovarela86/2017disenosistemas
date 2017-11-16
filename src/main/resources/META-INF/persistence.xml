@@ -25,6 +25,7 @@
         <class>dds.tp.parsertools.MyToken</class>
         <class>dds.tp.calculador.Expresion</class>
         <class>dds.tp.model.Usuario</class>
+        <class>dds.tp.batch.ArchivoBatch</class>
 
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        

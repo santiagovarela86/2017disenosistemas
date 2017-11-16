@@ -25,7 +25,7 @@ public class LectorCuentas {
 		return repoEmpresaTemporal.getEmpresas();
 	}
 
-	private void convertAndAddCuenta(String line,RepositorioEmpresas empresas) {
+	public void convertAndAddCuenta(String line,RepositorioEmpresas empresas) {
 
 		List<String> string = Stream.of(line)
 				.map(w -> w.split(","))
