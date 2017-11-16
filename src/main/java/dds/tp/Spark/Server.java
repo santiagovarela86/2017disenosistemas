@@ -2,6 +2,8 @@ package dds.tp.Spark;
 
 import static spark.Spark.*;
 
+import dds.tp.batch.QuartzListener;
+
 public class Server {
 	
 	public static void main(String[] args) {
@@ -10,8 +12,14 @@ public class Server {
 		
 		staticFileLocation("/public");
 		
+		QuartzListener ql = new QuartzListener();
+		
+		ql.contextInitialized(null);
+		
 		Router.start();
 		
+		ql.contextDestroyed(null);
+
 	}
 	
     static int getHerokuAssignedPort() {
@@ -21,4 +29,5 @@ public class Server {
         }
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
+
 }
