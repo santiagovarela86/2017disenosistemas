@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceUnitUtil;
+
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.model.DBManager;
+import dds.tp.model.Indicador;
 import dds.tp.model.Usuario;
+import dds.tp.model.metodologia.Metodologia;
 
 public class RepositorioUsuarios {
 	
@@ -88,5 +92,25 @@ public class RepositorioUsuarios {
 		this.usuarios = this.usuarios.stream().filter(elem->!elem.getNombre().equalsIgnoreCase(nombre)).collect(Collectors.toList());
 	}
 	
+	public void inicializarIndicadoresYMetodologias(Usuario usuario) {
+		EntityManager manager = PerThreadEntityManagers.getEntityManager();
+		PersistenceUnitUtil checkeadorDeLoad = manager.getEntityManagerFactory().getPersistenceUnitUtil();
+		if(checkeadorDeLoad.isLoaded(usuario, "indicadores") && checkeadorDeLoad.isLoaded(usuario, "metodologias"))
+		{
+			manager.close();
+			return;
+		}
+		@SuppressWarnings("unchecked")
+		List<Indicador> indicadores = manager.createQuery("SELECT b FROM Indicador b WHERE usuario_id = :usuario_id")
+				.setParameter("usuario_id", usuario.getId()).getResultList();
+		
+		@SuppressWarnings("unchecked")
+		List<Metodologia> metodologias = manager.createQuery("SELECT b FROM Metodologia b WHERE usuario_id = :usuario_id")
+				.setParameter("usuario_id", usuario.getId()).getResultList();
+		
+		manager.close();
+		usuario.setIndicadores(indicadores);
+		usuario.setMetodologias(metodologias);
+	}
+	
 }
-

@@ -82,15 +82,16 @@ public class Controller {
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		Usuario user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
+		usuariosLogueado.inicializarIndicadoresYMetodologias(user);
+		user.inicializarRepos();
 		String nombreIndicador = request.queryParams("nombreIndicador");
 		String expresionIndicador = request.queryParams("expresionIndicador");
 		model.put("usuario", request.session().attribute("currentUser"));
 		try {
-			user.inicializarRepos();
 			Indicador indicador = new Indicador(nombreIndicador, expresionIndicador, user);
 			user.addIndicador(indicador);
 			memCache.seCreoNuevoIndicador(indicador, repoEmpresas.getEmpresas(), user.getRepoIndicadores(),user);
-			model.put("message", "Indicador agregado con éxito.<br>");
+			model.put("message", "Indicador \"" + nombreIndicador + "\" agregado con éxito.<br>Expresión: \"" + expresionIndicador + "\"");
 			return Utils.render(model, "templates/crearIndicador.vm");
 		} catch (SintaxisIncorrecta e1) {
 			model.put("message", "Error en la expresión. <br> Intente nuevamente. <br>");
@@ -129,8 +130,9 @@ public class Controller {
 				resultado = memCache.getValorPrecalculado(nombreIndicador, nombreEmpresa, periodo,user);
 				System.out.println("entro cache");
 			}else {
+				usuariosLogueado.inicializarIndicadoresYMetodologias(user);
+				user.inicializarRepos();
 				System.out.println("no entro cache");
-				user.inicializarRepos();				
 				repoEmpresas.inicializarEmpresas();
 				repoEmpresas.inicializarTodosLosbalances();	
 				Empresa empresa = repoEmpresas.getEmpresa(nombreEmpresa);
@@ -138,8 +140,10 @@ public class Controller {
 				Indicador indicador = user.getIndicador(nombreIndicador);
 				resultado = indicador.evaluar(empresa, balance, user.getRepoIndicadores());
 			}	
-			String message = "Indicador: " + nombreIndicador + ", Empresa: " + nombreEmpresa + ", Período: "
-					+ periodo + "<br>" + "Valor: " + resultado.toString() + ".";
+			String message = "Indicador: " + nombreIndicador
+						+ "<br>Empresa: " + nombreEmpresa 
+						+ "<br>Período: " + periodo 
+						+ "<br>Valor: " + resultado.toString() + ".";
 			model.put("message", message);
 			return Utils.render(model, "templates/evaluarIndicador.vm");
 		} catch (ElementoNotFound e) {
@@ -166,12 +170,13 @@ public class Controller {
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		Usuario user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
+		usuariosLogueado.inicializarIndicadoresYMetodologias(user);
+		user.inicializarRepos();
 		Metodologia metodologia = new Metodologia();
 		List<ResultadoAnalisis> resultados = new ArrayList<>();
 		String nombreMetodologia = request.queryParams("nombreMetodologia");
 		repoEmpresas.inicializarEmpresas();
 		repoEmpresas.inicializarTodosLosbalances();
-		user.inicializarRepos();
 		model.put("usuario", request.session().attribute("currentUser"));
 		try {
 			metodologia = user.getMetodologia(nombreMetodologia);
