@@ -6,6 +6,7 @@ import java.util.List;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
@@ -18,7 +19,7 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class MemoriaCache {
 	
-	private String direccion = "localhost";
+	private String direccion = "mongodb://G15:123456@ds259855.mlab.com:59855/indicadoresprecalculados";
 	private int puerto = 27017;
 	
 	private Document crearDocForDB(Indicador indicador, Empresa empresa, Balance balance, Double resultado, Usuario user) {
@@ -46,8 +47,8 @@ public class MemoriaCache {
 	}
 	
 	public Double getValorPrecalculado(String indicador, String empresa, String balance, Usuario usuario) {
-		MongoClient mongoClient = new MongoClient(this.direccion,this.puerto);
-		MongoDatabase database = mongoClient.getDatabase("indicadoresPrecalculados");
+		MongoClient mongoClient = new MongoClient(new MongoClientURI(direccion));
+		MongoDatabase database = mongoClient.getDatabase("indicadoresprecalculados");
 		MongoCollection<Document> collection = database.getCollection("indicadores");
 		Document doc = collection.find(
 									Filters.and(
@@ -70,8 +71,8 @@ public class MemoriaCache {
 	
 	
 	public void seCreoNuevoIndicador(Indicador indicador, List<Empresa> empresas, RepositorioIndicadores repoIndicadores, Usuario user) {
-		MongoClient mongoClient = new MongoClient("direccion",puerto);
-		MongoDatabase database = mongoClient.getDatabase("indicadoresPrecalculados");
+		MongoClient mongoClient = new MongoClient(new MongoClientURI(direccion));
+		MongoDatabase database = mongoClient.getDatabase("indicadoresprecalculados");
 		MongoCollection<Document> collection = database.getCollection("indicadores");
 		empresas.stream().forEach(empre->empre.getTodosLosBalances().stream().forEach(bal->{
 													if(indicador.puedeEvaluar(bal, repoIndicadores))
@@ -90,8 +91,8 @@ public class MemoriaCache {
 	
 	
 	public void nuevasEmpresas(List<Empresa> empresas) {
-		MongoClient mongoClient = new MongoClient(direccion,puerto);
-		MongoDatabase database = mongoClient.getDatabase("indicadoresPrecalculados");
+		MongoClient mongoClient = new MongoClient(new MongoClientURI(direccion));
+		MongoDatabase database = mongoClient.getDatabase("indicadoresprecalculados");
 		MongoCollection<Document> collection = database.getCollection("indicadores");
 		RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
 		repoIndicadores.addIndicadores(repoIndicadores.cargarIndicadores());
