@@ -16,7 +16,7 @@ public class ProbandoRedis {
 
 	static MemoriaCache memCache;
 	public static void main(String[] args) {
-		MongoClient mongoClient = new MongoClient("localhost",27017);
+		/*MongoClient mongoClient = new MongoClient("localhost",27017);
 		MongoDatabase database = mongoClient.getDatabase("indicadoresPrecalculados");
 		MongoCollection<Document> collection = database.getCollection("indicadores");
 		memCache = new MemoriaCache();
@@ -24,7 +24,7 @@ public class ProbandoRedis {
 		System.out.println(memCache.getValorPrecalculado("Roe", "Nike", new BalanceAnual(new Anual(2015)).getPeriodoNombre()).toString());
 		memCache.actualizarIndiacorPrecalculado(collection, new Indicador("Roe", "5+5", null), new Empresa("Nike", 2017), new BalanceAnual(new Anual(2015)), (double) 15);
 		System.out.println(memCache.getValorPrecalculado("Roe", "PEPE", new BalanceAnual(new Anual(2015)).getPeriodoNombre()).toString());
-		mongoClient.close();
+		mongoClient.close();*/
 	}
 	
 }
