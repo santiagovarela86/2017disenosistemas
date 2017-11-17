@@ -2,25 +2,12 @@ package dds.tp.batch;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Stream;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,26 +28,23 @@ import dds.tp.model.Empresa;
 import dds.tp.model.LectorCuentas;
 import dds.tp.model.repositorios.RepositorioArchivosBatch;
 import dds.tp.model.repositorios.RepositorioEmpresas;
+
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import dds.tp.model.repositorios.RepositorioEmpresas;
-import dds.tp.ui.vm.CargarCuentasViewModel;
-
+@DisallowConcurrentExecution
 public class QuartzJob implements Job {
 
-	private static List<ArchivoBatch> archivosYaProcesados = null;
 	private static List<ArchivoBatch> archivosPendientes = null;
 	private static List<ArchivoBatch> archivosParaProcesar = null;
 	RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
+	RepositorioArchivosBatch repoArchivos = new RepositorioArchivosBatch();
 	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		repoEmpresas.cargarEmpresasGuardadas();
-		repoEmpresas.inicializarEmpresas();
-		repoEmpresas.inicializarTodosLosbalances();
-		
+
 		try {
 			archivosPendientes = obtengoArchivosDesdeCloud();
 		} catch (IOException e) {
@@ -70,15 +54,17 @@ public class QuartzJob implements Job {
 		}
 		
 		if (archivosPendientes.stream().count() > 0) {
-			archivosYaProcesados = obtengoArchivosDesdeBaseDatos();
-			archivosParaProcesar = new ArrayList<ArchivoBatch>(archivosPendientes);		
-			archivosParaProcesar.removeIf(archivo -> archivosYaProcesados.stream().anyMatch(yaprocesado -> yaprocesado.getNombre().equals(archivo.getNombre())));
-			archivosParaProcesar.forEach(archivo -> procesoArchivo(archivo, repoEmpresas));
+			
+			repoArchivos.inicializar();
+			
+			archivosParaProcesar = new ArrayList<ArchivoBatch>(archivosPendientes);					
+			archivosParaProcesar.removeIf(archivoNuevo -> repoArchivos.contieneArchivo(archivoNuevo.getNombre()));
+			archivosParaProcesar.forEach(archivo -> procesoArchivo(archivo, repoEmpresas, repoArchivos));
 		}	
 		
 	}
 	
-	private static void procesoArchivo(ArchivoBatch archivo, RepositorioEmpresas repoEmpresas) {
+	private static void procesoArchivo(ArchivoBatch archivo, RepositorioEmpresas repoEmpresas, RepositorioArchivosBatch repoArchivos) {
 		String contenido = null;
 		
 		try {
@@ -89,13 +75,15 @@ public class QuartzJob implements Job {
 			e.printStackTrace();
 		}
 		
+		repoEmpresas.cargarEmpresasGuardadas();
+		repoEmpresas.inicializarEmpresas();
+		repoEmpresas.inicializarTodosLosbalances();
+		
 		List<String> lineas = new ArrayList<String>(Arrays.asList(contenido.split("\n")));
 		guardarCuentas(lineas, repoEmpresas);
 		
-		RepositorioArchivosBatch repositorio = new RepositorioArchivosBatch();
-		repositorio.inicializar();
-		repositorio.addArchivo(archivo);
-		repositorio.guardarArchivo(archivo);
+		repoArchivos.addArchivo(archivo);
+		repoArchivos.guardarArchivo(archivo);
 	}
 	
 	public static String getGoogleCloudURL(String strUrl) throws IOException, GeneralSecurityException{
@@ -151,26 +139,6 @@ public class QuartzJob implements Job {
 	    }
 	    
 	    return archivos;
-	}
-
-	private static List<ArchivoBatch> obtengoArchivosDesdeBaseDatos() {
-		RepositorioArchivosBatch repositorio = new RepositorioArchivosBatch();
-		repositorio.inicializar();
-		return repositorio.getArchivos();
-	}
-	
-	public static String getHTML(String urlToRead) throws Exception {
-	      StringBuilder result = new StringBuilder();
-	      URL url = new URL(urlToRead);
-	      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	      conn.setRequestMethod("GET");
-	      BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	      String line;
-	      while ((line = rd.readLine()) != null) {
-	         result.append(line);
-	      }
-	      rd.close();
-	      return result.toString();
 	}
 
 }

@@ -82,6 +82,7 @@ public class Controller {
 		String nombreIndicador = request.queryParams("nombreIndicador");
 		String expresionIndicador = request.queryParams("expresionIndicador");
 		try {
+			user.inicializarRepos();
 			Indicador indicador = new Indicador(nombreIndicador, expresionIndicador, user);
 			user.addIndicador(indicador);
 			memCache.seCreoNuevoIndicador(indicador, repoEmpresas.getEmpresas(), user.getRepoIndicadores(),user);
@@ -123,6 +124,7 @@ public class Controller {
 				System.out.println("entro cache");
 			}else {
 				System.out.println("no entro cache");
+				user.inicializarRepos();				
 				repoEmpresas.inicializarEmpresas();
 				repoEmpresas.inicializarTodosLosbalances();	
 				Empresa empresa = repoEmpresas.getEmpresa(nombreEmpresa);
@@ -162,6 +164,7 @@ public class Controller {
 		String nombreMetodologia = request.queryParams("nombreMetodologia");
 		repoEmpresas.inicializarEmpresas();
 		repoEmpresas.inicializarTodosLosbalances();
+		user.inicializarRepos();
 		try {
 			metodologia = user.getMetodologia(nombreMetodologia);
 			RepositorioMetodologias.inicializarCondiciones(metodologia);
@@ -181,7 +184,6 @@ public class Controller {
 		if (UserController.autenticar(user, password)) {
 			request.session().attribute("currentUser", request.queryParams("user"));
 			Usuario usuario = UserController.buscarUsuario(user);
-			usuario.inicializarRepos();
 			usuariosLogueado.addUsuario(usuario);
 			response.redirect("/pantallaPrincipal");
 		} else {
