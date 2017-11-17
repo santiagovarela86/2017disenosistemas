@@ -91,7 +91,7 @@ public class Controller {
 			Indicador indicador = new Indicador(nombreIndicador, expresionIndicador, user);
 			user.addIndicador(indicador);
 			memCache.seCreoNuevoIndicador(indicador, repoEmpresas.getEmpresas(), user.getRepoIndicadores(),user);
-			model.put("message", "Indicador \"" + nombreIndicador + "\" agregado con éxito.<br>Expresión: \"" + expresionIndicador + "\"");
+			model.put("message", "Indicador \"" + nombreIndicador + "\" agregado con éxito.<br>Expresión: \"" + expresionIndicador + "\".");
 			return Utils.render(model, "templates/crearIndicador.vm");
 		} catch (SintaxisIncorrecta e1) {
 			model.put("message", "Error en la expresión. <br> Intente nuevamente. <br>");
@@ -143,7 +143,7 @@ public class Controller {
 			String message = "Indicador: " + nombreIndicador
 						+ "<br>Empresa: " + nombreEmpresa 
 						+ "<br>Período: " + periodo 
-						+ "<br>Valor: " + resultado.toString() + ".";
+						+ "<br>Valor: " + resultado.toString();
 			model.put("message", message);
 			return Utils.render(model, "templates/evaluarIndicador.vm");
 		} catch (ElementoNotFound e) {
