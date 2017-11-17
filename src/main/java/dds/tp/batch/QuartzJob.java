@@ -53,11 +53,13 @@ public class QuartzJob implements Job {
 	private static List<ArchivoBatch> archivosYaProcesados = null;
 	private static List<ArchivoBatch> archivosPendientes = null;
 	private static List<ArchivoBatch> archivosParaProcesar = null;
+	RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 		repoEmpresas.cargarEmpresasGuardadas();
+		repoEmpresas.inicializarEmpresas();
+		repoEmpresas.inicializarTodosLosbalances();
 		
 		try {
 			archivosPendientes = obtengoArchivosDesdeCloud();
@@ -88,7 +90,7 @@ public class QuartzJob implements Job {
 		}
 		
 		List<String> lineas = new ArrayList<String>(Arrays.asList(contenido.split("\n")));
-		lineas.forEach(linea -> guardarCuenta(linea, repoEmpresas));
+		guardarCuentas(lineas, repoEmpresas);
 		
 		RepositorioArchivosBatch repositorio = new RepositorioArchivosBatch();
 		repositorio.inicializar();
@@ -110,12 +112,11 @@ public class QuartzJob implements Job {
 		String content = response.parseAsString();
 		return content;
 	}
-
-	private static void guardarCuenta(String linea, RepositorioEmpresas repoEmpresas) {
-		RepositorioEmpresas repoTemporal = new RepositorioEmpresas();
-		LectorCuentas lector = new LectorCuentas("");
-		lector.convertAndAddCuenta(linea, repoTemporal);		
-		repoEmpresas.guardarEmpresas(repoTemporal.getEmpresas());
+	
+	private static void guardarCuentas(List<String> lineas, RepositorioEmpresas repoEmpresas){
+		List<Empresa> aIngresar = new LectorCuentas("").obtenerDatos(lineas);
+		repoEmpresas.addEmpresas(aIngresar);
+		repoEmpresas.guardarEmpresas(repoEmpresas.getEmpresas());
 	}
 
 	private static ArrayList<ArchivoBatch> obtengoArchivosDesdeCloud() throws IOException, GeneralSecurityException {

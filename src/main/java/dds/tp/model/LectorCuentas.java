@@ -24,6 +24,12 @@ public class LectorCuentas {
 		lineas.forEach(line -> convertAndAddCuenta(line,repoEmpresaTemporal));
 		return repoEmpresaTemporal.getEmpresas();
 	}
+	
+	public List<Empresa> obtenerDatos(List<String> lineas){
+		RepositorioEmpresas repoEmpresaTemporal = new RepositorioEmpresas();
+		lineas.forEach(line -> convertAndAddCuenta(line,repoEmpresaTemporal));
+		return repoEmpresaTemporal.getEmpresas();
+	}
 
 	public void convertAndAddCuenta(String line,RepositorioEmpresas empresas) {
 

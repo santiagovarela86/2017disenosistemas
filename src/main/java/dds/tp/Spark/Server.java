@@ -13,12 +13,9 @@ public class Server {
 		staticFileLocation("/public");
 		
 		QuartzListener ql = new QuartzListener();
-		
 		ql.contextInitialized(null);
 		
 		Router.start();
-		
-		//ql.contextDestroyed(null);
 
 	}
 	

@@ -56,8 +56,8 @@ public class Controller {
 			model.put("message","");
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
-		repoEmpresas.inicializarEmpresas();
-		repoEmpresas.inicializarTodosLosbalances();	
+		repoEmpresas.refrescarEmpresas();
+		repoEmpresas.refrescarBalances();	
 		model.put("empresas", repoEmpresas.getEmpresas());
 		return Utils.render(model, "templates/visualizarCuentas.vm");
 	}
