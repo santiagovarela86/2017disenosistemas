@@ -47,6 +47,7 @@ public class Controller {
 			model.put("message","");
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
+		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/pantallaPrincipal.vm");
 	}
 
@@ -59,6 +60,7 @@ public class Controller {
 		repoEmpresas.refrescarEmpresas();
 		repoEmpresas.refrescarBalances();	
 		model.put("empresas", repoEmpresas.getEmpresas());
+		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/visualizarCuentas.vm");
 	}
 
@@ -69,6 +71,7 @@ public class Controller {
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		model.put("message", "");
+		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/crearIndicador.vm");
 	}
 
@@ -81,6 +84,7 @@ public class Controller {
 		Usuario user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
 		String nombreIndicador = request.queryParams("nombreIndicador");
 		String expresionIndicador = request.queryParams("expresionIndicador");
+		model.put("usuario", request.session().attribute("currentUser"));
 		try {
 			user.inicializarRepos();
 			Indicador indicador = new Indicador(nombreIndicador, expresionIndicador, user);
@@ -104,6 +108,7 @@ public class Controller {
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		model.put("message", "");
+		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/evaluarIndicador.vm");
 	}
 
@@ -118,6 +123,7 @@ public class Controller {
 		String nombreIndicador = request.queryParams("nombreIndicador");
 		String periodo = request.queryParams("periodo");
 		Double resultado;
+		model.put("usuario", request.session().attribute("currentUser"));
 		try {
 			if(memCache.existePrecalculo(nombreIndicador, nombreEmpresa, periodo,user)) {
 				resultado = memCache.getValorPrecalculado(nombreIndicador, nombreEmpresa, periodo,user);
@@ -149,6 +155,7 @@ public class Controller {
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		model.put("message", "");
+		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/evaluarMetodologia.vm");
 	}
 
@@ -165,6 +172,7 @@ public class Controller {
 		repoEmpresas.inicializarEmpresas();
 		repoEmpresas.inicializarTodosLosbalances();
 		user.inicializarRepos();
+		model.put("usuario", request.session().attribute("currentUser"));
 		try {
 			metodologia = user.getMetodologia(nombreMetodologia);
 			RepositorioMetodologias.inicializarCondiciones(metodologia);

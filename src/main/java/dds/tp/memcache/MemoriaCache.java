@@ -20,7 +20,6 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 public class MemoriaCache {
 	
 	private String direccion = "mongodb://G15:123456@ds259855.mlab.com:59855/indicadoresprecalculados";
-	private int puerto = 27017;
 	
 	private Document crearDocForDB(Indicador indicador, Empresa empresa, Balance balance, Double resultado, Usuario user) {
 		Document doc = new Document("indicador", indicador.getNombre().toLowerCase())
@@ -31,12 +30,12 @@ public class MemoriaCache {
 		return doc;
 	}
 	
-	public void guardarIndiacorPrecalculado(MongoCollection<Document> collection, Indicador indicador, Empresa empresa, Balance balance, Double resultado, Usuario user) {
+	public void guardarIndicadorPrecalculado(MongoCollection<Document> collection, Indicador indicador, Empresa empresa, Balance balance, Double resultado, Usuario user) {
 		Document doc = this.crearDocForDB(indicador, empresa, balance, resultado,user);
 		collection.insertOne(doc);
 	}
 	
-	public void actualizarIndiacorPrecalculado(MongoCollection<Document> collection, Indicador indicador, Empresa empresa, Balance balance, Double resultado, Usuario user) {
+	public void actualizarIndicadorPrecalculado(MongoCollection<Document> collection, Indicador indicador, Empresa empresa, Balance balance, Double resultado, Usuario user) {
 		Document docNuevo = this.crearDocForDB(indicador, empresa, balance, resultado,user);
 		collection.findOneAndReplace(
 					Filters.and(
@@ -77,7 +76,7 @@ public class MemoriaCache {
 		empresas.stream().forEach(empre->empre.getTodosLosBalances().stream().forEach(bal->{
 													if(indicador.puedeEvaluar(bal, repoIndicadores))
 													{
-														this.guardarIndiacorPrecalculado(collection, indicador, empre,
+														this.guardarIndicadorPrecalculado(collection, indicador, empre,
 																bal, indicador.evaluar(bal, repoIndicadores),user);
 													}
 												}));
@@ -102,9 +101,9 @@ public class MemoriaCache {
 				 	if (!ind.puedeEvaluar(balan, repoIndicadores))
 				 		{/*NO HAGO NADA*/}
 				 	else if(this.existePrecalculo(ind.getNombre().toLowerCase(), empre.getNombre().toLowerCase(), balan.getPeriodoNombre().toLowerCase(), ind.getUsuario()))
-				 		{this.actualizarIndiacorPrecalculado(collection, ind, empre, balan, ind.evaluar(balan, repoIndicadores), ind.getUsuario());}
+				 		{this.actualizarIndicadorPrecalculado(collection, ind, empre, balan, ind.evaluar(balan, repoIndicadores), ind.getUsuario());}
 				 	else
-				 		{this.guardarIndiacorPrecalculado(collection, ind, empre, balan, ind.evaluar(balan, repoIndicadores), ind.getUsuario());}
+				 		{this.guardarIndicadorPrecalculado(collection, ind, empre, balan, ind.evaluar(balan, repoIndicadores), ind.getUsuario());}
 			 			})));
 		mongoClient.close();
 	}
