@@ -76,8 +76,8 @@ public class QuartzJob implements Job {
 		}
 		
 		repoEmpresas.cargarEmpresasGuardadas();
-		repoEmpresas.inicializarEmpresas();
-		repoEmpresas.inicializarTodosLosbalances();
+		repoEmpresas.refrescarEmpresas();
+		repoEmpresas.refrescarBalances();
 		
 		List<String> lineas = new ArrayList<String>(Arrays.asList(contenido.split("\n")));
 		guardarCuentas(lineas, repoEmpresas);
