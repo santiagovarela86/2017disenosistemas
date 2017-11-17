@@ -84,6 +84,7 @@ public class Controller {
 		try {
 			Indicador indicador = new Indicador(nombreIndicador, expresionIndicador, user);
 			user.addIndicador(indicador);
+			memCache.seCreoNuevoIndicador(indicador, repoEmpresas.getEmpresas(), user.getRepoIndicadores(),user);
 			model.put("message", "Indicador agregado con éxito.<br>");
 			return Utils.render(model, "templates/crearIndicador.vm");
 		} catch (SintaxisIncorrecta e1) {
@@ -117,8 +118,8 @@ public class Controller {
 		String periodo = request.queryParams("periodo");
 		Double resultado;
 		try {
-			if(memCache.existePrecalculo(nombreIndicador, nombreEmpresa, periodo)) {
-				resultado = memCache.getValorPrecalculado(nombreIndicador, nombreEmpresa, periodo);
+			if(memCache.existePrecalculo(nombreIndicador, nombreEmpresa, periodo,user)) {
+				resultado = memCache.getValorPrecalculado(nombreIndicador, nombreEmpresa, periodo,user);
 				System.out.println("entro cache");
 			}else {
 				System.out.println("no entro cache");
