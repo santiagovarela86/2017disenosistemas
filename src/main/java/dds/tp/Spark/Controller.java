@@ -33,6 +33,7 @@ public class Controller {
 			model.put("message","");
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
+		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/pantallaPrincipal.vm");
 	}
 	
