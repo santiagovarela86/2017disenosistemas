@@ -21,9 +21,9 @@ public class ProbandoRedis {
 		MongoCollection<Document> collection = database.getCollection("indicadores");
 		memCache = new MemoriaCache();
 		memCache.guardarIndiacorPrecalculado(collection, new Indicador("Roe", "5+5", null), new Empresa("Nike", 2017), new BalanceAnual(new Anual(2015)), (double) 5);
-		System.out.println(memCache.getValorPrecalculado(collection, "Roe", "Nike", new BalanceAnual(new Anual(2015)).getPeriodoNombre()).toString());
+		System.out.println(memCache.getValorPrecalculado("Roe", "Nike", new BalanceAnual(new Anual(2015)).getPeriodoNombre()).toString());
 		memCache.actualizarIndiacorPrecalculado(collection, new Indicador("Roe", "5+5", null), new Empresa("Nike", 2017), new BalanceAnual(new Anual(2015)), (double) 15);
-		System.out.println(memCache.getValorPrecalculado(collection,"Roe", "Nike", new BalanceAnual(new Anual(2015)).getPeriodoNombre()).toString());
+		System.out.println(memCache.getValorPrecalculado("Roe", "PEPE", new BalanceAnual(new Anual(2015)).getPeriodoNombre()).toString());
 		mongoClient.close();
 	}
 	

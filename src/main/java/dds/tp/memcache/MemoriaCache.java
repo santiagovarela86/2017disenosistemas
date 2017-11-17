@@ -17,11 +17,14 @@ import dds.tp.model.repositorios.RepositorioIndicadores;
 
 public class MemoriaCache {
 	
+	private String direccion = "localhost";
+	private int puerto = 27017;
+	
 	private Document crearDocForDB(Indicador indicador, Empresa empresa, Balance balance, Double resultado) {
-		Document doc = new Document("indicador", indicador.getNombre())
-                .append("empresa", empresa.getNombre())
-                .append("balance", balance.getPeriodoNombre())
-                .append("resultado", resultado.toString());
+		Document doc = new Document("indicador", indicador.getNombre().toLowerCase())
+                .append("empresa", empresa.getNombre().toLowerCase())
+                .append("balance", balance.getPeriodoNombre().toLowerCase())
+                .append("resultado", resultado.toString().toLowerCase());
 		return doc;
 	}
 	
@@ -34,20 +37,34 @@ public class MemoriaCache {
 		Document docNuevo = this.crearDocForDB(indicador, empresa, balance, resultado);
 		collection.findOneAndReplace(
 					Filters.and(
-						Filters.eq("indicador", indicador.getNombre()), 
-						Filters.eq("empresa", empresa.getNombre()), 
-						Filters.eq("balance", balance.getPeriodoNombre())),docNuevo);
+						Filters.eq("indicador", indicador.getNombre().toLowerCase()), 
+						Filters.eq("empresa", empresa.getNombre().toLowerCase()), 
+						Filters.eq("balance", balance.getPeriodoNombre().toLowerCase())),docNuevo);
 	}
 	
-	public Double getValorPrecalculado(MongoCollection<Document> collection, String indicador, String empresa, String balance) {
+	public Double getValorPrecalculado(String indicador, String empresa, String balance) {
+		MongoClient mongoClient = new MongoClient(this.direccion,this.puerto);
+		MongoDatabase database = mongoClient.getDatabase("indicadoresPrecalculados");
+		MongoCollection<Document> collection = database.getCollection("indicadores");
 		Document doc = collection.find(
 									Filters.and(
-											Filters.eq("indicador", indicador), 
-											Filters.eq("empresa", empresa), 
-											Filters.eq("balance", balance))
+											Filters.eq("indicador", indicador.toLowerCase()), 
+											Filters.eq("empresa", empresa.toLowerCase()), 
+											Filters.eq("balance", balance.toLowerCase()))
 									).first();
+		mongoClient.close();
 		return Double.valueOf(doc.getString("resultado"));
 	}
+	
+	public boolean existePrecalculo(String indicador, String empresa, String balance) {
+		try {
+			this.getValorPrecalculado(indicador, empresa, balance);
+			return true;
+		}catch(Exception ex) {
+			return false;
+		}
+	}
+	
 	
 	public void seCreoNuevoIndicador(Indicador indicador, List<Empresa> empresas, RepositorioIndicadores repoIndicadores) {
 		MongoClient mongoClient = new MongoClient("localhost",27017);

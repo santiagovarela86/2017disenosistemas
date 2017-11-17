@@ -26,8 +26,8 @@ public class InicializarDB {
 		guardarIndicadores(usuarioDefault);
 		guardarMetodologias(usuarioDefault);
 		guardarMetodologias(santiago);
-		//MemoriaCache memCache = new MemoriaCache();
-		//memCache.inicializarCache(repoEmpresas.getEmpresas(), repositorioIndicadores);
+		MemoriaCache memCache = new MemoriaCache();
+		memCache.inicializarCache(repoEmpresas.getEmpresas(), repositorioIndicadores);
 		System.exit(0);
 	}
 	
