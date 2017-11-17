@@ -24,6 +24,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.services.storage.StorageScopes;
 
+import dds.tp.memcache.MemoriaCache;
 import dds.tp.model.Empresa;
 import dds.tp.model.LectorCuentas;
 import dds.tp.model.repositorios.RepositorioArchivosBatch;
@@ -105,6 +106,7 @@ public class QuartzJob implements Job {
 		List<Empresa> aIngresar = new LectorCuentas("").obtenerDatos(lineas);
 		repoEmpresas.addEmpresas(aIngresar);
 		repoEmpresas.guardarEmpresas(repoEmpresas.getEmpresas());
+		new MemoriaCache().nuevasEmpresas(aIngresar);
 	}
 
 	private static ArrayList<ArchivoBatch> obtengoArchivosDesdeCloud() throws IOException, GeneralSecurityException {

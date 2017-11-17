@@ -70,7 +70,7 @@ public class MemoriaCache {
 	
 	
 	public void seCreoNuevoIndicador(Indicador indicador, List<Empresa> empresas, RepositorioIndicadores repoIndicadores, Usuario user) {
-		MongoClient mongoClient = new MongoClient("localhost",27017);
+		MongoClient mongoClient = new MongoClient("direccion",puerto);
 		MongoDatabase database = mongoClient.getDatabase("indicadoresPrecalculados");
 		MongoCollection<Document> collection = database.getCollection("indicadores");
 		empresas.stream().forEach(empre->empre.getTodosLosBalances().stream().forEach(bal->{
@@ -88,5 +88,24 @@ public class MemoriaCache {
 		indicadores.stream().forEach(indi->this.seCreoNuevoIndicador(indi, empresas, repoIndicadores, user));
 	}
 	
+	
+	public void nuevasEmpresas(List<Empresa> empresas) {
+		MongoClient mongoClient = new MongoClient(direccion,puerto);
+		MongoDatabase database = mongoClient.getDatabase("indicadoresPrecalculados");
+		MongoCollection<Document> collection = database.getCollection("indicadores");
+		RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
+		repoIndicadores.addIndicadores(repoIndicadores.cargarIndicadores());
+		repoIndicadores.getIndicadores().forEach(ind->
+								empresas.forEach(empre->
+			 empre.getTodosLosBalances().forEach(balan->{
+				 	if (!ind.puedeEvaluar(balan, repoIndicadores))
+				 		{/*NO HAGO NADA*/}
+				 	else if(this.existePrecalculo(ind.getNombre().toLowerCase(), empre.getNombre().toLowerCase(), balan.getPeriodoNombre().toLowerCase(), ind.getUsuario()))
+				 		{this.actualizarIndiacorPrecalculado(collection, ind, empre, balan, ind.evaluar(balan, repoIndicadores), ind.getUsuario());}
+				 	else
+				 		{this.guardarIndiacorPrecalculado(collection, ind, empre, balan, ind.evaluar(balan, repoIndicadores), ind.getUsuario());}
+			 			})));
+		mongoClient.close();
+	}
 	
 }

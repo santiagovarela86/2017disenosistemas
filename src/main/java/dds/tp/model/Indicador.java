@@ -50,7 +50,7 @@ public class Indicador extends Comparable {
 		return this.nombre;
 	}
 	
-	public Double evaluar(Balance balance, RepositorioIndicadores baulIndicadores) {	
+	public Double evaluar(Balance balance, RepositorioIndicadores baulIndicadores) {
 		return expresion.calculateCon(balance, baulIndicadores);
 	}
 	
