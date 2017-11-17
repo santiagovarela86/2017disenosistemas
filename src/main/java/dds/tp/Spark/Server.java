@@ -18,7 +18,7 @@ public class Server {
 		
 		Router.start();
 		
-		ql.contextDestroyed(null);
+		//ql.contextDestroyed(null);
 
 	}
 	
