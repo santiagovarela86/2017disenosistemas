@@ -2,7 +2,7 @@ package dds.tp.Spark;
 
 import static spark.Spark.*;
 
-import dds.tp.batch.QuartzListener;
+import dds.tp.batch.ListenerJobArchivosBatch;
 
 public class Server {
 	
@@ -12,8 +12,8 @@ public class Server {
 		
 		staticFileLocation("/public");
 		
-		QuartzListener ql = new QuartzListener();
-		ql.contextInitialized(null);
+		ListenerJobArchivosBatch listener = new ListenerJobArchivosBatch();
+		listener.contextInitialized(null);
 		
 		Router.start();
 
