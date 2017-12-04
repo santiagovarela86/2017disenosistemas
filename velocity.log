@@ -1385,3 +1385,18 @@ Was expecting one of:
 	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:672)
 	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:590)
 	at java.lang.Thread.run(Unknown Source)
+2017-12-03 00:51:45,608 - Variable $msg has not been set at /velocity/layout.vm[line 4, column 12]
+2017-12-03 00:51:45,610 - Exception in macro #mainLayout called at /velocity/login/login.vm[line 2, column 1]
+2017-12-03 00:55:49,840 - Variable $message has not been set at /templates/mostrarLogin.vm[line 42, column 29]
+2017-12-03 10:47:06,699 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-03 11:18:55,917 - ResourceManager : unable to find resource '/pantallaprincipal/pantallaPrincipal.vm' in any resource loader.
+2017-12-04 00:54:40,886 - ResourceManager : unable to find resource '/velocity/notFound.vm' in any resource loader.

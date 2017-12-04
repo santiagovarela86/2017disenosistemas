@@ -6,7 +6,7 @@ import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.model.Indicador;
 import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioIndicadores;
-import dds.tp.model.repositorios.RepositorioUsuarios;
+import dds.tp.model.repositorios.RepositorioUsuario;
 import dds.tp.parsertools.Parser;
 import dds.tp.parsertools.MyToken;
 
@@ -59,9 +59,9 @@ public class CargarIndicadoresViewModel {
 			this.setColor(Color.BLUE);
 			resultado = "Indicador guardado con exito";
 			
-			RepositorioUsuarios repoUsuarios =  new RepositorioUsuarios();
+			RepositorioUsuario repoUsuarios =  new RepositorioUsuario();
 			repoUsuarios.inicializar();
-			Usuario usuarioDefault = repoUsuarios.getUsuario("Default");
+			Usuario usuarioDefault = repoUsuarios.buscarUsuarioLogueado("default", "default");
 			usuarioDefault.inicializarRepos();
 			Indicador indicador = new Indicador(this.getNombreIndicador(), new Expresion(operacion), usuarioDefault);
 			

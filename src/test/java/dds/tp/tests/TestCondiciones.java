@@ -17,15 +17,15 @@ import dds.tp.model.condicionesTaxativas.CondicionTaxPendiente;
 import dds.tp.model.condicionesTaxativas.CondicionTaxativaSimple;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
-import dds.tp.model.repositorios.RepositorioUsuarios;
+import dds.tp.model.repositorios.RepositorioUsuario;
 
 public class TestCondiciones {
 	
 	RepositorioEmpresas repoEmpresas;
 	RepositorioIndicadores repoIndicadores;
 	
-	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().inicializar();
-	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
+	RepositorioUsuario repoUsuarios = new RepositorioUsuario().inicializar();
+	Usuario usuarioDefault = repoUsuarios.buscarUsuarioLogueado("default", "default");
 	
 	@SuppressWarnings("deprecation")
 	@Before

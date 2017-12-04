@@ -1,0 +1,50 @@
+package dds.tp.Spark.util;
+
+import static spark.Spark.halt;
+
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
+import dds.tp.Spark.util.Path;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import org.eclipse.jetty.http.HttpStatus;
+
+import spark.Request;
+import spark.Response;
+import spark.Route;
+
+public class ViewUtil {
+
+    public static String render(Request request, Map<String, Object> model, String templatePath) {
+    //	model.put("message", "Ingrese Usuario y Contraseña");
+       // model.put("WebPath", Path.Web.class); // Access application URLs from templates
+        return render(model, templatePath);
+    }
+
+    public static Route notFound = (Request request, Response response) -> {
+        response.status(HttpStatus.NOT_FOUND_404);
+        halt(404, "Go Away404!");
+        return render(request, new HashMap<>(), Path.Template.NOT_FOUND);
+    };
+
+    public static String render(Map<String, Object> model, String templatePath){
+		VelocityEngine ve = new VelocityEngine();
+		
+		//ESTO ES PARA QUE ME ENCUENTRE LOS TEMPLATES EN SRC/MAIN/RESOURCES
+		ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+		ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+        ve.init();
+
+        Template t = ve.getTemplate(templatePath, "UTF-8");
+        
+        VelocityContext context = new VelocityContext(model);
+        
+        StringWriter writer = new StringWriter();
+        t.merge(context, writer);
+		return writer.toString();
+	}
+}

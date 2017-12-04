@@ -12,8 +12,8 @@ public class Server {
 		
 		staticFileLocation("/public");
 		
-		ListenerJobArchivosBatch listener = new ListenerJobArchivosBatch();
-		listener.contextInitialized(null);
+		//ListenerJobArchivosBatch listener = new ListenerJobArchivosBatch();
+		//listener.contextInitialized(null);
 		
 		Router.start();
 

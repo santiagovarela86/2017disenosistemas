@@ -26,32 +26,28 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-
-				<li class="nav-item ">
-					<a class="nav-link" href="/pantallaPrincipal">Home </a>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="/visualizarCuentas/">Visualizar Cuentas</a>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="/visualizarCuentas">Visualizar Cuentas</a>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link" href="/crearIndicador">Crear Indicador</a>
+					<a class="nav-link" href="/crearIndicador/">Crear Indicador</a>
 				</li>
 
 				<li class="nav-item active">
-					<a class="nav-link" href="/evaluarIndicador">Evaluar Indicador<span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="/evaluarIndicador/">Evaluar Indicador<span class="sr-only">(current)</span></a>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="/evaluarMetodologia">Evaluar Metodología</a>
+					<a class="nav-link" href="/evaluarMetodologia/">Evaluar Metodología</a>
 				</li>
 
 				</ul>
 				
-				<h6>Usuario: ${usuario}</h6> &nbsp;
+				<h6>Usuario: ${usuario.nombre}</h6> &nbsp;
 
-				<form action="/logout">
+				<form action="/logout/" method="post">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logoff</button>
 				</form>
 			</div>
@@ -63,7 +59,7 @@
 					<h2>Evaluar Indicador</h2>
 				</div>
 				<div style="display:flex;justify-content:center;align-items:center;">
-					<form action="/evaluarIndicador" method="post">
+					<form action="/evaluarIndicadorIngresado/" method="get">
 						Nombre del Indicador:<br>
 						<input class="form-control" type="text" name="nombreIndicador" required="true" placeholder="Ebitda sobre Margen">
 						Empresa:<br>

@@ -18,7 +18,7 @@ import dds.tp.model.Indicador;
 import dds.tp.model.Usuario;
 import dds.tp.model.periodos.Anual;
 import dds.tp.model.repositorios.RepositorioIndicadores;
-import dds.tp.model.repositorios.RepositorioUsuarios;
+import dds.tp.model.repositorios.RepositorioUsuario;
 import dds.tp.parsertools.Parser;
 
 public class TestCalcularExpresiones {
@@ -26,8 +26,8 @@ public class TestCalcularExpresiones {
 	private Balance balanceTest;
 	private RepositorioIndicadores baulIndicadores;
 	
-	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().inicializar();
-	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
+	RepositorioUsuario repoUsuarios = new RepositorioUsuario().inicializar();
+	Usuario usuarioDefault = repoUsuarios.buscarUsuarioLogueado("default", "default");
 	
 	@Before
 	public void inicializar() {

@@ -21,7 +21,7 @@ import dds.tp.model.metodologia.Ordenador;
 import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
-import dds.tp.model.repositorios.RepositorioUsuarios;
+import dds.tp.model.repositorios.RepositorioUsuario;
 
 public class TestOrdenador {
 
@@ -29,8 +29,8 @@ public class TestOrdenador {
 	private RepositorioIndicadores repoIndicadores;
 	private ArrayList<CondicionPriorizante> condiciones;
 	
-	RepositorioUsuarios repoUsuarios = new RepositorioUsuarios().inicializar();
-	Usuario usuarioDefault = repoUsuarios.getUsuario("default");
+	RepositorioUsuario repoUsuarios = new RepositorioUsuario().inicializar();
+	Usuario usuarioDefault = repoUsuarios.buscarUsuarioLogueado("default", "default");
 	
 	@Before
 	public void inicializar() {

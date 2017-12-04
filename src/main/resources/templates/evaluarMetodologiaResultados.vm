@@ -26,30 +26,27 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item ">
-						<a class="nav-link" href="/pantallaPrincipal">Home </a>
+					
+					<li class="nav-item">
+						<a class="nav-link" href=/visualizarCuentas/">Visualizar Cuentas</a>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="/visualizarCuentas">Visualizar Cuentas</a>
+						<a class="nav-link" href="/crearIndicador/">Crear Indicador</a>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="/crearIndicador">Crear Indicador</a>
-					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="/evaluarIndicador">Evaluar Indicador</a>
+						<a class="nav-link" href="/evaluarIndicador/">Evaluar Indicador</a>
 					</li>
 
 					<li class="nav-item active">
-						<a class="nav-link" href="/evaluarMetodologia">Evaluar Metodología <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/evaluarMetodologia/">Evaluar Metodología <span class="sr-only">(current)</span></a>
 					</li>
 				</ul>
 				
-				<h6>Usuario: ${usuario}</h6> &nbsp;
+				<h6>Usuario: ${usuario.nombre}</h6> &nbsp;
 
-				<form action="/logout">
+				<form action="/logout/" method="post">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logoff</button>
 				</form>
 			</div>
@@ -62,7 +59,7 @@
 					<h2>Evaluar Metodología</h2>
 				</div>
 				<div style="display:flex;justify-content:center;align-items:center;">
-					<form action="/evaluarMetodologia" method="post">
+					<form action="/evaluarMetodologiaIngresado/" method="get">
 						Nombre de la Metodología:<br>
 						<input class="form-control" type="text" name="nombreMetodologia" required="true" placeholder="Metodología W. Buffet">
 						<br>

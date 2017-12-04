@@ -4,25 +4,25 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import dds.tp.Spark.UserController;
+import dds.tp.Spark.Utils;
 import dds.tp.memcache.MemoriaCache;
 import dds.tp.model.LectorCuentas;
 import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioEmpresas;
 import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
-import dds.tp.model.repositorios.RepositorioUsuarios;
+import dds.tp.model.repositorios.RepositorioUsuario;
 
 public class InicializarDB {
 		
 	private static RepositorioIndicadores repositorioIndicadores = new RepositorioIndicadores();
-	private static RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+	private static RepositorioUsuario repoUsuarios = new RepositorioUsuario();
 	private static RepositorioEmpresas repoEmpresas;
 	public static void main(String[] args) {
 		guardarCuentas();
 		guardarUsuarios();
-		Usuario usuarioDefault = repoUsuarios.getUsuario("default");
-		Usuario santiago = repoUsuarios.getUsuario("santiago");
+		Usuario usuarioDefault = repoUsuarios.buscarUsuarioLogueado("default", "default");
+		Usuario santiago =  repoUsuarios.buscarUsuarioLogueado("santiago", "santiago");
 		guardarIndicadores(usuarioDefault);
 		guardarMetodologias(usuarioDefault);
 		guardarMetodologias(santiago);
@@ -42,10 +42,10 @@ public class InicializarDB {
 	}
 	
 	private static void guardarUsuarios() {
-		repoUsuarios.addUsuario(new Usuario("default", UserController.Hash("asd")));
-		repoUsuarios.addUsuario(new Usuario("santiago", UserController.Hash("santiago")));
-		repoUsuarios.addUsuario(new Usuario("ezequiel", UserController.Hash("ezequiel")));
-		repoUsuarios.addUsuario(new Usuario("leonardo", UserController.Hash("leonardo")));
+		repoUsuarios.addUsuario(new Usuario("default", Utils.Hash("asd")));
+		repoUsuarios.addUsuario(new Usuario("santiago", Utils.Hash("santiago")));
+		repoUsuarios.addUsuario(new Usuario("ezequiel", Utils.Hash("ezequiel")));
+		repoUsuarios.addUsuario(new Usuario("leonardo", Utils.Hash("leonardo")));
 		repoUsuarios.guardarUsuarios(repoUsuarios.getUsuarios());
 	}
 	
