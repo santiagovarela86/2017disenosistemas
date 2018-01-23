@@ -14,14 +14,14 @@
 		<class>dds.tp.model.Balance</class>
 		<class>dds.tp.model.Indicador</class>
 		<class>dds.tp.model.metodologia.Metodologia</class>
-		<class>dds.tp.model.condicion.Condicion</class>
-		<class>dds.tp.model.condicion.CondicionPriorizante</class>
-		<class>dds.tp.model.condicion.CondicionTaxativa</class>
-		<class>dds.tp.model.condicion.EvaluadorAntiguedad</class>
-		<class>dds.tp.model.condicion.Comparado</class>
-		<class>dds.tp.model.condicionTaxativas.CondicionTaxComparadora</class>
-        <class>dds.tp.model.condicionTaxativas.CondicionTaxEstadistica</class>
-        <class>dds.tp.model.condicionTaxativas.CondicionTaxPendiente</class>
+		<class>dds.tp.model.condiciones.Condicion</class>
+		<class>dds.tp.model.condiciones.CondicionPriorizante</class>
+		<class>dds.tp.model.condiciones.CondicionTaxativa</class>
+		<class>dds.tp.model.condiciones.EvaluadorAntiguedad</class>
+		<class>dds.tp.model.condiciones.Comparable</class>
+		<class>dds.tp.model.condicionesTaxativas.CondicionTaxativaSimple</class>
+        <class>dds.tp.model.condicionesTaxativas.CondicionTaxEstadistica</class>
+        <class>dds.tp.model.condicionesTaxativas.CondicionTaxPendiente</class>
         <class>dds.tp.parsertools.MyToken</class>
         <class>dds.tp.calculador.Expresion</class>
         <class>dds.tp.model.Usuario</class>
@@ -31,7 +31,8 @@
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> 
-            <property name="hibernate.connection.url" value="jdbc:mysql://104.154.197.143:3306/stockApp" /> 
+            <!--property name="hibernate.connection.url" value="jdbc:mysql://104.154.197.143:3306/stockApp" /--> 
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/stockApp" />
             <property name="hibernate.connection.username" value="root" /> 
             <property name="hibernate.connection.password" value="1234" /> 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
@@ -39,7 +40,7 @@
             <property name="hibernate.show_sql" value="true" /> 
             <property name="hibernate.format_sql" value="true" /> 
             <property name="use_sql_comments" value="true" /> 
-            <property name="hibernate.hbm2ddl.auto" value="validate" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
             
         </properties>
           
