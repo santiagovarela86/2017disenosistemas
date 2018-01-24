@@ -68,7 +68,7 @@
 						<input class="form-control" type="text" name="nombreMetodologia" required="true" placeholder="Metodología W. Buffet">
 						<br>
 						<div style="display:flex;justify-content:center;align-items:center;">
-							<input class="btn" type="submit" value="Evaluar">
+							<input class="btn btn-primary" type="submit" value="Evaluar">
 						</div>
 					</form>
 				</div>
@@ -76,7 +76,7 @@
 		</div>
 
 		<div style="display:flex;justify-content:center;align-items:center;" align="center">
-			<h2>${message}</h2>
+			<h2>$!{message}</h2>
 		</div>
 
 		<footer style="footer" class="fixed-bottom footer-light bg-light ">

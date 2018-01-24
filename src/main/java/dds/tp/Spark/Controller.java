@@ -12,10 +12,12 @@ import dds.tp.memcache.MemoriaCache;
 import dds.tp.model.Balance;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
+import dds.tp.model.ResultadoIndicadores;
 import dds.tp.model.Usuario;
 import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.metodologia.ResultadoAnalisis;
 import dds.tp.model.repositorios.RepositorioEmpresas;
+import dds.tp.model.repositorios.RepositorioIndicadores;
 import dds.tp.model.repositorios.RepositorioMetodologias;
 import dds.tp.model.repositorios.RepositorioUsuarios;
 import spark.Request;
@@ -30,7 +32,7 @@ public class Controller {
 	public static Object mostrarLogin(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		model.put("usuario", request.session().attribute("currentUser"));
@@ -45,7 +47,7 @@ public class Controller {
 	public static Object pantallaPrincipal(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		model.put("usuario", request.session().attribute("currentUser"));
@@ -55,7 +57,7 @@ public class Controller {
 	public static Object visualizarCuentas(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		repoEmpresas.refrescarEmpresas();
@@ -68,10 +70,10 @@ public class Controller {
 	public static Object crearIndicador(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
-		model.put("message", "");
+		
 		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/crearIndicador.vm");
 	}
@@ -79,7 +81,7 @@ public class Controller {
 	public static Object crearIndicadorEspecifico(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		Usuario user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
@@ -106,26 +108,89 @@ public class Controller {
 	public static Object evaluarIndicador(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
-		model.put("message", "");
+		
 		model.put("usuario", request.session().attribute("currentUser"));
+		
+		RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
+		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		
+		List<Indicador> indicadores = repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.inicializar().getUsuario(request.session().attribute("currentUser")));
+		indicadores.addAll(repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.getUsuario("default")));
+
+		model.put("indicadores", indicadores);
+		model.put("empresas", repoEmpresas.cargarEmpresas());
+		
 		return Utils.render(model, "templates/evaluarIndicador.vm");
 	}
 
 	public static Object evaluarIndicadorEspecifico(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
-		Usuario user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
-		String nombreEmpresa = request.queryParams("nombreEmpresa");
-		String nombreIndicador = request.queryParams("nombreIndicador");
-		String periodo = request.queryParams("periodo");
-		Double resultado;
-		model.put("usuario", request.session().attribute("currentUser"));
+		
+		String nombreUsuario = request.session().attribute("currentUser");
+		model.put("usuario", nombreUsuario);	
+
+		RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
+		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		
+		List<Indicador> indicadores = repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.inicializar().getUsuario(nombreUsuario));
+		indicadores.addAll(repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.getUsuario("default")));
+
+		model.put("indicadores", indicadores);
+		model.put("empresas", repoEmpresas.cargarEmpresas());
+		
+		String nombreEmpresa = request.queryParams("selectEmpresa");
+		String nombreIndicador = request.queryParams("selectIndicador");
+		
+		model.put("nombreEmpresa", nombreEmpresa);
+		model.put("nombreIndicador", nombreIndicador);
+		
+		List<ResultadoIndicadores> resultSet = new ArrayList<ResultadoIndicadores>();
+		
+		repoEmpresas.cargarEmpresasGuardadas();
+		repoIndicadores.cargarIndicadoresGuardados();
+		Usuario user = repoUsuarios.getUsuario(nombreUsuario);
+		Empresa empresa = repoEmpresas.getEmpresa(nombreEmpresa);
+		repoUsuarios.inicializarIndicadoresYMetodologias(user);
+		repoEmpresas.inicializarBalances(empresa);
+		user.inicializarRepos();
+		
+		Indicador indicador;
+		
+		if (user.tieneIndicador(nombreIndicador)){
+			indicador = user.getIndicador(nombreIndicador);
+		} else {
+			indicador = repoIndicadores.getIndicador(nombreIndicador);			
+		}
+		
+		if (empresa.getTodosLosBalances().stream().anyMatch(balance -> indicador.puedeEvaluar(balance, repoIndicadores))){
+			
+			empresa.getTodosLosBalances().forEach(balance -> {
+				ResultadoIndicadores resultado = new ResultadoIndicadores();
+				resultado.setPeriodo(balance.getPeriodoNombre());
+				resultado.setValor(indicador.evaluar(empresa, balance, user.getRepoIndicadores()).toString());
+				resultSet.add(resultado);
+			});
+			
+		} else {
+			model.put("message", "No se puede evaluar el indicador \"" +
+					nombreIndicador + "\" en \"" + nombreEmpresa + 
+						"\";<br> no tiene las cuentas necesarias para calcularlo.");
+		}
+		
+		model.put("resultSet", resultSet);
+		
+		return Utils.render(model, "templates/evaluarIndicadorEspecifico.vm");
+		
+		/*
 		try {
 			if(memCache.existePrecalculo(nombreIndicador, nombreEmpresa, periodo,user)) {
 				resultado = memCache.getValorPrecalculado(nombreIndicador, nombreEmpresa, periodo,user);
@@ -151,15 +216,16 @@ public class Controller {
 			model.put("message", e.getMessage() + ".");
 			return Utils.render(model, "templates/evaluarIndicador.vm");
 		}
+		*/
 	}
 
 	public static Object evaluarMetodologia(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
-		model.put("message", "");
+		
 		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/evaluarMetodologia.vm");
 	}
@@ -167,7 +233,7 @@ public class Controller {
 	public static Object evaluarMetodologiaEspecifica(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		if(!validarUsuarioLogueado(request, response)){
-			model.put("message","");
+			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		Usuario user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));

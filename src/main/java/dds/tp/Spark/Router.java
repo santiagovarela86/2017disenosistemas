@@ -24,7 +24,7 @@ public class Router {
 		
 		get("/evaluarIndicador", Controller::evaluarIndicador);
 		
-		post("/evaluarIndicador", Controller::evaluarIndicadorEspecifico);
+		get("/evaluarIndicadorEspecifico", Controller::evaluarIndicadorEspecifico);
 		
 		get("/evaluarMetodologia", Controller::evaluarMetodologia);
 		

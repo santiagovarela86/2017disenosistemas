@@ -39,7 +39,7 @@
 		</div>
 		<br>
 		<div style="display:flex;justify-content:center;align-items:center;" align="center">
-			<h4>${message}</h4>
+			<h4>$!{message}</h4>
 		</div>
 		<footer style="footer" class="fixed-bottom footer-light bg-light ">
 			<div style="display:flex;justify-content:center;align-items:center;">

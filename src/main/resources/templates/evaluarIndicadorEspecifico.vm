@@ -93,6 +93,32 @@
 										    
 			</div>
 		</div>
+		
+		<div class="container">
+		  <h2>Resultados</h2>
+		  <table class="table">
+		    <thead>
+		      <tr>
+		        <th>Indicador</th>
+		        <th>Empresa</th>
+		        <th>Período</th>
+		        <th>Valor</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    
+		    	#foreach ( $result in $resultSet )
+					<tr>
+		      			<td>${nombreIndicador}</td>
+		      			<td>${nombreEmpresa}</td>
+		      			<td>${result.periodo}</td>
+		      			<td>${result.valor}</td>
+		      		</tr>
+				#end
+
+		    </tbody>
+		  </table>
+		</div>
 
 		<div style="display:flex;justify-content:center;align-items:center;" align="center">
 			<h2>$!{message}</h2>
