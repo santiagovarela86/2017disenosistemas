@@ -35,7 +35,7 @@
 					</li>
 
 					<li class="nav-item active">
-						<a class="nav-link" href="/crearIndicador">Crear Indicador <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/indicador">Crear Indicador <span class="sr-only">(current)</span></a>
 					</li>
 
 					<li class="nav-item">
@@ -60,21 +60,32 @@
 				<div style="display:flex;justify-content:center;align-items:center;">
 					<h2>Crear Indicador</h2>
 				</div>
-				<div style="display:flex;justify-content:center;align-items:center;">
-					<form action="/crearIndicador" method="post">
-						Nombre del Indicador:<br>
-						<input class="form-control" type="text" name="nombreIndicador" required="true" placeholder="Ebitda sobre Margen">
-						Expresion del Indicador:<br>
-						<input class="form-control" type="text" name="expresionIndicador" required="true" placeholder="EBITDA/MARGEN">
-						<br>
-						<div style="display:flex;justify-content:center;align-items:center;">
-							<input class="btn btn-primary" type="submit" value="Enviar">
+				
+				<br>
+				
+				<form action="/indicador" method="post">
+						
+						<div class="form-row align-items-center">
+						
+							<div class="col-xl">
+						     	<label for="nombreIndicador">Nombre:</label>
+								<input class="form-control-sm" type="text" name="nombreIndicador" required="true" placeholder="Ebitda sobre Margen">
+						    </div>
+						    
+						    <div class="col-xl">
+				      			<label for="expresionIndicador">Expresion:</label>
+				      			<input class="form-control-sm" type="text" name="expresionIndicador" required="true" placeholder="EBITDA/MARGEN">
+				    		</div>
+						
+							<div class="col-xl" align="center">
+				    			<button type="submit" id="submit" class="btn btn-primary">Evaluar</button>
+				    		</div>
+						
 						</div>
-					</form>	
-				</div>
-			</div>
-		</div>
 
+				</form>	
+			</div>
+		</div>		
 
 		<div style="display:flex;justify-content:center;align-items:center;" align="center">
 				<h2>$!{message}</h2>

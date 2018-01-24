@@ -35,7 +35,7 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="/crearIndicador">Crear Indicador</a>
+						<a class="nav-link" href="/indicador">Crear Indicador</a>
 					</li>
 
 					<li class="nav-item">

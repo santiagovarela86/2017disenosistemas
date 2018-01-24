@@ -18,9 +18,9 @@ public class Router {
 		
 		get("/visualizarCuentas", Controller::visualizarCuentas);
 		
-		get("/crearIndicador", Controller::crearIndicador);
+		get("/indicador", Controller::crearIndicador);
 		
-		post("/crearIndicador", Controller::crearIndicadorEspecifico);
+		post("/indicador", Controller::crearIndicadorEspecifico);
 		
 		get("/evaluarIndicador", Controller::evaluarIndicador);
 		
