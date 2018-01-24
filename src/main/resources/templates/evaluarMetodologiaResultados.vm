@@ -61,19 +61,31 @@
 				<div style="display:flex;justify-content:center;align-items:center;">
 					<h2>Evaluar Metodología</h2>
 				</div>
-				<div style="display:flex;justify-content:center;align-items:center;">
-					<form action="/evaluarMetodologia" method="post">
-						Nombre de la Metodología:<br>
-						<input class="form-control" type="text" name="nombreMetodologia" required="true" placeholder="Metodología W. Buffet">
-						<br>
-						<div style="display:flex;justify-content:center;align-items:center;">
-							<input class="btn" type="submit" value="Evaluar">
-						</div>
-					</form>
-					<br>
-				</div>
+				
+				<br>
+				
+				<form action="/evaluarMetodologiaEspecifica" method="get">
+				<div class="form-row align-items-center">
+				    <div class="col-xl">
+				     	<label for="nombreMetodologia">Metodología:</label>
+				     	
+				     	<select class="form-control-sm" name="nombreMetodologia" required="true">
+				      		#foreach ( $metodologia in $metodologias )
+								<option value="${metodologia.nombre}">${metodologia.nombre}</option>
+							#end
+						</select>
+				    </div>
+				    				    
+				    <div class="col-xl" align="center">
+				    	<input class="btn btn-primary" type="submit" value="Evaluar">
+				    </div>
+				 </div>
+			</form>
+				
 			</div>
 		</div>
+		
+		<br>
 
 		<div align="center">
 			<br>

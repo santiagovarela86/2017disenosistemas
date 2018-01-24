@@ -28,7 +28,7 @@ public class Router {
 		
 		get("/evaluarMetodologia", Controller::evaluarMetodologia);
 		
-		post("/evaluarMetodologia", Controller::evaluarMetodologiaEspecifica);
+		get("/evaluarMetodologiaEspecifica", Controller::evaluarMetodologiaEspecifica);
 	}
 
 }

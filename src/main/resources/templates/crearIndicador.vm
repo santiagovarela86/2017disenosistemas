@@ -69,7 +69,7 @@
 						
 							<div class="col-xl">
 						     	<label for="nombreIndicador">Nombre:</label>
-								<input class="form-control-sm" type="text" name="nombreIndicador" required="true" placeholder="Ebitda sobre Margen">
+								<input class="form-control-sm" type="text" name="nombreIndicador" required="true" placeholder="EBITDA sobre Margen">
 						    </div>
 						    
 						    <div class="col-xl">
@@ -86,6 +86,8 @@
 				</form>	
 			</div>
 		</div>		
+		
+		<br>
 
 		<div style="display:flex;justify-content:center;align-items:center;" align="center">
 				<h2>$!{message}</h2>

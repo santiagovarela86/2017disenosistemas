@@ -9,7 +9,6 @@ import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.memcache.MemoriaCache;
-import dds.tp.model.Balance;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.ResultadoIndicadores;
@@ -226,7 +225,13 @@ public class Controller {
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		
+		RepositorioMetodologias repoMetodologias = new RepositorioMetodologias();
+		repoMetodologias.cargarMetodologiaGuardadas();
+		List<Metodologia> metodologias = repoMetodologias.getMetodologias(); 
+		
+		model.put("metodologias", metodologias);
 		model.put("usuario", request.session().attribute("currentUser"));
+		
 		return Utils.render(model, "templates/evaluarMetodologia.vm");
 	}
 
@@ -236,6 +241,13 @@ public class Controller {
 			
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
+		
+		RepositorioMetodologias repoMetodologias = new RepositorioMetodologias();
+		repoMetodologias.cargarMetodologiaGuardadas();
+		List<Metodologia> metodologias = repoMetodologias.getMetodologias(); 
+		
+		model.put("metodologias", metodologias);		
+		
 		Usuario user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
 		usuariosLogueado.inicializarIndicadoresYMetodologias(user);
 		user.inicializarRepos();

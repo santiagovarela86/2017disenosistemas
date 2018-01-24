@@ -93,6 +93,8 @@
 										    
 			</div>
 		</div>
+		
+		<br>
 
 		<div style="display:flex;justify-content:center;align-items:center;" align="center">
 			<h2>$!{message}</h2>
