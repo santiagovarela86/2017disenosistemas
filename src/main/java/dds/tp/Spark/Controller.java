@@ -225,12 +225,23 @@ public class Controller {
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		
+		String nombreUsuario = request.session().attribute("currentUser");
+		
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		repoUsuarios.inicializar();
+		Usuario user = repoUsuarios.getUsuario(nombreUsuario);
+		repoUsuarios.inicializarIndicadoresYMetodologias(user);
+		
+		/*
 		RepositorioMetodologias repoMetodologias = new RepositorioMetodologias();
 		repoMetodologias.cargarMetodologiaGuardadas();
 		List<Metodologia> metodologias = repoMetodologias.getMetodologias(); 
-		
+				
 		model.put("metodologias", metodologias);
-		model.put("usuario", request.session().attribute("currentUser"));
+		*/
+
+		model.put("metodologias", user.getMetodologias());
+		model.put("usuario", nombreUsuario);
 		
 		return Utils.render(model, "templates/evaluarMetodologia.vm");
 	}
@@ -242,27 +253,30 @@ public class Controller {
 			return Utils.render(model, "templates/mostrarLogin.vm");
 		}
 		
-		RepositorioMetodologias repoMetodologias = new RepositorioMetodologias();
-		repoMetodologias.cargarMetodologiaGuardadas();
-		List<Metodologia> metodologias = repoMetodologias.getMetodologias(); 
+		String nombreUsuario = request.session().attribute("currentUser");
+		String nombreMetodologia = request.queryParams("nombreMetodologia");
 		
-		model.put("metodologias", metodologias);		
-		
-		Usuario user = usuariosLogueado.getUsuario(request.session().attribute("currentUser"));
-		usuariosLogueado.inicializarIndicadoresYMetodologias(user);
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		repoUsuarios.inicializar();
+		Usuario user = repoUsuarios.getUsuario(nombreUsuario);
+		repoUsuarios.inicializarIndicadoresYMetodologias(user);
 		user.inicializarRepos();
+		
 		Metodologia metodologia = new Metodologia();
 		List<ResultadoAnalisis> resultados = new ArrayList<>();
-		String nombreMetodologia = request.queryParams("nombreMetodologia");
+		
 		repoEmpresas.inicializarEmpresas();
 		repoEmpresas.inicializarTodosLosbalances();
-		model.put("usuario", request.session().attribute("currentUser"));
+		
+		model.put("metodologias", user.getMetodologias());
+		model.put("usuario", nombreUsuario);
+		
 		try {
 			metodologia = user.getMetodologia(nombreMetodologia);
 			RepositorioMetodologias.inicializarCondiciones(metodologia);
 			resultados = metodologia.evaluarEn(repoEmpresas.getEmpresas(), user.getRepoIndicadores());
 			model.put("resultados", resultados);
-			return Utils.render(model, "templates/evaluarMetodologiaResultados.vm");
+			return Utils.render(model, "templates/evaluarMetodologiaEspecifica.vm");
 		} catch (ElementoNotFound e) {
 			model.put("message", e.getMessage() + ".");
 			return Utils.render(model, "templates/evaluarMetodologia.vm");
