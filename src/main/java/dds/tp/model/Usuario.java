@@ -5,18 +5,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.PersistenceUnitUtil;
 import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-
 import dds.tp.jpa.converters.RepoIndicadoresConverter;
 import dds.tp.model.metodologia.Metodologia;
 import dds.tp.model.repositorios.RepositorioIndicadores;

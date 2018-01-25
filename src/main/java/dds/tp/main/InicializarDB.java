@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import dds.tp.Spark.UserController;
+import dds.tp.Spark.SessionController;
 import dds.tp.memcache.MemoriaCache;
 import dds.tp.model.LectorCuentas;
 import dds.tp.model.Usuario;
@@ -42,10 +42,10 @@ public class InicializarDB {
 	}
 	
 	private static void guardarUsuarios() {
-		repoUsuarios.addUsuario(new Usuario("default", UserController.Hash("asd")));
-		repoUsuarios.addUsuario(new Usuario("santiago", UserController.Hash("santiago")));
-		repoUsuarios.addUsuario(new Usuario("ezequiel", UserController.Hash("ezequiel")));
-		repoUsuarios.addUsuario(new Usuario("leonardo", UserController.Hash("leonardo")));
+		repoUsuarios.addUsuario(new Usuario("default", SessionController.Hash("asd")));
+		repoUsuarios.addUsuario(new Usuario("santiago", SessionController.Hash("santiago")));
+		repoUsuarios.addUsuario(new Usuario("ezequiel", SessionController.Hash("ezequiel")));
+		repoUsuarios.addUsuario(new Usuario("leonardo", SessionController.Hash("leonardo")));
 		repoUsuarios.guardarUsuarios(repoUsuarios.getUsuarios());
 	}
 	

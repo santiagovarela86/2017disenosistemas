@@ -1,37 +1,42 @@
 package dds.tp.Spark;
 
-import org.apache.commons.codec.binary.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import dds.tp.excepciones.UsuarioNoExistente;
+
+import org.apache.commons.codec.binary.Base64;
+
 import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioUsuarios;
+import spark.Request;
+import spark.Response;
 
-public class UserController {
+public class SessionController {
+	
+	public static Object validarUsuarioLogueado(Request request, Response response) {
+		
+		String supuestoUsuario = request.session().attribute("currentUser");
+		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
+		repoUsuarios.inicializar();
+		
+		if (supuestoUsuario == null || !repoUsuarios.contieneUsuario(supuestoUsuario)){
+			response.redirect("/login");
+		}
+		
+		return null;
+	}
 	
 	public static Boolean autenticar(String userIngresado, String passwordIngresado){
 		Usuario user;
 		String hashDelPassword = null;
-		try {
-			user = buscarUsuario(userIngresado);
-			hashDelPassword = UserController.Hash(passwordIngresado);
-			if (user.getPassword().equals(hashDelPassword))
-				return true;
-			else
-				return false;
-		} catch (UsuarioNoExistente e) {
-			return false;
-		}
-	}
-
-	public static Usuario buscarUsuario(String userBuscado) throws UsuarioNoExistente {
 		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
-		repoUsuarios.inicializar();
-		if(repoUsuarios.contieneUsuario(userBuscado)){
-			return repoUsuarios.getUsuario(userBuscado);
-		}
-		else
-			throw new UsuarioNoExistente("No existe el usuario: " + userBuscado);		
+		
+		if (repoUsuarios.inicializar().contieneUsuario(userIngresado)) {
+			user = repoUsuarios.getUsuario(userIngresado);
+			hashDelPassword = SessionController.Hash(passwordIngresado);			
+			return user.getPassword().equals(hashDelPassword);
+		} else {
+			return false;
+		}		
 	}
 
 	public static String Hash(String pass) {
@@ -47,5 +52,5 @@ public class UserController {
 		}
 		return hash;
 	}
-	
+
 }

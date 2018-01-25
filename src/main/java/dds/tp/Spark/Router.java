@@ -6,29 +6,32 @@ public class Router {
 	
 	public static void start(){
 		
-		get("/", Controller::redirectLogin);
+		before("/stockApp/*", SessionController::validarUsuarioLogueado);
+		
+		get("/", LoginController::redirectLogin);
 
-		get("/login", Controller::mostrarLogin);
+		get("/login", LoginController::mostrarLogin);
 		
-		post("/login", Controller::procesarLogin);
+		post("/login", LoginController::procesarLogin);
 		
-		get("/logout", Controller::procesarLogout);
+		get("/logout", LoginController::procesarLogout);
 		
-		get("/pantallaPrincipal", Controller::pantallaPrincipal);
+		get("/stockApp/pantallaPrincipal", PantallaPrincipalController::pantallaPrincipal);
 		
-		get("/visualizarCuentas", Controller::visualizarCuentas);
+		get("/stockApp/visualizarCuentas", PantallaPrincipalController::visualizarCuentas);
 		
-		get("/indicador", Controller::crearIndicador);
+		get("/stockApp/indicador", CrearIndicadorController::crearIndicador);
 		
-		post("/indicador", Controller::crearIndicadorEspecifico);
+		post("/stockApp/indicador", CrearIndicadorController::crearIndicadorEspecifico);
 		
-		get("/evaluarIndicador", Controller::evaluarIndicador);
+		get("/stockApp/evaluarIndicador", EvaluarIndicadorController::evaluarIndicador);
 		
-		get("/evaluarIndicadorEspecifico", Controller::evaluarIndicadorEspecifico);
+		get("/stockApp/evaluarIndicadorEspecifico", EvaluarIndicadorController::evaluarIndicadorEspecifico);
 		
-		get("/evaluarMetodologia", Controller::evaluarMetodologia);
+		get("/stockApp/evaluarMetodologia", EvaluarMetodologiaController::evaluarMetodologia);
 		
-		get("/evaluarMetodologiaEspecifica", Controller::evaluarMetodologiaEspecifica);
+		get("/stockApp/evaluarMetodologiaEspecifica", EvaluarMetodologiaController::evaluarMetodologiaEspecifica);
+		
 	}
 
 }

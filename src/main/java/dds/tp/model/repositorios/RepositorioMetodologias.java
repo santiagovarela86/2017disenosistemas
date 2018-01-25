@@ -11,7 +11,6 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dds.tp.excepciones.ElementoNotFound;
 import dds.tp.excepciones.ElementoYaExiste;
-import dds.tp.model.DBManager;
 import dds.tp.model.Usuario;
 import dds.tp.model.builders.MetodologiaBuilder;
 import dds.tp.model.condiciones.CondicionPriorizante;

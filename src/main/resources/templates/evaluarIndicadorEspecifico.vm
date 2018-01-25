@@ -28,23 +28,23 @@
 				<ul class="navbar-nav mr-auto">
 
 				<li class="nav-item ">
-					<a class="nav-link" href="/pantallaPrincipal">Home </a>
+					<a class="nav-link" href="/stockApp/pantallaPrincipal">Home </a>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="/visualizarCuentas">Visualizar Cuentas</a>
+					<a class="nav-link" href="/stockApp/visualizarCuentas">Visualizar Cuentas</a>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="/indicador">Crear Indicador</a>
+					<a class="nav-link" href="/stockApp/indicador">Crear Indicador</a>
 				</li>
 
 				<li class="nav-item active">
-					<a class="nav-link" href="/evaluarIndicador">Evaluar Indicador<span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="/stockApp/evaluarIndicador">Evaluar Indicador<span class="sr-only">(current)</span></a>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="/evaluarMetodologia">Evaluar Metodología</a>
+					<a class="nav-link" href="/stockApp/evaluarMetodologia">Evaluar Metodología</a>
 				</li>
 
 				</ul>
@@ -65,7 +65,7 @@
 
 			<br>
 							
-			<form action="/evaluarIndicadorEspecifico" method="get">
+			<form action="/stockApp/evaluarIndicadorEspecifico" method="get">
 				<div class="form-row align-items-center">
 				    <div class="col-xl">
 				      <label for="selectIndicador">Indicador:</label>
