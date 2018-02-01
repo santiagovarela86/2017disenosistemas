@@ -130,7 +130,7 @@
 				<version>2.0.0</version>
 				<configuration>
 				    <jdkVersion>1.8</jdkVersion>
-				    <appName>stockappdds</appName> 
+				    <appName>stockappcloud</appName> 
 				    <processTypes>
 				      <web>java -jar ./target/TPA-0.0.1-SNAPSHOT-jar-with-dependencies.jar</web>
 				    </processTypes>
