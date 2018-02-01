@@ -15,7 +15,7 @@
 		<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
 		<title>Donde Invertir | Visualizar Cuentas</title>
-		<link rel="icon" href="images/index.ico">  
+		<link rel="icon" href="../images/index.ico">  
 	</head>
 	<body>
 		<div class="navbar navbar-expand-lg navbar-light bg-light fixed-top">

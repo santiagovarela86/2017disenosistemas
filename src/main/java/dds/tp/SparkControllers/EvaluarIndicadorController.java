@@ -31,7 +31,7 @@ public class EvaluarIndicadorController {
 		
 		List<Indicador> indicadores = repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.inicializar().getUsuario(usuario));
 		indicadores.addAll(repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.getUsuario("default")));
-
+		
 		model.put("indicadores", indicadores);
 		model.put("empresas", repoEmpresas.cargarEmpresas());
 		

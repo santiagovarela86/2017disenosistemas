@@ -31,8 +31,8 @@
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> 
-            <!--property name="hibernate.connection.url" value="jdbc:mysql://104.154.197.143:3306/stockapp"/--> 
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/stockapp" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://104.154.197.143:3306/stockapp"/> 
+            <!--property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/stockapp" /-->
             <property name="hibernate.connection.username" value="root" /> 
             <property name="hibernate.connection.password" value="1234" /> 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
