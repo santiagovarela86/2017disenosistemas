@@ -1,10 +1,11 @@
-package dds.tp.Spark;
+package dds.tp.SparkControllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dds.tp.Spark.Utils;
 import dds.tp.model.Empresa;
 import dds.tp.model.Indicador;
 import dds.tp.model.ResultadoIndicadores;
@@ -47,10 +48,10 @@ public class EvaluarIndicadorController {
 		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
 		
-		List<Indicador> indicadores = repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.inicializar().getUsuario(nombreUsuario));
-		indicadores.addAll(repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.getUsuario("default")));
+		List<Indicador> indicadoresQueElUsuarioPuedeUsar = repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.inicializar().getUsuario(nombreUsuario));
+		indicadoresQueElUsuarioPuedeUsar.addAll(repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.getUsuario("default")));
 
-		model.put("indicadores", indicadores);
+		model.put("indicadores", indicadoresQueElUsuarioPuedeUsar);
 		model.put("empresas", repoEmpresas.cargarEmpresas());
 		
 		String nombreEmpresa = request.queryParams("selectEmpresa");
@@ -63,8 +64,10 @@ public class EvaluarIndicadorController {
 		
 		repoEmpresas.cargarEmpresasGuardadas();
 		repoIndicadores.cargarIndicadoresGuardados();
+		
 		Usuario user = repoUsuarios.getUsuario(nombreUsuario);
 		Empresa empresa = repoEmpresas.getEmpresa(nombreEmpresa);
+		
 		repoUsuarios.inicializarIndicadoresYMetodologias(user);
 		repoEmpresas.inicializarBalances(empresa);
 		user.inicializarRepos();

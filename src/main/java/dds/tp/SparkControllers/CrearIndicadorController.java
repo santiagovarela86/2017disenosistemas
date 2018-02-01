@@ -1,8 +1,9 @@
-package dds.tp.Spark;
+package dds.tp.SparkControllers;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import dds.tp.Spark.Utils;
 import dds.tp.excepciones.ElementoYaExiste;
 import dds.tp.excepciones.SintaxisIncorrecta;
 import dds.tp.memcache.MemoriaCache;
@@ -29,7 +30,7 @@ public class CrearIndicadorController {
 		
 		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 		repoEmpresas.cargarEmpresasGuardadas();
-		repoEmpresas.inicializarEmpresas();
+		//repoEmpresas.inicializarEmpresas();
 		repoEmpresas.inicializarTodosLosbalances();
 
 		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();

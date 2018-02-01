@@ -21,7 +21,6 @@ public class JobArchivosBatch implements Job {
 
 	private static List<ArchivoBatch> archivosPendientes = null;
 	private static List<ArchivoBatch> archivosParaProcesar = null;
-	RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 	RepositorioArchivosBatch repoArchivos = new RepositorioArchivosBatch();
 	AdapterGoogleCloud adapter = new AdapterGoogleCloud();
 
@@ -40,12 +39,12 @@ public class JobArchivosBatch implements Job {
 			repoArchivos.inicializar();
 			archivosParaProcesar = new ArrayList<ArchivoBatch>(archivosPendientes);
 			archivosParaProcesar.removeIf(archivoNuevo -> repoArchivos.contieneArchivo(archivoNuevo.getNombre()));
-			archivosParaProcesar.forEach(archivo -> procesoArchivo(archivo, repoEmpresas, repoArchivos));
+			archivosParaProcesar.forEach(archivo -> procesoArchivo(archivo, repoArchivos));
 		}
 
 	}
 
-	private void procesoArchivo(ArchivoBatch archivo, RepositorioEmpresas repoEmpresas,	RepositorioArchivosBatch repoArchivos) {
+	private void procesoArchivo(ArchivoBatch archivo, RepositorioArchivosBatch repoArchivos) {		
 		String contenido = null;
 
 		try {
@@ -56,18 +55,18 @@ public class JobArchivosBatch implements Job {
 			e.printStackTrace();
 		}
 
-		repoEmpresas.cargarEmpresasGuardadas();
-		repoEmpresas.refrescarEmpresas();
-		repoEmpresas.refrescarBalances();
-
 		List<String> lineas = new ArrayList<String>(Arrays.asList(contenido.split("\n")));
-		guardarCuentas(lineas, repoEmpresas);
+		guardarCuentas(lineas);
 
 		repoArchivos.addArchivo(archivo);
 		repoArchivos.guardarArchivo(archivo);
 	}
 
-	private void guardarCuentas(List<String> lineas, RepositorioEmpresas repoEmpresas) {
+	private void guardarCuentas(List<String> lineas) {
+		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
+		repoEmpresas.inicializarEmpresas();
+		repoEmpresas.inicializarTodosLosbalances();
+		
 		List<Empresa> aIngresar = new LectorCuentas("").obtenerDatos(lineas);
 		repoEmpresas.addEmpresas(aIngresar);
 		repoEmpresas.guardarEmpresas(repoEmpresas.getEmpresas());
