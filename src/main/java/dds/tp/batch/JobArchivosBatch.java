@@ -28,7 +28,9 @@ public class JobArchivosBatch implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 
 		try {
+			
 			archivosPendientes = adapter.obtengoArchivosPendientes();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (GeneralSecurityException e) {

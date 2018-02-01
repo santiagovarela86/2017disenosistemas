@@ -2,7 +2,7 @@ package dds.tp.Spark;
 
 import static spark.Spark.*;
 
-import dds.tp.batch.ListenerJobArchivosBatch;
+import dds.tp.batch.ProgramadorJobs;
 
 public class Server {
 	
@@ -12,8 +12,8 @@ public class Server {
 		
 		staticFileLocation("public");
 		
-		ListenerJobArchivosBatch listener = new ListenerJobArchivosBatch();
-		listener.contextInitialized(null);
+		ProgramadorJobs p = new ProgramadorJobs();
+		p.correrJobImportCloud();
 		
 		Router.start();
 

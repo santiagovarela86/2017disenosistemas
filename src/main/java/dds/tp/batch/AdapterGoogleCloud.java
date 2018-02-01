@@ -27,8 +27,8 @@ public class AdapterGoogleCloud {
 	
 	public ArrayList<ArchivoBatch> obtengoArchivosPendientes() throws IOException, GeneralSecurityException {
 				
-		//String jsonResponse = obtengoContenidoURL("https://www.googleapis.com/storage/v1/b/stockappdds/o?prefix=ArchivoBatch");
-		String jsonResponse = obtengoContenidoURL(LectorConfiguraciones.obtenerConfiguracion("urlArchivosPendientes"));		
+		String jsonResponse = obtengoContenidoURL("https://www.googleapis.com/storage/v1/b/stockappdds/o?prefix=ArchivoBatch");
+		//String jsonResponse = obtengoContenidoURL(LectorConfiguraciones.obtenerConfiguracion("urlArchivosPendientes"));		
 		ArrayList<ArchivoBatch> archivos = new ArrayList<ArchivoBatch>();
 		JSONObject jsonObject = new JSONObject(jsonResponse);
 		JSONArray jsonArray = null;
@@ -63,8 +63,8 @@ public class AdapterGoogleCloud {
 
 	public String obtengoContenidoURL(String strUrl) throws IOException, GeneralSecurityException {
 		ClassLoader cl = JobArchivosBatch.class.getClassLoader();
-		//InputStream stream = cl.getResourceAsStream("cloudStockApp-0e8784ae94b8.json");
-		InputStream stream = cl.getResourceAsStream(LectorConfiguraciones.obtenerConfiguracion("nombreKeyJsonGoogle"));
+		InputStream stream = cl.getResourceAsStream("cloudStockApp-0e8784ae94b8.json");
+		//InputStream stream = cl.getResourceAsStream(LectorConfiguraciones.obtenerConfiguracion("nombreKeyJsonGoogle"));
 		GoogleCredential credential = GoogleCredential.fromStream(stream).createScoped(Collections.singleton(StorageScopes.DEVSTORAGE_READ_ONLY));
 		String uri = strUrl;
 		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -77,8 +77,8 @@ public class AdapterGoogleCloud {
 	}
 
 	public String obtengoContenidoFile(String fileName) throws IOException, GeneralSecurityException {
-		//return this.obtengoContenidoURL("https://storage.googleapis.com/stockappdds/" + URLEncoder.encode(fileName, "UTF-8"));
-		return this.obtengoContenidoURL(LectorConfiguraciones.obtenerConfiguracion("urlStorageEnGoogleCloud"));
+		return this.obtengoContenidoURL("https://storage.googleapis.com/stockappdds/" + URLEncoder.encode(fileName, "UTF-8"));
+		//return this.obtengoContenidoURL(LectorConfiguraciones.obtenerConfiguracion("urlStorageEnGoogleCloud"));
 	}
 
 }
