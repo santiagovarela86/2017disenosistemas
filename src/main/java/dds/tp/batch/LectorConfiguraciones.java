@@ -12,9 +12,10 @@ public class LectorConfiguraciones {
 		InputStream input = null;
 		
 		try {
-
-			input = new FileInputStream("config.properties");
-			prop.load(input);
+			
+			ClassLoader cl = LectorConfiguraciones.class.getClassLoader();
+			input = cl.getResourceAsStream("config.properties");
+			prop.load(input);			
 			return prop.getProperty(nombreConfiguracion);		
 
 		} catch (IOException ex) {
