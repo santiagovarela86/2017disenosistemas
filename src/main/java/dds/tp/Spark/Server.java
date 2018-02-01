@@ -10,7 +10,7 @@ public class Server {
 		
 		port(getHerokuAssignedPort());
 		
-		staticFileLocation("/public");
+		staticFileLocation("public");
 		
 		ListenerJobArchivosBatch listener = new ListenerJobArchivosBatch();
 		listener.contextInitialized(null);

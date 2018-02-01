@@ -20,13 +20,15 @@ public class EvaluarIndicadorController {
 	public static Object evaluarIndicador(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
 		
-		model.put("usuario", request.session().attribute("currentUser"));
+		String usuario = request.session().attribute("currentUser");
+		
+		model.put("usuario", usuario);
 		
 		RepositorioIndicadores repoIndicadores = new RepositorioIndicadores();
 		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
 		RepositorioUsuarios repoUsuarios = new RepositorioUsuarios();
 		
-		List<Indicador> indicadores = repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.inicializar().getUsuario(request.session().attribute("currentUser")));
+		List<Indicador> indicadores = repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.inicializar().getUsuario(usuario));
 		indicadores.addAll(repoIndicadores.cargarIndicadoresPorUsuario(repoUsuarios.getUsuario("default")));
 
 		model.put("indicadores", indicadores);

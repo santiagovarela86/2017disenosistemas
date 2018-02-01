@@ -14,20 +14,5 @@ public class PantallaPrincipalController {
 		model.put("usuario", request.session().attribute("currentUser"));
 		return Utils.render(model, "templates/pantallaPrincipal.vm");
 	}
-
-	public static Object visualizarCuentas(Request request, Response response) {
-		Map<String, Object> model = new HashMap<>();
-		
-		RepositorioEmpresas repoEmpresas = new RepositorioEmpresas();
-		repoEmpresas.cargarEmpresasGuardadas();
-		repoEmpresas.inicializarEmpresas();
-		repoEmpresas.inicializarTodosLosbalances();
-		
-		repoEmpresas.refrescarEmpresas();
-		repoEmpresas.refrescarBalances();	
-		model.put("empresas", repoEmpresas.getEmpresas());
-		model.put("usuario", request.session().attribute("currentUser"));
-		return Utils.render(model, "templates/visualizarCuentas.vm");
-	}
 	
 }

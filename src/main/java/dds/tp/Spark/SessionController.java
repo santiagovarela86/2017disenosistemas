@@ -9,6 +9,7 @@ import dds.tp.model.Usuario;
 import dds.tp.model.repositorios.RepositorioUsuarios;
 import spark.Request;
 import spark.Response;
+import spark.Spark;
 
 public class SessionController {
 	
@@ -20,6 +21,7 @@ public class SessionController {
 		
 		if (supuestoUsuario == null || !repoUsuarios.contieneUsuario(supuestoUsuario)){
 			response.redirect("/login");
+			Spark.halt();
 		}
 		
 		return null;

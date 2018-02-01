@@ -18,7 +18,7 @@ public class Router {
 		
 		get("/stockApp/pantallaPrincipal", PantallaPrincipalController::pantallaPrincipal);
 		
-		get("/stockApp/visualizarCuentas", PantallaPrincipalController::visualizarCuentas);
+		get("/stockApp/visualizarCuentas", VisualizarCuentasController::visualizarCuentas);
 		
 		get("/stockApp/indicador", CrearIndicadorController::crearIndicador);
 		
